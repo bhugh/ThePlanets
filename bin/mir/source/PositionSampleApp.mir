@@ -1,0 +1,103 @@
+[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\PositionSampleApp.mc"; @line = 7; ]
+import Toybox.Application;
+[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\PositionSampleApp.mc"; @line = 8; ]
+import Toybox.Lang;
+[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\PositionSampleApp.mc"; @line = 9; ]
+import Toybox.Position;
+[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\PositionSampleApp.mc"; @line = 10; ]
+import Toybox.WatchUi;
+[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\PositionSampleApp.mc"; @line = 13; ]
+class SolarSystemApp extends Application.AppBase{
+    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\PositionSampleApp.mc"; @line = 13; ]
+    <init> {
+    }
+    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\PositionSampleApp.mc"; @line = 13; ]
+    static
+    <init> {
+    }
+    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\PositionSampleApp.mc"; @line = 15; @position = 16; ]
+    private
+    var _positionView as SolarSystemView;
+    //! Constructor
+    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\PositionSampleApp.mc"; @line = 18; ]
+    public
+    function initialize() as Void {
+E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_PositionSampleApp_mc_18_33_21_4_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\PositionSampleApp.mc" 19 8 ]
+        %tmp.2 = getv ? :AppBase;
+        %tmp.3 = getv function %tmp.2 :initialize;
+        invoke %tmp.2 %tmp.3();
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\PositionSampleApp.mc" 20 8 ]
+        %tmp.7 = getm $;
+        %tmp.8 = getv %tmp.7 :SolarSystemView;
+        %tmp.4 = newc %tmp.8 ();
+        putv self :_positionView %tmp.4;
+E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_PositionSampleApp_mc_18_33_21_4_stop:
+    }
+    //! Handle app startup
+    //! @param state Startup arguments
+    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\PositionSampleApp.mc"; @line = 25; ]
+    public
+    function onStart(state as Dictionary or Null) as Void {
+E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_PositionSampleApp_mc_25_58_27_4_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\PositionSampleApp.mc" 26 8 ]
+        %tmp.1 = getm $.Toybox.Position;
+        %tmp.2 = getv function %tmp.1 :enableLocationEvents;
+        %tmp.3 = getm $.Toybox.Position;
+        %tmp.4 = getv %tmp.3 :LOCATION_CONTINUOUS;
+        %tmp.5 = self;
+        %tmp.6 = getv function %tmp.5 :method;
+        %tmp.8 = const :onPosition;
+        %tmp.9 = invoke %tmp.5 %tmp.6(%tmp.8);
+        invoke %tmp.1 %tmp.2(%tmp.4, %tmp.9);
+E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_PositionSampleApp_mc_25_58_27_4_stop:
+    }
+    //! Handle app shutdown
+    //! @param state Shutdown arguments
+    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\PositionSampleApp.mc"; @line = 31; ]
+    public
+    function onStop(state as Dictionary or Null) as Void {
+E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_PositionSampleApp_mc_31_57_33_4_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\PositionSampleApp.mc" 32 8 ]
+        %tmp.1 = getm $.Toybox.Position;
+        %tmp.2 = getv function %tmp.1 :enableLocationEvents;
+        %tmp.3 = getm $.Toybox.Position;
+        %tmp.4 = getv %tmp.3 :LOCATION_DISABLE;
+        %tmp.5 = self;
+        %tmp.6 = getv function %tmp.5 :method;
+        %tmp.8 = const :onPosition;
+        %tmp.9 = invoke %tmp.5 %tmp.6(%tmp.8);
+        invoke %tmp.1 %tmp.2(%tmp.4, %tmp.9);
+E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_PositionSampleApp_mc_31_57_33_4_stop:
+    }
+    //! Update the current position
+    //! @param info Position information
+    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\PositionSampleApp.mc"; @line = 37; ]
+    public
+    function onPosition(info as Info) as Void {
+E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_PositionSampleApp_mc_37_53_39_4_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\PositionSampleApp.mc" 38 8 ]
+        %tmp.2 = getv ? :_positionView;
+        %tmp.3 = getv function %tmp.2 :setPosition;
+        %tmp.5 = lgetv %info;
+        invoke %tmp.2 %tmp.3(%tmp.5);
+E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_PositionSampleApp_mc_37_53_39_4_stop:
+    }
+    //! Return the initial view for the app
+    //! @return Array [View]
+    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\PositionSampleApp.mc"; @line = 43; ]
+    public
+    function getInitialView() as [Views] or [Views, InputDelegates] {
+E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_PositionSampleApp_mc_43_75_45_4_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\PositionSampleApp.mc" 44 8 ]
+        %tmp.1 = newa 1;
+        %tmp.3 = getv ? :_positionView;
+        %tmp.4 = dup %tmp.1;
+        %tmp.5 = aputv %tmp.4 0 %tmp.3;
+        ret %tmp.5;
+E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_PositionSampleApp_mc_43_75_45_4_stop:
+    }
+}
+[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\PositionSampleApp.mc"; @line = 7; ]
+<init> {
+}

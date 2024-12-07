@@ -1,0 +1,911 @@
+[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc"; @line = 7; ]
+import Toybox.Graphics;
+[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc"; @line = 8; ]
+import Toybox.Lang;
+[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc"; @line = 9; ]
+import Toybox.Position;
+[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc"; @line = 10; ]
+import Toybox.WatchUi;
+[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc"; @line = 13; ]
+class SolarSystemView extends WatchUi.View{
+    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc"; @line = 13; ]
+    <init> {
+    }
+    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc"; @line = 13; ]
+    static
+    <init> {
+    }
+    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc"; @line = 15; @position = 16; ]
+    private
+    var _lines as Array<String>;
+    //! Constructor
+    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc"; @line = 18; ]
+    public
+    function initialize() as Void {
+E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_18_33_23_4_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc" 19 8 ]
+        %tmp.2 = getv ? :View;
+        %tmp.3 = getv function %tmp.2 :initialize;
+        invoke %tmp.2 %tmp.3();
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc" 22 8 ]
+        %tmp.4 = newa 1;
+        %tmp.5 = "No position info";
+        %tmp.6 = dup %tmp.4;
+        %tmp.7 = aputv %tmp.6 0 %tmp.5;
+        putv self :_lines %tmp.7;
+E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_18_33_23_4_stop:
+    }
+    //! Load your resources here
+    //! @param dc Device context
+    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc"; @line = 27; ]
+    public
+    function onLayout(dc as Dc) as Void {
+    }
+    //! Handle view being hidden
+    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc"; @line = 31; ]
+    public
+    function onHide() as Void {
+    }
+    //! Restore the state of the app and prepare the view to be shown
+    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc"; @line = 35; ]
+    public
+    function onShow() as Void {
+    }
+    //! Update the view
+    //! @param dc Device context
+    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc"; @line = 42; ]
+    public
+    function onUpdate(dc as Dc) as Void {
+E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_42_47_88_4_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc" 45 8 ]
+        %tmp.1 = lgetv %dc;
+        %tmp.2 = getv function %tmp.1 :setColor;
+        %tmp.3 = getm $.Toybox.Graphics;
+        %tmp.4 = getv %tmp.3 :COLOR_TRANSPARENT;
+        %tmp.5 = getm $.Toybox.Graphics;
+        %tmp.6 = getv %tmp.5 :COLOR_BLACK;
+        invoke %tmp.1 %tmp.2(%tmp.4, %tmp.6);
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc" 46 8 ]
+        %tmp.7 = lgetv %dc;
+        %tmp.8 = getv function %tmp.7 :clear;
+        invoke %tmp.7 %tmp.8();
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc" 47 8 ]
+        %tmp.9 = lgetv %dc;
+        %tmp.10 = getv function %tmp.9 :setColor;
+        %tmp.11 = getm $.Toybox.Graphics;
+        %tmp.12 = getv %tmp.11 :COLOR_WHITE;
+        %tmp.13 = getm $.Toybox.Graphics;
+        %tmp.14 = getv %tmp.13 :COLOR_TRANSPARENT;
+        invoke %tmp.9 %tmp.10(%tmp.12, %tmp.14);
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc" 48 8 ]
+        %tmp.15 = self;
+        %tmp.16 = getv function %tmp.15 :getMessage;
+        invoke %tmp.15 %tmp.16();
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc" 50 8 ]
+        [ "E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_42_47_88_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_42_47_88_4_stop" ]
+        %x.1 = local;
+        %tmp.17 = lgetv %dc;
+        %tmp.18 = getv function %tmp.17 :getWidth;
+        %tmp.19 = invoke %tmp.17 %tmp.18();
+        %tmp.20 = 2;
+        %tmp.21 = div %tmp.19 %tmp.20;
+        lputv %x.1 %tmp.21;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc" 51 8 ]
+        [ "E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_42_47_88_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_42_47_88_4_stop" ]
+        %y.2 = local;
+        %tmp.22 = lgetv %dc;
+        %tmp.23 = getv function %tmp.22 :getHeight;
+        %tmp.24 = invoke %tmp.22 %tmp.23();
+        %tmp.25 = 2;
+        %tmp.26 = div %tmp.24 %tmp.25;
+        lputv %y.2 %tmp.26;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc" 53 8 ]
+        [ "E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_42_47_88_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_42_47_88_4_stop" ]
+        %font.3 = local;
+        %tmp.27 = getm $.Toybox.Graphics;
+        %tmp.28 = getv %tmp.27 :FONT_SMALL;
+        lputv %font.3 %tmp.28;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc" 54 8 ]
+        [ "E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_42_47_88_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_42_47_88_4_stop" ]
+        %textHeight.4 = local;
+        %tmp.29 = lgetv %dc;
+        %tmp.30 = getv function %tmp.29 :getFontHeight;
+        %tmp.32 = lgetv %font.3;
+        %tmp.33 = invoke %tmp.29 %tmp.30(%tmp.32);
+        lputv %textHeight.4 %tmp.33;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc" 56 8 ]
+        %tmp.34 = lgetv %y.2;
+        %tmp.36 = getv ? :_lines;
+        %tmp.37 = getv function %tmp.36 :size;
+        %tmp.38 = invoke %tmp.36 %tmp.37();
+        %tmp.40 = lgetv %textHeight.4;
+        %tmp.41 = mul %tmp.38 %tmp.40;
+        %tmp.42 = 2;
+        %tmp.43 = div %tmp.41 %tmp.42;
+        %tmp.44 = sub %tmp.34 %tmp.43;
+        lputv %y.2 %tmp.44;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc" 58 8 ]
+        for @E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_58_8_61_8_for_test @E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_58_8_61_8_for_incr @E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_58_8_61_8_for_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_58_8_61_8_for_init:
+        [ "E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_58_8_61_8_for_begin" "E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_58_8_61_8_for_end" ]
+        %i.5 = local;
+        %tmp.45 = 0;
+        lputv %i.5 %tmp.45;
+E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_58_8_61_8_for_test:
+        %tmp.47 = lgetv %i.5;
+        %tmp.49 = getv ? :_lines;
+        %tmp.50 = getv function %tmp.49 :size;
+        %tmp.51 = invoke %tmp.49 %tmp.50();
+        %tmp.52 = lt %tmp.47 %tmp.51;
+        bf %tmp.52 @E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_58_8_61_8_for_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_58_8_61_8_for_begin:
+E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_58_48_61_8_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc" 59 12 ]
+        %tmp.53 = lgetv %dc;
+        %tmp.54 = getv function %tmp.53 :drawText;
+        %tmp.56 = lgetv %x.1;
+        %tmp.58 = lgetv %y.2;
+        %tmp.59 = getm $.Toybox.Graphics;
+        %tmp.60 = getv %tmp.59 :FONT_TINY;
+        %tmp.62 = getv ? :_lines;
+        %tmp.64 = lgetv %i.5;
+        %tmp.65 = agetv %tmp.62 %tmp.64;
+        %tmp.66 = getm $.Toybox.Graphics;
+        %tmp.67 = getv %tmp.66 :TEXT_JUSTIFY_CENTER;
+        invoke %tmp.53 %tmp.54(%tmp.56, %tmp.58, %tmp.60, %tmp.65, %tmp.67);
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc" 60 12 ]
+        %tmp.68 = lgetv %y.2;
+        %tmp.70 = lgetv %textHeight.4;
+        %tmp.71 = add %tmp.68 %tmp.70;
+        lputv %y.2 %tmp.71;
+E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_58_48_61_8_stop:
+E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_58_8_61_8_for_incr:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc" 58 ]
+        %tmp.74 = lgetv %i.5;
+        %tmp.75 = add %tmp.74 1;
+        lputv %i.5 %tmp.75;
+        goto @E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_58_8_61_8_for_test;
+E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_58_8_61_8_for_end:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc" 63 8 ]
+        %tmp.77 = getv ? :System;
+        %tmp.78 = getv function %tmp.77 :println;
+        %tmp.79 = "View Ecliptic:";
+        invoke %tmp.77 %tmp.78(%tmp.79);
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc" 64 8 ]
+        [ "E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_42_47_88_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_42_47_88_4_stop" ]
+        %g.6 = local;
+        %tmp.83 = getv ? :Geocentric;
+        %tmp.84 = 2024;
+        %tmp.85 = 12;
+        %tmp.86 = 7;
+        %tmp.87 = 12;
+        %tmp.88 = 14;
+        %tmp.89 = 0;
+        %tmp.90 = 0;
+        %tmp.91 = "ecliptic";
+        %tmp.80 = newc %tmp.83 (%tmp.84, %tmp.85, %tmp.86, %tmp.87, %tmp.88, %tmp.89, %tmp.90, %tmp.91);
+        lputv %g.6 %tmp.80;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc" 65 8 ]
+        %tmp.93 = getv ? :System;
+        %tmp.94 = getv function %tmp.93 :println;
+        %tmp.95 = lgetv %g.6;
+        %tmp.96 = getv function %tmp.95 :position;
+        %tmp.97 = invoke %tmp.95 %tmp.96();
+        invoke %tmp.93 %tmp.94(%tmp.97);
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc" 66 8 ]
+        %tmp.99 = getv ? :System;
+        %tmp.100 = getv function %tmp.99 :println;
+        %tmp.101 = "View Equatorial:";
+        invoke %tmp.99 %tmp.100(%tmp.101);
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc" 67 8 ]
+        [ "E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_42_47_88_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_42_47_88_4_stop" ]
+        %h.7 = local;
+        %tmp.105 = getv ? :Geocentric;
+        %tmp.106 = 2024;
+        %tmp.107 = 12;
+        %tmp.108 = 7;
+        %tmp.109 = 12;
+        %tmp.110 = 14;
+        %tmp.111 = 0;
+        %tmp.112 = 0;
+        %tmp.113 = "equatorial";
+        %tmp.102 = newc %tmp.105 (%tmp.106, %tmp.107, %tmp.108, %tmp.109, %tmp.110, %tmp.111, %tmp.112, %tmp.113);
+        lputv %h.7 %tmp.102;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc" 68 8 ]
+        [ "E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_42_47_88_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_42_47_88_4_stop" ]
+        %hpos.8 = local;
+        %tmp.114 = lgetv %h.7;
+        %tmp.115 = getv function %tmp.114 :position;
+        %tmp.116 = invoke %tmp.114 %tmp.115();
+        lputv %hpos.8 %tmp.116;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc" 69 8 ]
+        %tmp.118 = getv ? :System;
+        %tmp.119 = getv function %tmp.118 :println;
+        %tmp.121 = lgetv %hpos.8;
+        invoke %tmp.118 %tmp.119(%tmp.121);
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc" 70 8 ]
+        [ "E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_42_47_88_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_42_47_88_4_stop" ]
+        %kys.9 = local;
+        %tmp.122 = lgetv %hpos.8;
+        %tmp.123 = getv function %tmp.122 :keys;
+        %tmp.124 = invoke %tmp.122 %tmp.123();
+        lputv %kys.9 %tmp.124;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc" 71 8 ]
+        for @E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_71_8_78_8_for_test @E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_71_8_78_8_for_incr @E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_71_8_78_8_for_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_71_8_78_8_for_init:
+        [ "E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_71_8_78_8_for_begin" "E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_71_8_78_8_for_end" ]
+        %i.10 = local;
+        %tmp.125 = 0;
+        lputv %i.10 %tmp.125;
+E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_71_8_78_8_for_test:
+        %tmp.127 = lgetv %i.10;
+        %tmp.128 = lgetv %hpos.8;
+        %tmp.129 = getv function %tmp.128 :size;
+        %tmp.130 = invoke %tmp.128 %tmp.129();
+        %tmp.131 = lt %tmp.127 %tmp.130;
+        bf %tmp.131 @E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_71_8_78_8_for_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_71_8_78_8_for_begin:
+E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_71_42_78_8_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc" 72 12 ]
+        [ "E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_71_42_78_8_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_71_42_78_8_stop" ]
+        %ky.11 = local;
+        %tmp.133 = lgetv %kys.9;
+        %tmp.135 = lgetv %i.10;
+        %tmp.136 = agetv %tmp.133 %tmp.135;
+        lputv %ky.11 %tmp.136;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc" 76 12 ]
+        %tmp.138 = getv ? :System;
+        %tmp.139 = getv function %tmp.138 :println;
+        %tmp.141 = lgetv %ky.11;
+        %tmp.142 = "  ";
+        %tmp.143 = add %tmp.141 %tmp.142;
+        %tmp.144 = self;
+        %tmp.145 = getv function %tmp.144 :decimal2hms;
+        %tmp.147 = lgetv %hpos.8;
+        %tmp.149 = lgetv %ky.11;
+        %tmp.150 = agetv %tmp.147 %tmp.149;
+        %tmp.151 = 0;
+        %tmp.152 = agetv %tmp.150 %tmp.151;
+        %tmp.153 = invoke %tmp.144 %tmp.145(%tmp.152);
+        %tmp.154 = add %tmp.143 %tmp.153;
+        %tmp.155 = "  ";
+        %tmp.156 = add %tmp.154 %tmp.155;
+        %tmp.157 = self;
+        %tmp.158 = getv function %tmp.157 :decimal2arcs;
+        %tmp.160 = lgetv %hpos.8;
+        %tmp.162 = lgetv %ky.11;
+        %tmp.163 = agetv %tmp.160 %tmp.162;
+        %tmp.164 = 1;
+        %tmp.165 = agetv %tmp.163 %tmp.164;
+        %tmp.166 = invoke %tmp.157 %tmp.158(%tmp.165);
+        %tmp.167 = add %tmp.156 %tmp.166;
+        %tmp.168 = "  ";
+        %tmp.169 = add %tmp.167 %tmp.168;
+        %tmp.171 = getv ? :Math;
+        %tmp.172 = getv function %tmp.171 :round;
+        %tmp.174 = lgetv %hpos.8;
+        %tmp.176 = lgetv %ky.11;
+        %tmp.177 = agetv %tmp.174 %tmp.176;
+        %tmp.178 = 2;
+        %tmp.179 = agetv %tmp.177 %tmp.178;
+        %tmp.180 = invoke %tmp.171 %tmp.172(%tmp.179);
+        %tmp.181 = add %tmp.169 %tmp.180;
+        invoke %tmp.138 %tmp.139(%tmp.181);
+E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_71_42_78_8_stop:
+E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_71_8_78_8_for_incr:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc" 71 ]
+        %tmp.184 = lgetv %i.10;
+        %tmp.185 = add %tmp.184 1;
+        lputv %i.10 %tmp.185;
+        goto @E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_71_8_78_8_for_test;
+E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_71_8_78_8_for_end:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc" 80 8 ]
+        %tmp.187 = getv ? :System;
+        %tmp.188 = getv function %tmp.187 :println;
+        %tmp.189 = "View Horizontal:";
+        invoke %tmp.187 %tmp.188(%tmp.189);
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc" 82 8 ]
+        [ "E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_42_47_88_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_42_47_88_4_stop" ]
+        %gg.12 = local;
+        %tmp.193 = getv ? :Heliocentric;
+        %tmp.194 = 2024;
+        %tmp.195 = 12;
+        %tmp.196 = 7;
+        %tmp.197 = 12;
+        %tmp.198 = 14;
+        %tmp.199 = 0;
+        %tmp.200 = 0;
+        %tmp.201 = "horizontal";
+        %tmp.190 = newc %tmp.193 (%tmp.194, %tmp.195, %tmp.196, %tmp.197, %tmp.198, %tmp.199, %tmp.200, %tmp.201);
+        lputv %gg.12 %tmp.190;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc" 83 8 ]
+        %tmp.203 = getv ? :System;
+        %tmp.204 = getv function %tmp.203 :println;
+        %tmp.205 = lgetv %gg.12;
+        %tmp.206 = getv function %tmp.205 :planets;
+        %tmp.207 = invoke %tmp.205 %tmp.206();
+        invoke %tmp.203 %tmp.204(%tmp.207);
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc" 85 8 ]
+        %tmp.209 = getv ? :System;
+        %tmp.210 = getv function %tmp.209 :println;
+        %tmp.211 = "View Rectangular:";
+        invoke %tmp.209 %tmp.210(%tmp.211);
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc" 86 8 ]
+        [ "E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_42_47_88_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_42_47_88_4_stop" ]
+        %hh.13 = local;
+        %tmp.215 = getv ? :Heliocentric;
+        %tmp.216 = 2024;
+        %tmp.217 = 12;
+        %tmp.218 = 7;
+        %tmp.219 = 12;
+        %tmp.220 = 14;
+        %tmp.221 = 0;
+        %tmp.222 = 0;
+        %tmp.223 = "rectangular";
+        %tmp.212 = newc %tmp.215 (%tmp.216, %tmp.217, %tmp.218, %tmp.219, %tmp.220, %tmp.221, %tmp.222, %tmp.223);
+        lputv %hh.13 %tmp.212;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc" 87 8 ]
+        %tmp.225 = getv ? :System;
+        %tmp.226 = getv function %tmp.225 :println;
+        %tmp.227 = lgetv %hh.13;
+        %tmp.228 = getv function %tmp.227 :planets;
+        %tmp.229 = invoke %tmp.227 %tmp.228();
+        invoke %tmp.225 %tmp.226(%tmp.229);
+E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_42_47_88_4_stop:
+    }
+    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc"; @line = 92; ]
+    public
+    function getMessage() {
+E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_92_34_206_4_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc" 107 8 ]
+        [ "E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_92_34_206_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_92_34_206_4_stop" ]
+        %x.1 = local;
+        %tmp.1 = 400000000000001.348258d;
+        lputv %x.1 %tmp.1;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc" 108 8 ]
+        [ "E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_92_34_206_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_92_34_206_4_stop" ]
+        %y.2 = local;
+        %tmp.2 = -400000000000001.944324d;
+        lputv %y.2 %tmp.2;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc" 109 8 ]
+        %tmp.3 = newa 6;
+        %tmp.4 = self;
+        %tmp.5 = getv function %tmp.4 :spherical2rectangular;
+        %tmp.7 = lgetv %x.1;
+        %tmp.9 = lgetv %y.2;
+        %tmp.10 = 1;
+        %tmp.11 = invoke %tmp.4 %tmp.5(%tmp.7, %tmp.9, %tmp.10);
+        %tmp.12 = dup %tmp.3;
+        %tmp.13 = aputv %tmp.12 0 %tmp.11;
+        %tmp.14 = self;
+        %tmp.15 = getv function %tmp.14 :spherical2rectangular;
+        %tmp.16 = 90;
+        %tmp.17 = 90;
+        %tmp.18 = 1;
+        %tmp.19 = invoke %tmp.14 %tmp.15(%tmp.16, %tmp.17, %tmp.18);
+        %tmp.20 = dup %tmp.13;
+        %tmp.21 = aputv %tmp.20 1 %tmp.19;
+        %tmp.22 = self;
+        %tmp.23 = getv function %tmp.22 :spherical2rectangular;
+        %tmp.24 = 180;
+        %tmp.25 = 180;
+        %tmp.26 = 1;
+        %tmp.27 = invoke %tmp.22 %tmp.23(%tmp.24, %tmp.25, %tmp.26);
+        %tmp.28 = dup %tmp.21;
+        %tmp.29 = aputv %tmp.28 2 %tmp.27;
+        %tmp.30 = self;
+        %tmp.31 = getv function %tmp.30 :spherical2rectangular;
+        %tmp.32 = 270;
+        %tmp.33 = 270;
+        %tmp.34 = 1;
+        %tmp.35 = invoke %tmp.30 %tmp.31(%tmp.32, %tmp.33, %tmp.34);
+        %tmp.36 = dup %tmp.29;
+        %tmp.37 = aputv %tmp.36 3 %tmp.35;
+        %tmp.38 = self;
+        %tmp.39 = getv function %tmp.38 :spherical2rectangular;
+        %tmp.40 = 270;
+        %tmp.41 = 90;
+        %tmp.42 = 1;
+        %tmp.43 = invoke %tmp.38 %tmp.39(%tmp.40, %tmp.41, %tmp.42);
+        %tmp.44 = dup %tmp.37;
+        %tmp.45 = aputv %tmp.44 4 %tmp.43;
+        %tmp.46 = self;
+        %tmp.47 = getv function %tmp.46 :spherical2rectangular;
+        %tmp.48 = 270000000.0;
+        %tmp.49 = 90d;
+        %tmp.50 = 1;
+        %tmp.51 = invoke %tmp.46 %tmp.47(%tmp.48, %tmp.49, %tmp.50);
+        %tmp.52 = dup %tmp.45;
+        %tmp.53 = aputv %tmp.52 5 %tmp.51;
+        putv self :_lines %tmp.53;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc" 116 8 ]
+        [ "E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_92_34_206_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_92_34_206_4_stop" ]
+        %z.3 = local;
+        %tmp.54 = self;
+        %tmp.55 = getv function %tmp.54 :rectangular2spherical;
+        %tmp.56 = 1;
+        %tmp.57 = 0;
+        %tmp.58 = 0;
+        %tmp.59 = invoke %tmp.54 %tmp.55(%tmp.56, %tmp.57, %tmp.58);
+        lputv %z.3 %tmp.59;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc" 117 8 ]
+        %tmp.60 = newa 6;
+        %tmp.62 = lgetv %z.3;
+        %tmp.63 = dup %tmp.60;
+        %tmp.64 = aputv %tmp.63 0 %tmp.62;
+        %tmp.65 = self;
+        %tmp.66 = getv function %tmp.65 :rectangular2spherical;
+        %tmp.67 = 0;
+        %tmp.68 = -1;
+        %tmp.69 = 0;
+        %tmp.70 = invoke %tmp.65 %tmp.66(%tmp.67, %tmp.68, %tmp.69);
+        %tmp.71 = dup %tmp.64;
+        %tmp.72 = aputv %tmp.71 1 %tmp.70;
+        %tmp.73 = self;
+        %tmp.74 = getv function %tmp.73 :rectangular2spherical;
+        %tmp.75 = 0;
+        %tmp.76 = 0;
+        %tmp.77 = 1;
+        %tmp.78 = invoke %tmp.73 %tmp.74(%tmp.75, %tmp.76, %tmp.77);
+        %tmp.79 = dup %tmp.72;
+        %tmp.80 = aputv %tmp.79 2 %tmp.78;
+        %tmp.81 = self;
+        %tmp.82 = getv function %tmp.81 :rectangular2spherical;
+        %tmp.83 = 0;
+        %tmp.85 = lgetv %x.1;
+        %tmp.87 = lgetv %x.1;
+        %tmp.88 = invoke %tmp.81 %tmp.82(%tmp.83, %tmp.85, %tmp.87);
+        %tmp.89 = dup %tmp.80;
+        %tmp.90 = aputv %tmp.89 3 %tmp.88;
+        %tmp.91 = self;
+        %tmp.92 = getv function %tmp.91 :rectangular2spherical;
+        %tmp.93 = 270;
+        %tmp.94 = -270;
+        %tmp.95 = 0;
+        %tmp.96 = invoke %tmp.91 %tmp.92(%tmp.93, %tmp.94, %tmp.95);
+        %tmp.97 = dup %tmp.90;
+        %tmp.98 = aputv %tmp.97 4 %tmp.96;
+        %tmp.99 = self;
+        %tmp.100 = getv function %tmp.99 :rectangular2spherical;
+        %tmp.101 = 90;
+        %tmp.102 = 0;
+        %tmp.103 = -90;
+        %tmp.104 = invoke %tmp.99 %tmp.100(%tmp.101, %tmp.102, %tmp.103);
+        %tmp.105 = dup %tmp.98;
+        %tmp.106 = aputv %tmp.105 5 %tmp.104;
+        putv self :_lines %tmp.106;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc" 126 8 ]
+        %tmp.107 = newa 6;
+        %tmp.109 = lgetv %z.3;
+        %tmp.110 = dup %tmp.107;
+        %tmp.111 = aputv %tmp.110 0 %tmp.109;
+        %tmp.112 = self;
+        %tmp.113 = getv function %tmp.112 :ecliptic2equatorial;
+        %tmp.114 = 0;
+        %tmp.115 = -1;
+        %tmp.116 = 0;
+        %tmp.117 = 1;
+        %tmp.118 = invoke %tmp.112 %tmp.113(%tmp.114, %tmp.115, %tmp.116, %tmp.117);
+        %tmp.119 = dup %tmp.111;
+        %tmp.120 = aputv %tmp.119 1 %tmp.118;
+        %tmp.121 = self;
+        %tmp.122 = getv function %tmp.121 :ecliptic2equatorial;
+        %tmp.123 = 0;
+        %tmp.124 = 0;
+        %tmp.125 = 1;
+        %tmp.126 = 5;
+        %tmp.127 = invoke %tmp.121 %tmp.122(%tmp.123, %tmp.124, %tmp.125, %tmp.126);
+        %tmp.128 = dup %tmp.120;
+        %tmp.129 = aputv %tmp.128 2 %tmp.127;
+        %tmp.130 = self;
+        %tmp.131 = getv function %tmp.130 :ecliptic2equatorial;
+        %tmp.132 = 0;
+        %tmp.134 = lgetv %x.1;
+        %tmp.136 = lgetv %x.1;
+        %tmp.138 = lgetv %x.1;
+        %tmp.139 = sub 0 %tmp.138;
+        %tmp.140 = invoke %tmp.130 %tmp.131(%tmp.132, %tmp.134, %tmp.136, %tmp.139);
+        %tmp.141 = dup %tmp.129;
+        %tmp.142 = aputv %tmp.141 3 %tmp.140;
+        %tmp.143 = self;
+        %tmp.144 = getv function %tmp.143 :ecliptic2equatorial;
+        %tmp.145 = 270;
+        %tmp.146 = -270;
+        %tmp.147 = 0;
+        %tmp.148 = 180;
+        %tmp.149 = invoke %tmp.143 %tmp.144(%tmp.145, %tmp.146, %tmp.147, %tmp.148);
+        %tmp.150 = dup %tmp.142;
+        %tmp.151 = aputv %tmp.150 4 %tmp.149;
+        %tmp.152 = self;
+        %tmp.153 = getv function %tmp.152 :ecliptic2equatorial;
+        %tmp.154 = 90;
+        %tmp.155 = 0;
+        %tmp.156 = -90;
+        %tmp.157 = 90;
+        %tmp.158 = invoke %tmp.152 %tmp.153(%tmp.154, %tmp.155, %tmp.156, %tmp.157);
+        %tmp.159 = dup %tmp.151;
+        %tmp.160 = aputv %tmp.159 5 %tmp.158;
+        putv self :_lines %tmp.160;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc" 135 8 ]
+        %tmp.161 = newa 6;
+        %tmp.163 = lgetv %z.3;
+        %tmp.164 = dup %tmp.161;
+        %tmp.165 = aputv %tmp.164 0 %tmp.163;
+        %tmp.166 = self;
+        %tmp.167 = getv function %tmp.166 :equatorial2ecliptic;
+        %tmp.168 = 0;
+        %tmp.169 = -1;
+        %tmp.170 = 0;
+        %tmp.171 = 1;
+        %tmp.172 = invoke %tmp.166 %tmp.167(%tmp.168, %tmp.169, %tmp.170, %tmp.171);
+        %tmp.173 = dup %tmp.165;
+        %tmp.174 = aputv %tmp.173 1 %tmp.172;
+        %tmp.175 = self;
+        %tmp.176 = getv function %tmp.175 :equatorial2ecliptic;
+        %tmp.177 = 0;
+        %tmp.178 = 0;
+        %tmp.179 = 1;
+        %tmp.180 = 5;
+        %tmp.181 = invoke %tmp.175 %tmp.176(%tmp.177, %tmp.178, %tmp.179, %tmp.180);
+        %tmp.182 = dup %tmp.174;
+        %tmp.183 = aputv %tmp.182 2 %tmp.181;
+        %tmp.184 = self;
+        %tmp.185 = getv function %tmp.184 :equatorial2ecliptic;
+        %tmp.186 = 0;
+        %tmp.188 = lgetv %x.1;
+        %tmp.190 = lgetv %x.1;
+        %tmp.192 = lgetv %x.1;
+        %tmp.193 = sub 0 %tmp.192;
+        %tmp.194 = invoke %tmp.184 %tmp.185(%tmp.186, %tmp.188, %tmp.190, %tmp.193);
+        %tmp.195 = dup %tmp.183;
+        %tmp.196 = aputv %tmp.195 3 %tmp.194;
+        %tmp.197 = self;
+        %tmp.198 = getv function %tmp.197 :equatorial2ecliptic;
+        %tmp.199 = 270;
+        %tmp.200 = -270;
+        %tmp.201 = 0;
+        %tmp.202 = 180;
+        %tmp.203 = invoke %tmp.197 %tmp.198(%tmp.199, %tmp.200, %tmp.201, %tmp.202);
+        %tmp.204 = dup %tmp.196;
+        %tmp.205 = aputv %tmp.204 4 %tmp.203;
+        %tmp.206 = self;
+        %tmp.207 = getv function %tmp.206 :equatorial2ecliptic;
+        %tmp.208 = 90;
+        %tmp.209 = 0;
+        %tmp.210 = -90;
+        %tmp.211 = 90;
+        %tmp.212 = invoke %tmp.206 %tmp.207(%tmp.208, %tmp.209, %tmp.210, %tmp.211);
+        %tmp.213 = dup %tmp.205;
+        %tmp.214 = aputv %tmp.213 5 %tmp.212;
+        putv self :_lines %tmp.214;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc" 144 8 ]
+        %tmp.215 = newa 6;
+        %tmp.217 = lgetv %z.3;
+        %tmp.218 = dup %tmp.215;
+        %tmp.219 = aputv %tmp.218 0 %tmp.217;
+        %tmp.220 = self;
+        %tmp.221 = getv function %tmp.220 :spherical_ecliptic2equatorial;
+        %tmp.222 = 0;
+        %tmp.223 = -1;
+        %tmp.224 = 0;
+        %tmp.225 = 1;
+        %tmp.226 = invoke %tmp.220 %tmp.221(%tmp.222, %tmp.223, %tmp.224, %tmp.225);
+        %tmp.227 = dup %tmp.219;
+        %tmp.228 = aputv %tmp.227 1 %tmp.226;
+        %tmp.229 = self;
+        %tmp.230 = getv function %tmp.229 :spherical_ecliptic2equatorial;
+        %tmp.231 = 0;
+        %tmp.232 = 0;
+        %tmp.233 = 1;
+        %tmp.234 = 5;
+        %tmp.235 = invoke %tmp.229 %tmp.230(%tmp.231, %tmp.232, %tmp.233, %tmp.234);
+        %tmp.236 = dup %tmp.228;
+        %tmp.237 = aputv %tmp.236 2 %tmp.235;
+        %tmp.238 = self;
+        %tmp.239 = getv function %tmp.238 :spherical_ecliptic2equatorial;
+        %tmp.240 = 0;
+        %tmp.242 = lgetv %x.1;
+        %tmp.244 = lgetv %x.1;
+        %tmp.246 = lgetv %x.1;
+        %tmp.247 = sub 0 %tmp.246;
+        %tmp.248 = invoke %tmp.238 %tmp.239(%tmp.240, %tmp.242, %tmp.244, %tmp.247);
+        %tmp.249 = dup %tmp.237;
+        %tmp.250 = aputv %tmp.249 3 %tmp.248;
+        %tmp.251 = self;
+        %tmp.252 = getv function %tmp.251 :spherical_ecliptic2equatorial;
+        %tmp.253 = 270;
+        %tmp.254 = -270;
+        %tmp.255 = 0;
+        %tmp.256 = 180;
+        %tmp.257 = invoke %tmp.251 %tmp.252(%tmp.253, %tmp.254, %tmp.255, %tmp.256);
+        %tmp.258 = dup %tmp.250;
+        %tmp.259 = aputv %tmp.258 4 %tmp.257;
+        %tmp.260 = self;
+        %tmp.261 = getv function %tmp.260 :spherical_ecliptic2equatorial;
+        %tmp.262 = 90;
+        %tmp.263 = 0;
+        %tmp.264 = -90;
+        %tmp.265 = 90;
+        %tmp.266 = invoke %tmp.260 %tmp.261(%tmp.262, %tmp.263, %tmp.264, %tmp.265);
+        %tmp.267 = dup %tmp.259;
+        %tmp.268 = aputv %tmp.267 5 %tmp.266;
+        putv self :_lines %tmp.268;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc" 153 8 ]
+        %tmp.269 = newa 8;
+        %tmp.270 = self;
+        %tmp.271 = getv function %tmp.270 :decimal2clock;
+        %tmp.272 = 2.02504;
+        %tmp.273 = invoke %tmp.270 %tmp.271(%tmp.272);
+        %tmp.274 = dup %tmp.269;
+        %tmp.275 = aputv %tmp.274 0 %tmp.273;
+        %tmp.276 = self;
+        %tmp.277 = getv function %tmp.276 :decimal2clock;
+        %tmp.278 = .502;
+        %tmp.279 = 60;
+        %tmp.280 = div %tmp.278 %tmp.279;
+        %tmp.281 = invoke %tmp.276 %tmp.277(%tmp.280);
+        %tmp.282 = dup %tmp.275;
+        %tmp.283 = aputv %tmp.282 1 %tmp.281;
+        %tmp.284 = self;
+        %tmp.285 = getv function %tmp.284 :decimal2clock;
+        %tmp.286 = -12.090055555;
+        %tmp.287 = invoke %tmp.284 %tmp.285(%tmp.286);
+        %tmp.288 = dup %tmp.283;
+        %tmp.289 = aputv %tmp.288 2 %tmp.287;
+        %tmp.290 = self;
+        %tmp.291 = getv function %tmp.290 :decimal2clock;
+        %tmp.292 = 18.0505542345;
+        %tmp.293 = invoke %tmp.290 %tmp.291(%tmp.292);
+        %tmp.294 = dup %tmp.289;
+        %tmp.295 = aputv %tmp.294 3 %tmp.293;
+        %tmp.296 = self;
+        %tmp.297 = getv function %tmp.296 :decimal2clock;
+        %tmp.298 = -2.025404654357;
+        %tmp.299 = invoke %tmp.296 %tmp.297(%tmp.298);
+        %tmp.300 = dup %tmp.295;
+        %tmp.301 = aputv %tmp.300 4 %tmp.299;
+        %tmp.302 = self;
+        %tmp.303 = getv function %tmp.302 :decimal2clock;
+        %tmp.304 = -18.050543234;
+        %tmp.305 = invoke %tmp.302 %tmp.303(%tmp.304);
+        %tmp.306 = dup %tmp.301;
+        %tmp.307 = aputv %tmp.306 5 %tmp.305;
+        %tmp.308 = self;
+        %tmp.309 = getv function %tmp.308 :decimal2clock;
+        %tmp.310 = -.033033333222341123;
+        %tmp.311 = invoke %tmp.308 %tmp.309(%tmp.310);
+        %tmp.312 = dup %tmp.307;
+        %tmp.313 = aputv %tmp.312 6 %tmp.311;
+        %tmp.314 = self;
+        %tmp.315 = getv function %tmp.314 :decimal2clock;
+        %tmp.316 = -117.033003333355544532;
+        %tmp.317 = invoke %tmp.314 %tmp.315(%tmp.316);
+        %tmp.318 = dup %tmp.313;
+        %tmp.319 = aputv %tmp.318 7 %tmp.317;
+        putv self :_lines %tmp.319;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc" 165 8 ]
+        %tmp.320 = newa 8;
+        %tmp.321 = self;
+        %tmp.322 = getv function %tmp.321 :decimal2hms;
+        %tmp.323 = 279.02504;
+        %tmp.324 = invoke %tmp.321 %tmp.322(%tmp.323);
+        %tmp.325 = dup %tmp.320;
+        %tmp.326 = aputv %tmp.325 0 %tmp.324;
+        %tmp.327 = self;
+        %tmp.328 = getv function %tmp.327 :decimal2hms;
+        %tmp.329 = -279.02504;
+        %tmp.330 = invoke %tmp.327 %tmp.328(%tmp.329);
+        %tmp.331 = dup %tmp.326;
+        %tmp.332 = aputv %tmp.331 1 %tmp.330;
+        %tmp.333 = self;
+        %tmp.334 = getv function %tmp.333 :decimal2hms;
+        %tmp.335 = -12.090055555;
+        %tmp.336 = invoke %tmp.333 %tmp.334(%tmp.335);
+        %tmp.337 = dup %tmp.332;
+        %tmp.338 = aputv %tmp.337 2 %tmp.336;
+        %tmp.339 = self;
+        %tmp.340 = getv function %tmp.339 :decimal2hms;
+        %tmp.341 = 12.090055555;
+        %tmp.342 = invoke %tmp.339 %tmp.340(%tmp.341);
+        %tmp.343 = dup %tmp.338;
+        %tmp.344 = aputv %tmp.343 3 %tmp.342;
+        %tmp.345 = self;
+        %tmp.346 = getv function %tmp.345 :decimal2hms;
+        %tmp.347 = 302;
+        %tmp.348 = invoke %tmp.345 %tmp.346(%tmp.347);
+        %tmp.349 = dup %tmp.344;
+        %tmp.350 = aputv %tmp.349 4 %tmp.348;
+        %tmp.351 = self;
+        %tmp.352 = getv function %tmp.351 :decimal2hms;
+        %tmp.353 = -302;
+        %tmp.354 = invoke %tmp.351 %tmp.352(%tmp.353);
+        %tmp.355 = dup %tmp.350;
+        %tmp.356 = aputv %tmp.355 5 %tmp.354;
+        %tmp.357 = self;
+        %tmp.358 = getv function %tmp.357 :decimal2hms;
+        %tmp.359 = -507;
+        %tmp.360 = invoke %tmp.357 %tmp.358(%tmp.359);
+        %tmp.361 = dup %tmp.356;
+        %tmp.362 = aputv %tmp.361 6 %tmp.360;
+        %tmp.363 = self;
+        %tmp.364 = getv function %tmp.363 :decimal2hms;
+        %tmp.365 = 507;
+        %tmp.366 = invoke %tmp.363 %tmp.364(%tmp.365);
+        %tmp.367 = dup %tmp.362;
+        %tmp.368 = aputv %tmp.367 7 %tmp.366;
+        putv self :_lines %tmp.368;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc" 176 8 ]
+        %tmp.369 = newa 3;
+        %tmp.370 = self;
+        %tmp.371 = getv function %tmp.370 :Planet_Sun;
+        %tmp.372 = 48;
+        %tmp.373 = .006;
+        %tmp.374 = .72;
+        %tmp.375 = 77;
+        %tmp.376 = 54;
+        %tmp.377 = 3.4;
+        %tmp.378 = invoke %tmp.370 %tmp.371(%tmp.372, %tmp.373, %tmp.374, %tmp.375, %tmp.376, %tmp.377);
+        %tmp.379 = dup %tmp.369;
+        %tmp.380 = aputv %tmp.379 0 %tmp.378;
+        %tmp.381 = self;
+        %tmp.382 = getv function %tmp.381 :Planet_Sun;
+        %tmp.383 = 77;
+        %tmp.384 = 3.4;
+        %tmp.385 = 54.9;
+        %tmp.386 = .7;
+        %tmp.387 = .006;
+        %tmp.388 = 48;
+        %tmp.389 = invoke %tmp.381 %tmp.382(%tmp.383, %tmp.384, %tmp.385, %tmp.386, %tmp.387, %tmp.388);
+        %tmp.390 = dup %tmp.380;
+        %tmp.391 = aputv %tmp.390 1 %tmp.389;
+        %tmp.392 = "247° 27'";
+        %tmp.393 = dup %tmp.391;
+        %tmp.394 = aputv %tmp.393 2 %tmp.392;
+        putv self :_lines %tmp.394;
+E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_92_34_206_4_stop:
+    }
+    //! Set the position
+    //! @param info Position information
+    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc"; @line = 210; ]
+    public
+    function setPosition(info as Info) as Void {
+E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_210_54_235_4_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc" 211 8 ]
+        %tmp.1 = newa 0;
+        putv self :_lines %tmp.1;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc" 213 8 ]
+        [ "E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_210_54_235_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_210_54_235_4_stop" ]
+        %position.1 = local;
+        %tmp.2 = lgetv %info;
+        %tmp.3 = getv %tmp.2 :position;
+        lputv %position.1 %tmp.3;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc" 214 8 ]
+E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_214_8_217_8_if_stmt:
+        %tmp.5 = lgetv %position.1;
+        %tmp.6 = null;
+        %tmp.7 = ne %tmp.5 %tmp.6;
+        bf %tmp.7 @E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_214_8_217_8_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_214_8_217_8_if_true:
+E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_214_30_217_8_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc" 215 12 ]
+        %tmp.9 = getv ? :_lines;
+        %tmp.10 = getv function %tmp.9 :add;
+        %tmp.11 = "lat = ";
+        %tmp.12 = lgetv %position.1;
+        %tmp.13 = as %tmp.12 { (!Null) };
+        %tmp.14 = getv function %tmp.13 :toDegrees;
+        %tmp.15 = invoke %tmp.13 %tmp.14();
+        %tmp.16 = 0;
+        %tmp.17 = agetv %tmp.15 %tmp.16;
+        %tmp.18 = getv function %tmp.17 :toString;
+        %tmp.19 = invoke %tmp.17 %tmp.18();
+        %tmp.20 = add %tmp.11 %tmp.19;
+        invoke %tmp.9 %tmp.10(%tmp.20);
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc" 216 12 ]
+        %tmp.22 = getv ? :_lines;
+        %tmp.23 = getv function %tmp.22 :add;
+        %tmp.24 = "lon = ";
+        %tmp.25 = lgetv %position.1;
+        %tmp.26 = as %tmp.25 { (!Null) };
+        %tmp.27 = getv function %tmp.26 :toDegrees;
+        %tmp.28 = invoke %tmp.26 %tmp.27();
+        %tmp.29 = 1;
+        %tmp.30 = agetv %tmp.28 %tmp.29;
+        %tmp.31 = getv function %tmp.30 :toString;
+        %tmp.32 = invoke %tmp.30 %tmp.31();
+        %tmp.33 = add %tmp.24 %tmp.32;
+        invoke %tmp.22 %tmp.23(%tmp.33);
+E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_214_30_217_8_stop:
+        goto @E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_214_8_217_8_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_214_8_217_8_if_end:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc" 219 8 ]
+        [ "E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_210_54_235_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_210_54_235_4_stop" ]
+        %speed.2 = local;
+        %tmp.34 = lgetv %info;
+        %tmp.35 = getv %tmp.34 :speed;
+        lputv %speed.2 %tmp.35;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc" 220 8 ]
+E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_220_8_222_8_if_stmt:
+        %tmp.37 = lgetv %speed.2;
+        %tmp.38 = null;
+        %tmp.39 = ne %tmp.37 %tmp.38;
+        bf %tmp.39 @E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_220_8_222_8_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_220_8_222_8_if_true:
+E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_220_27_222_8_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc" 221 12 ]
+        %tmp.41 = getv ? :_lines;
+        %tmp.42 = getv function %tmp.41 :add;
+        %tmp.43 = "speed = ";
+        %tmp.44 = lgetv %speed.2;
+        %tmp.45 = as %tmp.44 { (!Null) };
+        %tmp.46 = getv function %tmp.45 :toString;
+        %tmp.47 = invoke %tmp.45 %tmp.46();
+        %tmp.48 = add %tmp.43 %tmp.47;
+        invoke %tmp.41 %tmp.42(%tmp.48);
+E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_220_27_222_8_stop:
+        goto @E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_220_8_222_8_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_220_8_222_8_if_end:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc" 224 8 ]
+        [ "E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_210_54_235_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_210_54_235_4_stop" ]
+        %altitude.3 = local;
+        %tmp.49 = lgetv %info;
+        %tmp.50 = getv %tmp.49 :altitude;
+        lputv %altitude.3 %tmp.50;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc" 225 8 ]
+E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_225_8_227_8_if_stmt:
+        %tmp.52 = lgetv %altitude.3;
+        %tmp.53 = null;
+        %tmp.54 = ne %tmp.52 %tmp.53;
+        bf %tmp.54 @E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_225_8_227_8_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_225_8_227_8_if_true:
+E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_225_30_227_8_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc" 226 12 ]
+        %tmp.56 = getv ? :_lines;
+        %tmp.57 = getv function %tmp.56 :add;
+        %tmp.58 = "alt = ";
+        %tmp.59 = lgetv %altitude.3;
+        %tmp.60 = as %tmp.59 { (!Null) };
+        %tmp.61 = getv function %tmp.60 :toString;
+        %tmp.62 = invoke %tmp.60 %tmp.61();
+        %tmp.63 = add %tmp.58 %tmp.62;
+        invoke %tmp.56 %tmp.57(%tmp.63);
+E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_225_30_227_8_stop:
+        goto @E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_225_8_227_8_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_225_8_227_8_if_end:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc" 229 8 ]
+        [ "E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_210_54_235_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_210_54_235_4_stop" ]
+        %heading.4 = local;
+        %tmp.64 = lgetv %info;
+        %tmp.65 = getv %tmp.64 :heading;
+        lputv %heading.4 %tmp.65;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc" 230 8 ]
+E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_230_8_232_8_if_stmt:
+        %tmp.67 = lgetv %heading.4;
+        %tmp.68 = null;
+        %tmp.69 = ne %tmp.67 %tmp.68;
+        bf %tmp.69 @E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_230_8_232_8_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_230_8_232_8_if_true:
+E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_230_29_232_8_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc" 231 12 ]
+        %tmp.71 = getv ? :_lines;
+        %tmp.72 = getv function %tmp.71 :add;
+        %tmp.73 = "heading = ";
+        %tmp.74 = lgetv %heading.4;
+        %tmp.75 = as %tmp.74 { (!Null) };
+        %tmp.76 = getv function %tmp.75 :toString;
+        %tmp.77 = invoke %tmp.75 %tmp.76();
+        %tmp.78 = add %tmp.73 %tmp.77;
+        invoke %tmp.71 %tmp.72(%tmp.78);
+E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_230_29_232_8_stop:
+        goto @E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_230_8_232_8_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_230_8_232_8_if_end:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc" 234 8 ]
+        %tmp.79 = getm $.Toybox.WatchUi;
+        %tmp.80 = getv function %tmp.79 :requestUpdate;
+        invoke %tmp.79 %tmp.80();
+E_Data_Brent_Garmin_App_Development_SDK_examples_SolarSystem_source_SolarSystemView_mc_210_54_235_4_stop:
+    }
+}
+[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\source\SolarSystemView.mc"; @line = 7; ]
+<init> {
+}

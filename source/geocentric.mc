@@ -1,0 +1,149 @@
+/*************************************************************
+*
+* Adapted directly from:
+* SolarSystem by Ioannis Nasios 
+* https://github.com/IoannisNasios/solarsystem
+*
+* LICENSE & COPYRIGHT:
+* The MIT License, Copyright (c) 2020, Ioannis Nasios
+*
+***************************************************************/
+
+//from .functions import sun2planet, spherical2rectangular, ecliptic2equatorial
+//from .functions import rectangular2spherical  
+//from .heliocentric import Heliocentric
+
+class Geocentric {
+    /*Import date data outputs planets positions around Earth.
+    
+    Args:
+        year (int): Year (4 digits) ex. 2020
+        month (int): Month (1-12)
+        day (int): Day (1-31)
+        hour (int): Hour (0-23)
+        minute (int): Minute (0-60)
+        UT: Time Zone (deviation from UT, -12:+14), ex. for Greece (GMT + 2) 
+            enter UT = 2
+        dst (int): daylight saving time (0 or 1). Wheather dst is applied at 
+                   given time and place
+        plane: desired output format. Should be one of: ecliptic, equatorial.
+               Default: ecliptic
+            
+    */
+    public var plane, planetoncenter, objectlist, planets, oblecl;
+
+    function initialize (year, month, day, hour, minute, UT, dst, 
+                 pl) {
+
+        plane= (pl==null) ? "ecliptic" : pl;
+        System.println("Plane: " +plane);
+        
+        planetoncenter = "Earth";
+        objectlist = [ "Mercury","Venus","Earth","Mars","Jupiter","Saturn"
+                           ,"Uranus","Neptune","Pluto","Ceres","Chiron","Eris"];
+        var h = new Heliocentric(year, month, day, hour, 
+                         minute, UT, dst, "rectangular" );
+        var hplanets = h.planets();
+        planets={};
+        /*
+        for key in objectlist:
+            if key != "Earth":
+               planets.append(hplanets[key])
+            else:
+                planets.append((h.x2, h.y2, h.z2))
+
+        */
+        for (var i=0;i<objectlist.size(); i++) {
+            if (!objectlist[i].equals("Earth")) {
+               planets.put(objectlist[i], hplanets[objectlist[i]]);
+            }
+            else {
+                planets.put(objectlist[i], [h.x2, h.y2, h.z2]);
+                System.println ("H.X2Y2: " + h.x2 + " " + h.y2);
+            }
+        }
+
+        System.println ("Planets: " + planets);                
+        //var self.objectlist = objectlist
+        //var self.planets = planets
+        oblecl = h.oblecl;
+        System.println("oblecl: " + oblecl);
+
+    }
+    
+    function position() {
+        /*Main method which returns a dictionary of geocentric positions.
+        
+        Returns:
+            dictionary: Planet positions around earth: Each row represents a 
+                        planet and each column the position of that planet.
+                        
+        */        
+        var c = planets["Earth"];
+        var res = rectangular2spherical(c[0],c[1],c[2]);
+        //var RA, Decl, r 
+        var RA = res[0];
+        var Decl = res[1];
+        var r = res[2];
+
+        var planetcentric_pos = {};
+        planetcentric_pos.put("Sun", [RA, Decl, r]);
+
+        for (var i=0;i<planets.size();i++){
+            if (objectlist[i].equals("Earth")) {continue;}
+            System.println(planets[objectlist[i]][0] 
+               + " " + planets[objectlist[i]][1] + " " + planets[objectlist[i]][2]);
+            planetcentric_pos.put(objectlist[i], sun2planet(planets[objectlist[i]][0],
+                                  planets[objectlist[i]][1], planets[objectlist[i]][2],
+                               planets["Earth"][0], planets["Earth"][1], 
+                               planets["Earth"][2]));                               
+        }
+        if (plane.equals( "ecliptic")) {
+             System.println("Returning Ecliptic..." + planets["Earth"][0] 
+               + " " + planets["Earth"][1] + " " + planets["Earth"][2]);
+             return planetcentric_pos;
+        } else {
+            //if (plane=="equatorial"){
+            /*var v1,v2,v3=planetcentric_pos['Sun']
+            var vv1,vv2,vv3 = spherical2rectangular(v1,v2,v3)
+            var vvv1,vvv2,vvv3 = ecliptic2equatorial(vv1,vv2,vv3, self.oblecl)
+            var vvvv1,vvvv2,vvvv3 = rectangular2spherical(vvv1,vvv2,vvv3)
+            var planetcentric_pos['Sun'] = (vvvv1,vvvv2,vvvv3)
+            */
+            //var planetcentric_pos2 = {};
+            var vs=planetcentric_pos["Sun"];
+            var vvs = spherical2rectangular(vs[0],vs[1],vs[2]);
+            var vvvs = ecliptic2equatorial(vvs[0],vvs[1],vvs[2], oblecl);
+            var vvvvs = rectangular2spherical(vvvs[0],vvvs[1],vvvs[2]);
+            planetcentric_pos.put("Sun", [vvvvs[0],vvvvs[1],vvvvs[2]]);
+            
+            for (var i=0;i<objectlist.size();i++){
+                if (!objectlist[i].equals( "Earth")) {
+                    var vs2=planetcentric_pos[objectlist[i]];
+                    var vvs2 = spherical2rectangular(vs2[0],vs2[1],vs2[2]);
+                    var vvvs2 = ecliptic2equatorial(vvs2[0],vvs2[1],vvs2[2], 
+                                                         oblecl);
+                    var vvvvs2 = rectangular2spherical(vvvs2[0],vvvs2[1],vvvs2[2]);
+                    planetcentric_pos.put (objectlist[i], 
+                        [vvvvs2[0],vvvvs2[1],vvvvs2[2]]);
+                }
+            }
+            System.println("Returning Equatorial...");
+            return planetcentric_pos;
+        }
+                
+       
+    }
+     
+    function objectnames(){
+        /*Names of solar system objects used. 
+        
+        Returns:
+            list: A list of solar system objects
+            
+        */               
+        var orderedobjects= ["Sun", "Mercury","Venus","Mars","Jupiter","Saturn","Uranus",
+                "Neptune","Pluto","Ceres","Chiron","Eris"];
+        return orderedobjects ;    
+    }
+}
