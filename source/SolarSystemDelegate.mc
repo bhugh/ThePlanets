@@ -14,6 +14,7 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
     //! Handle the select button
     //! @return true if handled, false otherwise
     public function onSelect() as Boolean {
+        _mainview.show_intvl = true;
         page +=1;
         if (page > pages_total -1) {
             page = pages_total-1;
@@ -29,6 +30,8 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
         //! Handle the select button
     //! @return true if handled, false otherwise
     public function onBack() as Boolean {
+
+        _mainview.show_intvl = true;
         page -=1;
         if (page < 0) {
             page = 0;
@@ -46,7 +49,17 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
     public function onNextPage() as Boolean {
         //_view.nextSensor();
         WatchUi.requestUpdate();
-        _mainview.time_add_hrs +=1;
+        
+        /*
+        if (_mainview.time_add_hrs%24==0 && _mainview.time_add_hrs!=0) {
+            _mainview.time_add_hrs -=24;
+        } else {
+            _mainview.time_add_hrs -=1;
+        }
+        */
+        _mainview.show_intvl = false;
+        _mainview.time_add_hrs -= _mainview.time_add_inc;
+
         return true;
     }
 
@@ -55,7 +68,14 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
     public function onPreviousPage() as Boolean {
         //_view.previousSensor();
         WatchUi.requestUpdate();
-        _mainview.time_add_hrs -=1;
+        /*
+        if (_mainview.time_add_hrs%24==0 && _mainview.time_add_hrs!=0) {
+            _mainview.time_add_hrs +=24;
+        } else {
+            _mainview.time_add_hrs +=1;
+        } */
+        _mainview.show_intvl = false;
+        _mainview.time_add_hrs += _mainview.time_add_inc;
         return true;
     }
 }

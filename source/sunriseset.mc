@@ -59,7 +59,7 @@ class SunRiseSet{
     public var sunEventData = {
         ASTRO_DAWN => [-18,  "Astronomical Dawn"],
         NAUTIC_DAWN => [-12, "Nautical Dawn"],
-        DAWN => [-16 , "Civil Dawn"],
+        DAWN => [-6 , "Civil Dawn"],
         BLUE_HOUR_AM => [-4, "Morning Blue Hour"],
         SUNRISE => [-.833, "Sunrise"],
         SUNRISE_END => [-.3, "End of Sunrise"],
@@ -221,19 +221,21 @@ class SunRiseSet{
             var adi=(Math.sin(h) -Math.sin(latitude)*Math.sin(Decl))/(Math.cos(latitude)*Math.cos(Decl));
 
             //System.println("h " + h + " latitude " + latitude +  " Decl rad. " + Decl + "adi " + adi);
-
+            //In polar regions etc we might not have sunrise, sunset etc
             var Lha = (adi>1 || adi < -1) ? null : Math.acos(adi);
 
             //var Lha=Math.acos(adi);
-            Lha= (Math.toDegrees(Lha))/15;
+            if (Lha != null) { Lha= (Math.toDegrees(Lha))/15;}
             //Decl=Math.toDegrees(Decl); 
             //System.println("LHa " + Lha + " Tsun " + T_sun + " adi " + adi + " Decl deg. " + Decl);
 
             if (i < NOON) {
-                var anatoli=T_sun - Lha;
+                var anatoli=null;
+                if (Lha != null) {anatoli=T_sun - Lha;}
                 ret.put (ky, [anatoli ,sunEventData[ky][1]]);
             } else {
-                var disi=T_sun + Lha;
+                var disi=null;
+                if (Lha != null) {disi=T_sun + Lha;}                
                 ret.put (ky, [disi ,sunEventData[ky][1]]);
             }
             //var ret = [anatoli, disi];
@@ -242,5 +244,70 @@ class SunRiseSet{
         //System.println("sunrise/sets " + ret);
 
         return ret;
+    }
+
+    public function siderealTime(year, month, day, hour, min, UT1, dst1, 
+                 latitude1, longitude1){
+
+ 
+        var UT =  UT1;
+        var dst = dst1;
+        var longitude = longitude1;
+        var latitude = latitude1;
+        var pr=0d;
+        if (dst==1) {pr=1/24d;}
+        var JDN= ((367l*(year) - Math.floor(7*(year + Math.floor((month+9 )/12))/4)) + Math.floor(275*(month)/9) + (day + 1721013.5d - UT/24d ) );
+        var JD= (JDN + (hour)/24d + min/1440d - pr); //(hour)/24 + (min)/1440; in this case  noon (hr12, min0)
+        var j2000= 2451543.5d;
+        var d = JD - j2000;
+        //self.d = d;
+        var oblecl=23.4393d - 3.563E-7d * d;
+        oblecl= Math.toRadians(oblecl);
+        //self.oblecl = oblecl ;
+        
+        //Sun's trajectory elements
+        var w=282.9404d + 4.70935E-5d * d      ;
+        var e=(0.016709d - (1.151E-9  * d))   ;
+        var M=356.047d + 0.9856002585d * d   ;
+        M=normalize(M);
+        var L=w+M   ;
+        L=normalize(L);
+
+        var M2=M;
+        M=Math.toRadians(M);
+        var E=M2 + (180d/Math.PI)*e*Math.sin(M)*(1+e*Math.cos(M));
+        E=Math.toRadians(E);
+        var x=Math.cos(E)-e;
+        var y=Math.sin(E)*Math.sqrt(1-e*e);
+        
+        var r=Math.sqrt(x*x + y*y) ;
+        var v=Math.atan2(y,x)  ;
+        v=Math.toDegrees(v);
+        var lon=(v+w)   ;
+        lon=normalize((lon));
+        lon=Math.toRadians(lon) ;
+        var x2=r * Math.cos(lon) ;
+        var y2=r * Math.sin(lon);
+        var z2=0;
+        
+        var xequat = x2   ;
+        var yequat = (y2*Math.cos(oblecl) - z2 * Math.sin(oblecl));
+        var zequat = (y2*Math.sin(oblecl) + z2 * Math.cos(oblecl));
+
+    
+        var RA=Math.atan2(yequat, xequat);
+        RA=Math.toDegrees(RA);
+        RA=normalize(RA);
+        var Decl=Math.atan2(zequat, Math.sqrt(xequat*xequat +yequat*yequat));
+        //Decl=Math.toDegrees(Decl); //can't transform to degrees yet...
+        //RA2=RA/15;
+        
+        var gmsto=L/15.0d + 12.0d;
+        
+        var sidtime=(-dst + gmsto - UT + longitude/15);
+
+        return sidtime;
+
+
     }
 }
