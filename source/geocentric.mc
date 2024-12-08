@@ -4,8 +4,11 @@
 * SolarSystem by Ioannis Nasios 
 * https://github.com/IoannisNasios/solarsystem
 *
-* LICENSE & COPYRIGHT:
+* LICENSE & COPYRIGHT of original code:
 * The MIT License, Copyright (c) 2020, Ioannis Nasios
+*
+* Monkey C/Garmin IQ version of the code, with many modifications,
+* Copyright (c) 2024, Brent Hugh. Released under the MIT license.
 *
 ***************************************************************/
 
@@ -28,21 +31,43 @@ class Geocentric {
                    given time and place
         plane: desired output format. Should be one of: ecliptic, equatorial.
                Default: ecliptic
+        which: array with list of the objects to calculate/return.  If which is empty/null, all will be returned.                     
             
     */
-    public var plane, planetoncenter, objectlist, planets, oblecl;
+    public var plane, planetoncenter, objectlist, planets, oblecl, which;
 
     function initialize (year, month, day, hour, minute, UT, dst, 
-                 pl) {
+                 pl, wh) {
 
         plane= (pl==null) ? "ecliptic" : pl;
-        System.println("Plane: " +plane);
+        //System.println("Plane: " +plane);   
+
         
+
         planetoncenter = "Earth";
         objectlist = [ "Mercury","Venus","Earth","Mars","Jupiter","Saturn"
                            ,"Uranus","Neptune","Pluto","Ceres","Chiron","Eris"];
+
+        which = wh;     
+        if (which == null) {which = objectlist;}        
+        
+        var newobjectlist = [];
+
+        if (which != null && which.size()>0) {
+            for (var i=0;i<objectlist.size();i++){
+                if (which.indexOf(objectlist[i]) > -1 || objectlist[i].equals("Earth")){
+                    newobjectlist.add(objectlist[i]);
+                    //System.println("remove: " + rit);                           
+
+                }
+            }
+        }
+        objectlist = newobjectlist;
+        //System.println("which: " + which);                           
+        //System.println("New Objectlist: " + objectlist);
+
         var h = new Heliocentric(year, month, day, hour, 
-                         minute, UT, dst, "rectangular" );
+                         minute, UT, dst, "rectangular", which );
         var hplanets = h.planets();
         planets={};
         /*
@@ -59,15 +84,15 @@ class Geocentric {
             }
             else {
                 planets.put(objectlist[i], [h.x2, h.y2, h.z2]);
-                System.println ("H.X2Y2: " + h.x2 + " " + h.y2);
+                //System.println ("H.X2Y2: " + h.x2 + " " + h.y2);
             }
         }
 
-        System.println ("Planets: " + planets);                
+        //System.println ("Planets: " + planets);                
         //var self.objectlist = objectlist
         //var self.planets = planets
         oblecl = h.oblecl;
-        System.println("oblecl: " + oblecl);
+        //System.println("oblecl: " + oblecl);
 
     }
     
@@ -89,18 +114,18 @@ class Geocentric {
         var planetcentric_pos = {};
         planetcentric_pos.put("Sun", [RA, Decl, r]);
 
-        for (var i=0;i<planets.size();i++){
+        for (var i=0;i<objectlist.size();i++){
             if (objectlist[i].equals("Earth")) {continue;}
-            System.println(planets[objectlist[i]][0] 
-               + " " + planets[objectlist[i]][1] + " " + planets[objectlist[i]][2]);
+            //System.println(planets[objectlist[i]][0] 
+            //   + " " + planets[objectlist[i]][1] + " " + planets[objectlist[i]][2]);
             planetcentric_pos.put(objectlist[i], sun2planet(planets[objectlist[i]][0],
                                   planets[objectlist[i]][1], planets[objectlist[i]][2],
                                planets["Earth"][0], planets["Earth"][1], 
                                planets["Earth"][2]));                               
         }
         if (plane.equals( "ecliptic")) {
-             System.println("Returning Ecliptic..." + planets["Earth"][0] 
-               + " " + planets["Earth"][1] + " " + planets["Earth"][2]);
+             //System.println("Returning Ecliptic..." + planets["Earth"][0] 
+             //  + " " + planets["Earth"][1] + " " + planets["Earth"][2]);
              return planetcentric_pos;
         } else {
             //if (plane=="equatorial"){
@@ -128,7 +153,7 @@ class Geocentric {
                         [vvvvs2[0],vvvvs2[1],vvvvs2[2]]);
                 }
             }
-            System.println("Returning Equatorial...");
+            //System.println("Returning Equatorial...");
             return planetcentric_pos;
         }
                 

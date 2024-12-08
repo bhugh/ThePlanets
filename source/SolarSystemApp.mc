@@ -9,15 +9,20 @@ import Toybox.Lang;
 import Toybox.Position;
 import Toybox.WatchUi;
 
-//! This app displays information about the user's position
-class SolarSystemApp extends Application.AppBase {
+var page = 0;
+var pages_total = 2;
 
-    private var _positionView as SolarSystemView;
+//! This app displays information about the user's position
+class SolarSystemBaseApp extends Application.AppBase {
+
+    private var _positionView as SolarSystemBaseView;
+    private var _positionDelegate as SolarSystemBaseDelegate;
 
     //! Constructor
     public function initialize() {
         AppBase.initialize();
-        _positionView = new $.SolarSystemView();
+        _positionView = new $.SolarSystemBaseView();
+        _positionDelegate = new $.SolarSystemBaseDelegate(_positionView);
     }
 
     //! Handle app startup
@@ -35,13 +40,13 @@ class SolarSystemApp extends Application.AppBase {
     //! Update the current position
     //! @param info Position information
     public function onPosition(info as Info) as Void {
-        _positionView.setPosition(info);
+        _positionView.setPosition();
     }
 
     //! Return the initial view for the app
     //! @return Array [View]
     public function getInitialView() as [Views] or [Views, InputDelegates] {
-        return [_positionView];
+        return [_positionView, _positionDelegate];
     }
 
 }

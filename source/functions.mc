@@ -96,7 +96,7 @@ import Toybox.Lang;
         //    var Decl = Math.asin( z / r ) ;
         var Decl = Math.atan2( z, Math.sqrt( x*x + y*y ) );
 
-        System.println( "rRADecl: " + r + " " + RA + " " + Decl);
+        //System.println( "rRADecl: " + r + " " + RA + " " + Decl);
         
         RA = normalize(Math.toDegrees(RA));
         Decl = (Math.toDegrees(Decl));
@@ -293,7 +293,7 @@ import Toybox.Lang;
         var m = Math.floor((degrees/15d - h) * 60d + fc).toNumber();
         var s = (((degrees/15d-h)*60d - m ) * 60d).toNumber();
 
-        System.println(h + " " + m  + " " + s);
+        //System.println(h + " " + m  + " " + s);
         
         var res = prefix + h.format("%02d") + "h " + m.format("%02d") + "m "+ s.format("%02d") +"s";
         return res;
@@ -348,9 +348,9 @@ import Toybox.Lang;
         var x_geoc=(x+xeclip);
         var y_geoc=(y+yeclip);
         var z_geoc=(z+zeclip);
-        System.println("sun2peclip: " + xeclip +" " + yeclip +" " + zeclip +" ");
-        System.println("sun2pxyz: " + x +" " + y +" " + z +" ");
-        System.println("sun2p: " + x_geoc +" " + y_geoc +" " + z_geoc +" ");
+        //System.println("sun2peclip: " + xeclip +" " + yeclip +" " + zeclip +" ");
+        //System.println("sun2pxyz: " + x +" " + y +" " + z +" ");
+        //System.println("sun2p: " + x_geoc +" " + y_geoc +" " + z_geoc +" ");
         return rectangular2spherical(x_geoc, y_geoc, z_geoc);
         //    t = ecliptic2equatorial(x_geoc, y_geoc, z_geoc, 23.4);
         //    return rectangular2spherical(t[0],t[1],t[2]);

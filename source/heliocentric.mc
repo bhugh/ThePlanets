@@ -7,8 +7,8 @@
 * LICENSE & COPYRIGHT of original code:
 * The MIT License, Copyright (c) 2020, Ioannis Nasios
 *
-* This version of the code Copyright (c) 2024, Brent Hugh
-* Released under the MIT license.
+* Monkey C/Garmin IQ version of the code, with many modifications,
+* Copyright (c) 2024, Brent Hugh. Released under the MIT license.
 *
 ***************************************************************/
 
@@ -33,25 +33,27 @@ class Heliocentric {
               degrees, lat in degrees, distance in AU) or 
               rectangular (x, y, z, all in AU).
               Default: horizontal.
+        which: array with list of the objects to calculate/return.  If which is empty/null, all will be returned.      
  
     */
-    var d, oblecl, x, y, r, x2, y2, z2, v, lon, lat, earthX, earthY, earthZ, view;
+    var d, oblecl, x, y, r, x2, y2, z2, v, lon, lat, earthX, earthY, earthZ, view, which;
     public var planetnames;
 
-    function initialize (year, month, day, hour, minute, UT, dst, vw) {
+    function initialize (year, month, day, hour, minute, UT, dst, vw, whch) {
         if (vw == null) { vw ="horizontal";}
         if (UT == null) {UT = 0;}
         if (dst == null) {dst = 0;}
 
         view = vw;
+        which = whch;
 
         planetnames = ["Mercury","Venus","Earth","Mars","Jupiter","Saturn","Uranus",
                 "Neptune","Pluto","Ceres","Chiron","Eris"];
 
         var pr=0d;
         if (dst==1) { pr=1/24d;} //| ???????
-        var JDN=( (367*(year) - Math.floor(7*(year + Math.floor((month+9 )/12))/4))
-        + Math.floor(275*(month)/9) + (day + 1721013.5 - UT/24d ) );
+        var JDN=( (367l*(year) - Math.floor(7*(year + Math.floor((month+9 )/12))/4))
+        + Math.floor(275*(month)/9) + (day + 1721013.5d - UT/24d ) );
         var JD= (JDN + (hour)/24d + minute/1440d - pr);
         var j2000= 2451543.5d;
         d= JD - j2000;
@@ -65,7 +67,7 @@ class Heliocentric {
         M=normalize(M);
         var L=w+M;
         L=normalize(L);
-        oblecl=23.4393 - 3.563E-7 * d;
+        oblecl=23.4393d - 3.563E-7d * d;
         var M2=M;
         M=Math.toRadians(M);
         var E=M2 + (180d/Math.PI)*e*Math.sin(M)*(1+e*Math.cos(M));
@@ -114,7 +116,7 @@ class Heliocentric {
         earthY = -1*y2;
         earthZ = z2; // =0
 
-        System.println ("X2Y2: " + x2 + " " + y2);
+        //System.println ("X2Y2: " + x2 + " " + y2);
     }
         
         
@@ -461,7 +463,7 @@ class Heliocentric {
         
         if (view.equals("horizontal")) {
             System.println("Horizontal:");
-            return {
+            var rt = {
                     "Mercury" => [long2_er, lat2_er, r_er],
                     "Venus"   => [long2_af, lat2_af, r_af],
                     "Earth"   => [normalize(long_earth), lat_earth, dist_earth],
@@ -476,9 +478,22 @@ class Heliocentric {
                     "Chiron"  => [long2_ch, lat2_ch, r_ch],
                     "Eris"    => [long2_pe, lat2_pe, r_pe]
                     };
+            
+            if (which != null && which.size()>0) {
+                var kys = rt.keys();
+                for (var i=0;i<kys.size();i++){
+                    if (which.indexOf(kys[i])< 0 && !kys[i].equals("Earth")){
+                        rt.remove(kys[i]);
+                    }
+                }        
+            }   
+            //System.println("which: " + which);                           
+            //System.println("New rt: " + rt);
+            return rt;
+
         } else  {      //if ( view == "rectangular")
             System.println("Rectangular:");
-            return {
+            var rt = {
                     "Mercury" =>[xereclip,yereclip,zereclip],
                     "Venus"   =>[xafeclip,yafeclip,zafeclip],
                     "Earth"   =>[earthX, earthY, earthZ],
@@ -492,6 +507,18 @@ class Heliocentric {
                     "Chiron"  =>[xcheclip,ycheclip,zcheclip],
                     "Eris"    =>[xpeeclip,ypeeclip,zpeeclip]
                     };
+            
+            if (which != null && which.size()>0) {
+                var kys = rt.keys();
+                for (var i=0;i<kys.size();i++){
+                    if (which.indexOf(kys[i])< 0 && !kys[i].equals("Earth")){
+                        rt.remove(kys[i]);
+                    }
+                }        
+            }   
+            //System.println("which: " + which);                           
+            //System.println("New rt: " + rt);
+            return rt;        
         }
     }
 }
