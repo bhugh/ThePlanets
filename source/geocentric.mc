@@ -77,8 +77,8 @@ class Geocentric_cache{
     }
     public function empty () {
         
-                g_cache = null;
-                indexes = null;
+        g_cache = {};
+        indexes = [];
     }
     
     

@@ -43,7 +43,7 @@ class sunRiseSet_cache{
         //since we must incl lat & lon to get a sensible answer, might as well
         //includ UT & dst as well, as those are localized in the same way                    
         var index = year+"|"+month+"|"+day+"|"+ UT+dst +"|"+lat_index+"|"+ lon_index;
-        var ret, kys;
+        var ret;
 
         var myStats = System.getSystemStats();
 
@@ -82,8 +82,8 @@ class sunRiseSet_cache{
 
     public function empty () {
         
-                g_cache = null;
-                indexes = null;
+        g_cache = {};
+        indexes = [];
     }
     
 }
