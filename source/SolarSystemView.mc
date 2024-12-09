@@ -17,13 +17,14 @@ class SolarSystemBaseView extends WatchUi.View {
     public var time_add_hrs = 0;
     public var time_add_inc = 1;
     public var show_intvl = true;
-    
+    public var xc, yc, min_c;
     //private var page;
     
     //! Constructor
     public function initialize() {
         View.initialize();
         //page = pg;
+        
 
         
 
@@ -36,6 +37,10 @@ class SolarSystemBaseView extends WatchUi.View {
     //! Load your resources here
     //! @param dc Device context
     public function onLayout(dc as Dc) as Void {
+        
+        xc = dc.getWidth() / 2;
+        yc = dc.getHeight() / 2;
+        min_c  = (xc < yc) ? xc : yc;
     }
 
     //! Handle view being hidden
@@ -62,9 +67,18 @@ class SolarSystemBaseView extends WatchUi.View {
     //! Update the view
     //! @param dc Device context
     var count = 0;
+    var textDisplay_count = 0;
+    var old_page = -1;
     public function onUpdate(dc as Dc) as Void {
         System.println("count: " + count);
         count++;
+        textDisplay_count ++;
+        if (page != old_page) {
+            textDisplay_count =0;
+            old_page = page;
+        }
+
+
         
         switch (page){
             case 0:
@@ -185,9 +199,9 @@ class SolarSystemBaseView extends WatchUi.View {
         */
     }
 
-    var xc, yc, r, whh, whh_sun, font, textheight, srs, sunrise_events, pp, pp_sun, keys, now, sid, x, y ,x2, y2;
+    var r, whh, whh_sun, font, srs, sunrise_events, pp, pp_sun, keys, now, sid, x, y ,x2, y2;
     var ang_deg, ang_rad, size, mult, sub, key, key1, textHeight, kys, add_duration, col;
-    var sun_adj, hour_adj,final_adj;
+    var sun_adj, hour_adj,final_adj, noon_adj_hrs, noon_adj_deg;
 
     public function smallEcliptic(dc) {
          // Set background color
@@ -203,8 +217,9 @@ class SolarSystemBaseView extends WatchUi.View {
         r = (xc < yc) ? xc : yc;
         r = .9 * r;
 
-        font = Graphics.FONT_SMALL;
+        font = Graphics.FONT_TINY;
         textHeight = dc.getFontHeight(font);
+        //textWidght = dc.getFontW
         /*
         y -= (_lines.size() * textHeight) / 2;
         //dc.drawText(x, y+50, Graphics.FONT_SMALL, "Get Lost", Graphics.TEXT_JUSTIFY_CENTER);
@@ -327,6 +342,8 @@ class SolarSystemBaseView extends WatchUi.View {
         keys = null;
         srs = null;
         sunrise_events  = null;
+        whh = null;
+        whh_sun = null;
 
     }
 
@@ -340,8 +357,8 @@ class SolarSystemBaseView extends WatchUi.View {
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
         getMessage();
         //setPosition(Position.getInfo());
-        xc = dc.getWidth() / 2;
-        yc = dc.getHeight() / 2;
+        //xc = dc.getWidth() / 2;
+        //yc = dc.getHeight() / 2;
    
         r = (xc < yc) ? xc : yc;
         r = .9 * r;
@@ -388,17 +405,7 @@ class SolarSystemBaseView extends WatchUi.View {
 
         //pp_sun = g.position();
 
-        //This puts our midnight sun @ the bottom of the graph; everything else relative to it
-        //geo_cache.fetch brings back the positions for UTC & no dst, so we'll need to correct
-        //for that
-        //TODO: We could put in a correction for EXACT LONGITUDE instead of just depending on 
-        //now_info.hour=0 being the actual local midnight.
-        sun_adj = 270 - pp["Sun"][0];
-        hour_adj = now_info.hour*15 + now_info.min*15/60;
-        final_adj = sun_adj - hour_adj;
 
-        //System.println("pp_sun:" + pp_sun);
-        System.println("sun_a:" + sun_adj + " hour_ad " + hour_adj + "final_a " + final_adj);
 
         //g = null;
 
@@ -415,17 +422,35 @@ class SolarSystemBaseView extends WatchUi.View {
         //System.println("Sunrise_set: " + sunrise_set);
         //sunrise_set = [sunrise_set[0]*15, sunrise_set[1]*15]; //hrs to degrees
 
+        //This puts our midnight sun @ the bottom of the graph; everything else relative to it
+        //geo_cache.fetch brings back the positions for UTC & no dst, so we'll need to correct
+        //for that
+        //TODO: We could put in a correction for EXACT LONGITUDE instead of just depending on 
+        //now_info.hour=0 being the actual local midnight.
+        sun_adj = 270 - pp["Sun"][0];
+        hour_adj = now_info.hour*15 + now_info.min*15/60;
+        //We align everything so that NOON is directly up (SOLAR noon, NOT 12:00pm)
+        noon_adj_hrs = 12 - sunrise_events[NOON][0];
+        noon_adj_deg = 15 * noon_adj_hrs;
+        final_adj = sun_adj - hour_adj - noon_adj_deg;
+
+        //System.println("pp_sun:" + pp_sun);
+        System.println("sun_a:" + sun_adj + " hour_ad " + hour_adj + "final_a " + final_adj);        
+
         //dc.setPenWidth(1);
         //dc.drawArc(xc, yc, r,Graphics.ARC_CLOCKWISE, 0,360);
         dc.drawCircle(xc, yc, r);
 
         showDate(dc, now_info, xc, yc, false,Graphics.TEXT_JUSTIFY_CENTER);
 
-        drawARC (dc, sunrise_events[SUNRISE][0], sunrise_events[SUNSET][0], xc, yc, r, 6, Graphics.COLOR_WHITE);
-        drawARC (dc, sunrise_events[DAWN][0], sunrise_events[SUNRISE][0], xc, yc, r, 4,Graphics.COLOR_LT_GRAY);
-        drawARC (dc, sunrise_events[SUNSET][0], sunrise_events[DUSK][0], xc, yc, r, 4,Graphics.COLOR_LT_GRAY);
-        drawARC (dc, sunrise_events[ASTRO_DAWN][0], sunrise_events[DAWN][0], xc, yc, r, 2,Graphics.COLOR_DK_GRAY);
-        drawARC (dc, sunrise_events[DUSK][0], sunrise_events[ASTRO_DUSK][0], xc, yc, r, 2,Graphics.COLOR_DK_GRAY);
+        drawARC (dc, sunrise_events[SUNRISE][0] + noon_adj_hrs, sunrise_events[SUNSET][0]+ noon_adj_hrs, xc, yc, r, 6, Graphics.COLOR_WHITE);
+        //NOON mark
+        drawARC (dc, sunrise_events[NOON][0]-0.1+ noon_adj_hrs, sunrise_events[NOON][0]+0.1+ noon_adj_hrs, xc, yc, r, 10, Graphics.COLOR_WHITE);
+        drawARC (dc, sunrise_events[NOON][0]-0.05+ noon_adj_hrs +  12, sunrise_events[NOON][0]+0.05+ noon_adj_hrs  + 12, xc, yc, r, 10, Graphics.COLOR_WHITE);
+        drawARC (dc, sunrise_events[DAWN][0]+ noon_adj_hrs, sunrise_events[SUNRISE][0]+ noon_adj_hrs, xc, yc, r, 4,Graphics.COLOR_LT_GRAY);
+        drawARC (dc, sunrise_events[SUNSET][0]+ noon_adj_hrs, sunrise_events[DUSK][0]+ noon_adj_hrs, xc, yc, r, 4,Graphics.COLOR_LT_GRAY);
+        drawARC (dc, sunrise_events[ASTRO_DAWN][0]+ noon_adj_hrs, sunrise_events[DAWN][0]+ noon_adj_hrs, xc, yc, r, 2,Graphics.COLOR_DK_GRAY);
+        drawARC (dc, sunrise_events[DUSK][0]+ noon_adj_hrs, sunrise_events[ASTRO_DUSK][0]+ noon_adj_hrs, xc, yc, r, 2,Graphics.COLOR_DK_GRAY);
         dc.setPenWidth(1);
         
         
@@ -459,63 +484,20 @@ class SolarSystemBaseView extends WatchUi.View {
             ang_rad = Math.toRadians(ang_deg);
             x = r* Math.cos(ang_rad) + xc;
             y = r* Math.sin(ang_rad) + yc;
+
+            drawPlanet(dc, key, x, y, 2, ang_rad, :ecliptic, null, null);   
             
-            col = Graphics.COLOR_WHITE;
-
-            size = 2;
-            if (key.equals("Sun")) {size = 8;}
-            switch (key) {
-                case "Mercury":
-                    size = 2;
-                    col = Graphics.COLOR_LT_GRAY;
-                    break;
-                case "Venus":
-                    size =2;
-                    col = 0xf3eb98;
-                    break;
-
-                case "Mars":
-                    size =2;
-                    col = 0xff9a8e;
-                    break;
-                case "Saturn":
-                    size =3;
-                    col = 0x947ec2;
-                    break;
-                case "Jupiter":
-                    size =4;
-                    col = 0xcf9c63;
-                    break;
-            }
-
-            dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);        
-            dc.fillCircle(x, y, size);
-            dc.setColor(col, Graphics.COLOR_TRANSPARENT);
-            dc.drawCircle(x, y, size);
-            if (key.equals("Sun") ) {
-                dc.setColor(Graphics.COLOR_YELLOW, Graphics.COLOR_TRANSPARENT);
-                dc.fillCircle(x, y, size);
-                dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-            }
-
-            
-
-            if (key.equals("Venus")) {
-                dc.fillCircle(x, y, size);
-                dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);        
-                dc.fillCircle(x, y, 1);
-                dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);        
-            }
-
-            if (!key.equals("Sun"))  {
-                sub = findSpot(-pp[key][0]+sid);
-                mult = 0.8 - (.23 * sub);
-                x2 = mult*r* Math.cos(ang_rad) + xc;
-                y2 = mult* r* Math.sin(ang_rad) + yc;
-                dc.drawText(x2, y2, Graphics.FONT_TINY, key.substring(0,2), Graphics.TEXT_JUSTIFY_VCENTER + Graphics.TEXT_JUSTIFY_CENTER);
-                //drawAngledText(x as Lang.Numeric, y as Lang.Numeric, font as Graphics.VectorFont, text as Lang.String, justification as Graphics.TextJustification or Lang.Number, angle as Lang.Numeric) as Void
-            }
         }
+
+        pp=null;
+        pp_sun = null;
+        kys =  null;
+        keys = null;
+        srs = null;
+        sunrise_events  = null;
+        whh = null;
+        whh_sun = null;
+        spots = null;
 
     }
 
@@ -527,9 +509,10 @@ class SolarSystemBaseView extends WatchUi.View {
         dc.clear();
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
         getMessage();
+        
         //setPosition(Position.getInfo());
-        xc = dc.getWidth() / 2;
-        yc = dc.getHeight() / 2;
+        //xc = dc.getWidth() / 2;
+        //yc = dc.getHeight() / 2;
    
         r = (xc < yc) ? xc : yc;
         r = .9 * r;
@@ -596,12 +579,12 @@ class SolarSystemBaseView extends WatchUi.View {
             key = whh[i];
             var rd = pp[key][0]*pp[key][0]+pp[key][1]*pp[key][1];
             if (rd> max) {max = rd;}
-            System.println("MM: " + key + " " + pp[key][0] + " " + pp[key][1] + " " + rd);
+            //System.println("MM: " + key + " " + pp[key][0] + " " + pp[key][1] + " " + rd);
             //if ((pp[key][0]).abs() > maxX) { maxX = (pp[key][0]).abs();}
             //if ((pp[key][1]).abs() > maxY) { maxY = (pp[key][1]).abs();}
         }
 
-        var min_c  = (xc < yc) ? xc : yc;
+        
         
         var scale = (min_c*0.9)/Math.sqrt(max) ;                
 
@@ -610,13 +593,13 @@ class SolarSystemBaseView extends WatchUi.View {
         if (show_intvl) { showDate(dc, now_info,  .1* xc, yc, true,Graphics.TEXT_JUSTIFY_LEFT);}
 
         //sid = 5.5*15;
-        init_findSpot();
+        init_findSpotRect();
         for (var i = 0; i<whh.size(); i++) {
         //for (var i = 0; i<kys.size(); i++) {
 
             key1 = kys[i];
             key = whh[i];
-            System.println ("kys: " + key + " " + key1);
+            //System.println ("kys: " + key + " " + key1);
             //if ( ["Ceres", "Uranus", "Neptune", "Pluto", "Eris", "Chiron"].indexOf(key)> -1) {continue;}
 
             x = scale * pp[key][0] + xc;
@@ -626,10 +609,14 @@ class SolarSystemBaseView extends WatchUi.View {
 
             var radius = Math.sqrt(pp[key][0]*pp[key][0] + pp[key][1]*pp[key][1])*scale;
 
-            dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+            dc.setColor(Graphics.COLOR_DK_GRAY, Graphics.COLOR_TRANSPARENT);
             dc.drawCircle(xc, yc, radius);
             
-
+            fillSpotRect(x,y);//try to avoid putting labels on top of a planet
+            drawPlanet(dc, key, x, y, 4, ang_rad, :orrery, big_small, small_whh);
+            
+            
+            /*
             size = 2;
             if (key.equals("Sun")) {size = 8;}
             switch (key) {
@@ -678,7 +665,21 @@ class SolarSystemBaseView extends WatchUi.View {
                 dc.drawText(x2, y2, Graphics.FONT_TINY, key.substring(0,2), Graphics.TEXT_JUSTIFY_VCENTER + Graphics.TEXT_JUSTIFY_CENTER);
                 //drawAngledText(x as Lang.Numeric, y as Lang.Numeric, font as Graphics.VectorFont, text as Lang.String, justification as Graphics.TextJustification or Lang.Number, angle as Lang.Numeric) as Void
             }
+
+            */
         }
+
+        pp=null;
+        pp_sun = null;
+        kys =  null;
+        keys = null;
+        srs = null;
+        sunrise_events  = null;
+        whh = null;
+        whh_sun = null;
+        g = null;
+        spots_rect = null;
+
 
     }
     var spots;
@@ -691,6 +692,123 @@ class SolarSystemBaseView extends WatchUi.View {
         var num = (Math.floor( angle * 13 / 360.0)).toNumber();
         spots[num]++;
         return spots[num];        
+
+    }
+
+    
+    var sr_x =8f;
+    var sr_y = 8f;
+    var spots_rect; //0 = spot unoccupied, 1 = spot occupied
+    var sr_xc = 4f;
+    var sr_yc = 4f;
+    var sr_minc = 4f;
+    var diffy, diffx, sr_minc2;
+    
+    function init_findSpotRect(){
+        sr_minc2=sr_minc*sr_minc;
+        spots_rect=new [sr_x];
+        for (var i = 0; i<sr_x; i++) {
+            var tmp = new [sr_y];
+            //spots_rect.add(tmp);
+            for (var j = 0; j<sr_y; j++) {
+                //spots_rect[i].add(0);
+                var add=0;
+                diffx = i-sr_xc;
+                diffy = j-sr_yc;
+                if ( diffx*diffx + diffy*diffy > sr_minc2){
+                    add = 1; //occupied/don't write in corners of our circular display...
+                }
+                tmp[j]=(add);
+            }
+            spots_rect[i] = tmp;
+        }
+    }
+    function fillSpotRect (x,y){
+        var x2 = Math.round(x/sr_x).toNumber();
+        var y2 = Math.round(y/sr_y).toNumber();
+        if (x2 >= sr_x || y2 >= sr_y || x2<0 || y2< 0) {return;}
+        System.println("FillsR: " + x2+ " " + y2+ " " + spots_rect);
+        spots_rect[x2][y2] = 1;
+
+    }
+    function findSpotRect (x,y) {
+        //x = x - textHeight/4; //
+        //y = y - textHeight/2;
+        var x2 = Math.round(x/sr_x).toNumber();
+        var y2 = Math.round(y/sr_y).toNumber();
+        var x_rem = x.toNumber()%sr_x.toNumber();
+        var y_rem = y.toNumber()%sr_y.toNumber();
+        
+        for (var k = 1; k <4; k++) {
+            for (var i = x2-k; i<x2+k; i++) {
+                if (i<0 || i >= sr_x) {continue;}
+                for (var j = y2-k; j<y2+k; j++) {
+                    if (j<0 || j >= sr_y) {continue;}
+                    if (spots_rect[i][j] == 0){
+                        //spots_rect[i][j] = 1;
+                        return findSpotRect_fix( [i*sr_x + x_rem, j*sr_y+ y_rem], [x,y]);
+                    }
+                }
+            }
+        }
+        //more desperate attempt to find a place
+        var xy_desp = new [2];
+        //xy_desp[0]=new [2];
+        //xy_desp[1]=new [2];
+        var x_desp = new [2];
+        var y_desp = new [2];
+        xy_desp[0] = x_desp;
+        xy_desp[1] = y_desp;
+        xy_desp[0][0]= ( (x-xc)/xc * 2*xc/sr_x + x);
+        xy_desp[1][0]=( (y-yc)/yc * 2*yc/sr_y + y);
+        xy_desp[0][1]=( (x-xc)/xc * 2*xc/sr_x - x);
+        xy_desp[1][1]=( (y-yc)/yc * 2*yc/sr_y - y);
+
+        var xy_max = 0;
+        var x_ret =0;
+        var y_ret = 0;
+        var x_try = 0;
+        var y_try = 0;
+        for (var i = 0; i<2; i++) {
+            x_try = xy_desp[0][i];
+            if (x_try == null) {x_try =1;} //for SOME REASON the compiler won't believe that x_try will be a number; thinks it's a NULL.  So it won't compile without this little trick.  Same for y_try.
+            for (var j = 0; j<2; j++) {
+                y_try = xy_desp[1][j];
+                if (y_try == null) {y_try =1;}
+                //System.println("TRIES: " + x_try + " " + y_try);
+                var sq = x_try*x_try + y_try*y_try;
+                //var sq = xy_desp[0][i]*xy_desp[0][i] + xy_desp[1][j]*xy_desp[1][j];
+                /*
+                if ( sq <= min_c*min_c && sq>xy_max){
+                    xy_max = sq;
+                    x_ret = x_try;
+                    y_ret = y_try;
+                }
+                */
+            }
+        }
+        if (xy_max > 0) {
+            //fillSpotRect (x_ret,y_ret);
+            return findSpotRect_fix([x_ret, y_ret], [x,y]);
+        } 
+
+        //last resort
+        return [x+xc/10.0, y + yc/10.0];
+        
+
+
+        
+
+    }
+
+    function findSpotRect_fix(xy_new, xy_orig){
+        
+        //System.println("FSR: " + xy_new + " " + xy_orig + " " + textheight);
+        //if (xy_new[0] < xy_orig[0]) {xy_new[0] += textHeight/4.0; }
+        //if (xy_new[1] < xy_orig[1]) {xy_new[1] += textHeight/2.0;}
+        fillSpotRect(xy_new[0], xy_new[1]);
+        return xy_new;
+
 
     }
 
@@ -732,6 +850,154 @@ class SolarSystemBaseView extends WatchUi.View {
         
     }
 
+    var def_size = 175.0 /2;
+    var b_size = 2.0;
+    var jup_size = 4.0;
+    var min_size = 2.0;
+    var fillcol= Graphics.COLOR_BLACK;
+    //var col = Graphics.COLOR_WHITE;
+
+    public function drawPlanet(dc, key, x, y, base_size, ang_rad, type, big_small, small_whh) {
+
+        col = Graphics.COLOR_WHITE;
+        fillcol = Graphics.COLOR_BLACK;
+        b_size = base_size/def_size*min_c;
+        size = b_size;
+        if (type == :orrery) { size = b_size/32.0;}
+        if (key.equals("Sun")) {
+            size = 4*b_size;
+            //if (type == :orrery) { size = b_size;}
+            
+        }
+        switch (key) {
+            case "Mercury":
+                size = b_size *jup_size /22.0 * 3/4.0;
+                col = Graphics.COLOR_LT_GRAY;
+                fillcol = Graphics.COLOR_DK_GRAY;
+                break;
+            case "Venus":
+                size =b_size*jup_size/ 10.0;
+                col = 0xf3eb98;
+                break;
+
+            case "Mars":
+                size =b_size*jup_size /22.0;
+                col = 0xff9a8e;
+                fillcol = 0x5f4a5e;
+
+                break;
+            case "Saturn":
+                size =b_size *jup_size * 6/7;
+                col = 0x947ec2;
+                break;
+            case "Jupiter":
+                size =b_size *jup_size;
+                col = 0xcf9c63;
+                break;
+            case "Neptune":
+                size =b_size *jup_size * 6/7.0*2/5.0;
+                col = Graphics.COLOR_BLUE;
+                fillcol = col;
+                break;
+            case "Uranus":
+                size =b_size *jup_size * 6/7.0*2/5.0;
+                col = Graphics.COLOR_BLUE;
+                fillcol = Graphics.COLOR_GREEN;
+                break;
+             case "Earth":
+                size =b_size *jup_size * 6/7.0*2/5.0 * 13/50.0;
+                col = Graphics.COLOR_BLUE;
+                break;   
+             case "Pluto":
+                size =b_size *jup_size /22.0/3.0;
+                col = Graphics.COLOR_WHITE;
+                fillcol = Graphics.COLOR_RED;
+                break;   
+             case "Ceres":
+                size =b_size *jup_size /22.0/3.0/3.0; //1/3 of pluto
+                col = Graphics.COLOR_LT_GRAY;
+                break;   
+             case "Chiron": //rings, light brownish???
+                size =b_size *jup_size /22.0/3.0/10; //100-200km only, 1/10th of Pluto
+                col = Graphics.COLOR_LT_GRAY;
+                break;   
+             case "Eris": //white & uniform, has a dark moon
+                size =b_size *jup_size /22.0/3.0; //nearly identical to pluto
+                col = Graphics.COLOR_WHITE;
+                break;   
+        }
+        if (type == :orrery) { size = Math.sqrt(size);}
+        if (size < min_size) { size = min_size; }
+
+        dc.setColor(fillcol, Graphics.COLOR_BLACK);        
+        dc.fillCircle(x, y, size);
+        dc.setColor(col, Graphics.COLOR_TRANSPARENT);
+        dc.drawCircle(x, y, size);
+        switch (key) {
+            case "Sun" :
+                dc.setColor(Graphics.COLOR_YELLOW, Graphics.COLOR_TRANSPARENT);
+                dc.fillCircle(x, y, size);
+                break;
+            case "Venus":
+                dc.fillCircle(x, y, size);
+                dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);        
+                dc.fillCircle(x, y, 1);
+                break;
+            case "Jupiter":
+                dc.drawLine(x-size*.945, y-size/4, x+size*.945, y-size/4);
+                dc.drawLine(x-size*.945, y+size/4, x+size*.945, y+size/4);
+                break;
+            case "Saturn":
+                dc.drawLine(x-size*1.7, y+size/3, x+size*1.7, y-size/3);
+                //dc.setColor(Graphics.COLOR_YELLOW, Graphics.COLOR_TRANSPARENT);
+                dc.drawLine(x-size*1.6, y+size*.37 , x+size*1.6, y-size*.21);
+                //dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+                dc.drawLine(x-size*1.5, y+size*.41 , x+size*1.5, y-size*.15);
+                //dc.drawLine(x-size, y+size/4, x+size, y+size/4);
+                break;
+        }
+        /*
+        if (key.equals("Sun") ) {
+            
+            //dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+        } else  if (key.equals("Venus")) {
+            
+            //dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);        
+        }
+        */
+
+        if (textDisplay_count % 6 == 1) {
+        
+            if (type == :ecliptic) {
+                if (!key.equals("Sun"))  {
+                    sub = findSpot(-pp[key][0]+sid);
+                    mult = 0.8 - (.23 * sub);
+                    x2 = mult*r* Math.cos(ang_rad) + xc;
+                    y2 = mult* r* Math.sin(ang_rad) + yc;
+
+                    dc.setColor(col, Graphics.COLOR_TRANSPARENT);        
+                    dc.drawText(x2, y2, Graphics.FONT_TINY, key.substring(0,2), Graphics.TEXT_JUSTIFY_VCENTER + Graphics.TEXT_JUSTIFY_CENTER);
+                    //drawAngledText(x as Lang.Numeric, y as Lang.Numeric, font as Graphics.VectorFont, text as Lang.String, justification as Graphics.TextJustification or Lang.Number, angle as Lang.Numeric) as Void
+                }
+            } else if (type == :orrery) {
+                
+                if (!key.equals("Sun") && (big_small==0 || small_whh.indexOf(key)==-1))  {
+                    sub = findSpotRect(x,y);
+                    //mult = 2 + sub;
+                    x2 = sub[0];
+                    y2 = sub[1];
+                    dc.setColor(col, Graphics.COLOR_TRANSPARENT);        
+                    dc.drawText(x2, y2, Graphics.FONT_TINY, key.substring(0,2), Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_CENTER);
+                    //drawAngledText(x as Lang.Numeric, y as Lang.Numeric, font as Graphics.VectorFont, text as Lang.String, justification as Graphics.TextJustification or Lang.Number, angle as Lang.Numeric) as Void
+                }
+
+
+
+            }
+        }
+    }
+    
+
     
     
     public function getMessage () {
@@ -748,7 +1014,8 @@ class SolarSystemBaseView extends WatchUi.View {
         
         return;
         */
-
+        /*
+        // TEST CODE
         var x =  400000000000001.348258d;
         var y =  -400000000000001.944324d;
         _lines = [spherical2rectangular(x,y,1),
@@ -821,11 +1088,13 @@ class SolarSystemBaseView extends WatchUi.View {
         _lines = [Planet_Sun(48, .006, .72, 77, 54, 3.4),
         Planet_Sun(77,3.4, 54.9, .7, .006, 48),
         "247° 27'",
+        
 
         
         
         ];
-/*
+        */
+        /*
         _lines = [sun2planet(2.02504),
         sun2planet(.502/60),
         sun2planet(-12.090055555),

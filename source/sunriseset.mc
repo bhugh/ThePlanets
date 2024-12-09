@@ -123,7 +123,7 @@ class sunRiseSet{
         ASTRO_DUSK,
         SIDEREAL_TIME
     ];
-
+    /*
     public var sunEventData = {
         ASTRO_DAWN => [-18,  "Astronomical Dawn"],
         NAUTIC_DAWN => [-12, "Nautical Dawn"],
@@ -141,6 +141,26 @@ class sunRiseSet{
         NAUTIC_DUSK => [-12,  "Nautical Dusk"],
         ASTRO_DUSK  => [-18,  "Astronomical Dusk"], 
         SIDEREAL_TIME => [null, "Sidereal Time"],
+    };
+    */
+
+        public var sunEventData = {
+        ASTRO_DAWN => [-18],
+        NAUTIC_DAWN => [-12],
+        DAWN => [-6 ],
+        BLUE_HOUR_AM => [-4],
+        SUNRISE => [-.833],
+        SUNRISE_END => [-.3],
+        GOLDEN_HOUR_AM => [6],
+        NOON => [null], //noon is the highest point or whatever, but not a certain # of degrees
+        GOLDEN_HOUR_PM => [6],
+        SUNSET_START => [-0.3],
+        SUNSET => [-.833],
+        BLUE_HOUR_PM => [-4],
+        DUSK => [-6],
+        NAUTIC_DUSK => [-12],
+        ASTRO_DUSK  => [-18], 
+        SIDEREAL_TIME => [null],
     };
         
         //degrees above / below the horizon for these events
@@ -277,10 +297,12 @@ class sunRiseSet{
 
             var T_sun=normalize((RA - sidtime*15))/15 ;
             if (ky == NOON) {
-                ret.put (ky, [T_sun,sunEventData[ky][1]]);
+                //ret.put (ky, [T_sun,sunEventData[ky][1]]);
+                ret.put (ky, [T_sun]);
                 continue;
             } else if (ky == SIDEREAL_TIME) {
-                ret.put (ky, [sidtime ,sunEventData[ky][1]]);
+                //ret.put (ky, [sidtime ,sunEventData[ky][1]]);
+                ret.put (ky, [sidtime]);
                 continue;
             }
 
@@ -300,11 +322,13 @@ class sunRiseSet{
             if (i < NOON) {
                 var anatoli=null;
                 if (Lha != null) {anatoli=T_sun - Lha;}
-                ret.put (ky, [anatoli ,sunEventData[ky][1]]);
+                //ret.put (ky, [anatoli ,sunEventData[ky][1]]);
+                ret.put (ky, [anatoli]);
             } else {
                 var disi=null;
                 if (Lha != null) {disi=T_sun + Lha;}                
-                ret.put (ky, [disi ,sunEventData[ky][1]]);
+                //ret.put (ky, [disi ,sunEventData[ky][1]]);
+                ret.put (ky, [disi]);
             }
             //var ret = [anatoli, disi];
             
