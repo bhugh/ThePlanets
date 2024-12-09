@@ -10,7 +10,7 @@ import Toybox.Position;
 import Toybox.WatchUi;
 
 var page = 0;
-var pages_total = 12;
+var pages_total = 20;
 
 //! This app displays information about the user's position
 class SolarSystemBaseApp extends Application.AppBase {

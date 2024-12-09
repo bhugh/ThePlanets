@@ -57,9 +57,10 @@ class SolarSystemBaseView extends WatchUi.View {
 
     //! Update the view
     //! @param dc Device context
-    //var count = 0;
+    var count = 0;
     public function onUpdate(dc as Dc) as Void {
-
+        System.println("count: " + count);
+        count++;
         
         switch (page){
             case 0:
@@ -109,7 +110,39 @@ class SolarSystemBaseView extends WatchUi.View {
             case 11:
                 largeEcliptic(dc, 1);
                 time_add_inc = 24*14;
-                break;                
+                break;   
+            case 12:
+                largeOrrery(dc, 0);
+                time_add_inc = 24*3;
+                break;   
+            case 13:
+                largeOrrery(dc, 0);
+                time_add_inc = 24*7;                
+                break;   
+            case 14:
+                largeOrrery(dc, 0);
+                time_add_inc = 14*24;                                
+                break;   
+            case 15:
+                largeOrrery(dc, 0);
+                time_add_inc = 30*24;
+                break;   
+            case 16:
+                largeOrrery(dc, 1);
+                time_add_inc = 24*30;
+                break;   
+            case 17:
+                largeOrrery(dc, 1);
+                time_add_inc = 24*90;                
+                break;   
+            case 18:
+                largeOrrery(dc, 1);
+                time_add_inc = 365*24;                                
+                break;   
+            case 19:
+                largeOrrery(dc, 1);
+                time_add_inc = 365*5*24;
+                break;   
             default:
                 largeEcliptic(dc, 0);
 
@@ -332,7 +365,7 @@ var sid_old = now_info.hour*15 + now_info.min*15/60; //approx.....
         //This puts our midnight sun @ the bottom of the graph; everything else relative to it
         sun_adj = 270 - pp_sun["Sun"][0];
         hour_adj = now_info.hour*15 + now_info.min*15/60;
-        final_adj = sun_adj + hour_adj;
+        final_adj = sun_adj - hour_adj;
 
         System.println("pp_sun:" + pp_sun);
         System.println("sun_a:" + sun_adj + " hour_ad " + hour_adj + "final_a " + final_adj);
@@ -390,7 +423,7 @@ var sid_old = now_info.hour*15 + now_info.min*15/60; //approx.....
             key = whh[i];
             //System.println ("kys: " + key + " " + key1);
             //if ( ["Ceres", "Uranus", "Neptune", "Pluto", "Eris", "Chiron"].indexOf(key)> -1) {continue;}
-            ang_deg =  pp[key][0] + final_adj + 180;
+            ang_deg =  -pp[key][0] - final_adj;
             ang_rad = Math.toRadians(ang_deg);
             x = r* Math.cos(ang_rad) + xc;
             y = r* Math.sin(ang_rad) + yc;
@@ -441,6 +474,168 @@ var sid_old = now_info.hour*15 + now_info.min*15/60; //approx.....
                 mult = 0.8 - (.23 * sub);
                 x2 = mult*r* Math.cos(ang_rad) + xc;
                 y2 = mult* r* Math.sin(ang_rad) + yc;
+                dc.drawText(x2, y2, Graphics.FONT_TINY, key.substring(0,2), Graphics.TEXT_JUSTIFY_VCENTER + Graphics.TEXT_JUSTIFY_CENTER);
+                //drawAngledText(x as Lang.Numeric, y as Lang.Numeric, font as Graphics.VectorFont, text as Lang.String, justification as Graphics.TextJustification or Lang.Number, angle as Lang.Numeric) as Void
+            }
+        }
+
+    }
+
+
+    //big_small = 0 for small (selectio nof visible planets) & 1 for big (all planets)
+    public function largeOrrery(dc, big_small) {
+         // Set background color
+        dc.setColor(Graphics.COLOR_TRANSPARENT, Graphics.COLOR_BLACK);
+        dc.clear();
+        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+        getMessage();
+        //setPosition(Position.getInfo());
+        xc = dc.getWidth() / 2;
+        yc = dc.getHeight() / 2;
+   
+        r = (xc < yc) ? xc : yc;
+        r = .9 * r;
+
+        font = Graphics.FONT_SMALL;
+        textHeight = dc.getFontHeight(font);
+        /*
+        y -= (_lines.size() * textHeight) / 2;
+        //dc.drawText(x, y+50, Graphics.FONT_SMALL, "Get Lost", Graphics.TEXT_JUSTIFY_CENTER);
+        for (var i = 0; i < _lines.size(); ++i) {
+            dc.drawText(x, y, Graphics.FONT_TINY, _lines[i], Graphics.TEXT_JUSTIFY_CENTER);
+            y += textHeight;
+        }
+        //dc.drawText(x, y-50, Graphics.FONT_SMALL, "Bug Off", Graphics.TEXT_JUSTIFY_CENTER);
+        */
+
+        //planetnames = ["Mercury","Venus","Earth","Mars","Jupiter","Saturn","Uranus","Neptune","Pluto","Ceres","Chiron","Eris"];
+        
+        //whh_sun  = ["Sun"];
+        var small_whh = ["Sun","Mercury","Venus","Earth", "Mars", "Ceres"];
+        whh = small_whh;
+        if (big_small == 1) {
+             whh = ["Sun","Mercury","Venus","Mars","Jupiter","Saturn","Uranus","Neptune","Pluto","Ceres","Chiron"]; 
+        }
+
+        add_duration = new Time.Duration(time_add_hrs*3600);
+        System.println("View Rectangular:" + add_duration + " " + time_add_hrs);
+
+        now = System.getClockTime();
+        var now_info = Time.Gregorian.info(Time.now().add(add_duration), Time.FORMAT_SHORT);
+
+
+
+        System.println("View Rectangular:" + now_info.year + " " + now_info.month + " " + now_info.day + " " + now_info.hour + " " + now_info.min + " " + now.timeZoneOffset/3600 + " " + now.dst);
+        g = new Heliocentric(now_info.year, now_info.month, now_info.day, now_info.hour, now_info.min, now.timeZoneOffset/3600, now.dst,"rectangular", whh);
+
+        pp=g.planets();
+        
+        g = null;
+        pp.put("Sun",[0,0,0]);
+        kys = pp.keys();
+
+        System.println("planets: " + pp);
+        System.println("planets keys: " + kys);
+        System.println("whh: " + whh);
+
+
+        //g = new Geocentric(now_info.year, now_info.month, now_info.day, 0, 0, now.timeZoneOffset/3600, now.dst,"ecliptic", whh_sun);
+
+        //pp_sun = g.position();
+
+        //This puts our midnight sun @ the bottom of the graph; everything else relative to it
+        //sun_adj = 270 - pp_sun["Sun"][0];
+        //hour_adj = now_info.hour*15 + now_info.min*15/60;
+        //final_adj = sun_adj - hour_adj;
+
+        //System.println("pp_sun:" + pp_sun);
+        //System.println("sun_a:" + sun_adj + " hour_ad " + hour_adj + "final_a " + final_adj);
+
+
+        var max =0;        
+        
+        for (var i = 0; i<whh.size(); i++) {
+            key = whh[i];
+            var rd = pp[key][0]*pp[key][0]+pp[key][1]*pp[key][1];
+            if (rd> max) {max = rd;}
+            System.println("MM: " + key + " " + pp[key][0] + " " + pp[key][1] + " " + rd);
+            //if ((pp[key][0]).abs() > maxX) { maxX = (pp[key][0]).abs();}
+            //if ((pp[key][1]).abs() > maxY) { maxY = (pp[key][1]).abs();}
+        }
+
+        var min_c  = (xc < yc) ? xc : yc;
+        
+        var scale = (min_c*0.9)/Math.sqrt(max) ;                
+
+        System.println("MM2: " + min_c + " " + scale + " " + max + " ");
+
+
+        //sid = 5.5*15;
+        init_findSpot();
+        for (var i = 0; i<whh.size(); i++) {
+        //for (var i = 0; i<kys.size(); i++) {
+
+            key1 = kys[i];
+            key = whh[i];
+            System.println ("kys: " + key + " " + key1);
+            //if ( ["Ceres", "Uranus", "Neptune", "Pluto", "Eris", "Chiron"].indexOf(key)> -1) {continue;}
+
+            x = scale * pp[key][0] + xc;
+            y = scale * pp[key][1] + yc;
+
+
+
+            var radius = Math.sqrt(pp[key][0]*pp[key][0] + pp[key][1]*pp[key][1])*scale;
+
+            dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+            dc.drawCircle(xc, yc, radius);
+            
+
+            size = 2;
+            if (key.equals("Sun")) {size = 8;}
+            switch (key) {
+                case "Mercury":
+                    size = 2;
+                    break;
+                case "Venus":
+                    size =4;
+                    break;
+
+                case "Mars":
+                    size =3;
+                    break;
+                case "Saturn":
+                    size =5;
+                    break;
+                case "Jupiter":
+                    size =6;
+                    break;
+            }
+
+            dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);        
+            dc.fillCircle(x, y, size);
+            dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+            dc.drawCircle(x, y, size);
+            if (key.equals("Sun") ) {
+                dc.setColor(Graphics.COLOR_YELLOW, Graphics.COLOR_TRANSPARENT);
+                dc.fillCircle(x, y, size);
+                dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+            }
+
+            
+
+            if (key.equals("Venus")) {
+                dc.fillCircle(x, y, size);
+                dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);        
+                dc.fillCircle(x, y, 1);
+                dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);        
+            }
+
+            if (!key.equals("Sun") && (big_small==0 || small_whh.indexOf(key)==-1))  {
+                sub = findSpot(-pp[key][0]+sid);
+                mult = 2 + sub;
+                x2 = mult*8 + x;
+                y2 = mult*8 + y;
                 dc.drawText(x2, y2, Graphics.FONT_TINY, key.substring(0,2), Graphics.TEXT_JUSTIFY_VCENTER + Graphics.TEXT_JUSTIFY_CENTER);
                 //drawAngledText(x as Lang.Numeric, y as Lang.Numeric, font as Graphics.VectorFont, text as Lang.String, justification as Graphics.TextJustification or Lang.Number, angle as Lang.Numeric) as Void
             }
