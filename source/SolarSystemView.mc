@@ -161,6 +161,26 @@ class SolarSystemBaseView extends WatchUi.View {
                 largeOrrery(dc, 1);
                 time_add_inc = 365*5*24;
                 break;   
+            case 20:
+                largeOrrery(dc, 2);
+                time_add_inc = 24*30;
+                break;   
+            case 21:
+                largeOrrery(dc, 2);
+                time_add_inc = 24*90;                
+                break;   
+            case 22:
+                largeOrrery(dc, 2);
+                time_add_inc = 365*24;                                
+                break;   
+            case 23:
+                largeOrrery(dc, 2);
+                time_add_inc = 365*5*24;
+                break;                  
+            case 24:
+                largeOrrery(dc, 2);
+                time_add_inc = 365*10*24;
+                break;                      
             default:
                 largeEcliptic(dc, 0);
 
@@ -505,6 +525,12 @@ class SolarSystemBaseView extends WatchUi.View {
     //big_small = 0 for small (selectio nof visible planets) & 1 for big (all planets)
     public function largeOrrery(dc, big_small) {
          // Set background color
+
+        //don't need these caches in the Orrery view & we are having out of memory
+        //errors at times here....
+        geo_cache.empty();
+        sunrise_cache.empty();
+
         dc.setColor(Graphics.COLOR_TRANSPARENT, Graphics.COLOR_BLACK);
         dc.clear();
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
@@ -532,10 +558,16 @@ class SolarSystemBaseView extends WatchUi.View {
         //planetnames = ["Mercury","Venus","Earth","Mars","Jupiter","Saturn","Uranus","Neptune","Pluto","Ceres","Chiron","Eris"];
         
         //whh_sun  = ["Sun"];
-        var small_whh = ["Sun","Mercury","Venus","Earth", "Mars", "Ceres"];
+        //var small_whh = ["Sun","Mercury","Venus","Earth", "Mars", "Ceres"];
+        var small_whh = ["Sun","Mercury","Venus","Earth", "Mars"];
         whh = small_whh;
         if (big_small == 1) {
-             whh = ["Sun","Mercury","Venus","Mars","Jupiter","Saturn","Uranus","Neptune","Pluto","Ceres","Chiron"]; 
+             //whh = ["Sun","Mercury","Venus","Mars","Jupiter","Saturn","Uranus","Neptune","Pluto","Ceres","Chiron"]; 
+             whh = ["Sun","Mercury","Venus","Mars","Jupiter","Saturn","Uranus","Neptune"]; 
+        }
+        if (big_small == 2) {
+             //whh = ["Sun","Mercury","Venus","Mars","Jupiter","Saturn","Uranus","Neptune","Pluto","Ceres","Chiron"]; 
+             whh = ["Mercury","Venus","Earth","Mars","Jupiter","Saturn","Uranus","Neptune","Pluto","Ceres","Chiron","Eris"]; 
         }
 
         add_duration = new Time.Duration(time_add_hrs*3600);
@@ -862,6 +894,7 @@ class SolarSystemBaseView extends WatchUi.View {
         col = Graphics.COLOR_WHITE;
         fillcol = Graphics.COLOR_BLACK;
         b_size = base_size/def_size*min_c;
+        min_size = 2.0/def_size*min_c;
         size = b_size;
         if (type == :orrery) { size = b_size/32.0;}
         if (key.equals("Sun")) {

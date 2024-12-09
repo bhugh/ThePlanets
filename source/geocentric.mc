@@ -60,7 +60,7 @@ class Geocentric_cache{
                     indexes.remove(indexes[0]);
                 }
                 }
-            else if (myStats.freeMemory> 20000) {MAX_CACHE +=1;}
+            else if (myStats.freeMemory> 20000 && MAX_CACHE<60) {MAX_CACHE +=1;}
 
             if (indexes.size() > MAX_CACHE -1) {
                 g_cache.remove(indexes[0]);
@@ -75,8 +75,16 @@ class Geocentric_cache{
 
         return ret;
     }
+    public function empty () {
+        
+                g_cache = null;
+                indexes = null;
+    }
+    
     
 }
+
+
 
 class Geocentric {
     /*Import date data outputs planets positions around Earth.

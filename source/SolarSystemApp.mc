@@ -10,7 +10,7 @@ import Toybox.Position;
 import Toybox.WatchUi;
 
 var page = 0;
-var pages_total = 20;
+var pages_total = 25;
 var geo_cache;
 var sunrise_cache;
 
