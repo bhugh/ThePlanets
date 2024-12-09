@@ -12,8 +12,76 @@
 *
 ***************************************************************/
 
-import Toybox.Math;
+using Toybox.Math;
+using Toybox.System;
+
 //from .functions import normalize
+
+class sunRiseSet_cache{
+
+    var g_cache;
+    var indexes;
+    var MAX_CACHE = 3;
+
+    function initialize () {
+        
+
+        //planetoncenter = $.Geocentric.planetoncenter;
+        //objectlist = $.Geocentric.objectlist;
+        g_cache = {};
+        indexes = [];
+    }
+
+    function fetch (year, month, day, UT, dst, 
+                 lat, lon) {
+
+        //changing lat or lon by 1 degree equal about 4 mins difference in sunrise/set
+        //so for our purposes +/- 4 mins or 6 mins is not really perceptible on screen.
+         var lon_index = (lon/3.0).toNumber();
+         var lat_index = (lat/3.0).toNumber();
+                    
+        //since we must incl lat & lon to get a sensible answer, might as well
+        //includ UT & dst as well, as those are localized in the same way                    
+        var index = year+"|"+month+"|"+day+"|"+ UT+dst +"|"+lat_index+"|"+ lon_index;
+        var ret, kys;
+
+        var myStats = System.getSystemStats();
+
+        System.println("Memory/sunriseset: " + myStats.totalMemory + " " + myStats.usedMemory + " " + myStats.freeMemory + " MAX_CACHE: " + MAX_CACHE);
+        //myStats = null;
+
+        if (g_cache.hasKey(index)) {
+            ret = g_cache[index];
+            //kys = ret.keys();
+            } 
+        else {
+            //we always cache the info for midnight UTC & all objects
+            
+            if (myStats.freeMemory<7500) {
+                MAX_CACHE -=1;
+                if (indexes.size() > MAX_CACHE -1) {
+                    g_cache.remove(indexes[0]);
+                    indexes.remove(indexes[0]);
+                }
+                }
+            else if (myStats.freeMemory> 20000) {MAX_CACHE +=1;}
+
+            if (indexes.size() > MAX_CACHE -1) {
+                g_cache.remove(indexes[0]);
+                indexes.remove(indexes[0]);
+            }
+            var g = new sunRiseSet(year, month, day, UT,dst,lat, lon);
+            ret = g.riseSet();
+            //kys = ret.keys();
+            g_cache.put(index,ret);
+            indexes.add(index);
+        }                    
+
+        return ret;
+    }
+    
+}
+
 
     enum {
         ASTRO_DAWN,
@@ -35,7 +103,7 @@ import Toybox.Math;
         SIDEREAL_TIME
     }
 
-class SunRiseSet{
+class sunRiseSet{
 
     public var sunEvents = [
         ASTRO_DAWN,
@@ -253,7 +321,7 @@ class SunRiseSet{
         var UT =  UT1;
         var dst = dst1;
         var longitude = longitude1;
-        var latitude = latitude1;
+        //var latitude = latitude1;
         var pr=0d;
         if (dst==1) {pr=1/24d;}
         var JDN= ((367l*(year) - Math.floor(7*(year + Math.floor((month+9 )/12))/4)) + Math.floor(275*(month)/9) + (day + 1721013.5d - UT/24d ) );
@@ -292,13 +360,13 @@ class SunRiseSet{
         
         var xequat = x2   ;
         var yequat = (y2*Math.cos(oblecl) - z2 * Math.sin(oblecl));
-        var zequat = (y2*Math.sin(oblecl) + z2 * Math.cos(oblecl));
+        //var zequat = (y2*Math.sin(oblecl) + z2 * Math.cos(oblecl));
 
     
         var RA=Math.atan2(yequat, xequat);
         RA=Math.toDegrees(RA);
         RA=normalize(RA);
-        var Decl=Math.atan2(zequat, Math.sqrt(xequat*xequat +yequat*yequat));
+        //var Decl=Math.atan2(zequat, Math.sqrt(xequat*xequat +yequat*yequat));
         //Decl=Math.toDegrees(Decl); //can't transform to degrees yet...
         //RA2=RA/15;
         

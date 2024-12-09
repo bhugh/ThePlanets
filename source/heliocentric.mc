@@ -15,6 +15,7 @@
 import Toybox.Math;
 import Toybox.System;
 import Toybox.Lang;    
+using Toybox.System;
 
 class Heliocentric {
     /*Import date data outputs planets positions around Sun.

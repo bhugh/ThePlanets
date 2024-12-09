@@ -17,6 +17,7 @@ class SolarSystemBaseView extends WatchUi.View {
     public var time_add_hrs = 0;
     public var time_add_inc = 1;
     public var show_intvl = true;
+    
     //private var page;
     
     //! Constructor
@@ -24,8 +25,11 @@ class SolarSystemBaseView extends WatchUi.View {
         View.initialize();
         //page = pg;
 
+        
+
         // Initial value shown until we have position data
         setPosition();
+
         _lines = ["No position info"];
     }
 
@@ -181,8 +185,8 @@ class SolarSystemBaseView extends WatchUi.View {
         */
     }
 
-    var xc, yc, r, whh, whh_sun, font, textheight, g, srs, sunrise_events, pp, pp_sun, keys, now, sid, x, y ,x2, y2;
-    var ang_deg, ang_rad, size, mult, sub, key, key1, textHeight, kys, add_duration;
+    var xc, yc, r, whh, whh_sun, font, textheight, srs, sunrise_events, pp, pp_sun, keys, now, sid, x, y ,x2, y2;
+    var ang_deg, ang_rad, size, mult, sub, key, key1, textHeight, kys, add_duration, col;
     var sun_adj, hour_adj,final_adj;
 
     public function smallEcliptic(dc) {
@@ -223,15 +227,20 @@ class SolarSystemBaseView extends WatchUi.View {
 
         System.println("View Ecliptic:" + now_info.year + " " + now_info.month + " " + now_info.day + " " + now_info.hour + " " + now_info.min + " " + now.timeZoneOffset/3600 + " " + now.dst);
         
-        g = new Geocentric(now_info.year, now_info.month, now_info.day, now_info.hour, now_info.min, now.timeZoneOffset/3600, now.dst,"ecliptic", whh);
-        
-        setPosition();
+        //g = new Geocentric(now_info.year, now_info.month, now_info.day, now_info.hour, now_info.min, now.timeZoneOffset/3600, now.dst,"ecliptic", whh);
 
-        showDate(dc, now_info, xc, yc);
-
-        srs = new SunRiseSet(now_info.year, now_info.month, now_info.day, now.timeZoneOffset/3600, now.dst, lastLoc[0], lastLoc[1]);
+        //geo_cache actually ignores UT, dst, which - we'll correct for that later
+        //        g = geo_cache.fetch(now_info.year, now_info.month, now_info.day, now_info.hour, now_info.min, now.timeZoneOffset/3600, now.dst,"ecliptic", whh);
         
-        sunrise_events = srs.riseSet();
+        //setPosition();
+
+        showDate(dc, now_info, xc, yc, null,Graphics.TEXT_JUSTIFY_CENTER);
+
+        //srs = new sunRiseSet(now_info.year, now_info.month, now_info.day, now.timeZoneOffset/3600, now.dst, lastLoc[0], lastLoc[1]);
+        
+        //sunrise_events = srs.riseSet();
+        sunrise_events = sunrise_cache.fetch(now_info.year, now_info.month, now_info.day, now.timeZoneOffset/3600, now.dst, lastLoc[0], lastLoc[1]);
+
         System.println("Sunrise_set: " + sunrise_events);
         //sunrise_set = [sunrise_set[0]*15, sunrise_set[1]*15]; //hrs to degrees
 
@@ -245,15 +254,17 @@ class SolarSystemBaseView extends WatchUi.View {
         dc.setPenWidth(1);
         
         
-        pp=g.position();
+        //pp=g.position();
+        //geo_cache actually ignores UT, dst, which - we'll correct for that later
+        pp = $.geo_cache.fetch(now_info.year, now_info.month, now_info.day, now_info.hour, now_info.min, now.timeZoneOffset/3600, now.dst,"ecliptic", whh);
         kys = pp.keys();
         //dc.drawCircle(xc, yc, r);
         
-var sid_old = now_info.hour*15 + now_info.min*15/60; //approx.....
+        var sid_old = now_info.hour*15 + now_info.min*15/60; //approx.....
         //sid = sunrise_events[SIDEREAL_TIME][0] * 15;
         sid = srs.siderealTime(now_info.year, now_info.month, now_info.day, now_info.hour, now_info.min, now.timeZoneOffset/3600, now.dst, lastLoc[0], lastLoc[1]);
 
-        g = null;
+        //g = null;
         srs = null;
 
         System.println("SID approx " + sid_old + "SIDEREAL_TIME" + sid + "daily: " + sunrise_events[SIDEREAL_TIME][0]);
@@ -268,23 +279,29 @@ var sid_old = now_info.hour*15 + now_info.min*15/60; //approx.....
             //var x2 = .65*r* Math.cos(Math.toRadians(-pp[key][0]+sid)) + xc;
             //var y2 = .65* r* Math.sin(Math.toRadians(-pp[key][0]+sid)) + yc;
             var size = 5;
+            col = Graphics.COLOR_WHITE;
             if (key.equals("Sun")) {size = 5;}
             switch (key) {
                 case "Mercury":
                     size = 2;
+                    col = Graphics.COLOR_DK_GRAY;
                     break;
                 case "Venus":
                     size =2;
+                    col = 0xe3db98;
                     break;
 
                 case "Mars":
                     size =2;
+                    col = Graphics.COLOR_RED;
                     break;
                 case "Saturn":
                     size =3;
+                    col = 0x5500AA;
                     break;
                 case "Jupiter":
                     size =4;
+                    col = Graphics.COLOR_RED;
                     break;
             }
 
@@ -304,6 +321,12 @@ var sid_old = now_info.hour*15 + now_info.min*15/60; //approx.....
                 //drawAngledText(x as Lang.Numeric, y as Lang.Numeric, font as Graphics.VectorFont, text as Lang.String, justification as Graphics.TextJustification or Lang.Number, angle as Lang.Numeric) as Void
             }
         }
+        pp=null;
+        pp_sun = null;
+        kys =  null;
+        keys = null;
+        srs = null;
+        sunrise_events  = null;
 
     }
 
@@ -352,32 +375,41 @@ var sid_old = now_info.hour*15 + now_info.min*15/60; //approx.....
 
 
         System.println("View Ecliptic:" + now_info.year + " " + now_info.month + " " + now_info.day + " " + now_info.hour + " " + now_info.min + " " + now.timeZoneOffset/3600 + " " + now.dst);
-        g = new Geocentric(now_info.year, now_info.month, now_info.day, now_info.hour, now_info.min, now.timeZoneOffset/3600, now.dst,"ecliptic", whh);
+        //g = new Geocentric(now_info.year, now_info.month, now_info.day, now_info.hour, now_info.min, now.timeZoneOffset/3600, now.dst,"ecliptic", whh);
 
-        pp=g.position();
+        //pp=g.position();
+        //kys = pp.keys();
+
+        pp = $.geo_cache.fetch(now_info.year, now_info.month, now_info.day, now_info.hour, now_info.min, now.timeZoneOffset/3600, now.dst,"ecliptic", whh);
         kys = pp.keys();
-        g = null;
+        //g = null;
 
-        g = new Geocentric(now_info.year, now_info.month, now_info.day, 0, 0, now.timeZoneOffset/3600, now.dst,"ecliptic", whh_sun);
+        //g = new Geocentric(now_info.year, now_info.month, now_info.day, 0, 0, now.timeZoneOffset/3600, now.dst,"ecliptic", whh_sun);
 
-        pp_sun = g.position();
+        //pp_sun = g.position();
 
         //This puts our midnight sun @ the bottom of the graph; everything else relative to it
-        sun_adj = 270 - pp_sun["Sun"][0];
+        //geo_cache.fetch brings back the positions for UTC & no dst, so we'll need to correct
+        //for that
+        //TODO: We could put in a correction for EXACT LONGITUDE instead of just depending on 
+        //now_info.hour=0 being the actual local midnight.
+        sun_adj = 270 - pp["Sun"][0];
         hour_adj = now_info.hour*15 + now_info.min*15/60;
         final_adj = sun_adj - hour_adj;
 
-        System.println("pp_sun:" + pp_sun);
+        //System.println("pp_sun:" + pp_sun);
         System.println("sun_a:" + sun_adj + " hour_ad " + hour_adj + "final_a " + final_adj);
 
-        g = null;
+        //g = null;
 
-        setPosition();
+        //setPosition();
         //var pos_info = self.lastLoc.getInfo();
         //var deg = pos_info.position.toDegrees();
 
-        srs = new SunRiseSet(now_info.year, now_info.month, now_info.day, now.timeZoneOffset/3600, now.dst, lastLoc[0], lastLoc[1]);
-        sunrise_events = srs.riseSet();
+        //srs = new sunRiseSet(now_info.year, now_info.month, now_info.day, now.timeZoneOffset/3600, now.dst, lastLoc[0], lastLoc[1]);
+        //sunrise_events = srs.riseSet();
+
+        sunrise_events = sunrise_cache.fetch(now_info.year, now_info.month, now_info.day, now.timeZoneOffset/3600, now.dst, lastLoc[0], lastLoc[1]);
 
         System.println("Sunrise_set: " + sunrise_events);
         //System.println("Sunrise_set: " + sunrise_set);
@@ -387,7 +419,7 @@ var sid_old = now_info.hour*15 + now_info.min*15/60; //approx.....
         //dc.drawArc(xc, yc, r,Graphics.ARC_CLOCKWISE, 0,360);
         dc.drawCircle(xc, yc, r);
 
-        showDate(dc, now_info, xc, yc);
+        showDate(dc, now_info, xc, yc, false,Graphics.TEXT_JUSTIFY_CENTER);
 
         drawARC (dc, sunrise_events[SUNRISE][0], sunrise_events[SUNSET][0], xc, yc, r, 6, Graphics.COLOR_WHITE);
         drawARC (dc, sunrise_events[DAWN][0], sunrise_events[SUNRISE][0], xc, yc, r, 4,Graphics.COLOR_LT_GRAY);
@@ -428,31 +460,37 @@ var sid_old = now_info.hour*15 + now_info.min*15/60; //approx.....
             x = r* Math.cos(ang_rad) + xc;
             y = r* Math.sin(ang_rad) + yc;
             
+            col = Graphics.COLOR_WHITE;
 
             size = 2;
             if (key.equals("Sun")) {size = 8;}
             switch (key) {
                 case "Mercury":
                     size = 2;
+                    col = Graphics.COLOR_LT_GRAY;
                     break;
                 case "Venus":
-                    size =4;
+                    size =2;
+                    col = 0xf3eb98;
                     break;
 
                 case "Mars":
-                    size =3;
+                    size =2;
+                    col = 0xff9a8e;
                     break;
                 case "Saturn":
-                    size =5;
+                    size =3;
+                    col = 0x947ec2;
                     break;
                 case "Jupiter":
-                    size =6;
+                    size =4;
+                    col = 0xcf9c63;
                     break;
             }
 
             dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);        
             dc.fillCircle(x, y, size);
-            dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+            dc.setColor(col, Graphics.COLOR_TRANSPARENT);
             dc.drawCircle(x, y, size);
             if (key.equals("Sun") ) {
                 dc.setColor(Graphics.COLOR_YELLOW, Graphics.COLOR_TRANSPARENT);
@@ -481,7 +519,7 @@ var sid_old = now_info.hour*15 + now_info.min*15/60; //approx.....
 
     }
 
-
+    var g;
     //big_small = 0 for small (selectio nof visible planets) & 1 for big (all planets)
     public function largeOrrery(dc, big_small) {
          // Set background color
@@ -569,6 +607,7 @@ var sid_old = now_info.hour*15 + now_info.min*15/60; //approx.....
 
         System.println("MM2: " + min_c + " " + scale + " " + max + " ");
 
+        if (show_intvl) { showDate(dc, now_info,  .1* xc, yc, true,Graphics.TEXT_JUSTIFY_LEFT);}
 
         //sid = 5.5*15;
         init_findSpot();
@@ -655,28 +694,39 @@ var sid_old = now_info.hour*15 + now_info.min*15/60; //approx.....
 
     }
 
-    function showDate(dc, date, xc, yc){
-
+    function showDate(dc, date, xc, yc, incl_years, justify){
+        if (incl_years == null) { incl_years = false; }
         font = Graphics.FONT_TINY;
         textHeight = dc.getFontHeight(font);
         var moveup = 0.5;
         if (!show_intvl) {moveup = 0;}
         
         //y -= (_lines.size() * textHeight) / 2;
-        dc.drawText(xc, yc - (1 + moveup)*textHeight, font, date.month+"/"+date.day.format("%02d"), Graphics.TEXT_JUSTIFY_CENTER);
+
+        var dt = date.month+"/"+date.day.format("%02d");
+        if (incl_years) { dt = date.year.format("%02d") + "/" + dt;}
+        dc.drawText(xc, yc - (1 + moveup)*textHeight, font, dt, justify);
         
-        dc.drawText(xc, yc- (moveup)*textHeight, font, date.hour.format("%02d")+":" + date.min.format("%02d"), Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(xc, yc- (moveup)*textHeight, font, date.hour.format("%02d")+":" + date.min.format("%02d"), justify);
 
         if (show_intvl) {
             var intvl = Lang.format("($1$ hr)",[time_add_inc]);
             if (time_add_inc < 1) {
                 intvl = Lang.format("($1$ min)",[(time_add_inc*60).format("%d")]);
             }
-            else if (time_add_inc>=24) {
+            else if (time_add_inc>=24 && time_add_inc<=24*180 ) {
                 var dv = time_add_inc/24;
                 intvl = "(" + dv.format("%.0d") + " day)";
             }
-            dc.drawText(xc, yc+ .5*textHeight, font, intvl, Graphics.TEXT_JUSTIFY_CENTER);
+            else if(time_add_inc>24*180 ) {
+                var dv = time_add_inc/(24*365);
+                intvl = "(" + dv.format("%.1d") + " year)";
+            }
+            else {
+                var dv = time_add_inc;
+                intvl = "(" + dv.format("%.1d") + " hour)";
+            }
+            dc.drawText(xc, yc+ .5*textHeight, font, intvl, justify);
             //show_intvl = false;
         }
         

@@ -11,6 +11,8 @@ import Toybox.WatchUi;
 
 var page = 0;
 var pages_total = 20;
+var geo_cache;
+var sunrise_cache;
 
 //! This app displays information about the user's position
 class SolarSystemBaseApp extends Application.AppBase {
@@ -23,6 +25,8 @@ class SolarSystemBaseApp extends Application.AppBase {
         AppBase.initialize();
         _positionView = new $.SolarSystemBaseView();
         _positionDelegate = new $.SolarSystemBaseDelegate(_positionView);
+        geo_cache = new Geocentric_cache();
+        sunrise_cache = new sunRiseSet_cache();
     }
 
     //! Handle app startup

@@ -12,9 +12,71 @@
 *
 ***************************************************************/
 
+using Toybox.Math;
+using Toybox.System;
+
 //from .functions import sun2planet, spherical2rectangular, ecliptic2equatorial
 //from .functions import rectangular2spherical  
 //from .heliocentric import Heliocentric
+
+class Geocentric_cache{
+
+    var planetoncenter;
+    var objectlist;
+    var g_cache;
+    var indexes;
+    var MAX_CACHE = 3;
+
+    function initialize () {
+        
+
+        //planetoncenter = $.Geocentric.planetoncenter;
+        //objectlist = $.Geocentric.objectlist;
+        g_cache = {};
+        indexes = [];
+    }
+
+    function fetch (year, month, day, hour, minute, UT, dst, 
+                 pl, wh) {
+        var plane= (pl==null) ? "ecliptic" : pl;
+        var index = year+"|"+month+"|"+day+"|"+pl;
+        var ret, kys;
+
+        var myStats = System.getSystemStats();
+
+        System.println("Memory: " + myStats.totalMemory + " " + myStats.usedMemory + " " + myStats.freeMemory + " MAX_CACHE: " + MAX_CACHE);
+        //myStats = null;
+
+        if (g_cache.hasKey(index)) {
+            ret = g_cache[index];
+            kys = ret.keys();} 
+        else {
+            //we always cache the info for midnight UTC & all objects
+            
+            if (myStats.freeMemory<7500) {
+                MAX_CACHE -=1;
+                if (indexes.size() > MAX_CACHE -1) {
+                    g_cache.remove(indexes[0]);
+                    indexes.remove(indexes[0]);
+                }
+                }
+            else if (myStats.freeMemory> 20000) {MAX_CACHE +=1;}
+
+            if (indexes.size() > MAX_CACHE -1) {
+                g_cache.remove(indexes[0]);
+                indexes.remove(indexes[0]);
+            }
+            var g = new Geocentric(year, month, day, 0,0,0,0, plane, null);
+            ret = g.position();
+            kys = ret.keys();
+            g_cache.put(index,ret);
+            indexes.add(index);
+        }                    
+
+        return ret;
+    }
+    
+}
 
 class Geocentric {
     /*Import date data outputs planets positions around Earth.
@@ -118,10 +180,10 @@ class Geocentric {
             if (objectlist[i].equals("Earth")) {continue;}
             //System.println(planets[objectlist[i]][0] 
             //   + " " + planets[objectlist[i]][1] + " " + planets[objectlist[i]][2]);
-            planetcentric_pos.put(objectlist[i], sun2planet(planets[objectlist[i]][0],
-                                  planets[objectlist[i]][1], planets[objectlist[i]][2],
-                               planets["Earth"][0], planets["Earth"][1], 
-                               planets["Earth"][2]));                               
+            planetcentric_pos.put(objectlist[i], sun2planet(planets[objectlist[i]][0].toFloat(),
+                                  planets[objectlist[i]][1].toFloat(), planets[objectlist[i]][2].toFloat(),
+                               planets["Earth"][0].toFloat(), planets["Earth"][1].toFloat(), 
+                               planets["Earth"][2].toFloat()));                               
         }
         if (plane.equals( "ecliptic")) {
              //System.println("Returning Ecliptic..." + planets["Earth"][0] 
