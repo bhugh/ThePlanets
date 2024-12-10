@@ -57,7 +57,11 @@ class sunRiseSet_cache{
         else {
             //we always cache the info for midnight UTC & all objects
             
-            if (myStats.freeMemory<7500) {
+            if (myStats.freeMemory<5500) {
+                MAX_CACHE = 0;
+                self.empty();                                 
+            
+            } else if (myStats.freeMemory<9500) {
                 MAX_CACHE -=1;
                 if (indexes.size() > MAX_CACHE -1) {
                     g_cache.remove(indexes[0]);
@@ -66,7 +70,7 @@ class sunRiseSet_cache{
             }
             else if (myStats.freeMemory> 20000 && MAX_CACHE<60) {MAX_CACHE +=1;}
 
-            if (indexes.size() > MAX_CACHE -1) {
+            if (indexes.size() > MAX_CACHE -1 && g_cache.size()>0) {
                 g_cache.remove(indexes[0]);
                 indexes.remove(indexes[0]);
             }
@@ -89,7 +93,7 @@ class sunRiseSet_cache{
 }
 
 
-    enum {
+    /*enum {
         ASTRO_DAWN,
         NAUTIC_DAWN,
         DAWN,
@@ -107,11 +111,11 @@ class sunRiseSet_cache{
         ASTRO_DUSK,
         NUM_RESULTS,
         SIDEREAL_TIME
-    }
+    } */
 
 class sunRiseSet{
 
-    public var sunEvents = [
+    /* public var sunEvents = [
         ASTRO_DAWN,
         NAUTIC_DAWN,
         DAWN,
@@ -128,7 +132,8 @@ class sunRiseSet{
         NAUTIC_DUSK,
         ASTRO_DUSK,
         SIDEREAL_TIME
-    ];
+    ];*/
+
     /*
     public var sunEventData = {
         ASTRO_DAWN => [-18,  "Astronomical Dawn"],
@@ -151,25 +156,28 @@ class sunRiseSet{
     */
 
         public var sunEventData = {
-        ASTRO_DAWN => [-18],
-        NAUTIC_DAWN => [-12],
-        DAWN => [-6 ],
-        BLUE_HOUR_AM => [-4],
-        SUNRISE => [-.833],
-        SUNRISE_END => [-.3],
-        GOLDEN_HOUR_AM => [6],
-        NOON => [null], //noon is the highest point or whatever, but not a certain # of degrees
-        GOLDEN_HOUR_PM => [6],
-        SUNSET_START => [-0.3],
-        SUNSET => [-.833],
-        BLUE_HOUR_PM => [-4],
-        DUSK => [-6],
-        NAUTIC_DUSK => [-12],
-        ASTRO_DUSK  => [-18], 
-        SIDEREAL_TIME => [null],
+        :ASTRO_DAWN => [-18, :AM],
+        :NAUTIC_DAWN => [-12, :AM],
+        :DAWN => [-6, :AM ],
+        :BLUE_HOUR_AM => [-4, :AM],
+        :SUNRISE => [-.833, :AM],
+        :SUNRISE_END => [-.3, :AM],
+        :HORIZON_AM => [0, :AM],
+        :GOLDEN_HOUR_AM => [6, :AM],
+        :NOON => [null, :PM], //noon is the highest point or whatever, but not a certain # of degrees
+        :GOLDEN_HOUR_PM => [6, :PM],
+        :HORIZON_PM => [0, :PM],
+        :SUNSET_START => [-0.3, :PM],
+        :SUNSET => [-.833, :PM],
+        :BLUE_HOUR_PM => [-4, :PM],
+        :DUSK => [-6, :PM],
+        :NAUTIC_DUSK => [-12, :PM],
+        :ASTRO_DUSK  => [-18, :PM], 
+        :SIDEREAL_TIME => [null, :PM],
     };
         
         //degrees above / below the horizon for these events
+        /*
     public const TIMES = [
         -18,    // ASTRO_DAWN
         -12,    // NAUTIC_DAWN
@@ -187,6 +195,7 @@ class sunRiseSet{
         -12,
         -18,
         ];
+        */
 
     /* **************************************************************************
     Outputs Dictionary with all sun events for the day + Sidereal_Time EVENT_NAME => [time, name_str].  See enum with EVENT_NAMEs above.
@@ -219,7 +228,7 @@ class sunRiseSet{
         var j2000= 2451543.5d;
         d = JD - j2000;
         //self.d = d;
-        oblecl=23.4393d - 3.563E-7d * d;
+        oblecl=23.4393d - 3.563E-7d * d; //obliquity of the ecliptic, i.e. the "tilt" of the Earth's axis of rotation (currently 23.4 degrees and slowly decreasing)
         oblecl= Math.toRadians(oblecl);
         //self.oblecl = oblecl ;
     }
@@ -296,17 +305,17 @@ class sunRiseSet{
         altitude=Math.toDegrees(altitude);
         
         var ret = {};
-        var kys = sunEventData.keys();
+        var kys = sunEventData.keys();        
 
         for (var i = 0; i<sunEventData.size();i++) {
             var ky = kys[i];
 
             var T_sun=normalize((RA - sidtime*15))/15 ;
-            if (ky == NOON) {
+            if (ky == :NOON) {
                 //ret.put (ky, [T_sun,sunEventData[ky][1]]);
-                ret.put (ky, [T_sun]);
+                ret.put (ky, [T_sun]);                
                 continue;
-            } else if (ky == SIDEREAL_TIME) {
+            } else if (ky == :SIDEREAL_TIME) {
                 //ret.put (ky, [sidtime ,sunEventData[ky][1]]);
                 ret.put (ky, [sidtime]);
                 continue;
@@ -325,7 +334,7 @@ class sunRiseSet{
             //Decl=Math.toDegrees(Decl); 
             //System.println("LHa " + Lha + " Tsun " + T_sun + " adi " + adi + " Decl deg. " + Decl);
 
-            if (i < NOON) {
+            if (sunEventData[ky][1] == :AM) {
                 var anatoli=null;
                 if (Lha != null) {anatoli=T_sun - Lha;}
                 //ret.put (ky, [anatoli ,sunEventData[ky][1]]);

@@ -11,8 +11,11 @@ import Toybox.WatchUi;
 
 var page = 0;
 var pages_total = 25;
-var geo_cache;
+//var geo_cache;
 var sunrise_cache;
+var moon;
+var simple_moon;
+var vspo87a;
 
 //! This app displays information about the user's position
 class SolarSystemBaseApp extends Application.AppBase {
@@ -25,8 +28,12 @@ class SolarSystemBaseApp extends Application.AppBase {
         AppBase.initialize();
         _positionView = new $.SolarSystemBaseView();
         _positionDelegate = new $.SolarSystemBaseDelegate(_positionView);
-        geo_cache = new Geocentric_cache();
+        //geo_cache = new Geocentric_cache();
         sunrise_cache = new sunRiseSet_cache();
+        simple_moon = new simpleMoon();
+        vspo87a = new vsop87a_nano();
+        
+
     }
 
     //! Handle app startup
@@ -52,5 +59,33 @@ class SolarSystemBaseApp extends Application.AppBase {
     public function getInitialView() as [Views] or [Views, InputDelegates] {
         return [_positionView, _positionDelegate];
     }
+    /*
+    // settingsview works only for watch faces & data fields (?)
+    public function getSettingsView() as [Views] or [Views, InputDelegates] or Null {
+        System.println("6A");
+        return [new $.SolarSystemSettingsMenu(), new $.SolarSystemInputDelegate()];
+    }
+    */
+
 
 }
+
+/*  SAMPLEs..
+class SolarSystemInputDelegate extends WatchUi.InputDelegate {
+    function onKey(keyEvent) {
+        System.println("GOT KEEY!!!!!!!!!: " + keyEvent.getKey());         // e.g. KEY_MENU = 7
+        return true;
+    }
+
+    function onTap(clickEvent) {
+        System.println(clickEvent.getType());      // e.g. CLICK_TYPE_TAP = 0
+        return true;
+    }
+
+    function onSwipe(swipeEvent) {
+        System.println(swipeEvent.getDirection()); // e.g. SWIPE_DOWN = 2
+        return true;
+    }
+}
+
+*/

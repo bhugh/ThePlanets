@@ -132,54 +132,94 @@ class SolarSystemBaseView extends WatchUi.View {
             case 12:
                 largeOrrery(dc, 0);
                 time_add_inc = 24*3;
+                show_intvl = false;
+                time_add_hrs += time_add_inc;
+                WatchUi.requestUpdate();                 
+
                 break;   
             case 13:
                 largeOrrery(dc, 0);
-                time_add_inc = 24*7;                
+                time_add_inc = 24*7;
+                show_intvl = false;
+                time_add_hrs += time_add_inc;
+                WatchUi.requestUpdate();                                 
                 break;   
             case 14:
                 largeOrrery(dc, 0);
-                time_add_inc = 14*24;                                
+                time_add_inc = 14*24;   
+                show_intvl = false;
+                time_add_hrs += time_add_inc;
+                WatchUi.requestUpdate();                             
                 break;   
             case 15:
                 largeOrrery(dc, 0);
                 time_add_inc = 30*24;
+                show_intvl = false;
+                time_add_hrs += time_add_inc;
+                WatchUi.requestUpdate();                 
                 break;   
             case 16:
                 largeOrrery(dc, 1);
                 time_add_inc = 24*30;
+                show_intvl = false;
+                time_add_hrs += time_add_inc;
+                WatchUi.requestUpdate();                 
                 break;   
             case 17:
                 largeOrrery(dc, 1);
-                time_add_inc = 24*90;                
+                time_add_inc = 24*90;  
+                                show_intvl = false;
+                time_add_hrs += time_add_inc;
+                WatchUi.requestUpdate();               
                 break;   
             case 18:
                 largeOrrery(dc, 1);
-                time_add_inc = 365*24;                                
+                time_add_inc = 365*24;  
+                                show_intvl = false;
+                time_add_hrs += time_add_inc;
+                WatchUi.requestUpdate();                               
                 break;   
             case 19:
                 largeOrrery(dc, 1);
                 time_add_inc = 365*5*24;
+                                show_intvl = false;
+                time_add_hrs += time_add_inc;
+                WatchUi.requestUpdate(); 
                 break;   
             case 20:
                 largeOrrery(dc, 2);
                 time_add_inc = 24*30;
+                                show_intvl = false;
+                time_add_hrs += time_add_inc;
+                WatchUi.requestUpdate(); 
                 break;   
             case 21:
                 largeOrrery(dc, 2);
-                time_add_inc = 24*90;                
+                time_add_inc = 24*90;   
+                                show_intvl = false;
+                time_add_hrs += time_add_inc;
+                WatchUi.requestUpdate();              
                 break;   
             case 22:
                 largeOrrery(dc, 2);
-                time_add_inc = 365*24;                                
+                time_add_inc = 365*24;  
+                                show_intvl = false;
+                time_add_hrs += time_add_inc;
+                WatchUi.requestUpdate();                               
                 break;   
             case 23:
                 largeOrrery(dc, 2);
                 time_add_inc = 365*5*24;
+                                show_intvl = false;
+                time_add_hrs += time_add_inc;
+                WatchUi.requestUpdate(); 
                 break;                  
             case 24:
                 largeOrrery(dc, 2);
                 time_add_inc = 365*10*24;
+                                show_intvl = false;
+                time_add_hrs += time_add_inc;
+                WatchUi.requestUpdate(); 
                 break;                      
             default:
                 largeEcliptic(dc, 0);
@@ -219,10 +259,12 @@ class SolarSystemBaseView extends WatchUi.View {
         */
     }
 
-    var r, whh, whh_sun, font, srs, sunrise_events, pp, pp_sun, keys, now, sid, x, y ,x2, y2;
+    var r, whh, whh_sun, vspo_rep, font, srs, sunrise_events, pp, pp2, pp_sun, moon_info, moon_info2, moon_info3, moon_info4, elp82, sun_info3,keys, now, sid, x, y ,x2, y2;
     var ang_deg, ang_rad, size, mult, sub, key, key1, textHeight, kys, add_duration, col;
     var sun_adj, hour_adj,final_adj, noon_adj_hrs, noon_adj_deg;
+    var input;
 
+/*
     public function smallEcliptic(dc) {
          // Set background color
         dc.setColor(Graphics.COLOR_TRANSPARENT, Graphics.COLOR_BLACK);
@@ -251,6 +293,7 @@ class SolarSystemBaseView extends WatchUi.View {
         */
 
         //planetnames = ["Mercury","Venus","Earth","Mars","Jupiter","Saturn","Uranus","Neptune","Pluto","Ceres","Chiron","Eris"];
+/*        
         whh = ["Mercury","Venus","Earth","Mars","Jupiter","Saturn"];
 
         System.println("View Ecliptic:");
@@ -269,7 +312,7 @@ class SolarSystemBaseView extends WatchUi.View {
         
         //setPosition();
 
-        showDate(dc, now_info, xc, yc, null,Graphics.TEXT_JUSTIFY_CENTER);
+        showDate(dc, now_info, xc, yc, true,Graphics.TEXT_JUSTIFY_CENTER);
 
         //srs = new sunRiseSet(now_info.year, now_info.month, now_info.day, now.timeZoneOffset/3600, now.dst, lastLoc[0], lastLoc[1]);
         
@@ -283,9 +326,9 @@ class SolarSystemBaseView extends WatchUi.View {
         //dc.drawArc(xc, yc, r,Graphics.ARC_CLOCKWISE, 0,360);
         dc.drawCircle(xc, yc, r);
 
-        drawARC (dc, sunrise_events[SUNRISE][0], sunrise_events[SUNSET][0], xc, yc, r, 2, Graphics.COLOR_WHITE);
-        drawARC (dc, sunrise_events[DAWN][0], sunrise_events[SUNRISE][0], xc, yc, r, 1,Graphics.COLOR_BLACK);
-        drawARC (dc, sunrise_events[SUNSET][0], sunrise_events[DUSK][0], xc, yc, r, 1,Graphics.COLOR_BLACK);
+        drawARC (dc, sunrise_events[:SUNRISE][0], sunrise_events[:SUNSET][0], xc, yc, r, 2, Graphics.COLOR_WHITE);
+        drawARC (dc, sunrise_events[:DAWN][0], sunrise_events[:SUNRISE][0], xc, yc, r, 1,Graphics.COLOR_BLACK);
+        drawARC (dc, sunrise_events[:SUNSET][0], sunrise_events[:DUSK][0], xc, yc, r, 1,Graphics.COLOR_BLACK);
         dc.setPenWidth(1);
         
         
@@ -302,7 +345,7 @@ class SolarSystemBaseView extends WatchUi.View {
         //g = null;
         srs = null;
 
-        System.println("SID approx " + sid_old + "SIDEREAL_TIME" + sid + "daily: " + sunrise_events[SIDEREAL_TIME][0]);
+        System.println("SID approx " + sid_old + "SIDEREAL_TIME" + sid + "daily: " + sunrise_events[:SIDEREAL_TIME][0]);
 
         //init_findSpot();
         for (var i = 0; i<kys.size(); i++) {
@@ -367,7 +410,7 @@ class SolarSystemBaseView extends WatchUi.View {
 
     }
 
-
+*/
 
     //big_small = 0 for small (selectio nof visible planets) & 1 for big (all planets)
     public function largeEcliptic(dc, big_small) {
@@ -398,9 +441,10 @@ class SolarSystemBaseView extends WatchUi.View {
         //planetnames = ["Mercury","Venus","Earth","Mars","Jupiter","Saturn","Uranus","Neptune","Pluto","Ceres","Chiron","Eris"];
         
         whh_sun  = ["Sun"];
-        whh = ["Sun", "Mercury","Venus","Mars","Jupiter","Saturn"];
+        whh = ["Sun", "Moon", "Mercury","Venus","Mars","Jupiter","Saturn"];
+        //vspo_rep = ["Sun", "Moon", "Mercury","Venus","Mars","Jupiter","Saturn", "Uranus","Neptune"];
         if (big_small == 1) {
-             whh = ["Sun", "Mercury","Venus","Mars","Jupiter","Saturn","Uranus","Neptune","Pluto","Ceres","Chiron","Eris"]; 
+             whh = ["Sun", "Moon", "Mercury","Venus","Mars","Jupiter","Saturn","Uranus","Neptune","Pluto","Ceres","Chiron","Eris", "Gonggong"]; 
         }
 
         add_duration = new Time.Duration(time_add_hrs*3600);
@@ -417,7 +461,61 @@ class SolarSystemBaseView extends WatchUi.View {
         //pp=g.position();
         //kys = pp.keys();
 
-        pp = $.geo_cache.fetch(now_info.year, now_info.month, now_info.day, now_info.hour, now_info.min, now.timeZoneOffset/3600, now.dst,"ecliptic", whh);
+        //Geo_cache.fetch always returns the info for Midnight UTCH
+        //Which we then add the correct # of hours to (depending on )
+        //current  time zone, DST, etc, in order to put the 
+        //sun @ the correct time.  We also put in a small adjustment
+        //So that local solar noon is always directly UP & solor 
+        //midnight is directly DOWN on the circle.
+        //pp2 = $.geo_cache.fetch(now_info.year, now_info.month, now_info.day, now_info.hour, now_info.min, now.timeZoneOffset/3600, now.dst,"ecliptic", whh);
+        //moon_info = simple_moon.lunarPhase(now_info, now.timeZoneOffset, now.dst);
+
+        /* input = {:year => now_info.year,
+        :month => now_info.month,
+        :day => now_info.day,
+        :hour => now_info.hour,
+        :minute => now_info.min,
+        :UT => now.timeZoneOffset/3600,
+        :dst => now.dst,
+        :longitude => lastLoc[0], 
+        :latitude => lastLoc[1],
+        :topographic => false, 
+        };
+        moon = new Moon(input);
+        */
+        simple_moon = new simpleMoon();
+        
+        moon_info3 = simple_moon.eclipticPos (now_info, now.timeZoneOffset, now.dst); 
+        sun_info3 =  simple_moon.eclipticSunPos (now_info, now.timeZoneOffset, now.dst); 
+        simple_moon = null;
+        
+        elp82 = new ELP82();
+        moon_info4 = elp82.eclipticMoonELP82 (now_info, now.timeZoneOffset, now.dst);
+        elp82 = null;
+
+        
+        // moon_info2 = simple_moon.lunarPhase(now_info, now.timeZoneOffset, now.dst);
+        //moon_info = moon.position();
+        vspo87a = new vsop87a_nano();
+        pp = vspo87a.planetCoord(now_info, now.timeZoneOffset, now.dst, :ecliptic_latlon);
+        vspo87a = null;
+
+        System.println("Moon simple3: " + moon_info3 + " elp82: "+ moon_info4);
+        //System.println("Moon simple2: " + moon_info2);
+        //System.println("Moon ecl pos: " + moon_info);
+        //pp.put("Moon", [pp["Sun"][0] + moon_info[0]]);
+        pp.put("Moon", [moon_info4[0]]);
+        //pp["Sun"] = [sun_info3[:lat], sun_info3[:lon], sun_info3[:r]];
+        System.println("Sun info3: " + sun_info3);
+        System.println("Moon info: " + moon_info);
+        System.println("Sun-moon: " + pp["Sun"][0] + " " + pp["Moon"][0] );
+        //System.println("Sun simple3: " + sun_info3);
+        System.println("pp: " + pp);
+        System.println("pp2: " + pp2);
+
+
+
+
         kys = pp.keys();
         //g = null;
 
@@ -447,10 +545,11 @@ class SolarSystemBaseView extends WatchUi.View {
         //for that
         //TODO: We could put in a correction for EXACT LONGITUDE instead of just depending on 
         //now_info.hour=0 being the actual local midnight.
+        //pp/ecliptic degrees start at midnight (bottom of circle) & proceed COUNTERclockwise.
         sun_adj = 270 - pp["Sun"][0];
         hour_adj = now_info.hour*15 + now_info.min*15/60;
         //We align everything so that NOON is directly up (SOLAR noon, NOT 12:00pm)
-        noon_adj_hrs = 12 - sunrise_events[NOON][0];
+        noon_adj_hrs = 12 - sunrise_events[:NOON][0];
         noon_adj_deg = 15 * noon_adj_hrs;
         final_adj = sun_adj - hour_adj - noon_adj_deg;
 
@@ -461,17 +560,24 @@ class SolarSystemBaseView extends WatchUi.View {
         //dc.drawArc(xc, yc, r,Graphics.ARC_CLOCKWISE, 0,360);
         dc.drawCircle(xc, yc, r);
 
-        showDate(dc, now_info, xc, yc, false,Graphics.TEXT_JUSTIFY_CENTER);
+        showDate(dc, now_info, xc, yc, true,Graphics.TEXT_JUSTIFY_CENTER);
 
-        drawARC (dc, sunrise_events[SUNRISE][0] + noon_adj_hrs, sunrise_events[SUNSET][0]+ noon_adj_hrs, xc, yc, r, 6, Graphics.COLOR_WHITE);
+        System.println( sunrise_events[:SUNRISE][0] + " " +sunrise_events[:HORIZON_AM][0] + " " + sunrise_events[:NOON][0] + " " + sunrise_events[:SUNSET][0]+ " " +  sunrise_events[:HORIZON_PM][0] + " " + sunrise_events[:DUSK][0] + " " + sunrise_events[:DAWN][0] );
+        drawARC (dc, sunrise_events[:SUNRISE][0] + noon_adj_hrs, sunrise_events[:SUNSET][0]+ noon_adj_hrs, xc, yc, r, 6, Graphics.COLOR_WHITE);
         //NOON mark
-        drawARC (dc, sunrise_events[NOON][0]-0.1+ noon_adj_hrs, sunrise_events[NOON][0]+0.1+ noon_adj_hrs, xc, yc, r, 10, Graphics.COLOR_WHITE);
-        drawARC (dc, sunrise_events[NOON][0]-0.05+ noon_adj_hrs +  12, sunrise_events[NOON][0]+0.05+ noon_adj_hrs  + 12, xc, yc, r, 10, Graphics.COLOR_WHITE);
-        drawARC (dc, sunrise_events[DAWN][0]+ noon_adj_hrs, sunrise_events[SUNRISE][0]+ noon_adj_hrs, xc, yc, r, 4,Graphics.COLOR_LT_GRAY);
-        drawARC (dc, sunrise_events[SUNSET][0]+ noon_adj_hrs, sunrise_events[DUSK][0]+ noon_adj_hrs, xc, yc, r, 4,Graphics.COLOR_LT_GRAY);
-        drawARC (dc, sunrise_events[ASTRO_DAWN][0]+ noon_adj_hrs, sunrise_events[DAWN][0]+ noon_adj_hrs, xc, yc, r, 2,Graphics.COLOR_DK_GRAY);
-        drawARC (dc, sunrise_events[DUSK][0]+ noon_adj_hrs, sunrise_events[ASTRO_DUSK][0]+ noon_adj_hrs, xc, yc, r, 2,Graphics.COLOR_DK_GRAY);
+        drawARC (dc, sunrise_events[:NOON][0]-0.1+ noon_adj_hrs, sunrise_events[:NOON][0]+0.1+ noon_adj_hrs, xc, yc, r, 10, Graphics.COLOR_WHITE);
+        //MIDNIGHT mark
+        drawARC (dc, sunrise_events[:NOON][0]-0.05+ noon_adj_hrs +  12, sunrise_events[:NOON][0]+0.05+ noon_adj_hrs  + 12, xc, yc, r, 10, Graphics.COLOR_WHITE);
+        drawARC (dc, sunrise_events[:DAWN][0]+ noon_adj_hrs, sunrise_events[:SUNRISE][0]+ noon_adj_hrs, xc, yc, r, 4,Graphics.COLOR_LT_GRAY);
+        drawARC (dc, sunrise_events[:SUNSET][0]+ noon_adj_hrs, sunrise_events[:DUSK][0]+ noon_adj_hrs, xc, yc, r, 4,Graphics.COLOR_LT_GRAY);
+        drawARC (dc, sunrise_events[:ASTRO_DAWN][0]+ noon_adj_hrs, sunrise_events[:DAWN][0]+ noon_adj_hrs, xc, yc, r, 2,Graphics.COLOR_DK_GRAY);
+        drawARC (dc, sunrise_events[:DUSK][0]+ noon_adj_hrs, sunrise_events[:ASTRO_DUSK][0]+ noon_adj_hrs, xc, yc, r, 2,Graphics.COLOR_DK_GRAY);
         dc.setPenWidth(1);
+
+        drawHorizon(dc, sunrise_events[:HORIZON_PM][0], noon_adj_deg, hour_adj - noon_adj_deg);
+        
+
+
         
         
 
@@ -528,7 +634,7 @@ class SolarSystemBaseView extends WatchUi.View {
 
         //don't need these caches in the Orrery view & we are having out of memory
         //errors at times here....
-        geo_cache.empty();
+        //geo_cache.empty();
         sunrise_cache.empty();
 
         dc.setColor(Graphics.COLOR_TRANSPARENT, Graphics.COLOR_BLACK);
@@ -567,7 +673,8 @@ class SolarSystemBaseView extends WatchUi.View {
         }
         if (big_small == 2) {
              //whh = ["Sun","Mercury","Venus","Mars","Jupiter","Saturn","Uranus","Neptune","Pluto","Ceres","Chiron"]; 
-             whh = ["Mercury","Venus","Earth","Mars","Jupiter","Saturn","Uranus","Neptune","Pluto","Ceres","Chiron","Eris"]; 
+             //whh = ["Mercury","Venus","Earth","Mars","Jupiter","Saturn","Uranus","Neptune","Pluto","Ceres","Chiron","Eris"]; 
+             whh = ["Sun", "Mercury","Venus","Mars","Jupiter","Saturn","Uranus","Neptune","Pluto","Ceres","Chiron","Eris", "Gonggong"];
         }
 
         add_duration = new Time.Duration(time_add_hrs*3600);
@@ -579,12 +686,14 @@ class SolarSystemBaseView extends WatchUi.View {
 
 
         System.println("View Rectangular:" + now_info.year + " " + now_info.month + " " + now_info.day + " " + now_info.hour + " " + now_info.min + " " + now.timeZoneOffset/3600 + " " + now.dst);
-        g = new Heliocentric(now_info.year, now_info.month, now_info.day, now_info.hour, now_info.min, now.timeZoneOffset/3600, now.dst,"rectangular", whh);
+        //g = new Heliocentric(now_info.year, now_info.month, now_info.day, now_info.hour, now_info.min, now.timeZoneOffset/3600, now.dst,"rectangular", whh);
 
-        pp=g.planets();
+        //pp=g.planets();
+
+        pp = vspo87a.planetCoord(now_info, now.timeZoneOffset, now.dst, :helio_xyz);
         
         g = null;
-        pp.put("Sun",[0,0,0]);
+        //pp.put("Sun",[0,0,0]);
         kys = pp.keys();
 
         System.println("planets: " + pp);
@@ -609,6 +718,7 @@ class SolarSystemBaseView extends WatchUi.View {
         
         for (var i = 0; i<whh.size(); i++) {
             key = whh[i];
+            //System.println("KEY whh: " + key);
             var rd = pp[key][0]*pp[key][0]+pp[key][1]*pp[key][1];
             if (rd> max) {max = rd;}
             //System.println("MM: " + key + " " + pp[key][0] + " " + pp[key][1] + " " + rd);
@@ -853,8 +963,8 @@ class SolarSystemBaseView extends WatchUi.View {
         
         //y -= (_lines.size() * textHeight) / 2;
 
-        var dt = date.month+"/"+date.day.format("%02d");
-        if (incl_years) { dt = date.year.format("%02d") + "/" + dt;}
+        var dt = date.day.format("%02d") + "/"+date.month.format("%02d");
+        if (incl_years) { dt =  dt + "/" + date.year.format("%02d").substring(2,4) ;}
         dc.drawText(xc, yc - (1 + moveup)*textHeight, font, dt, justify);
         
         dc.drawText(xc, yc- (moveup)*textHeight, font, date.hour.format("%02d")+":" + date.min.format("%02d"), justify);
@@ -898,7 +1008,7 @@ class SolarSystemBaseView extends WatchUi.View {
         size = b_size;
         if (type == :orrery) { size = b_size/32.0;}
         if (key.equals("Sun")) {
-            size = 4*b_size;
+            size = 8*b_size;
             //if (type == :orrery) { size = b_size;}
             
         }
@@ -960,6 +1070,7 @@ class SolarSystemBaseView extends WatchUi.View {
                 break;   
         }
         if (type == :orrery) { size = Math.sqrt(size);}
+        if (type == :ecliptic) {size = Math.sqrt(Math.sqrt(Math.sqrt(size))) * 5;}
         if (size < min_size) { size = min_size; }
 
         dc.setColor(fillcol, Graphics.COLOR_BLACK);        
@@ -1028,6 +1139,52 @@ class SolarSystemBaseView extends WatchUi.View {
 
             }
         }
+    }
+
+    public function drawHorizon(dc, horizon_pm, noon_adj_dg, final_adj){
+
+        var eve_hor_start_deg = normalize  ( 270 - (horizon_pm)*15  - noon_adj_dg);
+        var eve_hor_end_deg =normalize (- eve_hor_start_deg);
+        var morn_hor_end_deg = normalize (eve_hor_end_deg + 180);'
+        var morn_hor_start_deg = normalize (eve_hor_start_deg + 180);'
+        var hor_ang_deg = 0;
+        
+        final_adj = normalize(270 - final_adj);
+        System.println("fainal: " + final_adj + " evestart " + eve_hor_start_deg);
+        //var sun_ang_deg =  -pp["Sun"][0] - final_adj;
+        if (normalize(eve_hor_start_deg - final_adj) < normalize(eve_hor_start_deg-morn_hor_end_deg))
+            { //night time
+                if (eve_hor_start_deg < morn_hor_end_deg) {eve_hor_start_deg += 360;}
+                if (final_adj < morn_hor_end_deg) {final_adj += 360;}
+                
+                var fact = (eve_hor_start_deg - final_adj ) / (eve_hor_start_deg - morn_hor_end_deg );
+                System.println("fainal: " + final_adj + " evestart " + eve_hor_start_deg + " " + morn_hor_end_deg + " " + fact);
+                hor_ang_deg =  (fact) * normalize180(eve_hor_start_deg - eve_hor_end_deg) + eve_hor_end_deg;
+                
+
+            }else { //daytime
+                if (eve_hor_start_deg > morn_hor_end_deg) {eve_hor_start_deg -= 360;}
+                if (final_adj > morn_hor_end_deg) {final_adj -= 360;}
+
+                var fact = (morn_hor_end_deg - final_adj) / (morn_hor_end_deg - eve_hor_start_deg);
+                System.println("fainal2: " + final_adj + " evestart " + eve_hor_start_deg + " " + morn_hor_end_deg + " " + fact);
+                hor_ang_deg =  (1-fact) *normalize180(eve_hor_start_deg - eve_hor_end_deg) + eve_hor_end_deg;
+
+            }
+            dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);
+            var hor_ang_rad = Math.toRadians(hor_ang_deg);
+            var x_hor1 = r* Math.cos(hor_ang_rad) + xc;
+            var y_hor1 = r* Math.sin(hor_ang_rad) + yc;
+            var x_hor1a = .6*r* Math.cos(hor_ang_rad) + xc;
+            var y_hor1a = .6*r* Math.sin(hor_ang_rad) + yc;
+            var x_hor2 = -r* Math.cos(hor_ang_rad) + xc;
+            var y_hor2 = -r* Math.sin(hor_ang_rad) + yc;
+            var x_hor2a = -.6*r* Math.cos(hor_ang_rad) + xc;
+            var y_hor2a = -.6*r* Math.sin(hor_ang_rad) + yc;
+            dc.drawLine (x_hor1,y_hor1,x_hor1a,y_hor1a);
+            dc.drawLine (x_hor2,y_hor2,x_hor2a,y_hor2a);
+
+        //drawARC (dc, sunrise_events[:NOON][0]-0.05+ noon_adj_hrs +  12, sunrise_events[:NOON][0]+0.05+ noon_adj_hrs  + 12, xc, yc, r, 10, Graphics.COLOR_WHITE);
     }
     
 
@@ -1198,20 +1355,25 @@ class SolarSystemBaseView extends WatchUi.View {
         var temp = curr_pos.toDegrees()[0];
         if ( (temp - 180).abs() < 0.1 || temp.abs() < 0.1 ) {curr_pos = null;} //bad data
 
-        if (curr_pos == null) {
-            var wcc = Weather.getCurrentConditions();
+        try {
+            if (curr_pos == null && Toybox has :Weather) {
+                var wcc = Weather.getCurrentConditions();
 
-            var w_pos = wcc.observationLocationPosition;
+                var w_pos = wcc.observationLocationPosition;
 
-            //System.println ("sc1.1: weather w_pos == Null2? " + (w_pos==null));
-            if (w_pos != null ) {
-                //System.println ("sc1.1: winfo " + w_pos.toDegrees());
-                curr_pos = w_pos; 
+                //System.println ("sc1.1: weather w_pos == Null2? " + (w_pos==null));
+                if (w_pos != null ) {
+                    //System.println ("sc1.1: winfo " + w_pos.toDegrees());
+                    curr_pos = w_pos; 
+                }
+
+                temp = curr_pos.toDegrees()[0];
+                if ( temp == 180 || temp == 0 ) {curr_pos = null;} //bad data
             }
-
-            temp = curr_pos.toDegrees()[0];
-            if ( temp == 180 || temp == 0 ) {curr_pos = null;} //bad data
+        } catch (e instanceof Lang.Exception) {
+            System.println("This device does not have Toybox.Weather - skipping this method of obtaining position information.");
         }
+
         if (curr_pos == null) {
             var a_info = Activity.getActivityInfo();
             var a_pos = null;

@@ -42,7 +42,99 @@ import Toybox.Lang;
 
     }
 
+    function normalize180(degrees) {  
+        /*
+        set degrees always between -180 to 180
+        
+        Args:
+            degrees (float): degrees to be adjusted
+            
+        Returns:
+            float: degrees between -180 and 180
+            
+        */
+        var ret;
+        switch (degrees) {
+            case instanceof Number:
+            case instanceof Long:
+                if (degrees >= 0) { ret = degrees%360 - 180;}
+                else {ret = degrees%360 + 180;}
+                
+            //case instanceof Long:
+            //    return degrees%360;
+            default:
+                ret = (degrees/360.0d - Math.floor(degrees/360.0d + fc)) *360.0d;
+        }  
 
+        if (ret > 180 ) { return ret - 360;}
+        return ret;      
+    }
+    //modular division for floats/doubles
+    //a mod b
+    //Has a little correction to avoid issues with fp&double numbers like
+    // 1.99999999 (rounds to 2 instead of 1)
+    function mod (a ,b) {
+        if (b ==0) { return 0; }
+        return (a/b - Math.floor(a/b + fc)) *b;
+    }
+
+    const J2000_0= 2451543.5d; // 2000 Jan 0.0 TDT, which is the same as 1999 Dec 31.0 TDT, i.e. precisely at midnight TDT  (Jan 0.0 is not the first day of January but rather the LAST day of December, so a full day before Jan 1.0)
+    //This is actually NOT the same as J2000, which is 1 Jan 2000 at noon, Julian Date 2451545, or 2000 Jan 1.5.
+    //This MIGHT be a mistake by someone who was trying to use J2000 but missed by a little?  In obliquity of ecliptic calc below the difference will be negligible.
+
+    const J2000 = 2451545; //start of J2000 epoch
+
+
+    function julianDate (year, month, day, hour, min, UT, dst) {
+
+
+        var pr=0d;
+        if (dst==1) {pr=1/24d;}
+        var JDN= ((367l*(year) - Math.floor(7*(year + Math.floor((month+9 )/12))/4)) + Math.floor(275*(month)/9) + (day + 1721013.5d - UT/24d ) );
+        var JD= (JDN + (hour)/24d + min/1440d - pr); //(hour)/24 + (min)/1440; in this case  noon (hr12, min0)
+        return JD;
+
+    }
+
+    function j2000_0Date (year, month, day, hour, min, UT, dst) {
+
+        var JD = julianDate(year, month, day, hour, min, UT, dst);
+        
+        return JD - J2000_0;
+
+
+    }
+
+    function j2000Date (year, month, day, hour, min, UT, dst) {
+
+        var JD = julianDate(year, month, day, hour, min, UT, dst);
+        
+        return JD - J2000;
+
+
+    }
+
+    function obliquityEcliptic_deg (year, month, day, hour, min, UT, dst) {
+
+        var d = j2000_0Date(year, month, day, hour, min, UT, dst);
+        
+        return 23.4393d - 3.563E-7d * d; //obliquity of the ecliptic, i.e. the "tilt" of the Earth's axis of rotation (currently 23.4 degrees and slowly decreasing)
+        
+    }
+
+    function obliquityEcliptic_rad (year, month, day, hour, min, UT, dst) {
+
+        return Math.toRadians (obliquityEcliptic_deg(year, month, day, hour, min, UT, dst));
+        
+    }
+
+    function sind (deg)  {
+        return Math.sin(Math.toRadians(deg));
+    }
+    
+    function cosd (deg)  {
+        return Math.cos(Math.toRadians(deg));
+    }
 
 
     function spherical2rectangular(RA, Decl, r) {
