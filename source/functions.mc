@@ -128,45 +128,7 @@ import Toybox.Lang;
         
     }
 
-    function sind (deg)  {
-        return Math.sin(Math.toRadians(deg));
-    }
-    
-    function cosd (deg)  {
-        return Math.cos(Math.toRadians(deg));
-    }
-
-
-    function spherical2rectangular(RA, Decl, r) {
-        /*Transform spherical to rectangular projection.
-        
-        From spherical (RA,Decl) coordinates system to rectangular(x,y,z) or 
-        by replacing RA with longitude and Decl with latitude we can tranform 
-        ecliptic coordinates to horizontal (azimuth,altitude).
-        
-        Args:
-            RA: Right Ascension.
-            Decl: Declination.
-            r: Distance in astronomical units.
-    
-        Returns:
-            tuple: x, y, z rectangular coordinate system. 
-            
-        */
-        
-        RA = Math.toRadians(RA);
-        Decl = Math.toRadians(Decl);
-        var x = r * Math.cos(RA) * Math.cos(Decl);
-        var y = r * Math.sin(RA) * Math.cos(Decl);
-        var z = r * Math.sin(Decl);
-        
-        return [x, y, z];
-
-
-    }
-
-
-    function rectangular2spherical(x, y, z) {
+     function rectangular2spherical(x, y, z) {
         /*Transform rectangular to spherical projection.
         
         From rectangular(x,y,z) coordinates system to spherical (RA,Decl, r) or 
@@ -197,6 +159,106 @@ import Toybox.Lang;
     }
 
     
+
+    function sind (deg)  {
+        return Math.sin(Math.toRadians(deg));
+    }
+    
+    function cosd (deg)  {
+        return Math.cos(Math.toRadians(deg));
+    }
+
+
+
+    function Planet_Sun(M, e, a, N, w, i) {
+        /*
+        Helper Function. From planet's trajectory elements to position around sun
+            
+        Returns:
+            tuple: position elements
+            
+        */
+
+        var M2=Math.toRadians(M);
+        var E0=M + (180/Math.PI)*e*Math.sin(M2)*(1+e*Math.cos(M2));
+        E0=normalize(E0) ;
+        var E02=Math.toRadians(E0);
+        var E1=E0 - (E0 - (180/Math.PI)*e*Math.sin(E02)-M)/(1-e*Math.cos(E02));
+        E1=normalize(E1) ;
+        var E=Math.toRadians(E1);
+        var x=a*(Math.cos(E)-e);
+        var y=a*(Math.sqrt(1 - e*e))*Math.sin(E);
+
+        var r=Math.sqrt(x*x+y*y);
+        var v=Math.atan2(y, x);
+        v=normalize(Math.toDegrees(v));
+
+        var xeclip=r*(Math.cos(Math.toRadians(N))*Math.cos(Math.toRadians(v+w)) - Math.sin(Math.toRadians(N))*Math.sin(Math.toRadians(v+w))*Math.cos(Math.toRadians(i)));
+        var yeclip=r*(Math.sin(Math.toRadians(N))*Math.cos(Math.toRadians(v+w)) + Math.cos(Math.toRadians(N))*Math.sin(Math.toRadians(v+w))*Math.cos(Math.toRadians(i)));
+        var zeclip=r*Math.sin(Math.toRadians(v+w))*Math.sin(Math.toRadians(i)) ;
+        var long2 = Math.atan2( yeclip, xeclip );
+        long2=normalize(Math.toDegrees(long2));
+        var lat2 = Math.atan2( zeclip, Math.sqrt( xeclip*xeclip +yeclip*yeclip ) );
+        lat2=Math.toDegrees(lat2);
+        //return {:xeclip => xeclip,:yeclip => yeclip, :zeclip => zeclip, :long2 => long2, :lat2=>lat2, :r => r};
+        return [xeclip,yeclip,zeclip,long2,lat2,r];
+
+    }
+
+
+    function sun2planet(xeclip, yeclip, zeclip, x, y, z) {
+        /*
+        Helper Function. From Heliocentric to Geocentric position
+            
+        Returns:
+            tuple: geocentric view of object.
+            
+        */
+        var x_geoc=(x+xeclip);
+        var y_geoc=(y+yeclip);
+        var z_geoc=(z+zeclip);
+        //System.println("sun2peclip: " + xeclip +" " + yeclip +" " + zeclip +" ");
+        //System.println("sun2pxyz: " + x +" " + y +" " + z +" ");
+        //System.println("sun2p: " + x_geoc +" " + y_geoc +" " + z_geoc +" ");
+        return rectangular2spherical(x_geoc, y_geoc, z_geoc);
+        //    t = ecliptic2equatorial(x_geoc, y_geoc, z_geoc, 23.4);
+        //    return rectangular2spherical(t[0],t[1],t[2]);
+    }
+//}
+
+
+class extra_functions {
+    
+    function spherical2rectangular(RA, Decl, r) {
+        /*Transform spherical to rectangular projection.
+        
+        From spherical (RA,Decl) coordinates system to rectangular(x,y,z) or 
+        by replacing RA with longitude and Decl with latitude we can tranform 
+        ecliptic coordinates to horizontal (azimuth,altitude).
+        
+        Args:
+            RA: Right Ascension.
+            Decl: Declination.
+            r: Distance in astronomical units.
+    
+        Returns:
+            tuple: x, y, z rectangular coordinate system. 
+            
+        */
+        
+        RA = Math.toRadians(RA);
+        Decl = Math.toRadians(Decl);
+        var x = r * Math.cos(RA) * Math.cos(Decl);
+        var y = r * Math.sin(RA) * Math.cos(Decl);
+        var z = r * Math.sin(Decl);
+        
+        return [x, y, z];
+
+
+    }
+
+
+   
 
 
     function ecliptic2equatorial(xeclip, yeclip, zeclip, oblecl) {
@@ -391,61 +453,4 @@ import Toybox.Lang;
         return res;
 
     }
-
-
-    function Planet_Sun(M, e, a, N, w, i) {
-        /*
-        Helper Function. From planet's trajectory elements to position around sun
-            
-        Returns:
-            tuple: position elements
-            
-        */
-
-        var M2=Math.toRadians(M);
-        var E0=M + (180/Math.PI)*e*Math.sin(M2)*(1+e*Math.cos(M2));
-        E0=normalize(E0) ;
-        var E02=Math.toRadians(E0);
-        var E1=E0 - (E0 - (180/Math.PI)*e*Math.sin(E02)-M)/(1-e*Math.cos(E02));
-        E1=normalize(E1) ;
-        var E=Math.toRadians(E1);
-        var x=a*(Math.cos(E)-e);
-        var y=a*(Math.sqrt(1 - e*e))*Math.sin(E);
-
-        var r=Math.sqrt(x*x+y*y);
-        var v=Math.atan2(y, x);
-        v=normalize(Math.toDegrees(v));
-
-        var xeclip=r*(Math.cos(Math.toRadians(N))*Math.cos(Math.toRadians(v+w)) - Math.sin(Math.toRadians(N))*Math.sin(Math.toRadians(v+w))*Math.cos(Math.toRadians(i)));
-        var yeclip=r*(Math.sin(Math.toRadians(N))*Math.cos(Math.toRadians(v+w)) + Math.cos(Math.toRadians(N))*Math.sin(Math.toRadians(v+w))*Math.cos(Math.toRadians(i)));
-        var zeclip=r*Math.sin(Math.toRadians(v+w))*Math.sin(Math.toRadians(i)) ;
-        var long2 = Math.atan2( yeclip, xeclip );
-        long2=normalize(Math.toDegrees(long2));
-        var lat2 = Math.atan2( zeclip, Math.sqrt( xeclip*xeclip +yeclip*yeclip ) );
-        lat2=Math.toDegrees(lat2);
-        //return {:xeclip => xeclip,:yeclip => yeclip, :zeclip => zeclip, :long2 => long2, :lat2=>lat2, :r => r};
-        return [xeclip,yeclip,zeclip,long2,lat2,r];
-
-    }
-
-
-    function sun2planet(xeclip, yeclip, zeclip, x, y, z) {
-        /*
-        Helper Function. From Heliocentric to Geocentric position
-            
-        Returns:
-            tuple: geocentric view of object.
-            
-        */
-        var x_geoc=(x+xeclip);
-        var y_geoc=(y+yeclip);
-        var z_geoc=(z+zeclip);
-        //System.println("sun2peclip: " + xeclip +" " + yeclip +" " + zeclip +" ");
-        //System.println("sun2pxyz: " + x +" " + y +" " + z +" ");
-        //System.println("sun2p: " + x_geoc +" " + y_geoc +" " + z_geoc +" ");
-        return rectangular2spherical(x_geoc, y_geoc, z_geoc);
-        //    t = ecliptic2equatorial(x_geoc, y_geoc, z_geoc, 23.4);
-        //    return rectangular2spherical(t[0],t[1],t[2]);
-    }
-//}
-
+}

@@ -16,6 +16,7 @@ var sunrise_cache;
 var moon;
 var simple_moon;
 var vspo87a;
+var vsop_cache;
 
 //! This app displays information about the user's position
 class SolarSystemBaseApp extends Application.AppBase {
@@ -30,8 +31,8 @@ class SolarSystemBaseApp extends Application.AppBase {
         _positionDelegate = new $.SolarSystemBaseDelegate(_positionView);
         //geo_cache = new Geocentric_cache();
         sunrise_cache = new sunRiseSet_cache();
-        simple_moon = new simpleMoon();
-        vspo87a = new vsop87a_nano();
+        vsop_cache = new VSOP87_cache();
+        
         
 
     }

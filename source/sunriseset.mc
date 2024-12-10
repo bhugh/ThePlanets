@@ -63,6 +63,7 @@ class sunRiseSet_cache{
             
             } else if (myStats.freeMemory<9500) {
                 MAX_CACHE -=1;
+                if (MAX_CACHE < 0) { MAX_CACHE = 0; }
                 if (indexes.size() > MAX_CACHE -1) {
                     g_cache.remove(indexes[0]);
                     indexes.remove(indexes[0]);

@@ -11,7 +11,7 @@
 //24-hour clock dial but considering we are only showing a approx. sky positions & rough moon quarter this probably good enough for many applications.
 
 class simpleMoon {
-   /*
+
     //  can use Time.Gregorian.info() output for now_info &
     // now = System.getClockTime(); output for now.timeZoneOffset and now.dst
     //Note timeZoneOffset_sec is SECONDS not hours
@@ -50,7 +50,6 @@ class simpleMoon {
         return [lunar_phase, lunar_day, sml_days];
 
     }
-    */
 
     public function eclipticPos (now_info, timeZoneOffset_sec, dst) {
 
@@ -91,13 +90,59 @@ class simpleMoon {
     */
     }
 
+    public function eclipticSunPos (now_info, timeZoneOffset_sec, dst) {
+
+        //var sml_days  = synodicMonthLength_days(now_info, timeZoneOffset_sec, dst );
+        //var base_JD = julianDate (2025, 1, 29 , 12, 36, 0, 0);
+        var current_JD = julianDate (now_info.year, now_info.month, now_info.day,now_info.hour, now_info.min, timeZoneOffset_sec/3600, dst);
+        return getSun(current_JD);
+    }
+
+    function getSun(jd)
+    {
+    //Truncated VSOP87, accurate to 39 arcsecs for 1000 years centered on J2000 (~60 arcsecs for 3000 years)
+    //Return values ra,dec are in radians, r retains input units
+    //Greg Miller (gmiller@gregmiller.net) 2024.  http://www.celestialprogramming.com/
+    //Released as public domain
+    var t=(jd - 2451545.0) / 365250.0;
+    var y = 0.00010466965 * Math.cos(0.09641690558 + 18849.22754997420*t);
+    y += 0.00835292314 * Math.cos(0.13952878991 + 12566.15169998280*t) -0.02442699036;
+    y += 0.99989211030 * Math.cos(0.18265890456 + 6283.07584999140*t);
+    y += (0.00093046324 + 0.00051506609 * Math.cos(4.43180499286 + 12566.15169998280*t))*t;
+
+    var x = 0.00561144206 + 0.00010466628 * Math.cos(1.66722645223 + 18849.22754997420*t);
+    x += 0.00835257300 * Math.cos(1.71034539450 + 12566.15169998280*t);
+    x += 0.99982928844 * Math.cos(1.75348568475 + 6283.07584999140*t);
+    x += (0.00123403056 + 0.00051500156 * Math.cos(6.00266267204 + 12566.15169998280*t))*t;
+
+    var z=0.00227822442 * Math.cos(3.41372504278 + 6283.07584999140*t)*t;
+
+    //Rotate from VSOP coordinates to J2000
+    var tx = -(x + y * 0.000000440360 + z * -0.000000190919);
+    var ty = -(x * -0.000000479966 + y * 0.917482137087 + z * -0.397776982902);
+    var tz = -(y * 0.397776982902 + z * 0.917482137087);
+
+    //Convert from Cartesian to polar coordinates 
+    var r = Math.sqrt(tx * tx + ty * ty + tz * tz);
+    var l = Math.atan2(ty, tx);
+    var t2 = Math.acos(tz / r);
+
+    //Make sure RA is positive, and Dec is in range +/-90
+    if (l < 0) { l += 2 * Math.PI; }
+    t2 = .5 * Math.PI - t2;
+
+    //Uncomment to return results in hours and degrees rather than radians
+    //return {ra: l*180/Math.PI/15, dec: t2*180/Math.PI, r: r};
+    //return {ra: l, dec: t2, r: r};
+    return {:lat=> Math.toDegrees(l), :lon => Math.toDegrees(t2), :r => r};
+}
 
 }
 
 //By Greg Miller gmiller@gregmiller.net http://www.celestialprogramming.com
 //Released as public domain
 
-/*
+
 
 class ELP82 {
 
@@ -309,7 +354,7 @@ class ELP82 {
         return t;
     }
     */
-/*
+
     private function JDEtoT(jde){
         return (jde-2451545)/36525.0;
     }
@@ -317,7 +362,7 @@ class ELP82 {
 
 
 
-*/
+
 
 
 

@@ -486,32 +486,34 @@ class SolarSystemBaseView extends WatchUi.View {
         simple_moon = new simpleMoon();
         
         moon_info3 = simple_moon.eclipticPos (now_info, now.timeZoneOffset, now.dst); 
-        sun_info3 =  simple_moon.eclipticSunPos (now_info, now.timeZoneOffset, now.dst); 
+        //sun_info3 =  simple_moon.eclipticSunPos (now_info, now.timeZoneOffset, now.dst); 
         simple_moon = null;
-        
-        elp82 = new ELP82();
-        moon_info4 = elp82.eclipticMoonELP82 (now_info, now.timeZoneOffset, now.dst);
-        elp82 = null;
+
+        //elp82 = new ELP82();
+        //moon_info4 = elp82.eclipticMoonELP82 (now_info, now.timeZoneOffset, now.dst);
+        //elp82 = null;
 
         
         // moon_info2 = simple_moon.lunarPhase(now_info, now.timeZoneOffset, now.dst);
         //moon_info = moon.position();
-        vspo87a = new vsop87a_nano();
-        pp = vspo87a.planetCoord(now_info, now.timeZoneOffset, now.dst, :ecliptic_latlon);
-        vspo87a = null;
+        //vspo87a = new vsop87a_nano();
+        //vspo87a = new vsop87a_pico();
+        //pp = vspo87a.planetCoord(now_info, now.timeZoneOffset, now.dst, :ecliptic_latlon);
+        pp = vsop_cache.fetch(now_info, now.timeZoneOffset, now.dst, :ecliptic_latlon);        
+        //vspo87a = null;
 
-        System.println("Moon simple3: " + moon_info3 + " elp82: "+ moon_info4);
+        //System.println("Moon simple3: " + moon_info3 + " elp82: "+ moon_info4);
         //System.println("Moon simple2: " + moon_info2);
         //System.println("Moon ecl pos: " + moon_info);
         //pp.put("Moon", [pp["Sun"][0] + moon_info[0]]);
-        pp.put("Moon", [moon_info4[0]]);
+        pp.put("Moon", [moon_info3[0]]);
         //pp["Sun"] = [sun_info3[:lat], sun_info3[:lon], sun_info3[:r]];
         System.println("Sun info3: " + sun_info3);
         System.println("Moon info: " + moon_info);
         System.println("Sun-moon: " + pp["Sun"][0] + " " + pp["Moon"][0] );
         //System.println("Sun simple3: " + sun_info3);
-        System.println("pp: " + pp);
-        System.println("pp2: " + pp2);
+        //System.println("pp: " + pp);
+        //System.println("pp2: " + pp2);
 
 
 
@@ -536,7 +538,7 @@ class SolarSystemBaseView extends WatchUi.View {
 
         sunrise_events = sunrise_cache.fetch(now_info.year, now_info.month, now_info.day, now.timeZoneOffset/3600, now.dst, lastLoc[0], lastLoc[1]);
 
-        System.println("Sunrise_set: " + sunrise_events);
+        //System.println("Sunrise_set: " + sunrise_events);
         //System.println("Sunrise_set: " + sunrise_set);
         //sunrise_set = [sunrise_set[0]*15, sunrise_set[1]*15]; //hrs to degrees
 
@@ -689,8 +691,10 @@ class SolarSystemBaseView extends WatchUi.View {
         //g = new Heliocentric(now_info.year, now_info.month, now_info.day, now_info.hour, now_info.min, now.timeZoneOffset/3600, now.dst,"rectangular", whh);
 
         //pp=g.planets();
-
-        pp = vspo87a.planetCoord(now_info, now.timeZoneOffset, now.dst, :helio_xyz);
+        //vspo87a = new vsop87a_pico();
+        //pp = vspo87a.planetCoord(now_info, now.timeZoneOffset, now.dst, :helio_xyz);
+        pp = vsop_cache.fetch(now_info, now.timeZoneOffset, now.dst, :helio_xyz);
+        //vspo87a = null;
         
         g = null;
         //pp.put("Sun",[0,0,0]);
@@ -718,7 +722,7 @@ class SolarSystemBaseView extends WatchUi.View {
         
         for (var i = 0; i<whh.size(); i++) {
             key = whh[i];
-            //System.println("KEY whh: " + key);
+            System.println("KEY whh: " + key);
             var rd = pp[key][0]*pp[key][0]+pp[key][1]*pp[key][1];
             if (rd> max) {max = rd;}
             //System.println("MM: " + key + " " + pp[key][0] + " " + pp[key][1] + " " + rd);
