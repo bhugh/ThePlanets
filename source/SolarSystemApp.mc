@@ -8,6 +8,7 @@ import Toybox.Application;
 import Toybox.Lang;
 import Toybox.Position;
 import Toybox.WatchUi;
+import Toybox.Application.Storage;
 
 var page = 0;
 var pages_total = 25;
@@ -17,7 +18,7 @@ var moon;
 var simple_moon;
 var vspo87a;
 var vsop_cache;
-    var view_modes = [0, 1,2,3,4,];
+    var view_modes = [0, 1,2,3,4,5];
     var view_index = 0;
     var speeds = [-24*365*10, -24*365*7, -24*365*4, -24*365*2,
                 -24*365, -24*90, -24*60, -24*30, -24*14, -24*7,-24*5, -24*3, -24*2, -24,
@@ -29,10 +30,13 @@ var vsop_cache;
                 24*365*4, 24*365 * 7, 24*365 * 10];
 var speeds_index = 19;
 var started = false;
+var hz = 5.0;
+var screen0Move_index = 31;
 
 var time_add_hrs = 0;
 
 var show_intvl = 0;
+var solarSystemView_class;
 
 //! This app displays information about the user's position
 class SolarSystemBaseApp extends Application.AppBase {
@@ -49,13 +53,14 @@ class SolarSystemBaseApp extends Application.AppBase {
         AppBase.initialize();
         System.println("init starting...");
         _positionView = new $.SolarSystemBaseView();
+        solarSystemView_class = _positionView;
         _positionDelegate = new $.SolarSystemBaseDelegate(_positionView);
         //geo_cache = new Geocentric_cache();
         sunrise_cache = new sunRiseSet_cache();
         vsop_cache = new VSOP87_cache();
         System.println("inited...");
         view_index=0;
-        $.changeModes(); //inits speeds_index properly
+        $.changeModes(null); //inits speeds_index properly
         
         
 
@@ -112,6 +117,44 @@ class SolarSystemBaseApp extends Application.AppBase {
 
         readAStorageValue("Screen0 Move Option",screen0MoveOption_default, screen0MoveOption_size );
 
+        if ($.Options_Dict["Screen0 Move Option"] != null) { 
+            $.screen0Move_index = 27 + $.Options_Dict["Screen0 Move Option"];}
+        else {$.screen0Move_index = 31;
+           System.println("options storage read: screen0move: " + $.screen0Move_index + " optiond: " + $.Options_Dict["Screen0 Move Option"] );
+        }
+            
+        
+
+                //[ "5hz", "4hz", "3hz", "2hz", "1hz", "2/3hz", "1/2hz"];
+        switch ($.Options_Dict["Refresh Option"]) {
+                case 0:
+                    $.hz = 5;
+                    break;
+                case 1:
+                    $.hz = 4;
+                    break;
+                case 2:
+                    $.hz = 3;
+                    break;                      
+                case 3:
+                    $.hz = 2;
+                    break;    
+                case 4:
+                    $.hz = 1;
+                    break;      
+                case 5:
+                    $.hz = 2/3.0;
+                    break;
+                case 6:
+                    $.hz = 1/2.0;
+                    break;    
+                default:
+                    $.hz = 4;    
+
+        }
+
+        _positionView.startAnimationTimer($.hz);           
+        
 
         /* //Sample binary option
         temp = Storage.getValue("Show Battery");

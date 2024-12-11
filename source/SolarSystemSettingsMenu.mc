@@ -7,12 +7,15 @@
 import Toybox.Application.Storage;
 import Toybox.Lang;
 import Toybox.WatchUi;
+import Toybox.Application.Storage;
 
 //! The app settings menu
 class SolarSystemSettingsMenu extends WatchUi.Menu2 {
 
     //! Constructor
     public function initialize() {
+
+    Menu2.initialize({:title=>"Settings"});
 
     if ($.Options_Dict["Label Display Option"] == null) { $.Options_Dict["Label Display Option"] = $.labelDisplayOption_default; }
     Menu2.addItem(new WatchUi.MenuItem("Display Planet Labels?",
@@ -102,6 +105,17 @@ class SolarSystemSettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
     //! Constructor
     public function initialize() {
         Menu2InputDelegate.initialize();
+    }
+
+        //! Handle a menu item being selected
+    //! @param menuItem The menu item selected
+    public function onSelect(menuItem as MenuItem) as Void {
+        
+        /*if (menuItem instanceof ToggleMenuItem) {
+            Storage.setValue(menuItem.getId() as String, menuItem.isEnabled());
+            $.Options_Dict[menuItem.getId() as String] = menuItem.isEnabled();
+            $.Settings_ran = true;
+        }*/
         
         var id=menuItem.getId();
 
@@ -113,17 +127,49 @@ class SolarSystemSettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
         }
 
         if(id.equals("Refresh Option")) {
-        $.Options_Dict[id]=($.Options_Dict[id]+1)%infiniteSecondOptions_size;
-        menuItem.setSubLabel($.infiniteSecondOptions[$.Options_Dict[id]]);
+        $.Options_Dict[id]=($.Options_Dict[id]+1)%refreshOption_size;
+        menuItem.setSubLabel($.refreshOption[$.Options_Dict[id]]);
 
-        Storage.setValue(id as String, $.Options_Dict[id]);            
+        Storage.setValue(id as String, $.Options_Dict[id]); 
+        //[ "5hz", "4hz", "3hz", "2hz", "1hz", "2/3hz", "1/2hz"];
+        switch ($.Options_Dict[id]) {
+                case 0:
+                    $.hz = 5;
+                    break;
+                case 1:
+                    $.hz = 4;
+                    break;
+                case 2:
+                    $.hz = 3;
+                    break;                      
+                case 3:
+                    $.hz = 2;
+                    break;    
+                case 4:
+                    $.hz = 1;
+                    break;      
+                case 5:
+                    $.hz = 2/3.0;
+                    break;
+                case 6:
+                    $.hz = 1/2.0;
+                    break;    
+                default:
+                    $.hz = 4;    
+
+        }
+
+        solarSystemView_class.startAnimationTimer($.hz);           
         }
 
         if(id.equals("Screen0 Move Option")) {
-        $.Options_Dict[id]=($.Options_Dict[id]+1)%infiniteSecondOptions_size;
-        menuItem.setSubLabel($.infiniteSecondOptions[$.Options_Dict[id]]);
+        $.Options_Dict[id]=($.Options_Dict[id]+1)%screen0MoveOption_size;
+        menuItem.setSubLabel($.screen0MoveOption[$.Options_Dict[id]]);
 
-        Storage.setValue(id as String, $.Options_Dict[id]);            
+        Storage.setValue(id as String, $.Options_Dict[id]);    
+
+        if ($.Options_Dict["Screen0 Move Option"] != null) { $.screen0Move_index = 27 + $.Options_Dict["Screen0 Move Option"];}
+        else {$.screen0Move_index = 31;}         
         }
 
 

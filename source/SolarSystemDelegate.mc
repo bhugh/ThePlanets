@@ -41,10 +41,11 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
             //WatchUi.requestUpdate();
         } else {
             System.println("delegate onselect... moving ot new mode" + $.view_index);
+            var old_index = $.view_index;
             $.view_index = ($.view_index + 1) % $.view_modes.size();  
             started = true;
             $.show_intvl = 0;
-            $.changeModes();  
+            $.changeModes(old_index);  
         }
 
         
@@ -60,14 +61,14 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
 
         $.show_intvl = 0;
         if (!started || $.view_index == 0) {
-
+            var old_index = $.view_index;
             $.view_index = ($.view_index - 1);        
             if ($.view_index < 0) {
                 return false;
             }
             started = true;
             $.show_intvl = 0;
-            $.changeModes();
+            $.changeModes(old_index);  
             //WatchUi.requestUpdate();
         } else {
             started = false;
@@ -154,7 +155,7 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
 
     
 
-    /*
+    
     function onKey(keyEvent) {
         var keyvent =  keyEvent.getKey();
         System.println("GOT KEEY!!!!!!!!!: " + keyvent);         // e.g. KEY_MENU = 7
@@ -173,38 +174,51 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
         
         
     }
-    */
+    
 }
 
-function changeModes(){
+function changeModes(previousMode){
         System.println("chmodes..." );
 
-        $.show_intvl = 0;
-        $.time_add_hrs = .5; //reset to present time
+        $.show_intvl = 0; //used by showDate to decide when/how long to show (5 min) type labes
+        //$.time_add_hrs = .5; //reset to present time //NOW Do this, or not, individually per MODE below
         switch($.view_modes[$.view_index]){
             case (0):
                 //time_add_inc = 0.25;
-                speeds_index = 31; //30 mins
+                //$.time_add_hrs = .5; //reset to present time
+                if (previousMode != null && previousMode==5 ) {  //mode 5 often moves years into the future...
+                    $.time_add_hrs = .5; //reset to present time
+                }
+                speeds_index = screen0Move_index; //30 mins
                 break;
             case (1):
                 //time_add_inc=1;
+                //DON'T reset to present time here bec. we're usually coming from mode 0 or mode 2& can just continue seamlessly
+                //$.time_add_hrs = .5; //reset to present time
                 speeds_index = 28; //5 mins
                 break;
             case(2):
                 //time_add_inc = 24*3; //1 day
-                speeds_index = 36;
+                //DON'T reset to present time here bec. we're usually coming from mode 0 or mode 2& can just continue seamlessly
+                if (previousMode != null && previousMode==3 ) {  //mode 3 often moves years into the future...
+                    $.time_add_hrs = 0; //reset to present time
+                }
+                speeds_index = 37;
                 break;                
             case(3):
                 //time_add_inc = 24*3; //1 day
+                $.time_add_hrs = 0; //reset to present time
                 speeds_index = 36;
                 break;
             case(4):
                 //time_add_inc = 24*15; //14 days
+                $.time_add_hrs = 0; //reset to present time
                 speeds_index = 41;
                 break;
             
             case(5):
                 //time_add_inc = 24*15; //90 days
+                $.time_add_hrs = 0; //reset to present time
                 speeds_index = 44;
                 break;
             default:

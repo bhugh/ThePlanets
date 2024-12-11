@@ -19,7 +19,7 @@ class SolarSystemBaseView extends WatchUi.View {
     private var _lines as Array<String>;
     
     public var xc, yc, min_c;
-    public var hz = 5.0;
+    
     //private var page;
     
     //! Constructor
@@ -52,13 +52,13 @@ class SolarSystemBaseView extends WatchUi.View {
              if ($.view_modes[$.view_index]>0) {
                 $.time_add_hrs += speeds[speeds_index];
                 WatchUi.requestUpdate();
-             } else if (animation_count%hz==0) {
-                //update screen #0 at 1 hz, much like a watchface...
+             } else if (mod(animation_count,$.hz)==0) {
+                //update screen #0 at 1 $.hz, much like a watchface...
                 WatchUi.requestUpdate();
                 
              }
                 WatchUi.requestUpdate();
-           //Allow msgs etc when screen is stopped, but just @ a lower hz 
+           //Allow msgs etc when screen is stopped, but just @ a lower $.hz 
            } else if (animation_count%3 == 0) {
              WatchUi.requestUpdate();
            }
@@ -67,7 +67,7 @@ class SolarSystemBaseView extends WatchUi.View {
 
 
     var animationTimer=null;
-    public function startAnimationTimer(){
+    public function startAnimationTimer(hertz){
         if (animationTimer != null) {
             try {
                 animationTimer.stop();
@@ -80,7 +80,7 @@ class SolarSystemBaseView extends WatchUi.View {
 
         animationTimer= new Timer.Timer();
         
-        animationTimer.start(method(:animationTimerCallback), 1000/hz, true);
+        animationTimer.start(method(:animationTimerCallback), 1000/hertz, true);
     }
 
 
@@ -92,7 +92,7 @@ class SolarSystemBaseView extends WatchUi.View {
         yc = dc.getHeight() / 2;
         min_c  = (xc < yc) ? xc : yc;
 
-        startAnimationTimer();
+        startAnimationTimer($.hz);
 
     
 
@@ -172,10 +172,15 @@ class SolarSystemBaseView extends WatchUi.View {
     var count = 0;
     var textDisplay_count = 0;
     var old_mode = -1;
+    var drawPlanetCount =0;
+    var planetRand = 0;
     public function onUpdate(dc as Dc) as Void {
         System.println("count: " + count);
         count++;
         textDisplay_count ++;
+        drawPlanetCount =0; //incremented when drawing each planet; refreshed on each new screen draw
+        planetRand = Math.rand(); //1 new random number for drawPlanet, per screen refresh
+
         if ($.view_index != old_mode) {
             textDisplay_count =0;
             old_mode = $.view_index;
@@ -531,9 +536,9 @@ class SolarSystemBaseView extends WatchUi.View {
         //yc = dc.getHeight() / 2;
    
         r = (xc < yc) ? xc : yc;
-        r = .9 * r;
+        r = .85 * r; //was .9 but edge of screen a bit crowded??? 
 
-        font = Graphics.FONT_SMALL;
+        font = Graphics.FONT_TINY;
         textHeight = dc.getFontHeight(font);
         /*
         y -= (_lines.size() * textHeight) / 2;
@@ -554,6 +559,8 @@ class SolarSystemBaseView extends WatchUi.View {
              whh = ["Sun", "Moon", "Mercury","Venus","Mars","Jupiter","Saturn","Uranus","Neptune","Pluto","Ceres","Chiron","Eris", "Gonggong"]; 
         }
 
+
+        //TODO: Make all this JUlian Time so we don't need to worry about Unix seconds & all that
         add_duration = new Time.Duration($.time_add_hrs*3600);
         //System.println("View Ecliptic:" + add_duration + " " + $.time_add_hrs);
 
@@ -763,7 +770,7 @@ class SolarSystemBaseView extends WatchUi.View {
         r = (xc < yc) ? xc : yc;
         r = .9 * r;
 
-        font = Graphics.FONT_SMALL;
+        font = Graphics.FONT_TINY;
         textHeight = dc.getFontHeight(font);
         /*
         y -= (_lines.size() * textHeight) / 2;
@@ -1086,7 +1093,7 @@ class SolarSystemBaseView extends WatchUi.View {
     ];
 
     function helpMSG () {
-        if (helpMSG_current != null && helpMSG_shownTimes < 5*hz) {
+        if (helpMSG_current != null && helpMSG_shownTimes < 5*$.hz) {
             helpMSG_shownTimes ++;
             return helpMSG_current;
         }
@@ -1145,7 +1152,7 @@ class SolarSystemBaseView extends WatchUi.View {
             }
             dc.drawText(xc, yc+ .5*textHeight, font, intvl, justify);
             //show_intvl = false;
-        } else if ((15*hz).toNumber() < 2.0* hz) {
+        } else if ((15*$.hz).toNumber() < 2.0* $.hz) {
             dc.drawText(xc, yc+ .5*textHeight, font, msg, justify);
         }
         
@@ -1160,6 +1167,7 @@ class SolarSystemBaseView extends WatchUi.View {
 
     public function drawPlanet(dc, key, x, y, base_size, ang_rad, type, big_small, small_whh) {
 
+        drawPlanetCount++;
         col = Graphics.COLOR_WHITE;
         fillcol = Graphics.COLOR_BLACK;
         b_size = base_size/def_size*min_c;
@@ -1228,8 +1236,27 @@ class SolarSystemBaseView extends WatchUi.View {
                 col = Graphics.COLOR_WHITE;
                 break;   
         }
-        if (type == :orrery) { size = Math.sqrt(size);}
-        if (type == :ecliptic) {size = Math.sqrt(Math.sqrt(Math.sqrt(size))) * 5;}
+        var correction =  1;
+        if (type == :orrery) { 
+            size = Math.sqrt(size);
+
+                //trying to make the largest things about as large as half the letter's height
+             correction = 0.3 * textHeight/ Math.sqrt(8*b_size);
+             System.println("orrery correction " + correction);
+             if (correction< 1) {correction=1;}
+             if (correction< 2) {correction=2;}             
+              size = size * correction;
+            
+            }
+        if (type == :ecliptic) {
+            size = Math.sqrt(Math.sqrt(Math.sqrt(size))) * 5;
+            correction = 0.3 * textHeight/    Math.sqrt(Math.sqrt(Math.sqrt(size))) / 5;
+            System.println("ecliptic correction " + correction);
+            if (correction< 1) {correction=1;}
+             if (correction< 2) {correction=2;}             
+              size = size * correction;
+        }
+
         if (size < min_size) { size = min_size; }
 
         dc.setColor(fillcol, Graphics.COLOR_BLACK);        
@@ -1268,34 +1295,48 @@ class SolarSystemBaseView extends WatchUi.View {
             //dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);        
         }
         */
+        var drawThis=false;
+        if ($.Options_Dict["Label Display Option"] != 1){
 
-        if (textDisplay_count % (4*hz).toNumber() < hz ) {
-        
-            if (type == :ecliptic) {
-                if (!key.equals("Sun"))  {
-                    sub = findSpot(-pp[key][0]+sid);
-                    mult = 0.8 - (.23 * sub);
-                    x2 = mult*r* Math.cos(ang_rad) + xc;
-                    y2 = mult* r* Math.sin(ang_rad) + yc;
-
-                    dc.setColor(col, Graphics.COLOR_TRANSPARENT);        
-                    dc.drawText(x2, y2, Graphics.FONT_TINY, key.substring(0,2), Graphics.TEXT_JUSTIFY_VCENTER + Graphics.TEXT_JUSTIFY_CENTER);
-                    //drawAngledText(x as Lang.Numeric, y as Lang.Numeric, font as Graphics.VectorFont, text as Lang.String, justification as Graphics.TextJustification or Lang.Number, angle as Lang.Numeric) as Void
-                }
-            } else if (type == :orrery) {
+            var mlt = 4;
+            if ($.Options_Dict["Label Display Option"]==3) {mlt = 8;}
+            else if ($.Options_Dict["Label Display Option"]==0 ) {mlt = 1;}
+            else if ($.Options_Dict["Label Display Option"]==4 ) {
                 
-                if (!key.equals("Sun") && (big_small==0 || small_whh.indexOf(key)==-1))  {
-                    sub = findSpotRect(x,y);
-                    //mult = 2 + sub;
-                    x2 = sub[0];
-                    y2 = sub[1];
-                    dc.setColor(col, Graphics.COLOR_TRANSPARENT);        
-                    dc.drawText(x2, y2, Graphics.FONT_TINY, key.substring(0,2), Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_CENTER);
-                    //drawAngledText(x as Lang.Numeric, y as Lang.Numeric, font as Graphics.VectorFont, text as Lang.String, justification as Graphics.TextJustification or Lang.Number, angle as Lang.Numeric) as Void
+                    //sparkly labels effect/random 1/4 of the planets @ any time
+                  drawThis = (planetRand + drawPlanetCount)%pp.size()<pp.size()/8;
+                  mlt = 20;
+                
                 }
 
+            if (textDisplay_count % (mlt*$.hz).toNumber() < $.hz || drawThis) {
+            
+                if (type == :ecliptic) {
+                    if (!key.equals("Sun"))  {
+                        sub = findSpot(-pp[key][0]+sid);
+                        mult = 0.8 - (.23 * sub);
+                        x2 = mult*r* Math.cos(ang_rad) + xc;
+                        y2 = mult* r* Math.sin(ang_rad) + yc;
+
+                        dc.setColor(col, Graphics.COLOR_TRANSPARENT);        
+                        dc.drawText(x2, y2, Graphics.FONT_TINY, key.substring(0,2), Graphics.TEXT_JUSTIFY_VCENTER + Graphics.TEXT_JUSTIFY_CENTER);
+                        //drawAngledText(x as Lang.Numeric, y as Lang.Numeric, font as Graphics.VectorFont, text as Lang.String, justification as Graphics.TextJustification or Lang.Number, angle as Lang.Numeric) as Void
+                    }
+                } else if (type == :orrery) {
+                    
+                    if (!key.equals("Sun") && (big_small==0 || small_whh.indexOf(key)==-1))  {
+                        sub = findSpotRect(x,y);
+                        //mult = 2 + sub;
+                        x2 = sub[0];
+                        y2 = sub[1];
+                        dc.setColor(col, Graphics.COLOR_TRANSPARENT);        
+                        dc.drawText(x2, y2, Graphics.FONT_TINY, key.substring(0,2), Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_CENTER);
+                        //drawAngledText(x as Lang.Numeric, y as Lang.Numeric, font as Graphics.VectorFont, text as Lang.String, justification as Graphics.TextJustification or Lang.Number, angle as Lang.Numeric) as Void
+                    }
 
 
+
+                }
             }
         }
     }
