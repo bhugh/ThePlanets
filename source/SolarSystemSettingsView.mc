@@ -9,6 +9,19 @@ import Toybox.Graphics;
 import Toybox.Lang;
 import Toybox.WatchUi;
 
+var Options_Dict = {  };
+var labelDisplayOption=[ "Always On", "Always Off", "Freq Flash", "Less Flash", "Random Flash"];
+var labelDisplayOption_size = 5;
+var labelDisplayOption_default = 2;
+
+var refreshOption=[ "5hz", "4hz", "3hz", "2hz", "1hz", "2/3hz", "1/2hz"];
+var refreshOption_size = 1;
+var refreshPption_default = 2;
+
+var screen0MoveOption=[ "1min", "2min", "4min", "10min", "15min", "30min", "1hr", "2hr"];
+var screen0MoveOption_size = 8;
+var screen0MovePption_default = 4;
+
 /*
 var Options_Dict = {  };
 var Settings_ran = false;
@@ -18,9 +31,7 @@ var infiniteSecondLengths = [0, 1, 2, 3, 4, 5, 10, 1000000 ];
 var infiniteSecondOptions_size = 8;
 var infiniteSecondOptions_default = 2;
 
-var secondDisplayOptions=[ "Main Face Large", "Main Face Center", "Inset Dial"];
-var secondDisplayOptions_size = 3;
-var secondDisplayOptions_default = 0;
+
 
 var secondHandOptions=[ "Big Pointer", "Outline Pointer", "Big Blunt", "Outline Blunt",  "Big Needle", "Small Block", "Small Pointer","Small Needle"];
 var secondHandOptions_size = 8;

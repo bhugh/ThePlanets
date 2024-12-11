@@ -10,6 +10,10 @@
 //This is an approximation and any phase/full moon may be off by as much as +/- 7 hours. The moon moves about 0.5 degrees per hour against the background stars, so the difference may be about +/- 3.5 degrees visually or +/- 12 minutes.  This is large enough to be seen visually on i.e. even a small
 //24-hour clock dial but considering we are only showing a approx. sky positions & rough moon quarter this probably good enough for many applications.
 
+import Toybox.Math;
+import Toybox.System;
+import Toybox.Lang; 
+
 class simpleMoon {
    /*
     //  can use Time.Gregorian.info() output for now_info &

@@ -13,6 +13,19 @@ class SolarSystemSettingsMenu extends WatchUi.Menu2 {
 
     //! Constructor
     public function initialize() {
+
+    if ($.Options_Dict["Label Display Option"] == null) { $.Options_Dict["Label Display Option"] = $.labelDisplayOption_default; }
+    Menu2.addItem(new WatchUi.MenuItem("Display Planet Labels?",
+        $.labelDisplayOption[$.Options_Dict["Label Display Option"]],"Label Display Option",{}));
+
+    if ($.Options_Dict["Refresh Option"] == null) { $.Options_Dict["Refresh Option"] = $.refreshOption_default; }
+    Menu2.addItem(new WatchUi.MenuItem("Screen Refresh Rate?",
+    $.refreshOption[$.Options_Dict["Refresh Option"]],"Refresh Option",{}));    
+
+    if ($.Options_Dict["Screen0 Move Option"] == null) { $.Options_Dict["Screen0 Move Option"] = $.screen0MoveOption_default; }
+    Menu2.addItem(new WatchUi.MenuItem("Time interval (init screen)?",
+    $.screen0MoveOption[$.Options_Dict["Screen0 Move Option"]],"Screen0 Move Option",{}));    
+
         /*
         $.Settings_ran = true;
         
@@ -89,7 +102,31 @@ class SolarSystemSettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
     //! Constructor
     public function initialize() {
         Menu2InputDelegate.initialize();
-        //mainView = $.ElegantAnaView;
+        
+        var id=menuItem.getId();
+
+        if(id.equals("Label Display Option")) {
+        $.Options_Dict[id]=($.Options_Dict[id]+1)%labelDisplayOption_size;
+        menuItem.setSubLabel($.labelDisplayOption[$.Options_Dict[id]]);
+
+        Storage.setValue(id as String, $.Options_Dict[id]);            
+        }
+
+        if(id.equals("Refresh Option")) {
+        $.Options_Dict[id]=($.Options_Dict[id]+1)%infiniteSecondOptions_size;
+        menuItem.setSubLabel($.infiniteSecondOptions[$.Options_Dict[id]]);
+
+        Storage.setValue(id as String, $.Options_Dict[id]);            
+        }
+
+        if(id.equals("Screen0 Move Option")) {
+        $.Options_Dict[id]=($.Options_Dict[id]+1)%infiniteSecondOptions_size;
+        menuItem.setSubLabel($.infiniteSecondOptions[$.Options_Dict[id]]);
+
+        Storage.setValue(id as String, $.Options_Dict[id]);            
+        }
+
+
     }
     /*
     //! Handle a menu item being selected

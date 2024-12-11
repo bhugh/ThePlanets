@@ -14,6 +14,7 @@
 
 using Toybox.Math;
 using Toybox.System;
+import Toybox.Lang; 
 
 //from .functions import normalize
 
@@ -21,7 +22,7 @@ class sunRiseSet_cache{
 
     var g_cache;
     var indexes;
-    var MAX_CACHE = 3;
+    var MAX_CACHE = 0;
 
     function initialize () {
         

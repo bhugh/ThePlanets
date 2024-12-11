@@ -1,8 +1,12 @@
+import Toybox.Math;
+import Toybox.System;
+import Toybox.Lang; 
+
 class VSOP87_cache{
 
     var g_cache;
     var indexes;
-    var MAX_CACHE = 1;
+    var MAX_CACHE = 0;
 
     function initialize () {
         
@@ -14,7 +18,7 @@ class VSOP87_cache{
     }
 
     function fetch (now_info, timeZoneOffset_sec, dst, type) {
-
+        System.println("fetch... ");
                     
         //since we must incl lat & lon to get a sensible answer, might as well
         //includ UT & dst as well, as those are localized in the same way     
@@ -26,7 +30,7 @@ class VSOP87_cache{
 
         var myStats = System.getSystemStats();
 
-        System.println("Memory/VSOP: " + myStats.totalMemory + " " + myStats.usedMemory + " " + myStats.freeMemory + " MAX_CACHE: " + MAX_CACHE);
+        System.println("Memory/VSOP222: " + myStats.totalMemory + " " + myStats.usedMemory + " " + myStats.freeMemory + " MAX_CACHE: " + MAX_CACHE);
         //myStats = null;
 
         if (g_cache.hasKey(index)) {
@@ -58,8 +62,11 @@ class VSOP87_cache{
             ret = vsop.planetCoord(now_info, timeZoneOffset_sec, dst, type);
             vsop = null;
             //kys = ret.keys();
-            g_cache.put(index,ret);
-            indexes.add(index);
+            if ((MAX_CACHE > 0 && type == :ecliptic_latlon) ||  
+                myStats.freeMemory>100000)  {
+                    g_cache.put(index,ret);
+                    indexes.add(index);
+                }
         }                    
 
         return ret;
@@ -111,13 +118,19 @@ class vsop87a_pico{
             "Uranus" => vspo_2_J2000(getUranus(t), earth, true, type),
             "Neptune" => vspo_2_J2000(getNeptune(t), earth, true, type),
             "Sun" => vspo_2_J2000([0,0,0], earth, true, type),
-
-            "Eris" => vspo_2_J2000(getEris(JD), earth, false, type),
-            "Chiron" => vspo_2_J2000(getChiron(JD), earth, false, type),
-            "Ceres" => vspo_2_J2000(getCeres(JD), earth, false, type),
             "Pluto" => vspo_2_J2000(getPluto(JD), earth, false, type),
-            "Gonggong" => vspo_2_J2000(getGonggong(JD), earth, false, type),
         };
+        
+
+        if (type == :helio_xyz) {
+
+            ret.put ("Eris", vspo_2_J2000(getEris(JD), earth, false, type));
+            ret.put ("Chiron", vspo_2_J2000(getChiron(JD), earth, false, type));
+            ret.put ("Ceres", vspo_2_J2000(getCeres(JD), earth, false, type));
+            
+            ret.put ("Gonggong", vspo_2_J2000(getGonggong(JD), earth, false, type));
+        }
+        
 
         //keep vantage point as Sun and return XYZ coords
         //now we need Sun back at [0,0,0] and add earth as normal
@@ -155,14 +168,14 @@ class vsop87a_pico{
 
     if (type == :helio_xyz) {return [tx,ty,tz];}
 
-    System.println("XYZ: " + tx + " " + ty + " " + tz);
+    //System.println("XYZ: " + tx + " " + ty + " " + tz);
     //Convert from Cartesian to polar coordinates 
     var r = Math.sqrt(tx * tx + ty * ty + tz * tz);
     var l = Math.atan2(ty, tx);
     var t2 = 0;
     if (r != 0 ) { t2 = Math.acos(tz / r); }
 
-    System.println("LTr: " + l + " " + t2 + " " + r);
+    //System.println("LTr: " + l + " " + t2 + " " + r);
 
 
     //Make sure RA is positive, and Dec is in range +/-90
