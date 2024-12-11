@@ -536,7 +536,7 @@ class SolarSystemBaseView extends WatchUi.View {
         //yc = dc.getHeight() / 2;
    
         r = (xc < yc) ? xc : yc;
-        r = .85 * r; //was .9 but edge of screen a bit crowded??? 
+        r = .85 * r; //was .9 but edge of screen a bit crowded???
 
         font = Graphics.FONT_TINY;
         textHeight = dc.getFontHeight(font);
@@ -1240,21 +1240,26 @@ class SolarSystemBaseView extends WatchUi.View {
         if (type == :orrery) { 
             size = Math.sqrt(size);
 
+            if (min_c > 120) { //for higher res watches where things tend to come out tiny
                 //trying to make the largest things about as large as half the letter's height
              correction = 0.3 * textHeight/ Math.sqrt(8*b_size);
              System.println("orrery correction " + correction);
              if (correction< 1) {correction=1;}
-             if (correction< 2) {correction=2;}             
+             if (correction< 1.5) {correction=1.5;}             
               size = size * correction;
+            }
             
             }
         if (type == :ecliptic) {
             size = Math.sqrt(Math.sqrt(Math.sqrt(size))) * 5;
-            correction = 0.3 * textHeight/    Math.sqrt(Math.sqrt(Math.sqrt(size))) / 5;
-            System.println("ecliptic correction " + correction);
-            if (correction< 1) {correction=1;}
-             if (correction< 2) {correction=2;}             
-              size = size * correction;
+
+            if (min_c > 120) { //for higher res watches where things tend to come out tiny
+                correction = 0.3 * textHeight/    Math.sqrt(Math.sqrt(Math.sqrt(size))) / 5;
+                System.println("ecliptic correction " + correction);
+                if (correction< 1) {correction=1;}
+                if (correction< 1.5) {correction=1.5;}             
+                size = size * correction;
+            }
         }
 
         if (size < min_size) { size = min_size; }

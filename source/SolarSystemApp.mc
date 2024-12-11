@@ -56,6 +56,7 @@ class SolarSystemBaseApp extends Application.AppBase {
         solarSystemView_class = _positionView;
         _positionDelegate = new $.SolarSystemBaseDelegate(_positionView);
         //geo_cache = new Geocentric_cache();
+        readStorageValues();
         sunrise_cache = new sunRiseSet_cache();
         vsop_cache = new VSOP87_cache();
         System.println("inited...");
@@ -70,7 +71,7 @@ class SolarSystemBaseApp extends Application.AppBase {
     //! @param state Startup arguments
     public function onStart(state as Dictionary?) as Void {  
         System.println("onStart...");
-        readStorageValues();
+        //readStorageValues();
         Position.enableLocationEvents(Position.LOCATION_CONTINUOUS, method(:onPosition));
     }
 
@@ -111,6 +112,9 @@ class SolarSystemBaseApp extends Application.AppBase {
 
     //read stored settings & set default values if nothing stored
     public function readStorageValues() as Void {
+
+        System.println("STORAGE VALUES ARE READ - PROGRAM INIT!!!!");
+
         readAStorageValue("Label Display Option",labelDisplayOption_default, labelDisplayOption_size );
 
         readAStorageValue("Refresh Option",refreshOption_default, refreshOption_size );

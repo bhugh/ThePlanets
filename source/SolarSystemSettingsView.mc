@@ -9,6 +9,7 @@ import Toybox.Graphics;
 import Toybox.Lang;
 import Toybox.WatchUi;
 
+//TODO: User could tweak size of PLANETS & also radius of circle/overall scale
 var Options_Dict = {  };
 var labelDisplayOption=[ "Always On", "Always Off", "Freq Flash", "Less Flash", "Random Flash"];
 var labelDisplayOption_size = 5;
