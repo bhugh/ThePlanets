@@ -18,25 +18,39 @@ var moon;
 var simple_moon;
 var vspo87a;
 var vsop_cache;
-    var view_modes = [0, 1,2,3,4,5];
+var allOrbitParms = null;
+    var view_modes = [0, 1,2,3,4,5]; //manual move ecl, minuts ecl, day ecl, inner orr, mid orr, full orr
     var view_index = 0;
-    var speeds = [-24*365*10, -24*365*7, -24*365*4, -24*365*2,
-                -24*365, -24*90, -24*60, -24*30, -24*14, -24*7,-24*5, -24*3, -24*2, -24,
-                -6,-4,-2, -1, -.5,-0.25,-10/60.0, -5/60.0, -3/60.0, -2/60.0, -1/60.0, 
-                1/600.0,  1/60.0, 2/60.0,
-                3/60.0, 5/60.0, 10/60.0,
-                0.25, .5, 1,2,4, 6, 24, 24*2, 24*3,24*5, 24*7, 24*14, 24*30, 
-                24*60, 24*90, 24*365, 24*365*2, 
-                24*365*4, 24*365 * 7, 24*365 * 10];
-var speeds_index = 19;
-var started = false;
-var hz = 5.0;
-var screen0Move_index = 31;
 
-var time_add_hrs = 0;
+    //unit is HOUR
+    //all are chosen to be WHOLE DAYS however, to make the sun stand still when moving forward on the eliptical screens
+    //But also closest unit to WHOLE YEARS (ie 183 instead of 180 or 182.621187, 61 instead of 60 or 60.873729)
+    var speeds = [-24*365*10, -24*365*7, -24*365*4, -24*365*2, -24*365, //0; year multiples (added 0)
+                -24*183, -24*91, -24*61, -24*31, -24*15, //5; 1/2, 1/4, 1/12, 1/24 of a year (added 1)
+                -24*7,-24*5, -24*3, -24*2, -24, //10; Days up to a week
+                -12,-6,-4,-2, -1, //15;Hours (added 1)
+                -30/60.0,-15/60.0,-10/60.0, -5/60.0, -3/60.0, -2/60.0, -1/60.0,  //20; minutes (added 0)
+                1/600000.0,  //27; Zero ( but still has very slight movement, also avoids /0 just in case)
+                1/60.0, 2/60.0, 3/60.0, 5/60.0, 10/60.0, 15/60.0, 30/60.0,  //28; minutes (added 0)
+                1,2,4,6,12,  //35; Hours (added 1)
+                24, 24*2, 24*3,24*5, 24*7, //40; Days up to a week (added 0)
+                24*15, 24*31, 24*61, 24*91, 24*183, //45; 1/2, 1/4, 1/12, 1/24 of a year (added 1)
+                24*365, 24*365*2, 24*365*4, 24*365 * 7, 24*365 * 10]; //50; year multiples (added 0)
+var speeds_index = 33; //the currently used speed that will be added to TIME @ each update of screen
+var screen0Move_index = 33;
 
-var show_intvl = 0;
-var solarSystemView_class;
+var started = false; //whether to move forward on an update, ie STOPPED or STARTED moving
+var hz = 5.0; //updates per second (Requested from OS)
+
+var message = [];
+var animation_count = 0;
+var buttonPresses = 0;
+var orreryDraws = 0;
+
+var time_add_hrs = 0.0d; //cumulation of all time to be added to time.NOW when a screen is displayed
+
+var show_intvl = 0; //whether or not to show current SPEED on display
+var solarSystemView_class; //saved instance of main class 
 
 //! This app displays information about the user's position
 class SolarSystemBaseApp extends Application.AppBase {
@@ -78,6 +92,7 @@ class SolarSystemBaseApp extends Application.AppBase {
     //! Handle app shutdown
     //! @param state Shutdown arguments
     public function onStop(state as Dictionary?) as Void {
+        _positionView.stopAnimationTimer();
         Position.enableLocationEvents(Position.LOCATION_DISABLE, method(:onPosition));
     }
 
@@ -121,44 +136,27 @@ class SolarSystemBaseApp extends Application.AppBase {
 
         readAStorageValue("Screen0 Move Option",screen0MoveOption_default, screen0MoveOption_size );
 
-        if ($.Options_Dict["Screen0 Move Option"] != null) { 
-            $.screen0Move_index = 27 + $.Options_Dict["Screen0 Move Option"];}
-        else {$.screen0Move_index = 31;
-           System.println("options storage read: screen0move: " + $.screen0Move_index + " optiond: " + $.Options_Dict["Screen0 Move Option"] );
-        }
-            
-        
+        readAStorageValue("Planet Size Option", planetSizeOption_default, planetSizeOption_size );
 
-                //[ "5hz", "4hz", "3hz", "2hz", "1hz", "2/3hz", "1/2hz"];
-        switch ($.Options_Dict["Refresh Option"]) {
-                case 0:
-                    $.hz = 5;
-                    break;
-                case 1:
-                    $.hz = 4;
-                    break;
-                case 2:
-                    $.hz = 3;
-                    break;                      
-                case 3:
-                    $.hz = 2;
-                    break;    
-                case 4:
-                    $.hz = 1;
-                    break;      
-                case 5:
-                    $.hz = 2/3.0;
-                    break;
-                case 6:
-                    $.hz = 1/2.0;
-                    break;    
-                default:
-                    $.hz = 4;    
+        readAStorageValue("Ecliptic Size Option", eclipticSizeOption_default, eclipticSizeOption_size );
 
-        }
+        readAStorageValue("Orbit Circles Option", orbitCirclesOption_default, orbitCirclesOption_size );
 
+
+        //Now IMPLEMENT the above values
+
+        //#####SCREEN0 MOVE
+        $.screen0Move_index = screen0MoveOption_values[$.Options_Dict["Screen0 Move Option"]];
+                    
+        //###### REFRESH RATE
+        $.hz = refreshOption_values[$.Options_Dict["Refresh Option"]];                
         _positionView.startAnimationTimer($.hz);           
         
+        //##### PLANET SIZE
+        planetSizeFactor = planetSizeOption_values[$.Options_Dict["Planet Size Option"]];
+
+        //##### ECLIPTIC SIZE
+        eclipticSizeFactor = eclipticSizeOption_values[$.Options_Dict["Ecliptic Size Option"]];
 
         /* //Sample binary option
         temp = Storage.getValue("Show Battery");

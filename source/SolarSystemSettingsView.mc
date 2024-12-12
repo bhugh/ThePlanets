@@ -15,13 +15,128 @@ var labelDisplayOption=[ "Always On", "Always Off", "Freq Flash", "Less Flash", 
 var labelDisplayOption_size = 5;
 var labelDisplayOption_default = 2;
 
-var refreshOption=[ "5hz", "4hz", "3hz", "2hz", "1hz", "2/3hz", "1/2hz"];
-var refreshOption_size = 7;
+var refreshOption=[ 
+    "10 per sec.",
+    "5 per sec." ,
+    "4 per sec.",
+    "3 per sec.",
+    "2  per sec.",
+    "1 per sec.",
+    "1 per 1.5 sec.",
+    "1 per 2 sec.",
+    "1 per 3 sec.",
+    "1 per min.",
+    "1 per 5 min.",
+    ];
+var refreshOption_values=[  //in HZ
+        10.0,
+        5.0,
+        4.0, 
+        3.0, 
+        2.0, 
+        1.0, 
+        1/1.5, 
+        1/2.0, 
+        1/3.0, 
+        1/60.0, 
+        1/60.0*5,
+    ];    
+var refreshOption_size = 11;
 var refreshOption_default = 2;
 
-var screen0MoveOption=[ "1min", "2min", "4min", "10min", "15min", "30min", "1hr", "2hr"];
-var screen0MoveOption_size = 8;
-var screen0MoveOption_default = 4;
+var screen0MoveOption=[
+     "1min" , 
+     "2min" , 
+     "3min" ,
+     "5min" , 
+     "10min", 
+     "15min", 
+     "30min", 
+     "1hr",
+      "2hr",
+      "24hr",
+      "Week",
+      "Month",
+      "Year" , 
+];
+
+var screen0MoveOption_values=[
+    28, 
+    29, 
+    30, 
+    31, 
+    32, 
+    33, 
+    34,
+    35,
+    40,
+    44,
+    46,
+    50, 
+];
+var screen0MoveOption_size = 13;
+var screen0MoveOption_default = 6;
+
+var planetSizeOption=[
+     "Very small" , 
+     "Small" , 
+     "Normal" , 
+     "Large", 
+     "Very Large",      
+];
+
+var planetSizeOption_values=[
+    0.5, 
+    0.75, 
+    1.0, 
+    1.5, 
+    2.0, 
+
+];
+var planetSizeOption_size = 5;
+var planetSizeOption_default = 2;
+var planetSizeFactor = 1.0;
+
+var eclipticSizeOption=[
+     "Very small" , 
+     "Smaller" , 
+     "Small" , 
+     "Normal" ,      
+     "Large", 
+     "Very Large", 
+     
+];
+
+var eclipticSizeOption_values=[
+    0.85,
+    0.9, 
+    0.95, 
+    1.0, 
+    1.05, 
+    1.1,
+    
+
+];
+var eclipticSizeOption_size = 6;
+var eclipticSizeOption_default = 3;
+var eclipticSizeFactor = 1.0;
+
+
+var orbitCirclesOption=[
+     "White" , 
+     "Bright Gray" , 
+     "Dim Gray" , 
+     "Off" ,                
+];
+
+var orbitCirclesOption_values=[
+   Graphics.COLOR_WHITE,
+    Graphics.COLOR_LT_GRAY, 
+    Graphics.COLOR_DK_GRAY, 
+    Graphics.COLOR_TRANSPARENT,     
+];
+var orbitCirclesOption_size = 4;
+var orbitCirclesOption_default = 2;
 
 /*
 var Options_Dict = {  };
@@ -68,11 +183,11 @@ class SolarSystemSettingsView extends WatchUi.View {
 
         dc.drawText(dc.getWidth() / 2, dc.getHeight() / 2 - 30, Graphics.FONT_SMALL, "Press Menu \nfor settings", Graphics.TEXT_JUSTIFY_CENTER);
         */
-        System.println("onShow...");
+        //System.println("onShow...");
 
         // if this is the first call to `onShow', then we want the menu to immediately appear
         if (firstShow) {
-            System.println("firstShow...");
+            //System.println("firstShow...");
             //WatchUi.switchToView(new $.ElegantAnaSettingsMenu(), new $.ElegantAnaSettingsMenuDelegate(), WatchUi.SLIDE_IMMEDIATE);
             WatchUi.pushView(new $.SolarSystemSettingsMenu(), new $.SolarSystemSettingsMenuDelegate(), WatchUi.SLIDE_IMMEDIATE);
             //WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
@@ -83,7 +198,7 @@ class SolarSystemSettingsView extends WatchUi.View {
         // either by pressing back, or by selecting an item that caused the menu to be popped,
         // so we want to pop ourselves
         else {
-            System.println("not firstShow...");
+            //System.println("not firstShow...");
             WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
         }
     }
@@ -100,7 +215,7 @@ class SolarSystemSettingsView extends WatchUi.View {
 
         //dc.drawText(dc.getWidth() / 2, dc.getHeight() / 2 - 30, Graphics.FONT_SMALL, "Press Menu \nfor settings", Graphics.TEXT_JUSTIFY_CENTER);
         
-        System.println("onUpdate/settings...");
+        //System.println("onUpdate/settings...");
 
         /*
         // if this is the first call to `onShow', then we want the menu to immediately appear
@@ -136,35 +251,7 @@ class SolarSystemSettingsDelegate extends WatchUi.BehaviorDelegate {
     public function onMenu() as Boolean {
         var menu = new $.SolarSystemSettingsMenu();
 
-        /*
-        var boolean = Storage.getValue("Show Move") ? true : false;
-        menu.addItem(new WatchUi.ToggleMenuItem("Show Move: No-Yes", null, "Show Move", boolean, null));
-
-        boolean = Storage.getValue("Show Battery") ? true : false;
-        menu.addItem(new WatchUi.ToggleMenuItem("Show Battery: No-Yes", null, "Show Battery", boolean, null));
-
-        boolean = Storage.getValue("Second Hashes") ? true : false;
-        menu.addItem(new WatchUi.ToggleMenuItem("Second Hashes: Off-On", null, "Second Hashes", boolean, null));
-
-        boolean = Storage.getValue("Second Hand On") ? true : false;
-        menu.addItem(new WatchUi.ToggleMenuItem("Second Hand: Off-On", null, "Second Hand On", boolean, null));
-
-        boolean = Storage.getValue("Wide Second") ? true : false;
-        menu.addItem(new WatchUi.ToggleMenuItem("Second Hand Size: Narrow-Wide", null, "Wide Second", boolean, null));
-
-        boolean = Storage.getValue("Long Second") ? true : false;
-        menu.addItem(new WatchUi.ToggleMenuItem("Second Hand Length: Short-Long", null, "Long Second", boolean, null));
-        
-        boolean = Storage.getValue("Infinite Second") ? true : false;
-        menu.addItem(new WatchUi.ToggleMenuItem("Second Hand after sleep: 2mins-Infinite", null, "Infinite Second", boolean, null));
-        */
-        /*
-        boolean = Storage.getValue(3) ? true : false;
-        menu.addItem(new WatchUi.ToggleMenuItem("Settings3", null, 3, boolean, null));
-
-        boolean = Storage.getValue(4) ? true : false;
-        menu.addItem(new WatchUi.ToggleMenuItem("Settings4", null, 4, boolean, null));
-        */
+       
 
         WatchUi.pushView(menu, new $.SolarSystemSettingsMenuDelegate(), WatchUi.SLIDE_IMMEDIATE);
         return true;

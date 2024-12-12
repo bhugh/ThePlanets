@@ -26,9 +26,20 @@ class SolarSystemSettingsMenu extends WatchUi.Menu2 {
     $.refreshOption[$.Options_Dict["Refresh Option"]],"Refresh Option",{}));    
 
     if ($.Options_Dict["Screen0 Move Option"] == null) { $.Options_Dict["Screen0 Move Option"] = $.screen0MoveOption_default; }
-    Menu2.addItem(new WatchUi.MenuItem("Time interval (init screen)?",
+    Menu2.addItem(new WatchUi.MenuItem("Manual Mode Time Interval",
     $.screen0MoveOption[$.Options_Dict["Screen0 Move Option"]],"Screen0 Move Option",{}));    
 
+    if ($.Options_Dict["Planet Size Option"] == null) { $.Options_Dict["Planet Size Option"] = $.planetSizeOption_default; }
+    Menu2.addItem(new WatchUi.MenuItem("Planet Display Size?",
+    $.planetSizeOption[$.Options_Dict["Planet Size Option"]],"Planet Size Option",{}));   
+
+    if ($.Options_Dict["Ecliptic Size Option"] == null) { $.Options_Dict["Ecliptic Size Option"] = $.eclipticSizeOption_default; }
+    Menu2.addItem(new WatchUi.MenuItem("Big Circle Display Size?",
+    $.eclipticSizeOption[$.Options_Dict["Ecliptic Size Option"]],"Ecliptic Size Option",{}));    
+
+    if ($.Options_Dict["Orbit Circles Option"] == null) { $.Options_Dict["Orbit Circles Option"] = $.orbitCirclesOption_default; }
+    Menu2.addItem(new WatchUi.MenuItem("Show Solar System Orbits?",
+    $.orbitCirclesOption[$.Options_Dict["Orbit Circles Option"]],"Orbit Circles Option",{}));   
         /*
         $.Settings_ran = true;
         
@@ -132,33 +143,7 @@ class SolarSystemSettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
 
         Storage.setValue(id as String, $.Options_Dict[id]); 
         //[ "5hz", "4hz", "3hz", "2hz", "1hz", "2/3hz", "1/2hz"];
-        switch ($.Options_Dict[id]) {
-                case 0:
-                    $.hz = 5;
-                    break;
-                case 1:
-                    $.hz = 4;
-                    break;
-                case 2:
-                    $.hz = 3;
-                    break;                      
-                case 3:
-                    $.hz = 2;
-                    break;    
-                case 4:
-                    $.hz = 1;
-                    break;      
-                case 5:
-                    $.hz = 2/3.0;
-                    break;
-                case 6:
-                    $.hz = 1/2.0;
-                    break;    
-                default:
-                    $.hz = 4;    
-
-        }
-
+        $.hz = refreshOption_values[$.Options_Dict[id]];
         solarSystemView_class.startAnimationTimer($.hz);           
         }
 
@@ -168,8 +153,36 @@ class SolarSystemSettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
 
         Storage.setValue(id as String, $.Options_Dict[id]);    
 
-        if ($.Options_Dict["Screen0 Move Option"] != null) { $.screen0Move_index = 27 + $.Options_Dict["Screen0 Move Option"];}
-        else {$.screen0Move_index = 31;}         
+        $.screen0Move_index = screen0MoveOption_values[$.Options_Dict[id]];
+        if (view_index == 0 ) {speeds_index = $.screen0Move_index;}
+        
+        }
+
+        if(id.equals("Planet Size Option")) {
+        $.Options_Dict[id]=($.Options_Dict[id]+1)%planetSizeOption_size;
+        menuItem.setSubLabel($.planetSizeOption[$.Options_Dict[id]]);
+
+        Storage.setValue(id as String, $.Options_Dict[id]);    
+
+        planetSizeFactor = planetSizeOption_values[$.Options_Dict[id]];        
+        }
+
+        if(id.equals("Ecliptic Size Option")) {
+        $.Options_Dict[id]=($.Options_Dict[id]+1)%eclipticSizeOption_size;
+        menuItem.setSubLabel($.eclipticSizeOption[$.Options_Dict[id]]);
+
+        Storage.setValue(id as String, $.Options_Dict[id]);    
+
+        eclipticSizeFactor = eclipticSizeOption_values[$.Options_Dict[id]];
+        
+        }
+
+        if(id.equals("Orbit Circles Option")) {
+        $.Options_Dict[id]=($.Options_Dict[id]+1)%orbitCirclesOption_size;
+        menuItem.setSubLabel($.orbitCirclesOption[$.Options_Dict[id]]);
+
+        Storage.setValue(id as String, $.Options_Dict[id]);            
+        
         }
 
 

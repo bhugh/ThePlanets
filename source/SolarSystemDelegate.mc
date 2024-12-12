@@ -10,7 +10,7 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
     //! Constructor
     public function initialize(view) {
         BehaviorDelegate.initialize();
-        System.println("delegate initl..");
+        //System.println("delegate initl..");
         _mainview = view;
     }
     var last_animation_count = 0;
@@ -21,10 +21,12 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
     //! @return true if handled, false otherwise
     public function onSelect() as Boolean {
 
+        $.buttonPresses++;
+
         if (_mainview.animation_count == last_animation_count) {
             animation_retry_tally ++;
             if (animation_retry_tally%3 == 0) {
-                _mainview.startAnimationTimer();
+                _mainview.startAnimationTimer($.hz);
             }
 
         } else {
@@ -40,7 +42,7 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
     
             //WatchUi.requestUpdate();
         } else {
-            System.println("delegate onselect... moving ot new mode" + $.view_index);
+            //System.println("delegate onselect... moving ot new mode" + $.view_index);
             var old_index = $.view_index;
             $.view_index = ($.view_index + 1) % $.view_modes.size();  
             started = true;
@@ -58,7 +60,7 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
     //if stopped, moved back one mode
     //if started, stop.
     public function onBack() as Boolean {
-
+        $.buttonPresses++;
         $.show_intvl = 0;
         if (!started || $.view_index == 0) {
             var old_index = $.view_index;
@@ -90,8 +92,8 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
         //$.show_intvl = false;
         //_mainview.$.time_add_hrs -= _mainview.time_add_inc;
 
-        System.println("onNextPage..." );
-
+        //System.println("onNextPage..." );
+        $.buttonPresses++;
 
         if ($.view_modes[$.view_index] == 0) {
             $.time_add_hrs -= speeds[speeds_index];
@@ -124,9 +126,9 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
     //! @return true if handled, false otherwise
     public function onPreviousPage() as Boolean {
         //_view.previousSensor();
-        System.println("onPrevPage..." );
+        //System.println("onPrevPage..." );
 
-
+        $.buttonPresses++;
         
         if ($.view_modes[$.view_index] == 0) {
             $.time_add_hrs += speeds[speeds_index];
@@ -158,10 +160,11 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
     
     function onKey(keyEvent) {
         var keyvent =  keyEvent.getKey();
-        System.println("GOT KEEY!!!!!!!!!: " + keyvent);         // e.g. KEY_MENU = 7
+        //System.println("GOT KEEY!!!!!!!!!: " + keyvent);         // e.g. KEY_MENU = 7
 
         if (keyvent == 7) {
 
+            $.buttonPresses++;
             var view = new $.SolarSystemSettingsView();
             var delegate = new $.SolarSystemSettingsDelegate();
         
@@ -178,24 +181,27 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
 }
 
 function changeModes(previousMode){
-        System.println("chmodes..." );
+        //System.println("chmodes..." );
+        
 
-        $.show_intvl = 0; //used by showDate to decide when/how long to show (5 min) type labes
+        $.show_intvl = 0; //used by showDate to decide when/how long to show (5 min) type labels
         //$.time_add_hrs = .5; //reset to present time //NOW Do this, or not, individually per MODE below
         switch($.view_modes[$.view_index]){
             case (0):
                 //time_add_inc = 0.25;
                 //$.time_add_hrs = .5; //reset to present time
                 if (previousMode != null && previousMode==5 ) {  //mode 5 often moves years into the future...
-                    $.time_add_hrs = .5; //reset to present time
+                    $.time_add_hrs = 0; //reset to present time
                 }
-                speeds_index = screen0Move_index; //30 mins
+                speeds_index = screen0Move_index; //15 mins or whatever the person has set
+                solarSystemView_class.sendMessage("Manual Mode", "Use Up/Down", "", 5);
                 break;
             case (1):
                 //time_add_inc=1;
                 //DON'T reset to present time here bec. we're usually coming from mode 0 or mode 2& can just continue seamlessly
                 //$.time_add_hrs = .5; //reset to present time
-                speeds_index = 28; //5 mins
+                speeds_index = 31; //5 mins
+                solarSystemView_class.sendMessage("Auto by Min Mode", "Use Up/Down", "", 5);
                 break;
             case(2):
                 //time_add_inc = 24*3; //1 day
@@ -203,26 +209,30 @@ function changeModes(previousMode){
                 if (previousMode != null && previousMode==3 ) {  //mode 3 often moves years into the future...
                     $.time_add_hrs = 0; //reset to present time
                 }
-                speeds_index = 37;
+                speeds_index = 40; //1 day or 24 hrs
+                solarSystemView_class.sendMessage("Auto by Day Mode", "Use Up/Down", "", 5);
                 break;                
             case(3):
                 //time_add_inc = 24*3; //1 day
                 $.time_add_hrs = 0; //reset to present time
-                speeds_index = 36;
+                speeds_index = 40; //1 day
+                solarSystemView_class.sendMessage("Inner", "Solar System", "(Use Up/Down)", 5);
                 break;
             case(4):
                 //time_add_inc = 24*15; //14 days
                 $.time_add_hrs = 0; //reset to present time
-                speeds_index = 41;
+                speeds_index = 45; //15 days
+                solarSystemView_class.sendMessage("Outer", "Solar System", "(Use Up/Down)", 5);
                 break;
             
             case(5):
                 //time_add_inc = 24*15; //90 days
                 $.time_add_hrs = 0; //reset to present time
-                speeds_index = 44;
+                speeds_index = 47;
+                solarSystemView_class.sendMessage("Far Outer", "Solar System","(Use Up/Down)", 5);
                 break;
             default:
-              speeds_index = 18;
+              speeds_index = 29; //2 mins
 
 
         }

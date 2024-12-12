@@ -33,7 +33,7 @@ class sunRiseSet_cache{
         indexes = [];
     }
 
-    function fetch (year, month, day, UT, dst, 
+    function fetch (year, month, day, UT, dst, timeAdd_hrs, 
                  lat, lon) {
 
         //changing lat or lon by 1 degree equal about 4 mins difference in sunrise/set
@@ -43,7 +43,11 @@ class sunRiseSet_cache{
                     
         //since we must incl lat & lon to get a sensible answer, might as well
         //includ UT & dst as well, as those are localized in the same way                    
-        var index = year+"|"+month+"|"+day+"|"+ UT+dst +"|"+lat_index+"|"+ lon_index;
+        //var index = year+"|"+month+"|"+day+"|"+ UT+dst +"|"+lat_index+"|"+ lon_index;
+
+        var time_mod = Math.round(0.0d + timeAdd_hrs/24.0d + julianDate(year, 
+            month, day, 0, 0, UT, dst)).toNumber();
+        var index = time_mod + "|"+ +"|"+lat_index+"|"+ lon_index;
         var ret;
 
         var myStats = System.getSystemStats();
@@ -76,7 +80,7 @@ class sunRiseSet_cache{
                 g_cache.remove(indexes[0]);
                 indexes.remove(indexes[0]);
             }
-            var g = new sunRiseSet(year, month, day, UT,dst,lat, lon);
+            var g = new sunRiseSet(year, month, day, UT,dst, timeAdd_hrs, lat, lon);
             ret = g.riseSet();
             //kys = ret.keys();
             g_cache.put(index,ret);
@@ -217,7 +221,7 @@ class sunRiseSet{
     
     var UT, dst, longitude, latitude, d, oblecl;
 
-    function initialize(year, month, day, UT1, dst1, 
+    function initialize(year, month, day, UT1, dst1, timeAdd_hrs,
                  latitude1, longitude1) {
         UT =  UT1;
         dst = dst1;
@@ -226,7 +230,8 @@ class sunRiseSet{
         var pr=0d;
         if (dst==1) {pr=1/24d;}
         var JDN= ((367l*(year) - Math.floor(7*(year + Math.floor((month+9 )/12))/4)) + Math.floor(275*(month)/9) + (day + 1721013.5d - UT/24d ) );
-        var JD= (JDN + (12)/24d + 0/1440d - pr); //(hour)/24 + (min)/1440; in this case  noon (hr12, min0)
+        var JD1= (JDN + (12)/24d + 0/1440d - pr); //(hour)/24 + (min)/1440; in this case  noon (hr12, min0)
+        var JD = JD1 + timeAdd_hrs /24.0d;
         var j2000= 2451543.5d;
         d = JD - j2000;
         //self.d = d;
