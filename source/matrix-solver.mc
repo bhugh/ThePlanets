@@ -304,7 +304,7 @@ function drawOrbits3 (dc, pp, scale, xc,yc, big_small, WHHs, color) {
        {
 
 
-            var X = pp[key][i];
+            var X = pp[key];
             //System.println("X: " + X);
             //System.println ("X = " + X);
             dc.drawPoint (scale*X[0]/100.0 + xc, scale*X[1]/100 + xc);
