@@ -242,25 +242,35 @@ function drawOrbits (dc, eParms, scale, xc,yc, big_small, whh, small_whh, color)
 }
 
 var save_points = {};
+var save_big_small = null;
 
 
 function drawOrbits3 (dc, pp, scale, xc,yc, big_small, WHHs, color) {
 
     dc.setColor(color, Graphics.COLOR_TRANSPARENT);
     dc.setPenWidth(1);
+    if (save_big_small != null && save_big_small != big_small) {save_points = {};}
+    save_big_small = big_small;
 
     var full_whh = WHHs[0];
     var whh = WHHs[1];
     var small_whh = WHHs[2];
 
-    if ($.animation_count%20==0) {
+    var per = 50;
+    if (big_small == 0) {per = 10;}
+    if (big_small == 1) {per = 20;}
+    if ($.animation_count%per!=0) {continue;}
+    /*
+    if ($.animation_count%per==0) {
         for (var j=0;j<full_whh.size(); j++) {
         var key = full_whh[j];
         if (key.equals("Sun")) {continue;}
         var cur = save_points[key];
         if (cur == null) { cur = [];}
-        if (cur.size()>25) {cur.remove(cur[0]);}
+        if (cur.size()>15) {cur.remove(cur[0]);}
         cur.add([(pp[key][0]*100).toNumber(),(pp[key][01]*100).toNumber()]);
+        //mult by 100 so as to save some resolution when saving as integer
+        //when drawing, must divide by 100 to get original # back
         save_points[key] = cur;
         }
     }
@@ -277,7 +287,7 @@ function drawOrbits3 (dc, pp, scale, xc,yc, big_small, WHHs, color) {
             var X = save_points[key][i];
             //System.println("X: " + X);
             //System.println ("X = " + X);
-            dc.drawPoint (scale*X[0] + xc, scale*X[1] + xc);
+            dc.drawPoint (scale*X[0]/100.0 + xc, scale*X[1]/100 + xc);
 
             
         }
@@ -286,6 +296,21 @@ function drawOrbits3 (dc, pp, scale, xc,yc, big_small, WHHs, color) {
 
        }
     }
+    */
+
+    for (var j=0;j<whh.size(); j++) {
+     var key = whh[j];
+       if (!key.equals("Sun") && (big_small==0 || small_whh.indexOf(key)==-1))
+       {
+
+
+            var X = pp[key][i];
+            //System.println("X: " + X);
+            //System.println ("X = " + X);
+            dc.drawPoint (scale*X[0]/100.0 + xc, scale*X[1]/100 + xc);
+
+            
+       }
 }
 
 

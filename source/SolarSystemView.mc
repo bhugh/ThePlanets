@@ -806,7 +806,7 @@ class SolarSystemBaseView extends WatchUi.View {
 
     }
 
-    
+    var scale = 1;
     //big_small = 0 for small (selectio nof visible planets) & 1 for big (all planets)
     public function largeOrrery(dc, big_small) {
          // Set background color
@@ -916,7 +916,11 @@ class SolarSystemBaseView extends WatchUi.View {
 
         
         
-        var scale = (min_c*0.9*eclipticSizeFactor)/Math.sqrt(max) ;  
+        if (show_intvl == 0 ){ scale = (min_c*0.9*eclipticSizeFactor)/Math.sqrt(max) ;  
+         //targetDc.fillRectangle(0, 0, targetDc.getWidth(), targetDc.getHeight());
+         targetDc.clear();
+        
+        } //don't change scale it messes w/"trail" points of planets
 
         
 
@@ -933,9 +937,9 @@ class SolarSystemBaseView extends WatchUi.View {
             //drawOrbits2(dc, scale, xc, yc, big_small, whh, small_whh, Graphics.COLOR_WHITE); 
             }
 
-        var tDc = dc;
-        if (big_small == 3) {tDc = targetDc;}
-        drawOrbits3(tDc, pp, scale, xc, yc, big_small, [full_whh,whh, small_whh], Graphics.COLOR_WHITE); 
+        //var tDc = dc;
+        //if (big_small == 3) {tDc = targetDc;}
+        drawOrbits3(targetDc, pp, scale, xc, yc, big_small, [full_whh,whh, small_whh], Graphics.COLOR_WHITE); 
         if (null != _offscreenBuffer) {
             dc.drawBitmap(0, 0, _offscreenBuffer);
         } 
