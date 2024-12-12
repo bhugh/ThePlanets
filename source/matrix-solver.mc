@@ -259,7 +259,7 @@ function drawOrbits3 (dc, pp, scale, xc,yc, big_small, WHHs, color) {
     var per = 50;
     if (big_small == 0) {per = 10;}
     if (big_small == 1) {per = 20;}
-    if ($.animation_count%per!=0) {continue;}
+    if ($.animation_count%per!=0) {return;}
     /*
     if ($.animation_count%per==0) {
         for (var j=0;j<full_whh.size(); j++) {
