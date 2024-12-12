@@ -311,6 +311,7 @@ function drawOrbits3 (dc, pp, scale, xc,yc, big_small, WHHs, color) {
 
             
        }
+    }
 }
 
 
