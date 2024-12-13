@@ -11,6 +11,7 @@ The planetary motion model is based on algorithms from the sophisticated VSOP mo
 
 **USAGE AND TIPS**
 *Planet abbreviations:*
+ * Sun
  * Me Mercury
  * Ve Venus
  * Ea Earth
@@ -26,7 +27,8 @@ The planetary motion model is based on algorithms from the sophisticated VSOP mo
  * Go Gonggong (dwarf planet) 
  * Qu Quaoar (ringed dwarf planet) 
  * Ce Ceres (dwarf planet/asteroid) 
- * Ch Chiron (ringed dwarf planet) 
+ * Ch Chiron (ringed dwarf planet)
+This encompasses all of the Solar System planets and most of the larger dwarf planets.
 
 _Tips About Screens & General Usage_
  * TIP: Top-bottom of Large Circle are Solar Noon Midnight (marks). 
