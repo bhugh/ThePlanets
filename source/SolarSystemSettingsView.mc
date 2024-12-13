@@ -52,7 +52,7 @@ var planetsOption_values=[
 
 ];
 var planetsOption_size = 2;
-var planetsOption_default = 0;
+var planetsOption_default = 1;
 var planetsOption_value = planetsOption_default; //use the NUMBER not the VALUES, slightly UNUSUAL
 
 
