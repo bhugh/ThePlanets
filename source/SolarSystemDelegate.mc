@@ -221,20 +221,23 @@ function changeModes(previousMode){
             case(3):
                 //time_add_inc = 24*3; //1 day
                 $.time_add_hrs = 0; //reset to present time
-                speeds_index = 41; //1 day
+                //speeds_index = 41; //1 day OLD/too slow on real watch
+                speeds_index = 43; //3 day
                 solarSystemView_class.sendMessage("Inner", "Solar System", "(Use Up/Down)", 5);
                 break;
             case(4):
                 //time_add_inc = 24*15; //14 days
                 $.time_add_hrs = 0; //reset to present time
-                speeds_index = 46; //15 days
+                //speeds_index = 46; //15 days = OLD , too slow on real watch
+                speeds_index = 52; //1 year
                 solarSystemView_class.sendMessage("Outer", "Solar System", "(Use Up/Down)", 5);
                 break;
             
             case(5):
                 //time_add_inc = 24*15; //90 days
                 $.time_add_hrs = 0; //reset to present time
-                speeds_index = 48; //61 days
+                //speeds_index = 48; //61 days, too slow on real watch
+                speeds_index = 54; //4 yrs
                 solarSystemView_class.sendMessage("Far Outer", "Solar System","(Use Up/Down)", 5);
                 break;
             default:

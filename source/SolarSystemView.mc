@@ -43,7 +43,9 @@ class SolarSystemBaseView extends WatchUi.View {
 
     //up to 3 msg lines to display & how long to display them
     public function sendMessage (msg1, msg2, msg3, time_sec) {
-        message = [msg1, msg2, msg3, animation_count + time_sec * hz ];
+        // /2.0 cuts display timein half, need a better solution involving actual
+        //clock than guessing about animation  frequency
+        message = [msg1, msg2, msg3, animation_count + time_sec * hz/2.0 ];
     }
 
     
@@ -1211,12 +1213,15 @@ class SolarSystemBaseView extends WatchUi.View {
         return helpMSG_current;
 
     }
-
+    var msgSaveButtonPress = 0;
+    var msgDisplayed = false;
     //shows msg & returns 0 = nothing displayed, 1 = normal msg displayed , 2 = special introductory msg displayed
     function showMessage(dc, jstify) {
         var msg = message;
         if ($.buttonPresses < 1) {
-            switch (mod(animation_count/(4.0*$.hz),7.0).toNumber()){
+            //making all timings 1/2 the rate because it is so much
+            //slower on real watch vs simulator.  But needs a better solution involving actual clock time probably
+            switch (mod(animation_count/(2.0*$.hz),7.0).toNumber()){
                 case 0:                
                 case 6:                
                 default:
@@ -1240,8 +1245,16 @@ class SolarSystemBaseView extends WatchUi.View {
             }
         }
 
-        if (msg == null) { return 0;}
-        if (msg[3] < animation_count){ return 0;}
+        if (msg == null) { msgDisplayed = false; return 0;}
+        if (msg[3] < animation_count){ msgDisplayed = false; return 0;}
+
+        //keeping track of buttonepressses & whether a msg is displayed allows us to 
+        //cut out of msg display as soon as a button is pressed after any msg is displayed
+        if ($.buttonPresses > msgSaveButtonPress && msgDisplayed ==true) {
+            message = null; //have to remove the msg or it keeps popping back  up
+            msgDisplayed = false; 
+            return 0;
+            }   //but out of msg as soon as a button presses
         var numMsg=0;
         for (var i = 0; i<3; i++) {if (msg[i] != null && msg[i].length()>0 ) { numMsg++;}}
         var ystart = 1.5 * yc - textHeight*numMsg/2;
@@ -1256,6 +1269,11 @@ class SolarSystemBaseView extends WatchUi.View {
 
         }
 
+        //Could draw a BAKCGROUND behind this text...
+        
+        msgSaveButtonPress = $.buttonPresses;
+
+        msgDisplayed = true; 
         font = Graphics.FONT_TINY;
         for (var i = 0; i<3; i++) {
             if (msg[i] != null && msg[i].length()>0 ) { 

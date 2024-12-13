@@ -1,4 +1,26 @@
 Remove:
  = Vivoactive, doesn't work at all (storage)
 
- 
+
+ TODO:
+
+  - Remove mode instructions as soon as any button is pressed
+ - Mode instructions last less time
+ - Mode isntructions disappear by time & not how many frames shown
+
+  - Different figures drawn in planets, as well as colors, like Sat/Jup.  Maybe X on all the planetismals & asteroids, all planets are full in w/ color. Asteroids could be one notch smaller than planets @ min
+
+  - Main view maybe should pause or something while Settings menu or anything else is showing
+   
+   - could adjust default time forward settings based on how slow the watch is showing new frames
+
+    - Show only planets  option or other filters. Or go back to inner, middle, distant SS & omit other planets/asteroids.
+     - m
+
+   --> Widget would  just have the ecliptic screens, 
+
+--> Time frame on mode change generally should be 2-3-4 notches faster, real watch is much slower than simulator
+  4yrs - far dist SS
+  2 yrs - outer, or 6 months, 1 yr on faster watch
+   2 or 3 day - inner SS
+   other modes OK
