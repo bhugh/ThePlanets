@@ -45,10 +45,14 @@ var helpOption_default = 0;
     sssMenu_class = self;    
 
     Menu2.initialize({:title=>"Settings"});
-    
+        
+    Menu2.addItem(new WatchUi.ToggleMenuItem("Exit App", null, "exitapp", false, null));
+
     if ($.Options_Dict["helpOption"] == null) { $.Options_Dict["helpOption"] = helpOption_default; }
     Menu2.addItem(new WatchUi.MenuItem("Help - Abbreviations",
     helpOption[$.Options_Dict["helpOption"]],"helpOption",{}));   
+
+
 
     if ($.Options_Dict["orrZoomOption"] == null) { $.Options_Dict["orrZoomOption"] = $.orrZoomOption_default; }
     Menu2.addItem(new WatchUi.MenuItem("Solar System Zoom?",
@@ -167,11 +171,18 @@ class SolarSystemSettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
     //! @param menuItem The menu item selected
     public function onSelect(menuItem as MenuItem) as Void {
         
-        /*if (menuItem instanceof ToggleMenuItem) {
-            Storage.setValue(menuItem.getId() as String, menuItem.isEnabled());
-            $.Options_Dict[menuItem.getId() as String] = menuItem.isEnabled();
-            $.Settings_ran = true;
-        }*/
+        if (menuItem instanceof ToggleMenuItem) {
+            //Storage.setValue(menuItem.getId() as String, menuItem.isEnabled());
+            //$.Options_Dict[menuItem.getId() as String] = menuItem.isEnabled();
+            var ret = menuItem.getId() as String;
+                System.println("Menu item toggled...." + ret);
+            if (ret != null && ret.equals("exitapp")) {
+                System.println("EXIT COMMAND RECEIVED....");
+                WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
+                System.exit();
+            }
+            
+        }
         
         var id=menuItem.getId();
 

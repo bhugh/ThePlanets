@@ -41,10 +41,10 @@ class SolarSystemBaseView extends WatchUi.View {
     }
 
     //up to 3 msg lines to display & how long to display them
-    public function sendMessage (msg1, msg2, msg3, time_sec) {
+    public function sendMessage (msg1, msg2, msg3, msg4, time_sec) {
         // /2.0 cuts display timein half, need a better solution involving actual
         //clock than guessing about animation  frequency
-        message = [msg1, msg2, msg3, animation_count + time_sec * hz/2.0 ];
+        message = [msg1, msg2, msg3, msg4, animation_count + time_sec * hz/2.0 ];
     }
 
     
@@ -1271,13 +1271,14 @@ class SolarSystemBaseView extends WatchUi.View {
     }
     var msgSaveButtonPress = 0;
     var msgDisplayed = false;
+    var savedMSG = "";
     //shows msg & returns 0 = nothing displayed, 1 = normal msg displayed , 2 = special introductory msg displayed
     function showMessage(dc, jstify) {
         var msg = message;
         if ($.buttonPresses < 1) {
             //making all timings 1/2 the rate because it is so much
             //slower on real watch vs simulator.  But needs a better solution involving actual clock time probably
-            switch (mod(animation_count/(1.8*$.hz),7.0).toNumber()){
+            switch (mod(animation_count/(3*$.hz),7.0).toNumber()){
                 case 0:                
                 case 6:                
                 default:
@@ -1302,15 +1303,28 @@ class SolarSystemBaseView extends WatchUi.View {
         }
 
         if (msg == null) { msgDisplayed = false; return 0;}
-        if (msg[msg.size()-1] < animation_count){ msgDisplayed = false; return 0;}
+        if (msg[msg.size()-1] < animation_count){ msgDisplayed = false; 
+        message = null;
+        //System.println("ShowMSG: Exiting current msg time expired");
+        return 0;}
 
+        //System.println("ShowMSG: curr msg = prev: " + msg.toString().equals(savedMSG.toString()) + " 2nd way: " + msg == savedMSG );
+
+        //System.println("ShowMSG: Hi MOM!"); 
+
+        //System.println("ShowMSG: curr msg = prev: " + msg.toString().equals(savedMSG.toString()));
+        //System.println("ShowMSG: curr msg = prev 2nd way: " + (msg == savedMSG) );
         //keeping track of buttonepressses & whether a msg is displayed allows us to 
         //cut out of msg display as soon as a button is pressed after any msg is displayed
-        if ($.buttonPresses > msgSaveButtonPress && msgDisplayed ==true) {
+        if ($.buttonPresses > msgSaveButtonPress && msgDisplayed ==true && msg==savedMSG) {
             message = null; //have to remove the msg or it keeps popping back  up
             msgDisplayed = false; 
+            System.println("ShowMSG: Exiting current msg; a button was pressed after display.");
             return 0;
             }   //but out of msg as soon as a button presses
+
+        System.println("ShowMSG: we are displaying the msg...");  
+        savedMSG = msg;  
         var numMsg=0;
         for (var i = 0; i<msg.size()-1; i++) {if (msg[i] != null && msg[i].length()>0 ) { numMsg++;}}
         var ystart = 1.5 * yc - textHeight*numMsg/2;

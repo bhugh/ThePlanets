@@ -105,25 +105,29 @@ var screen0MoveOption=[
       "24hr",
       "Week",
       "Month",
+      "Lunar Month",
       "Year" , 
+      "Solar Year" , 
 ];
 
 var screen0MoveOption_values=[
-    29, 
-    30, 
-    31, 
-    32, 
-    33, 
-    34,
-    35,
-    36,
-    37,
+    35,   //1 min
+    36, 
+    37, 
+    38, 
+    39, 
+    40,
     41,
-    45,
-    47,
-    52, 
+    42, //1 hr
+    43, //2 hr
+    48, //24 hr
+    55, //7 day
+    57, //29.53059 , synodic month    
+    58, //30 day
+    63, //1 yr
+    64, //365.2422 days, solar yr
 ];
-var screen0MoveOption_size = 13;
+var screen0MoveOption_size = 15;
 var screen0MoveOption_default = 6;
 
 var planetSizeOption=[
