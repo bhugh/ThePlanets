@@ -28,6 +28,7 @@ The planetary motion model is based on algorithms from the sophisticated VSOP mo
  * Qu Quaoar (ringed dwarf planet) 
  * Ce Ceres (dwarf planet/asteroid) 
  * Ch Chiron (ringed dwarf planet)
+ * 
 This encompasses all of the Solar System planets and most of the larger dwarf planets.
 
 _Tips About Screens & General Usage_
@@ -51,6 +52,8 @@ _App Usage Tips - What you need to know to make it work_
  * TIP: Auto Mode (FAST) moves time by 24 hrs so you can watch how planets move night to night 
 
  * TIP: Search for new moons, planetary conjunctions, etc.
+   
+ * Long term orbits are interesting to investigate. Look at Pluto - a small object coming close to many large ones.  Mars is interesting, as are the Dwarf Planets.  (Planetary positions are well investigated and quite accurate to many thousands of years out.  Dwarf Planet orbits are far less stable and detailed orbital information needed to model their movements many hundreds and thousands of years into the future is no available or  not easy to find and use.  You can expect to see *significant* perturbations in these orbits next time an object passes nearer the center of the Solar System.  Such encounters are generally hundreds of years in the future. What happens after them is not known in detail! So take the first orbit of these objects as being close to reality.  After that, something different will definitely happen!)
 
 
 **APP TECHNICAL DETAILS**
