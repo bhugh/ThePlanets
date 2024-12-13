@@ -39,6 +39,22 @@ var orrZoomOption_values=[
 var orrZoomOption_size = 10;
 var orrZoomOption_default = 2;
 
+var planetsOption=[
+     "All objects" , 
+     "Only trad. planets" , 
+     
+];
+
+var planetsOption_values=[
+    ["Sun", "Mercury","Venus","Earth", "Mars","Jupiter","Saturn","Uranus","Neptune","Pluto","Ceres","Chiron","Eris", "Gonggong","Quaoar", "Makemake", "Haumea"],
+    ["Sun", "Mercury","Venus","Earth", "Mars","Jupiter","Saturn","Uranus","Neptune","Pluto"] //List of names not used on VSOP but can be useful elsewhere
+ 
+
+];
+var planetsOption_size = 2;
+var planetsOption_default = 0;
+var planetsOption_value = planetsOption_default; //use the NUMBER not the VALUES, slightly UNUSUAL
+
 
 
 //TODO: User could tweak size of PLANETS & also radius of circle/overall scale
@@ -101,10 +117,11 @@ var screen0MoveOption_values=[
     34,
     35,
     36,
+    37,
     41,
     45,
     47,
-    51, 
+    52, 
 ];
 var screen0MoveOption_size = 13;
 var screen0MoveOption_default = 6;
@@ -115,6 +132,8 @@ var planetSizeOption=[
      "Normal" , 
      "Large", 
      "Very Large",      
+     "XXLarge",      
+     "XXXLarge",      
 ];
 
 var planetSizeOption_values=[
@@ -123,13 +142,16 @@ var planetSizeOption_values=[
     1.0, 
     1.5, 
     2.0, 
+    3.0,
+    3.5
 
 ];
-var planetSizeOption_size = 5;
+var planetSizeOption_size = 7;
 var planetSizeOption_default = 2;
 var planetSizeFactor = 1.0;
 
 var eclipticSizeOption=[
+     "Xsmall" , 
      "Very small" , 
      "Smaller" , 
      "Small" , 
@@ -140,6 +162,7 @@ var eclipticSizeOption=[
 ];
 
 var eclipticSizeOption_values=[
+    0.75,
     0.85,
     0.9, 
     0.95, 
@@ -149,8 +172,8 @@ var eclipticSizeOption_values=[
     
 
 ];
-var eclipticSizeOption_size = 6;
-var eclipticSizeOption_default = 3;
+var eclipticSizeOption_size = 7;
+var eclipticSizeOption_default = 4;
 var eclipticSizeFactor = 1.0;
 
 
@@ -170,32 +193,8 @@ var orbitCirclesOption_values=[
 var orbitCirclesOption_size = 2;
 var orbitCirclesOption_default = 0;
 
-var helpOption=[
-    "Planet abbreviations:" , 
-     "Me Mercury" , 
-     "Ve Venus" , 
-     "Ea Earth" , 
-     "Ma Mars" , 
-     "Ju Jupiter" , 
-     "Sa Saturn" ,      
-     "Ur Uranus", 
-     "Ne Neptune", 
-    
-     "Pl Pluto", 
-     
-     "Er Eris (dwarf planet)", 
-     "Ha Haumea (dwarf planet)", 
-     "Ma Makemake (dwarf planet)", 
-     "Go Gonggong (dwarf planet)", 
-     "Qu Quaoar (ringed dwarf planet)", 
-     "Ce Ceres (dwarf planet/asteroid)", 
-     "Ch Chiron (ringed dwarf planet)", 
-     
-];
 
 
-var helpOption_size = 17;
-var helpOption_default = 0;
 
 
 /*
@@ -229,6 +228,8 @@ class SolarSystemSettingsView extends WatchUi.View {
         firstShow = true;
 
         System.println("SolarSystemSettingsView initialize...");
+    
+
     }
 
     //! Handle the update event

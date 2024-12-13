@@ -9,13 +9,46 @@ import Toybox.Lang;
 import Toybox.WatchUi;
 import Toybox.Application.Storage;
 
+var sssMenu_class; //to save the SolarSystemSettingsMenu class for access
+
 //! The app settings menu
 class SolarSystemSettingsMenu extends WatchUi.Menu2 {
 
+    var helpOption=[
+    "Planet abbreviations:" , 
+     "Me Mercury" , 
+     "Ve Venus" , 
+     "Ea Earth" , 
+     "Ma Mars" , 
+     "Ju Jupiter" , 
+     "Sa Saturn" ,      
+     "Ur Uranus", 
+     "Ne Neptune",     
+     "Pl Pluto",      
+     "Er Eris (dwarf planet)", 
+     "Ha Haumea (dwarf planet)", 
+     "Ma Makemake (dwarf planet)", 
+     "Go Gonggong (dwarf planet)", 
+     "Qu Quaoar (ringed dwarf planet)", 
+     "Ce Ceres (dwarf planet/asteroid)", 
+     "Ch Chiron (ringed dwarf planet)", 
+];
+
+var helpOption_size = 17;
+var helpOption_default = 0;
+
+
+
+
     //! Constructor
     public function initialize() {
+    sssMenu_class = self;    
 
     Menu2.initialize({:title=>"Settings"});
+    
+    if ($.Options_Dict["helpOption"] == null) { $.Options_Dict["helpOption"] = helpOption_default; }
+    Menu2.addItem(new WatchUi.MenuItem("Help - Abbreviations",
+    helpOption[$.Options_Dict["helpOption"]],"helpOption",{}));   
 
     if ($.Options_Dict["orrZoomOption"] == null) { $.Options_Dict["orrZoomOption"] = $.orrZoomOption_default; }
     Menu2.addItem(new WatchUi.MenuItem("Solar System Zoom?",
@@ -45,9 +78,13 @@ class SolarSystemSettingsMenu extends WatchUi.Menu2 {
     Menu2.addItem(new WatchUi.MenuItem("Show Solar System Orbits?",
     $.orbitCirclesOption[$.Options_Dict["Orbit Circles Option"]],"Orbit Circles Option",{}));   
 
-    if ($.Options_Dict["helpOption"] == null) { $.Options_Dict["helpOption"] = $.helpOption_default; }
-    Menu2.addItem(new WatchUi.MenuItem("Help & Abbreviations",
-    $.helpOption[$.Options_Dict["helpOption"]],"helpOption",{}));   
+    if ($.Options_Dict["planetsOption"] == null) { $.Options_Dict["planetsOption"] = $.planetsOption_default; }
+    Menu2.addItem(new WatchUi.MenuItem("Objects to show in Solar System?",
+    $.planetsOption[$.Options_Dict["planetsOption"]],"planetsOption",{}));  
+
+
+    
+    
         /*
         $.Settings_ran = true;
         
@@ -144,20 +181,36 @@ class SolarSystemSettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
 
         Storage.setValue(id as String, $.Options_Dict[id]);    
 
-        $.show_intvl = 0; //makes the scale in orrery re-set, and re-display the time interval
+        $.show_intvl = 0; //makes the scale in orrery re-set, and re-display the time interval & re-start dots
+        
+        }
+
+        id=menuItem.getId();
+
+            if(id.equals("planetsOption")) {
+            $.Options_Dict[id]=($.Options_Dict[id]+1)%planetsOption_size;
+            menuItem.setSubLabel($.planetsOption[$.Options_Dict[id]]);
+
+            Storage.setValue(id as String, $.Options_Dict[id]);    
+
+            planetsOption_value = $.Options_Dict[id]; //use the number here, 0 or 1, not te dictionary from _values.  UNUSUAL.
+
+            $.show_intvl = 0;
+            //$.animSinceModeChange = 0;
         
         }
         //helpOption
 
         if(id.equals("helpOption")) {
-            $.Options_Dict[id]=($.Options_Dict[id]+1)%helpOption_size;
-            menuItem.setSubLabel($.helpOption[$.Options_Dict[id]]);
+            $.Options_Dict[id]=($.Options_Dict[id]+1)%$.sssMenu_class.helpOption_size;
+            menuItem.setSubLabel($.sssMenu_class.helpOption[$.Options_Dict[id]]);
 
             Storage.setValue(id as String, $.Options_Dict[id]);    
 
             //Doesn't do anything, just shows...
         
         }
+
 
         if(id.equals("Label Display Option")) {
         $.Options_Dict[id]=($.Options_Dict[id]+1)%labelDisplayOption_size;

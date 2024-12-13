@@ -128,7 +128,7 @@ class vsop87a_pico{
         };
         
 
-        if (type == :helio_xyz) {
+        if (planetsOption_value == 0 && type == :helio_xyz) {
 
             ret.put ("Eris", vspo_2_J2000(getEris(JD), earth, false, type));
             ret.put ("Chiron", vspo_2_J2000(getChiron(JD), earth, false, type));

@@ -207,7 +207,7 @@ function changeModes(previousMode){
                 //DON'T reset to present time here bec. we're usually coming from mode 0 or mode 2& can just continue seamlessly
                 //$.time_add_hrs = .5; //reset to present time
                 speeds_index = 32; //5 mins
-                solarSystemView_class.sendMessage("Auto by Min Mode", "Use Up/Down", "", 5);
+                solarSystemView_class.sendMessage("Auto Mode (Slow)", "Use Up/Down", "", 5);
                 break;
             case(2):
                 //time_add_inc = 24*3; //1 day
@@ -216,7 +216,7 @@ function changeModes(previousMode){
                     $.time_add_hrs = 0; //reset to present time
                 }
                 speeds_index = 41; //1 day or 24 hrs
-                solarSystemView_class.sendMessage("Auto by Day Mode", "Use Up/Down", "", 5);
+                solarSystemView_class.sendMessage("Auto Mode (Fast)", "Use Up/Down", "", 5);
                 break;                
             case(3):
                 //time_add_inc = 24*3; //1 day

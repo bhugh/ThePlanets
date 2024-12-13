@@ -119,7 +119,7 @@ class SolarSystemBaseApp extends Application.AppBase {
     */
 
     public function readAStorageValue(name, defoolt, size  ) {
-        var temp = Storage.getValue("Infinite Second Option");        
+        var temp = Storage.getValue(name);        
         $.Options_Dict[name] = temp  != null ? temp : defoolt;
         if ($.Options_Dict[name]>size-1) {$.Options_Dict[name] = defoolt;}
         if ($.Options_Dict[name]<0) {$.Options_Dict[name] = defoolt;}
@@ -145,6 +145,8 @@ class SolarSystemBaseApp extends Application.AppBase {
 
         readAStorageValue("Orbit Circles Option", orbitCirclesOption_default, orbitCirclesOption_size );
 
+        readAStorageValue("planetsOption", planetsOption_default, planetsOption_size );
+
 
         //Now IMPLEMENT the above values
 
@@ -160,6 +162,9 @@ class SolarSystemBaseApp extends Application.AppBase {
 
         //##### ECLIPTIC SIZE
         eclipticSizeFactor = eclipticSizeOption_values[$.Options_Dict["Ecliptic Size Option"]];
+
+        //##### Display all or only planets
+        planetsOption_value = $.Options_Dict["planetsOption"]; //the number not the array (unusual) 
 
         /* //Sample binary option
         temp = Storage.getValue("Show Battery");

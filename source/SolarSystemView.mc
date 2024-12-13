@@ -34,7 +34,6 @@ class SolarSystemBaseView extends WatchUi.View {
         
 
         
-
         // Initial value shown until we have position data
         setPosition();
 
@@ -114,42 +113,7 @@ class SolarSystemBaseView extends WatchUi.View {
 
         startAnimationTimer($.hz);
 
-            var offscreenBufferOptions = {
-                :width=>dc.getWidth(),
-                :height=>dc.getHeight(),
-                :palette=> [
-                    //Graphics.COLOR_DK_GREEN,
-                    //Graphics.COLOR_GREEN,
-                                        
-                    Graphics.COLOR_BLACK,
-                    Graphics.COLOR_WHITE,
- 
-                ]
-            };
-
-                if (Graphics has :createBufferedBitmap) {
-            // get() used to return resource as Graphics.BufferedBitmap
-            _offscreenBuffer = Graphics.createBufferedBitmap(offscreenBufferOptions).get() as BufferedBitmap;
-        } else if (Graphics has :BufferedBitmap) { // If this device supports BufferedBitmap, allocate the buffers we use for drawing
-            // Allocate a full screen size buffer with a palette of only 4 colors to draw
-            // the background image of the watchface.  This is used to facilitate blanking
-            // the second hand during partial updates of the display
-            _offscreenBuffer = new Graphics.BufferedBitmap(offscreenBufferOptions);
-
-        } else {
-            _offscreenBuffer = null;
             
-        }
-
-        if (null != _offscreenBuffer) {
-            // If we have an offscreen buffer that we are using to draw the background,
-            // set the draw context of that buffer as our target.
-            targetDc = _offscreenBuffer.getDc();
-            
-        } else {
-            targetDc = dc;
-            
-        }
 
     
 
@@ -160,11 +124,63 @@ class SolarSystemBaseView extends WatchUi.View {
 
     //! Handle view being hidden
     public function onHide() as Void {
+        started = false;
     }
 
     //! Restore the state of the app and prepare the view to be shown
     public function onShow() as Void {
+        started = true;
 
+    }
+
+    var offScreenBuffer_started = false;
+
+    function startOffScreenBuffer (dc){ 
+        if (offScreenBuffer_started) {return;}
+
+        var offscreenBufferOptions = {
+                    :width=>dc.getWidth(),
+                    :height=>dc.getHeight(),
+                    :palette=> [
+                        //Graphics.COLOR_DK_GREEN,
+                        //Graphics.COLOR_GREEN,
+                                            
+                        Graphics.COLOR_BLACK,
+                        Graphics.COLOR_WHITE,
+    
+                    ]
+                };
+
+                    if (Graphics has :createBufferedBitmap) {
+                // get() used to return resource as Graphics.BufferedBitmap
+                _offscreenBuffer = Graphics.createBufferedBitmap(offscreenBufferOptions).get() as BufferedBitmap;
+            } else if (Graphics has :BufferedBitmap) { // If this device supports BufferedBitmap, allocate the buffers we use for drawing
+                // Allocate a full screen size buffer with a palette of only 4 colors to draw
+                // the background image of the watchface.  This is used to facilitate blanking
+                // the second hand during partial updates of the display
+                _offscreenBuffer = new Graphics.BufferedBitmap(offscreenBufferOptions);
+
+            } else {
+                _offscreenBuffer = null;
+                
+            }
+
+            if (null != _offscreenBuffer) {
+                // If we have an offscreen buffer that we are using to draw the background,
+                // set the draw context of that buffer as our target.
+                targetDc = _offscreenBuffer.getDc();
+                
+            } else {
+                targetDc = dc;
+                
+            }
+            offScreenBuffer_started = true;
+    }
+
+    function stopOffScreenBuffer(){
+        _offscreenBuffer = null;
+        targetDc = null;
+        offScreenBuffer_started = false;
 
     }
 
@@ -182,25 +198,30 @@ class SolarSystemBaseView extends WatchUi.View {
     public function doUpdate(dc, move){
         switch($.view_modes[$.view_index]){
             case (0): //manual ecliptic (& follows clock time)
+                stopOffScreenBuffer();
                 largeEcliptic(dc, 0);
                 break;
             case (1):  //slow-moving animated ecliptic
+                stopOffScreenBuffer();
                 largeEcliptic(dc, 0);
                 
                 //if ($.started) {WatchUi.requestUpdate();}
                 break;
             case (2):  //animation moving at one frame/day; sun frozen
+                stopOffScreenBuffer();
                 largeEcliptic(dc, 0);
                 
                 //if ($.started) {WatchUi.requestUpdate();}
                 break;    
             case(3): //top view of center 4 planets
                 //time_add_inc = 24*3;
+                startOffScreenBuffer(dc);
                 largeOrrery(dc, 0);
                 //if (move) {$.time_add_hrs += speeds[speeds_index];}
                 //if ($.started) {WatchUi.requestUpdate();}
                 break;
             case(4): //top view of main planets
+                startOffScreenBuffer(dc);
                 largeOrrery(dc, 1);
                 //if (move) {$.time_add_hrs += speeds[speeds_index];}
                 //if ($.started) {WatchUi.requestUpdate();}
@@ -209,12 +230,14 @@ class SolarSystemBaseView extends WatchUi.View {
             
             case(5):  //top view taking in some trans-neptunian objects
                 //if (move) {$.time_add_hrs += speeds[speeds_index];}
+                startOffScreenBuffer(dc);
                 largeOrrery(dc, 2);
                 //if ($.started) {WatchUi.requestUpdate();}
 
                 break;
             default:
                 //if (move) {$.time_add_hrs += speeds[speeds_index];}
+                stopOffScreenBuffer();
                 largeEcliptic(dc, 0);
                 
                 //if ($.started) {WatchUi.requestUpdate();}
@@ -855,7 +878,8 @@ class SolarSystemBaseView extends WatchUi.View {
         //var small_whh = ["Sun","Mercury","Venus","Earth", "Mars", "Ceres"];
         var small_whh = ["Sun","Mercury","Venus","Earth", "Mars"];
         var full_whh =  ["Sun", "Mercury","Venus","Earth", "Mars","Jupiter","Saturn","Uranus","Neptune","Pluto","Ceres","Chiron","Eris", "Gonggong","Quaoar", "Makemake", "Haumea"];
-        whh = full_whh; //new way, now we have zoom
+        //whh = full_whh; //new way, now we have zoom
+        whh = planetsOption_values[planetsOption_value];
         
         var zoom_whh = small_whh;
         if (big_small == 1) {
@@ -916,10 +940,11 @@ class SolarSystemBaseView extends WatchUi.View {
 
 
         //*********** SET SCALE/ZOOM LEVEL****************
-        var max =0;        
+        var max =0.00001;        
         
         for (var i = 0; i<zoom_whh.size(); i++) {
             key = zoom_whh[i];
+            if (whh.indexOf(key)<0) {continue;} //in case dwarf planet/asteroids eliminated by ***planetsOption***
             //System.println("KEY whh: " + key);
             var rd = pp[key][0]*pp[key][0]+pp[key][1]*pp[key][1];
             if (rd> max) {max = rd;}
@@ -972,12 +997,12 @@ class SolarSystemBaseView extends WatchUi.View {
 
         //*************** PLANET TRACKS **********************************    
 
-        System.println ("nearly to drawOrbits3");
+        //System.println ("nearly to drawOrbits3");
         if ($.Options_Dict["Orbit Circles Option"]==0 ) {
 
        
 
-            System.println ("going to drawOrbits3");
+            //System.println ("going to drawOrbits3");
             targetDc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
             drawOrbits3(targetDc, pp, scale, xc, yc, big_small, [full_whh,whh, small_whh], Graphics.COLOR_WHITE); 
 
@@ -985,7 +1010,7 @@ class SolarSystemBaseView extends WatchUi.View {
             
             if (null != _offscreenBuffer) {
                 dc.drawBitmap(0, 0, _offscreenBuffer);
-                System.println ("Using offscreenBUFFER");
+                //System.println ("Using offscreenBUFFER");
             } 
         }
 
@@ -1256,7 +1281,7 @@ class SolarSystemBaseView extends WatchUi.View {
                 case 0:                
                 case 6:                
                 default:
-                    msg = ["THE","PLANETS", "", "(press UP or SWIPE)",animation_count + 1];
+                    msg = ["THE","PLANETS", "", "*press UP or SWIPE*",animation_count + 1];
                     break;                
                 case 1:                
                     msg = ["UP/DOWN/SWIPE:","Time Forward", "/Back",animation_count + 1];
@@ -1317,13 +1342,13 @@ class SolarSystemBaseView extends WatchUi.View {
                 if (msg[i].length()==0){
                     //a blank line =""
                     dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-                    dc.drawLine(0, ystart + (i)*textHeight, targetDc.getWidth(), ystart + i*textHeight);
+                    dc.drawLine(0, ystart + (i)*textHeight, dc.getWidth(), ystart + i*textHeight);
                     lined = false;
                     continue;
                 }
                 
                 dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
-                dc.fillRectangle(0, ystart + i*textHeight, targetDc.getWidth(), textHeight);
+                dc.fillRectangle(0, ystart + i*textHeight, dc.getWidth(), textHeight);
                 
                 
                 
@@ -1338,13 +1363,13 @@ class SolarSystemBaseView extends WatchUi.View {
                     else {
                             dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);
                         }
-                    dc.drawLine(0, i*textHeight + ystart , targetDc.getWidth(), i*textHeight + ystart);
+                    dc.drawLine(0, i*textHeight + ystart , dc.getWidth(), i*textHeight + ystart);
                     lined = true;
                 }
             }
         }
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-        dc.drawLine(0, ystart + (ct_i)*textHeight, targetDc.getWidth(), ystart + ct_i*textHeight);
+        dc.drawLine(0, ystart + (ct_i)*textHeight, dc.getWidth(), ystart + ct_i*textHeight);
 
         if ($.buttonPresses < 1) { return 2;}
         return 1;
