@@ -28,5 +28,5 @@ LICENSE & COPYRIGHT of that original code: The MIT License, Copyright (c) 2020, 
 _SOFTWARE LICENSE_
  * Portions due to Greg Miller's implementation of the VSOP algorithm Public Domain.
  * Portions based on Ioannis Masios's Sunrise/Set algorithm, MIT License
- * Remainder
+ * Remainder Copyright 2024 Brent Hugh.
 
