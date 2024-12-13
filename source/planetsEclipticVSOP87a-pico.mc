@@ -2,6 +2,9 @@ import Toybox.Math;
 import Toybox.System;
 import Toybox.Lang; 
 
+var storRand = {};
+var storLastR = {};
+
 class VSOP87_cache{
 
     var g_cache;
@@ -132,6 +135,8 @@ class vsop87a_pico{
             ret.put ("Ceres", vspo_2_J2000(getCeres(JD), earth, false, type));
             
             ret.put ("Gonggong", vspo_2_J2000(getGonggong(JD), earth, false, type));
+            ret.put ("Makemake", vspo_2_J2000(getMakemake(JD), earth, false, type));
+            ret.put ("Haumea", vspo_2_J2000(getHaumea(JD), earth, false, type));
         }
         
 
@@ -647,20 +652,25 @@ class vsop87a_pico{
         var EPOCH=  2457996.5;
         var EC= .441713222152167;
         var QR= 37.76778537485207;   
-        var TP= 2545579.0049365791;      
-        var OM= 35.87796152910861;   
+        //var TP= 2545579.0049365791;      
+        //var OM= 35.87796152910861;   
         var W=  151.5251501002852;   
         var IN= 44.2037909086797;  
         var  A= 67.6494355113423;  
         var  MA= 204.8595058015323;  
         var  N= .001771364;
 
+        var newE = randomizeOrbit ("Eris", EC, QR, W, IN, A, MA, d);
+
         var d_new= d - EPOCH;
         var M = MA + N * d_new;
         
         M=normalize(M);
 
-        return Planet_Sun(M, EC, A, QR, W, IN);
+        var ret = Planet_Sun(M, newE[:EC], newE[:A], newE[:QR], newE[:W], newE[:IN]);
+        $.storLastR ["Eris"] = Math.sqrt(ret[0]*ret[0] + ret[1]*ret[1] + ret[2]*ret[2]);
+        //System.println("XYZ: " + ret[0] + " " + ret[1] + " " + ret[2]);
+        return ret;
 
    }
    public function getCeres (d){
@@ -679,15 +689,17 @@ class vsop87a_pico{
      
         var EC= .07687465013145245;  
         var QR= 2.556401146697176;   
-        var TP= 2458240.1791309435;
-        var OM= 80.3011901917491;    
+        //var TP= 2458240.1791309435;
+        //var OM= 80.3011901917491;    
         var W=  73.80896808746482;   
         var IN= 10.59127767086216;
         var A= 2.769289292143484;    
         var MA= 130.3159688200986;   
-        var ADIST= 2.982177437589792;
-        var  PER= 4.60851            ;
+        //var ADIST= 2.982177437589792;
+        //var  PER= 4.60851            ;
         var N= .213870844 ;
+
+        var newE = randomizeOrbit ("Ceres", EC, QR, W, IN, A, MA, d);
 
 
 
@@ -696,7 +708,10 @@ class vsop87a_pico{
         
         M=normalize(M);
 
-        return Planet_Sun(M, EC, A, QR, W, IN);
+        var ret = Planet_Sun(M, newE[:EC], newE[:A], newE[:QR], newE[:W], newE[:IN]);
+        $.storLastR ["Ceres"] = Math.sqrt(ret[0]*ret[0] + ret[1]*ret[1] + ret[2]*ret[2]);
+        //System.println("XYZ: " + ret[0] + " " + ret[1] + " " + ret[2]);
+        return ret;
 
    }
 
@@ -706,15 +721,17 @@ class vsop87a_pico{
       var EPOCH=  2457535.5; // ! 2016-May-27.00 (TDB)         Residual RMS= .19998
       var EC= .3827260124508142;   
       var QR= 8.418796919952825;   
-      var TP= 2450138.5315822391;
-      var OM= 209.2210850370517;   
+      //var TP= 2450138.5315822391;
+      //var OM= 209.2210850370517;   
       var W=  339.5128645055728;   
       var IN= 6.946297035265285;
       var A= 13.63867114079872;
       var MA= 144.7437272459811;   
-      var ADIST= 18.85854536164461;
-      var PER= 50.36934          ; 
+      //var ADIST= 18.85854536164461;
+      //var PER= 50.36934          ; 
       var N= .01956798 ;
+
+      var newE = randomizeOrbit ("Chiron", EC, QR, W, IN, A, MA, d);
 
 
 
@@ -723,7 +740,12 @@ class vsop87a_pico{
         
         M=normalize(M);
 
-        return Planet_Sun(M, EC, A, QR, W, IN);
+        //return Planet_Sun(M, EC, A, QR, W, IN);
+
+        var ret = Planet_Sun(M, newE[:EC], newE[:A], newE[:QR], newE[:W], newE[:IN]);
+        $.storLastR ["Chiron"] = Math.sqrt(ret[0]*ret[0] + ret[1]*ret[1] + ret[2]*ret[2]);
+        //System.println("XYZ: " + ret[0] + " " + ret[1] + " " + ret[2]);
+        return ret;
 
    }
   public function getGonggong(d){
@@ -733,8 +755,8 @@ class vsop87a_pico{
      var EPOCH=  2457964.5; // ! 2017-Jul-30.00 (TDB)         Residual RMS= .10926
      var EC= .505928166740521;
      var     QR= 33.17018711494477;
-     var   TP= 2399628.8293997725;
-     var   OM= 336.8249678431149;
+     //var   TP= 2399628.8293997725;
+     //var   OM= 336.8249678431149;
      var    W=  207.173549840275;
      var     IN= 30.87334176604489;
      var    A= 67.1363653663784;
@@ -742,13 +764,136 @@ class vsop87a_pico{
      //       ADIST= 101.102543617812   PER= 550.10417          
      var N= .001791708;
 
+     var newE = randomizeOrbit ("Gonggong", EC, QR, W, IN, A, MA, d);
+
         var d_new= d - EPOCH;
-        var M = MA + N * d_new;
+        var M = newE[:MA] + N * d_new;
         
         M=normalize(M);
 
-        return Planet_Sun(M, EC, A, QR, W, IN);
+        var ret = Planet_Sun(M, newE[:EC], newE[:A], newE[:QR], newE[:W], newE[:IN]);
+        $.storLastR ["Gonggong"] = Math.sqrt(ret[0]*ret[0] + ret[1]*ret[1] + ret[2]*ret[2]);
+        //System.println("XYZ: " + ret[0] + " " + ret[1] + " " + ret[2]);
+        return ret;
   } 
+
+  public function getMakemake(d){
+
+    //225088 Gonggong (2007 OR10)
+
+     var EPOCH=  2458086.5; // ! 2017-Nov-29.00 (TDB)         Residual RMS= .15511
+   
+     var EC= .1549341371192079   ;
+     var QR= 38.62074545461233  ; 
+     //var TP= 2407473.3048103042;
+     //var OM= 79.60071323640928;   
+     var W=  295.8277253622994 ;  
+     var IN= 28.98514685760906;
+     var A= 45.70146204102473;    
+     var MA= 161.4628775532161;
+
+      
+     var N= .003190134;
+
+     var newE = randomizeOrbit ("Makemake", EC, QR, W, IN, A, MA, d);
+
+        var d_new= d - EPOCH;
+        var M = newE[:MA] + N * d_new;
+        
+        M=normalize(M);
+
+        var ret = Planet_Sun(M, newE[:EC], newE[:A], newE[:QR], newE[:W], newE[:IN]);
+        $.storLastR ["Makemake"] = Math.sqrt(ret[0]*ret[0] + ret[1]*ret[1] + ret[2]*ret[2]);
+        //System.println("XYZ: " + ret[0] + " " + ret[1] + " " + ret[2]);
+        return ret;
+  } 
+
+    public function getHaumea(d){
+
+         var EPOCH=  2457665.5; // ! 2016-Oct-04.00 (TDB)         Residual RMS= .16606
+         var EC= .1890800327846289  ; 
+         var QR= 35.14667962719495 ;  
+         //var TP= 2500383.7360014333;
+        //var OM= 121.8932402833152 ;  
+        var W=  239.2598062405985;   
+        var IN= 28.1988605373753;
+        var A= 43.34173660550696 ;   
+        var MA= 212.4436438927888;   
+        var ADIST= 51.53679358381897;
+        var N= .003454177;
+
+
+     var newE = randomizeOrbit ("Haumea", EC, QR, W, IN, A, MA, d);
+
+        var d_new= d - EPOCH;
+        var M = newE[:MA] + N * d_new;
+        
+        M=normalize(M);
+
+        var ret = Planet_Sun(M, newE[:EC], newE[:A], newE[:QR], newE[:W], newE[:IN]);
+        $.storLastR ["Haumea"] = Math.sqrt(ret[0]*ret[0] + ret[1]*ret[1] + ret[2]*ret[2]);
+        //System.println("XYZ: " + ret[0] + " " + ret[1] + " " + ret[2]);
+        return ret;
+  } 
+
+  //slightly scramble  up all the params
+  
+  private function randomizeOrbit (name, EC, QR, W, IN, A, MA, d){
+        
+        var ret = {};
+        var pRet =  {:EC => EC,
+                        :QR => QR,
+                        :W => W,
+                        :IN => IN,
+                        :A => A,
+                        :MA => MA,
+                        :lastD => d,
+                    };
+        if ($.animSinceModeChange <= 1 ) {
+            $.storRand.put(name, pRet);
+            return pRet;    
+        }                    
+
+        if ($.storRand != null && storRand.hasKey(name)) {
+            
+            pRet = storRand[name];
+            System.println("pRet from STOR: " + pRet);
+        }
+        var lastR = QR;
+        if ($.storLastR != null && storLastR.hasKey(name)) {            
+            lastR = storLastR[name];
+            System.println("lastR from STOR: " + lastR);
+        }
+
+        //lastR = QR;
+        
+        var eTime = d - pRet[:lastD];
+        var rFact = 2000;
+        var div = 50000000d; //was 10000000d but seemed too big, 100000000d but seemed too small
+        
+        //ret.put(:EC, pRet[:EC] + (Math.rand()%(2*rFact)-rFact) * QR);
+
+        
+        ret.put(:EC, pRet[:EC] + ((Math.rand()%(2*rFact)-rFact) * QR * eTime/3650d * QR/lastR)*A/div/100);
+        ret.put(:QR, pRet[:QR] + ((Math.rand()%(2*rFact)-rFact) * QR * eTime/3650d * QR/lastR)*A/div);
+        ret.put(:W, pRet[:W] + ((Math.rand()%(2*rFact)-rFact) * QR * eTime/3650d *A)/div);
+        ret.put(:IN, pRet[:IN] + ((Math.rand()%(2*rFact)-rFact) * QR * eTime/3650d * QR/lastR*A)/div);
+        ret.put(:A, pRet[:A] + ((Math.rand()%(2*rFact)-rFact) * QR * eTime/3650d * QR/lastR*A)/div);
+        ret.put(:MA, pRet[:MA] + ((Math.rand()%(2*rFact)-rFact) * QR * eTime/3650 * QR/lastR*A)/div);
+        ret.put(:lastD, d);
+
+        if (ret[:EC] > 1) {ret[:EC]=1;}
+        if (ret[:EC] < 0) {ret[:EC]=0;}
+
+        System.println("ret: " + ret);
+        System.println("ret: " + ret);
+        
+        
+
+        $.storRand.put(name, ret);
+        return ret;
+
+  }
    
 
 }

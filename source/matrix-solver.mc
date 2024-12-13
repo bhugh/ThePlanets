@@ -247,10 +247,8 @@ var save_big_small = null;
 
 function drawOrbits3 (dc, pp, scale, xc,yc, big_small, WHHs, color) {
 
-    dc.setColor(color, Graphics.COLOR_TRANSPARENT);
-    dc.setPenWidth(1);
-    if (save_big_small != null && save_big_small != big_small) {save_points = {};}
-    save_big_small = big_small;
+
+
 
     var full_whh = WHHs[0];
     var whh = WHHs[1];
@@ -259,7 +257,7 @@ function drawOrbits3 (dc, pp, scale, xc,yc, big_small, WHHs, color) {
     var per = 50;
     if (big_small == 0) {per = 10;}
     if (big_small == 1) {per = 20;}
-    if ($.animation_count%per!=0) {return;}
+    //if ($.animation_count%per!=0) {return;}
     /*
     if ($.animation_count%per==0) {
         for (var j=0;j<full_whh.size(); j++) {
@@ -297,17 +295,19 @@ function drawOrbits3 (dc, pp, scale, xc,yc, big_small, WHHs, color) {
        }
     }
     */
-
+    dc.setColor(color, Graphics.COLOR_TRANSPARENT);
+    dc.setPenWidth(1);
     for (var j=0;j<whh.size(); j++) {
      var key = whh[j];
-       if (!key.equals("Sun") && (big_small==0 || small_whh.indexOf(key)==-1))
+       //if (!key.equals("Sun") && (big_small==0 || small_whh.indexOf(key)==-1))
+       if (!key.equals("Sun"))
        {
 
 
             var X = pp[key];
             //System.println("X: " + X);
-            //System.println ("X = " + X);
-            dc.drawPoint (scale*X[0]/100.0 + xc, scale*X[1]/100 + xc);
+            System.println ("X = " + X);
+            dc.drawPoint (scale*X[0] + xc, scale*X[1] + xc);
 
             
        }

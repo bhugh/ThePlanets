@@ -26,17 +26,17 @@ var allOrbitParms = null;
     //all are chosen to be WHOLE DAYS however, to make the sun stand still when moving forward on the eliptical screens
     //But also closest unit to WHOLE YEARS (ie 183 instead of 180 or 182.621187, 61 instead of 60 or 60.873729)
     var speeds = [-24*365*10, -24*365*7, -24*365*4, -24*365*2, -24*365, //0; year multiples (added 0)
-                -24*183, -24*91, -24*61, -24*31, -24*15, //5; 1/2, 1/4, 1/12, 1/24 of a year (added 1)
-                -24*7,-24*5, -24*3, -24*2, -24, //10; Days up to a week
-                -12,-6,-4,-2, -1, //15;Hours (added 1)
-                -30/60.0,-15/60.0,-10/60.0, -5/60.0, -3/60.0, -2/60.0, -1/60.0,  //20; minutes (added 0)
-                1/600000.0,  //27; Zero ( but still has very slight movement, also avoids /0 just in case)
-                1/60.0, 2/60.0, 3/60.0, 5/60.0, 10/60.0, 15/60.0, 30/60.0,  //28; minutes (added 0)
-                1,2,4,6,12,  //35; Hours (added 1)
-                24, 24*2, 24*3,24*5, 24*7, //40; Days up to a week (added 0)
-                24*15, 24*31, 24*61, 24*91, 24*183, //45; 1/2, 1/4, 1/12, 1/24 of a year (added 1)
-                24*365, 24*365*2, 24*365*4, 24*365 * 7, 24*365 * 10]; //50; year multiples (added 0)
-var speeds_index = 33; //the currently used speed that will be added to TIME @ each update of screen
+                -24*183, -24*122, -24*91, -24*61, -24*31, -24*15, //5; 1/2, 1/4, 1/12, 1/24 of a year (added 1)
+                -24*7,-24*5, -24*3, -24*2, -24, //11; Days up to a week
+                -12,-6,-4,-2, -1, //16;Hours (added 1)
+                -30/60.0,-15/60.0,-10/60.0, -5/60.0, -3/60.0, -2/60.0, -1/60.0,  //21; minutes (added 0)
+                1/600000.0,  //28; Zero ( but still has very slight movement, also avoids /0 just in case)
+                1/60.0, 2/60.0, 3/60.0, 5/60.0, 10/60.0, 15/60.0, 30/60.0,  //29; minutes (added 0)
+                1,2,4,6,12,  //36; Hours (added 1)
+                24, 24*2, 24*3,24*5, 24*7, //41; Days up to a week (added 0)
+                24*15, 24*31, 24*61, 24*91, 24*122, 24*183, //46; 1/2, 1/4, 1/12, 1/24 of a year (added 1)
+                24*365, 24*365*2, 24*365*4, 24*365 * 7, 24*365 * 10]; //52; year multiples (added 0)
+var speeds_index = 34; //the currently used speed that will be added to TIME @ each update of screen
 var screen0Move_index = 33;
 
 var started = false; //whether to move forward on an update, ie STOPPED or STARTED moving
@@ -50,6 +50,7 @@ var orreryDraws = 0;
 var time_add_hrs = 0.0d; //cumulation of all time to be added to time.NOW when a screen is displayed
 
 var show_intvl = 0; //whether or not to show current SPEED on display
+var animSinceModeChange = 0; //used to tell when to blank screen etc.
 var solarSystemView_class; //saved instance of main class 
 
 //! This app displays information about the user's position
@@ -129,6 +130,8 @@ class SolarSystemBaseApp extends Application.AppBase {
     public function readStorageValues() as Void {
 
         System.println("STORAGE VALUES ARE READ - PROGRAM INIT!!!!");
+
+        readAStorageValue("orrZoomOption", orrZoomOption_default, orrZoomOption_size );
 
         readAStorageValue("Label Display Option",labelDisplayOption_default, labelDisplayOption_size );
 

@@ -17,6 +17,10 @@ class SolarSystemSettingsMenu extends WatchUi.Menu2 {
 
     Menu2.initialize({:title=>"Settings"});
 
+    if ($.Options_Dict["orrZoomOption"] == null) { $.Options_Dict["orrZoomOption"] = $.orrZoomOption_default; }
+    Menu2.addItem(new WatchUi.MenuItem("Solar System Zoom?",
+    $.orrZoomOption[$.Options_Dict["orrZoomOption"]],"orrZoomOption",{}));   
+
     if ($.Options_Dict["Label Display Option"] == null) { $.Options_Dict["Label Display Option"] = $.labelDisplayOption_default; }
     Menu2.addItem(new WatchUi.MenuItem("Display Planet Labels?",
         $.labelDisplayOption[$.Options_Dict["Label Display Option"]],"Label Display Option",{}));
@@ -34,7 +38,7 @@ class SolarSystemSettingsMenu extends WatchUi.Menu2 {
     $.planetSizeOption[$.Options_Dict["Planet Size Option"]],"Planet Size Option",{}));   
 
     if ($.Options_Dict["Ecliptic Size Option"] == null) { $.Options_Dict["Ecliptic Size Option"] = $.eclipticSizeOption_default; }
-    Menu2.addItem(new WatchUi.MenuItem("Big Circle Display Size?",
+    Menu2.addItem(new WatchUi.MenuItem("Ecliptic Circle Size?",
     $.eclipticSizeOption[$.Options_Dict["Ecliptic Size Option"]],"Ecliptic Size Option",{}));    
 
     if ($.Options_Dict["Orbit Circles Option"] == null) { $.Options_Dict["Orbit Circles Option"] = $.orbitCirclesOption_default; }
@@ -129,6 +133,16 @@ class SolarSystemSettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
         }*/
         
         var id=menuItem.getId();
+
+        if(id.equals("orrZoomOption")) {
+        $.Options_Dict[id]=($.Options_Dict[id]+1)%orrZoomOption_size;
+        menuItem.setSubLabel($.orrZoomOption[$.Options_Dict[id]]);
+
+        Storage.setValue(id as String, $.Options_Dict[id]);    
+
+        $.show_intvl = 0; //makes the scale in orrery re-set, and re-display the time interval
+        
+        }
 
         if(id.equals("Label Display Option")) {
         $.Options_Dict[id]=($.Options_Dict[id]+1)%labelDisplayOption_size;

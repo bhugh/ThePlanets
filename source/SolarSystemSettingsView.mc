@@ -9,6 +9,38 @@ import Toybox.Graphics;
 import Toybox.Lang;
 import Toybox.WatchUi;
 
+
+var orrZoomOption=[
+     "4X out" , 
+     "2X out" , 
+     "1X" , 
+     "2X in" , 
+     "4X in" , 
+     "8X in" ,      
+     "16X in", 
+     "32X in", 
+     "64X in", 
+     "128X in", 
+];
+
+var orrZoomOption_values=[
+    0.25,
+    0.5,
+    1,
+    2, 
+    4, 
+    8, 
+    16, 
+    32,
+    64,
+    128,    
+
+];
+var orrZoomOption_size = 10;
+var orrZoomOption_default = 2;
+
+
+
 //TODO: User could tweak size of PLANETS & also radius of circle/overall scale
 var Options_Dict = {  };
 var labelDisplayOption=[ "Always On", "Always Off", "Freq Flash", "Less Flash", "Random Flash"];
@@ -61,7 +93,6 @@ var screen0MoveOption=[
 ];
 
 var screen0MoveOption_values=[
-    28, 
     29, 
     30, 
     31, 
@@ -69,10 +100,11 @@ var screen0MoveOption_values=[
     33, 
     34,
     35,
-    40,
-    44,
-    46,
-    50, 
+    36,
+    41,
+    45,
+    47,
+    51, 
 ];
 var screen0MoveOption_size = 13;
 var screen0MoveOption_default = 6;
@@ -123,20 +155,20 @@ var eclipticSizeFactor = 1.0;
 
 
 var orbitCirclesOption=[
-     "White" , 
-     "Bright Gray" , 
-     "Dim Gray" , 
+     "On" , 
+     //"Bright Gray" , 
+     //"Dim Gray" , 
      "Off" ,                
 ];
 
 var orbitCirclesOption_values=[
    Graphics.COLOR_WHITE,
-    Graphics.COLOR_LT_GRAY, 
-    Graphics.COLOR_DK_GRAY, 
+    //Graphics.COLOR_LT_GRAY, 
+    //Graphics.COLOR_DK_GRAY, 
     Graphics.COLOR_TRANSPARENT,     
 ];
-var orbitCirclesOption_size = 4;
-var orbitCirclesOption_default = 2;
+var orbitCirclesOption_size = 2;
+var orbitCirclesOption_default = 0;
 
 /*
 var Options_Dict = {  };

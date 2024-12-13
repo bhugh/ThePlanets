@@ -155,12 +155,16 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
         return true;
     }
 
-    
+    function onTap(clickEvent) {
+        System.println("Click1: " + clickEvent.getCoordinates()); // e.g. [36, 40]
+        System.println("Click2: " + clickEvent.getType());        // CLICK_TYPE_TAP = 0
+        return true;
+    }
 
     
     function onKey(keyEvent) {
         var keyvent =  keyEvent.getKey();
-        //System.println("GOT KEEY!!!!!!!!!: " + keyvent);         // e.g. KEY_MENU = 7
+        System.println("GOT KEEY!!!!!!!!!: " + keyvent);         // e.g. KEY_MENU = 7
 
         if (keyvent == 7) {
 
@@ -183,9 +187,11 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
 function changeModes(previousMode){
         //System.println("chmodes..." );
         
-
+        $.animSinceModeChange = 0;
         $.show_intvl = 0; //used by showDate to decide when/how long to show (5 min) type labels
         //$.time_add_hrs = .5; //reset to present time //NOW Do this, or not, individually per MODE below
+        $.Options_Dict["orrZoomOption"] = orrZoomOption_default;
+
         switch($.view_modes[$.view_index]){
             case (0):
                 //time_add_inc = 0.25;
@@ -200,7 +206,7 @@ function changeModes(previousMode){
                 //time_add_inc=1;
                 //DON'T reset to present time here bec. we're usually coming from mode 0 or mode 2& can just continue seamlessly
                 //$.time_add_hrs = .5; //reset to present time
-                speeds_index = 31; //5 mins
+                speeds_index = 32; //5 mins
                 solarSystemView_class.sendMessage("Auto by Min Mode", "Use Up/Down", "", 5);
                 break;
             case(2):
@@ -209,26 +215,26 @@ function changeModes(previousMode){
                 if (previousMode != null && previousMode==3 ) {  //mode 3 often moves years into the future...
                     $.time_add_hrs = 0; //reset to present time
                 }
-                speeds_index = 40; //1 day or 24 hrs
+                speeds_index = 41; //1 day or 24 hrs
                 solarSystemView_class.sendMessage("Auto by Day Mode", "Use Up/Down", "", 5);
                 break;                
             case(3):
                 //time_add_inc = 24*3; //1 day
                 $.time_add_hrs = 0; //reset to present time
-                speeds_index = 40; //1 day
+                speeds_index = 41; //1 day
                 solarSystemView_class.sendMessage("Inner", "Solar System", "(Use Up/Down)", 5);
                 break;
             case(4):
                 //time_add_inc = 24*15; //14 days
                 $.time_add_hrs = 0; //reset to present time
-                speeds_index = 45; //15 days
+                speeds_index = 46; //15 days
                 solarSystemView_class.sendMessage("Outer", "Solar System", "(Use Up/Down)", 5);
                 break;
             
             case(5):
                 //time_add_inc = 24*15; //90 days
                 $.time_add_hrs = 0; //reset to present time
-                speeds_index = 47;
+                speeds_index = 48; //61 days
                 solarSystemView_class.sendMessage("Far Outer", "Solar System","(Use Up/Down)", 5);
                 break;
             default:
