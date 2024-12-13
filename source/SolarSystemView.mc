@@ -963,11 +963,11 @@ class SolarSystemBaseView extends WatchUi.View {
                 targetDc.setColor(Graphics.COLOR_TRANSPARENT, Graphics.COLOR_BLACK);
                 targetDc.clear();        
                 targetDc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-                System.println ("Using offscreenBUFFER");
+                //System.println ("Using offscreenBUFFER");
 
             } else {
                 targetDc = dc;
-                System.println ("NOTTTTT Using offscreenBUFFER");
+                //System.println ("NOTTTTT Using offscreenBUFFER");
             }
         }
         
@@ -1027,6 +1027,7 @@ class SolarSystemBaseView extends WatchUi.View {
             key = whh[i];
             //System.println ("kys: " + key + " " + key1);
             //if ( ["Ceres", "Uranus", "Neptune", "Pluto", "Eris", "Chiron"].indexOf(key)> -1) {continue;}
+            if (key == null || pp[key] == null) {continue;} //not much else to do...
 
             x = scale * pp[key][0] + xc;
             y = scale * pp[key][1] + yc;
@@ -1039,8 +1040,11 @@ class SolarSystemBaseView extends WatchUi.View {
             //TODO: Approximate the elliptical orbit & draw it somehow
             //dc.setColor(orbitCirclesOption_values[$.Options_Dict["Orbit Circles Option"]], Graphics.COLOR_TRANSPARENT);
             //dc.drawCircle(xc, yc, radius);
+            
+            //save some by not drawing if very close to sun.  Would save more
+            //by not even calcing their position, somehow...
 
-            if (radius < 1.05 * min_c) {            
+            if (radius < 1.05 * min_c && radius > 0.1 * min_c) {            
                 fillSpotRect(x,y);//try to avoid putting labels on top of a planet
                 drawPlanet(dc, key, x, y, 4, ang_rad, :orrery, big_small, small_whh);
             }

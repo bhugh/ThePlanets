@@ -33,6 +33,7 @@ function drawOrbits3 (dc, pp, scale, xc,yc, big_small, WHHs, color) {
 
 
             var X = pp[key];
+            if (X==null) {continue;}
             //System.println("X: " + X);
             //System.println ("X = " + X);
             dc.setColor(color, Graphics.COLOR_TRANSPARENT);

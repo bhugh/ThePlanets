@@ -114,31 +114,37 @@ class vsop87a_pico{
         //change vantage point to earth & return lat/lon angles relative to ecliptic
         //Trick is to switch Earth & Sun, but -x, -y, -z that way  we have a
         //"sun position" even though it was all calculated with Sun  as the center
-        var ret = {
-            "Mercury" => vspo_2_J2000(getMercury(t), earth, true, type),
-            "Venus" => vspo_2_J2000(getVenus(t), earth, true, type),
-            //"Earth" => vspo_2_J2000(getEarth(t), earth, true, type),
-            "Mars" => vspo_2_J2000(getMars(t), earth, true, type),
-            "Jupiter" => vspo_2_J2000(getJupiter(t), earth, true, type),
-            "Saturn" => vspo_2_J2000(getSaturn(t), earth, true, type),
-            "Uranus" => vspo_2_J2000(getUranus(t), earth, true, type),
-            "Neptune" => vspo_2_J2000(getNeptune(t), earth, true, type),
-            "Sun" => vspo_2_J2000([0,0,0], earth, true, type),
-            "Pluto" => vspo_2_J2000(getPluto(JD), earth, false, type),
-        };
+        var ret = {};
+        var vhh = $.planetsOption_values[planetsOption_value];
+
+        if (type != :helio_xyz) { vhh =$.planetsOption_values[1];}
+
+        //if (planetsOption_value == 0 || planetsOption_value == 2 || type != :helio_xyz)
+         
+            if (in ("Mercury",vhh)) {ret.put ("Mercury", vspo_2_J2000(getMercury(t), earth, true, type));}
+            if (in ("Venus",vhh)) {ret.put ("Venus", vspo_2_J2000(getVenus(t), earth, true, type));}
+            //if (in ("Mercury",vhh)) {"Earth" => vspo_2_J2000(getEarth(t), earth, true, type));}
+            if (in ("Mars",vhh)) {ret.put ("Mars", vspo_2_J2000(getMars(t), earth, true, type));}
+            if (in ("Jupiter",vhh)) {ret.put ("Jupiter" , vspo_2_J2000(getJupiter(t), earth, true, type));}
+            if (in ("Saturn",vhh)) {ret.put ("Saturn" , vspo_2_J2000(getSaturn(t), earth, true, type));}
+            if (in ("Uranus",vhh)) {ret.put ("Uranus" , vspo_2_J2000(getUranus(t), earth, true, type));}
+            if (in ("Neptune",vhh)) {ret.put ("Neptune" , vspo_2_J2000(getNeptune(t), earth, true, type));}
+            if (in ("Sun",vhh)) {ret.put ("Sun" , vspo_2_J2000([0,0,0], earth, true, type));}
+            if (in ("Pluto",vhh)) {ret.put ("Pluto" , vspo_2_J2000(getPluto(JD), earth, false, type));}
+        //};}
         
 
-        if (planetsOption_value == 0 && type == :helio_xyz) {
+        //if ((planetsOption_value == 0 || planetsOption_value == 3 ) && type == :helio_xyz) {
 
-            ret.put ("Eris", vspo_2_J2000(getEris(JD), earth, false, type));
-            ret.put ("Chiron", vspo_2_J2000(getChiron(JD), earth, false, type));
-            ret.put ("Ceres", vspo_2_J2000(getCeres(JD), earth, false, type));
+            if (in ("Pluto",vhh)) {ret.put ("Eris", vspo_2_J2000(getEris(JD), earth, false, type));}
+            if (in ("Pluto",vhh)) {ret.put ("Chiron", vspo_2_J2000(getChiron(JD), earth, false, type));}
+            if (in ("Pluto",vhh)) {ret.put ("Ceres", vspo_2_J2000(getCeres(JD), earth, false, type));}
             
-            ret.put ("Gonggong", vspo_2_J2000(getGonggong(JD), earth, false, type));
-            ret.put ("Quaoar", vspo_2_J2000(getQuaoar(JD), earth, false, type));
-            ret.put ("Makemake", vspo_2_J2000(getMakemake(JD), earth, false, type));
-            ret.put ("Haumea", vspo_2_J2000(getHaumea(JD), earth, false, type));
-        }
+            if (in ("Pluto",vhh)) {ret.put ("Gonggong", vspo_2_J2000(getGonggong(JD), earth, false, type));}
+            if (in ("Pluto",vhh)) {ret.put ("Quaoar", vspo_2_J2000(getQuaoar(JD), earth, false, type));}
+            if (in ("Pluto",vhh)) {ret.put ("Makemake", vspo_2_J2000(getMakemake(JD), earth, false, type));}
+            if (in ("Pluto",vhh)) {ret.put ("Haumea", vspo_2_J2000(getHaumea(JD), earth, false, type));}
+        //}
         
 
         //keep vantage point as Sun and return XYZ coords
@@ -150,6 +156,10 @@ class vsop87a_pico{
         }
         
         return ret;
+    }
+
+    public function in ( name,arry) {
+      return arry.indexOf(name) >=0;
     }
 
     // types are :ecliptic_latlon and :helio_xyz

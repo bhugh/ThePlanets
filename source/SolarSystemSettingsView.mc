@@ -42,16 +42,18 @@ var orrZoomOption_default = 2;
 var planetsOption=[
      "All objects" , 
      "Only trad. planets" , 
+     "Only Dwarf Planets/Asteroids" , 
      
 ];
 
 var planetsOption_values=[
     ["Sun", "Mercury","Venus","Earth", "Mars","Jupiter","Saturn","Uranus","Neptune","Pluto","Ceres","Chiron","Eris", "Gonggong","Quaoar", "Makemake", "Haumea"],
-    ["Sun", "Mercury","Venus","Earth", "Mars","Jupiter","Saturn","Uranus","Neptune","Pluto"] //List of names not used on VSOP but can be useful elsewhere
+    ["Sun", "Mercury","Venus","Earth", "Mars","Jupiter","Saturn","Uranus","Neptune","Pluto"], //List of names not used on VSOP but can be useful elsewhere
+    ["Sun","Mercury", "Ceres","Chiron","Eris", "Gonggong","Quaoar", "Makemake", "Haumea"],
  
 
 ];
-var planetsOption_size = 2;
+var planetsOption_size = 3;
 var planetsOption_default = 1;
 var planetsOption_value = planetsOption_default; //use the NUMBER not the VALUES, slightly UNUSUAL
 
