@@ -104,8 +104,8 @@ var screen0MoveOption=[
       "2hr",
       "24hr",
       "Week",
-      "Month",
       "Lunar Month",
+      "Month",      
       "Year" , 
       "Solar Year" , 
 ];
@@ -254,8 +254,8 @@ class SolarSystemSettingsView extends WatchUi.View {
         if (firstShow) {
             //System.println("firstShow...");
             //WatchUi.switchToView(new $.ElegantAnaSettingsMenu(), new $.ElegantAnaSettingsMenuDelegate(), WatchUi.SLIDE_IMMEDIATE);
-            WatchUi.pushView(new $.SolarSystemSettingsMenu(), new $.SolarSystemSettingsMenuDelegate(), WatchUi.SLIDE_IMMEDIATE);
-            //WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
+            WatchUi.pushView(new $.SolarSystemSettingsMenu(), new $.SolarSystemSettingsMenuDelegate(), WatchUi.SLIDE_RIGHT);
+            //WatchUi.popView(WatchUi.SLIDE_IMMEDIATE); //SLIDE_RIGHT
             firstShow = false;
         }
 

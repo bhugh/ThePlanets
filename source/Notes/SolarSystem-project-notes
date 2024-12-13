@@ -1,17 +1,23 @@
 Remove:
- = Vivoactive, doesn't work at all (storage)
+ = Vivoactive, doesn't work at all (storage) Xed
  - Vivoactive HR works fine (slow of course)
-- FR 230 - out of memory, no work
-  FR 235, same
-  Fenix 3, same
+- FR 230 - out of memory, no work Xed
+  FR 235, same Xed
+  Fenix 3, same Xed
 
   Fenix 5/quatrix works fine
   D2 Air X10 good
+
+  FR 735, planet dots & planets somehow not lined up with each other. They're just off..then entering menu crashed.  PLenty of memory so ??/??!? Xed
+
+  FR930xt, immediate crash Xed
 
 
 
 
  TODO:
+
+  - Add moon to solar system
 
   - Remove mode instructions as soon as any button is pressed
  - Mode instructions last less time

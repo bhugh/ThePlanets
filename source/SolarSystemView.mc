@@ -1467,13 +1467,21 @@ class SolarSystemBaseView extends WatchUi.View {
             if ($.speeds[$.speeds_index].abs() < 1) {
                 intvl = Lang.format("($1$ min)",[($.speeds[$.speeds_index]*60).format("%d")]);
             }
-            else if ($.speeds[$.speeds_index].abs()>=24 && $.speeds[$.speeds_index].abs()<=24*190 ) {
+            else if ($.speeds[$.speeds_index].abs()>=50 && $.speeds[$.speeds_index].abs()<=367*24 ) {
                 var dv = $.speeds[$.speeds_index]/24.0;
-                intvl = "(" + dv.format("%.0d") + " day)";
+                if (dv == Math.floor(dv+.00000001)) {
+                    intvl = "(" + dv.format("%.0d") + " day)";
+                } else {
+                    intvl = "(" + dv.format("%.2f") + " day)";
+                }
             }
-            else if($.speeds[$.speeds_index].abs()>24*190 ) {
+            else if($.speeds[$.speeds_index].abs()>24*367 ) {
                 var dv = $.speeds[$.speeds_index]/(24.0*365.0);
-                intvl = "(" + dv.format("%.1d") + " year)";
+                if (dv == Math.floor(dv+.00000001)) {
+                    intvl = "(" + dv.format("%.d") + " year)";
+                } else {
+                    intvl = "(" + dv.format("%.4f") + " year)";
+                }
             }
             else {
                 var dv = $.speeds[$.speeds_index];

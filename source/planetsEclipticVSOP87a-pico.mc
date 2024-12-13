@@ -902,7 +902,7 @@ class vsop87a_pico{
         
         var eTime = d - pRet[:lastD];
         var rFact = 2000;
-        var div = 50000000d; //was 10000000d but seemed too big, 100000000d but seemed too small
+        var div = 80000000d; //was 10000000d but seemed too big, 100000000d but seemed too small
         
         //ret.put(:EC, pRet[:EC] + (Math.rand()%(2*rFact)-rFact) * QR);
 
