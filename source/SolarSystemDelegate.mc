@@ -61,7 +61,7 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
     //if started, stop.
     public function onBack() as Boolean {
         $.buttonPresses++;
-        $.show_intvl = 0;
+        //$.show_intvl = 0; //This makes screen clear of orbits, not good
         if (!started || $.view_index == 0) {
             var old_index = $.view_index;
             $.view_index = ($.view_index - 1);        
