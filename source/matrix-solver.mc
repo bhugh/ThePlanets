@@ -247,6 +247,8 @@ var save_big_small = null;
 
 function drawOrbits3 (dc, pp, scale, xc,yc, big_small, WHHs, color) {
 
+ System.println ("starting drawOrbits3 with " + color);
+ System.println ("starting drawOrbits3 with " + color == Graphics.COLOR_WHITE );
 
 
 
@@ -295,7 +297,7 @@ function drawOrbits3 (dc, pp, scale, xc,yc, big_small, WHHs, color) {
        }
     }
     */
-    dc.setColor(color, Graphics.COLOR_TRANSPARENT);
+    dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
     dc.setPenWidth(1);
     for (var j=0;j<whh.size(); j++) {
      var key = whh[j];
@@ -306,7 +308,8 @@ function drawOrbits3 (dc, pp, scale, xc,yc, big_small, WHHs, color) {
 
             var X = pp[key];
             //System.println("X: " + X);
-            System.println ("X = " + X);
+            //System.println ("X = " + X);
+            dc.setColor(color, Graphics.COLOR_TRANSPARENT);
             dc.drawPoint (scale*X[0] + xc, scale*X[1] + xc);
 
             
@@ -345,3 +348,4 @@ function drawOrbits2 (dc, coeff, scale, xc,yc, big_small, whh, small_whh, color)
        }
     }
 }
+

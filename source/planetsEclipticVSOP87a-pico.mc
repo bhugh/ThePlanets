@@ -135,6 +135,7 @@ class vsop87a_pico{
             ret.put ("Ceres", vspo_2_J2000(getCeres(JD), earth, false, type));
             
             ret.put ("Gonggong", vspo_2_J2000(getGonggong(JD), earth, false, type));
+            ret.put ("Quaoar", vspo_2_J2000(getQuaoar(JD), earth, false, type));
             ret.put ("Makemake", vspo_2_J2000(getMakemake(JD), earth, false, type));
             ret.put ("Haumea", vspo_2_J2000(getHaumea(JD), earth, false, type));
         }
@@ -777,6 +778,38 @@ class vsop87a_pico{
         return ret;
   } 
 
+  //Quaoar
+  public function getQuaoar(d){
+
+      //225088 Gonggong (2007 OR10)
+      var name = "Quaoar";
+
+      var EPOCH=  2459800.5; // ! 2022-Aug-09.00 (TDB)         Residual RMS= .21356
+      var EC= .04098702510897952  ;
+      var QR= 41.69021570747672  ; 
+      //var TP= 2478347.5347988536;
+      //var OM= 189.0902949942479  ; 
+      var W=  155.214428533145  ;  
+      var IN= 7.991232171849933;
+      var A= 43.47200381956696    ;
+      var MA= 296.2230021720905   ;
+      //var ADIST= 45.25379193165721
+      //var PER= 286.63069          
+      var N= .003438663;
+
+      var newE = randomizeOrbit (name, EC, QR, W, IN, A, MA, d);
+
+      var d_new= d - EPOCH;
+      var M = newE[:MA] + N * d_new;
+            
+         M=normalize(M);
+
+         var ret = Planet_Sun(M, newE[:EC], newE[:A], newE[:QR], newE[:W], newE[:IN]);
+         $.storLastR [name] = Math.sqrt(ret[0]*ret[0] + ret[1]*ret[1] + ret[2]*ret[2]);
+         //System.println("XYZ: " + ret[0] + " " + ret[1] + " " + ret[2]);
+         return ret;
+  } 
+
   public function getMakemake(d){
 
     //225088 Gonggong (2007 OR10)
@@ -857,12 +890,12 @@ class vsop87a_pico{
         if ($.storRand != null && storRand.hasKey(name)) {
             
             pRet = storRand[name];
-            System.println("pRet from STOR: " + pRet);
+            //System.println("pRet from STOR: " + pRet);
         }
         var lastR = QR;
         if ($.storLastR != null && storLastR.hasKey(name)) {            
             lastR = storLastR[name];
-            System.println("lastR from STOR: " + lastR);
+            //System.println("lastR from STOR: " + lastR);
         }
 
         //lastR = QR;
@@ -885,8 +918,8 @@ class vsop87a_pico{
         if (ret[:EC] > 1) {ret[:EC]=1;}
         if (ret[:EC] < 0) {ret[:EC]=0;}
 
-        System.println("ret: " + ret);
-        System.println("ret: " + ret);
+        //System.println("ret: " + ret);
+        //System.println("ret: " + ret);
         
         
 

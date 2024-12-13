@@ -44,6 +44,10 @@ class SolarSystemSettingsMenu extends WatchUi.Menu2 {
     if ($.Options_Dict["Orbit Circles Option"] == null) { $.Options_Dict["Orbit Circles Option"] = $.orbitCirclesOption_default; }
     Menu2.addItem(new WatchUi.MenuItem("Show Solar System Orbits?",
     $.orbitCirclesOption[$.Options_Dict["Orbit Circles Option"]],"Orbit Circles Option",{}));   
+
+    if ($.Options_Dict["helpOption"] == null) { $.Options_Dict["helpOption"] = $.helpOption_default; }
+    Menu2.addItem(new WatchUi.MenuItem("Help & Abbreviations",
+    $.helpOption[$.Options_Dict["helpOption"]],"helpOption",{}));   
         /*
         $.Settings_ran = true;
         
@@ -141,6 +145,17 @@ class SolarSystemSettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
         Storage.setValue(id as String, $.Options_Dict[id]);    
 
         $.show_intvl = 0; //makes the scale in orrery re-set, and re-display the time interval
+        
+        }
+        //helpOption
+
+        if(id.equals("helpOption")) {
+            $.Options_Dict[id]=($.Options_Dict[id]+1)%helpOption_size;
+            menuItem.setSubLabel($.helpOption[$.Options_Dict[id]]);
+
+            Storage.setValue(id as String, $.Options_Dict[id]);    
+
+            //Doesn't do anything, just shows...
         
         }
 

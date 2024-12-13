@@ -170,6 +170,34 @@ var orbitCirclesOption_values=[
 var orbitCirclesOption_size = 2;
 var orbitCirclesOption_default = 0;
 
+var helpOption=[
+    "Planet abbreviations:" , 
+     "Me Mercury" , 
+     "Ve Venus" , 
+     "Ea Earth" , 
+     "Ma Mars" , 
+     "Ju Jupiter" , 
+     "Sa Saturn" ,      
+     "Ur Uranus", 
+     "Ne Neptune", 
+    
+     "Pl Pluto", 
+     
+     "Er Eris (dwarf planet)", 
+     "Ha Haumea (dwarf planet)", 
+     "Ma Makemake (dwarf planet)", 
+     "Go Gonggong (dwarf planet)", 
+     "Qu Quaoar (ringed dwarf planet)", 
+     "Ce Ceres (dwarf planet/asteroid)", 
+     "Ch Chiron (ringed dwarf planet)", 
+     
+];
+
+
+var helpOption_size = 17;
+var helpOption_default = 0;
+
+
 /*
 var Options_Dict = {  };
 var Settings_ran = false;

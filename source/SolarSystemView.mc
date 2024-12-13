@@ -141,15 +141,15 @@ class SolarSystemBaseView extends WatchUi.View {
             
         }
 
-                if (null != _offscreenBuffer) {
-                // If we have an offscreen buffer that we are using to draw the background,
-                // set the draw context of that buffer as our target.
-                targetDc = _offscreenBuffer.getDc();
-                
-            } else {
-                targetDc = dc;
-                
-            }
+        if (null != _offscreenBuffer) {
+            // If we have an offscreen buffer that we are using to draw the background,
+            // set the draw context of that buffer as our target.
+            targetDc = _offscreenBuffer.getDc();
+            
+        } else {
+            targetDc = dc;
+            
+        }
 
     
 
@@ -736,12 +736,7 @@ class SolarSystemBaseView extends WatchUi.View {
         //dc.drawArc(xc, yc, r,Graphics.ARC_CLOCKWISE, 0,360);
         dc.drawCircle(xc, yc, r);
 
-        if ($.show_intvl < 5 * $.hz && $.view_index != 0) {
-            showDate(dc, now_info, time_now, time_add_hrs, xc, yc, true, true, :ecliptic_latlon);
-            $.show_intvl++;
-        } else {
-            showDate(dc, now_info, time_now, time_add_hrs, xc, yc, true, false, :ecliptic_latlon);
-        }
+
 
         //Draws horizon & meridian, per time of day
         drawHorizon(dc, sunrise_events[:HORIZON_PM][0], noon_adj_deg, hour_adj - noon_adj_deg);
@@ -799,6 +794,13 @@ class SolarSystemBaseView extends WatchUi.View {
             
         }
 
+        if ($.show_intvl < 5 * $.hz && $.view_index != 0) {
+            showDate(dc, now_info, time_now, time_add_hrs, xc, yc, true, true, :ecliptic_latlon);
+            $.show_intvl++;
+        } else {
+            showDate(dc, now_info, time_now, time_add_hrs, xc, yc, true, false, :ecliptic_latlon);
+        }
+
         pp=null;
         pp_sun = null;
         kys =  null;
@@ -826,6 +828,7 @@ class SolarSystemBaseView extends WatchUi.View {
         dc.clear();
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
         getMessage();
+
         
         //setPosition(Position.getInfo());
         //xc = dc.getWidth() / 2;
@@ -851,7 +854,7 @@ class SolarSystemBaseView extends WatchUi.View {
         //whh_sun  = ["Sun"];
         //var small_whh = ["Sun","Mercury","Venus","Earth", "Mars", "Ceres"];
         var small_whh = ["Sun","Mercury","Venus","Earth", "Mars"];
-        var full_whh =  ["Sun", "Mercury","Venus","Earth", "Mars","Jupiter","Saturn","Uranus","Neptune","Pluto","Ceres","Chiron","Eris", "Gonggong", "Makemake", "Haumea"];
+        var full_whh =  ["Sun", "Mercury","Venus","Earth", "Mars","Jupiter","Saturn","Uranus","Neptune","Pluto","Ceres","Chiron","Eris", "Gonggong","Quaoar", "Makemake", "Haumea"];
         whh = full_whh; //new way, now we have zoom
         
         var zoom_whh = small_whh;
@@ -927,17 +930,27 @@ class SolarSystemBaseView extends WatchUi.View {
 
         
         
-        if ($.show_intvl == 0 ){ scale = (min_c*0.85*eclipticSizeFactor)/Math.sqrt(max) * $.orrZoomOption_values[$.Options_Dict["orrZoomOption"]] ;  
+        //Things we do ONLY WHEN FIRST STARTING OUT IN THIS MODE & ZOOM LEVEL
+        if ($.show_intvl == 0 ){ 
+            scale = (min_c*0.85*eclipticSizeFactor)/Math.sqrt(max) * $.orrZoomOption_values[$.Options_Dict["orrZoomOption"]] ;  
+
+            if (null != _offscreenBuffer) {
+                targetDc.setColor(Graphics.COLOR_TRANSPARENT, Graphics.COLOR_BLACK);
+                targetDc.clear();        
+                targetDc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+                System.println ("Using offscreenBUFFER");
+
+            } else {
+                targetDc = dc;
+                System.println ("NOTTTTT Using offscreenBUFFER");
+            }
+        }
         
         //}
 
         //if (animSinceModeChange <= 1) {
          //targetDc.fillRectangle(0, 0, targetDc.getWidth(), targetDc.getHeight());
-         if (null != _offscreenBuffer) {
-            targetDc.setColor(Graphics.COLOR_TRANSPARENT, Graphics.COLOR_BLACK);
-            targetDc.clear();}
-        
-        } //don't change scale it messes w/"trail" points of planets
+         //don't change scale it messes w/"trail" points of planets
 
         
 
@@ -957,19 +970,28 @@ class SolarSystemBaseView extends WatchUi.View {
             //var tDc = dc;
             //if (big_small == 3) {tDc = targetDc;}
 
-        drawOrbits3(targetDc, pp, scale, xc, yc, big_small, [full_whh,whh, small_whh], orbitCirclesOption_values[$.Options_Dict["Orbit Circles Option"]]); 
-        if (null != _offscreenBuffer) {
-            dc.drawBitmap(0, 0, _offscreenBuffer);
-        } 
+        //*************** PLANET TRACKS **********************************    
+
+        System.println ("nearly to drawOrbits3");
+        if ($.Options_Dict["Orbit Circles Option"]==0 ) {
+
+       
+
+            System.println ("going to drawOrbits3");
+            targetDc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+            drawOrbits3(targetDc, pp, scale, xc, yc, big_small, [full_whh,whh, small_whh], Graphics.COLOR_WHITE); 
+
+            
+            
+            if (null != _offscreenBuffer) {
+                dc.drawBitmap(0, 0, _offscreenBuffer);
+                System.println ("Using offscreenBUFFER");
+            } 
+        }
 
         //System.println("MM2: " + min_c + " " + scale + " " + max + " ");
 
-        if ($.show_intvl < 5 * $.hz ) { 
-            showDate(dc, now_info, time_now, time_add_hrs,  xc, yc, true, true, :orrery);
-            $.show_intvl++;}
-            else {
-                showDate(dc, now_info, time_now, time_add_hrs,  xc, yc, true, false, :orrery);
-            }
+        
 
         //sid = 5.5*15;
         init_findSpotRect();
@@ -992,9 +1014,11 @@ class SolarSystemBaseView extends WatchUi.View {
             //TODO: Approximate the elliptical orbit & draw it somehow
             //dc.setColor(orbitCirclesOption_values[$.Options_Dict["Orbit Circles Option"]], Graphics.COLOR_TRANSPARENT);
             //dc.drawCircle(xc, yc, radius);
-            
-            fillSpotRect(x,y);//try to avoid putting labels on top of a planet
-            drawPlanet(dc, key, x, y, 4, ang_rad, :orrery, big_small, small_whh);
+
+            if (radius < 1.05 * min_c) {            
+                fillSpotRect(x,y);//try to avoid putting labels on top of a planet
+                drawPlanet(dc, key, x, y, 4, ang_rad, :orrery, big_small, small_whh);
+            }
             
             
             /*
@@ -1048,6 +1072,13 @@ class SolarSystemBaseView extends WatchUi.View {
             }
 
             */
+        }
+
+        if ($.show_intvl < 5 * $.hz ) { 
+            showDate(dc, now_info, time_now, time_add_hrs,  xc, yc, true, true, :orrery);
+            $.show_intvl++;}
+            else {
+                showDate(dc, now_info, time_now, time_add_hrs,  xc, yc, true, false, :orrery);
         }
 
         pp=null;
@@ -1221,23 +1252,23 @@ class SolarSystemBaseView extends WatchUi.View {
         if ($.buttonPresses < 1) {
             //making all timings 1/2 the rate because it is so much
             //slower on real watch vs simulator.  But needs a better solution involving actual clock time probably
-            switch (mod(animation_count/(2.0*$.hz),7.0).toNumber()){
+            switch (mod(animation_count/(1.8*$.hz),7.0).toNumber()){
                 case 0:                
                 case 6:                
                 default:
-                    msg = ["THE","PLANETS", "",animation_count + 1];
+                    msg = ["THE","PLANETS", "", "(press UP or SWIPE)",animation_count + 1];
                     break;                
                 case 1:                
-                    msg = ["UP/DOWN:","Time Forward", "/Back",animation_count + 1];
+                    msg = ["UP/DOWN/SWIPE:","Time Forward", "/Back",animation_count + 1];
                     break;
                 case 2:                
-                    msg = ["OR:","Time Faster", "/Slower",animation_count + 1];
+                    msg = ["UP/DOWN/SWIPE:","OR: Time Faster", "/Slower",animation_count + 1];
                     break;                    
                 case 3:
-                    msg = ["SELECT:","START Time", "OR: Next Mode",animation_count + 1];   
+                    msg = ["SELECT/TAP:","START Time if stopped", "OR: Next Mode",animation_count + 1];   
                     break;                 
                 case 4:                
-                    msg = ["BACK:","1X: STOP Time", "2X: Prev Mode/Exit",animation_count + 1];   
+                    msg = ["BACK:","STOP Time if started", "OR: Prev Mode/Exit",animation_count + 1];   
                     break;                     
                 case 5:                
                     msg = ["MENU:","Change", "Options",animation_count + 1];   
@@ -1246,7 +1277,7 @@ class SolarSystemBaseView extends WatchUi.View {
         }
 
         if (msg == null) { msgDisplayed = false; return 0;}
-        if (msg[3] < animation_count){ msgDisplayed = false; return 0;}
+        if (msg[msg.size()-1] < animation_count){ msgDisplayed = false; return 0;}
 
         //keeping track of buttonepressses & whether a msg is displayed allows us to 
         //cut out of msg display as soon as a button is pressed after any msg is displayed
@@ -1256,7 +1287,7 @@ class SolarSystemBaseView extends WatchUi.View {
             return 0;
             }   //but out of msg as soon as a button presses
         var numMsg=0;
-        for (var i = 0; i<3; i++) {if (msg[i] != null && msg[i].length()>0 ) { numMsg++;}}
+        for (var i = 0; i<msg.size()-1; i++) {if (msg[i] != null && msg[i].length()>0 ) { numMsg++;}}
         var ystart = 1.5 * yc - textHeight*numMsg/2;
         var xstart = xc;
 
@@ -1274,12 +1305,46 @@ class SolarSystemBaseView extends WatchUi.View {
         msgSaveButtonPress = $.buttonPresses;
 
         msgDisplayed = true; 
+        
         font = Graphics.FONT_TINY;
-        for (var i = 0; i<3; i++) {
-            if (msg[i] != null && msg[i].length()>0 ) { 
+        
+        var ct_i = 0;      
+        var lined = false;          
+        for (var i = 0; i<msg.size()-1; i++) {
+            if (msg[i] != null ) { 
+                
+                ct_i++;
+                if (msg[i].length()==0){
+                    //a blank line =""
+                    dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+                    dc.drawLine(0, ystart + (i)*textHeight, targetDc.getWidth(), ystart + i*textHeight);
+                    lined = false;
+                    continue;
+                }
+                
+                dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
+                dc.fillRectangle(0, ystart + i*textHeight, targetDc.getWidth(), textHeight);
+                
+                
+                
+                dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);
+
                 dc.drawText(xstart, ystart + i*textHeight, font, msg[i], jstify);
+
+                if (!lined) {
+                    if (i==0) { 
+                        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+                        }
+                    else {
+                            dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);
+                        }
+                    dc.drawLine(0, i*textHeight + ystart , targetDc.getWidth(), i*textHeight + ystart);
+                    lined = true;
+                }
             }
         }
+        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+        dc.drawLine(0, ystart + (ct_i)*textHeight, targetDc.getWidth(), ystart + ct_i*textHeight);
 
         if ($.buttonPresses < 1) { return 2;}
         return 1;
@@ -1351,7 +1416,11 @@ class SolarSystemBaseView extends WatchUi.View {
         }
 
         if (stop) {
+            dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
+            dc.fillRectangle(.25* dc.getWidth(), ycent+ .5*textHeight, .5*dc.getWidth(), textHeight);
+            dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);
             dc.drawText(xcent, ycent+ .5*textHeight, font, "(stopped)", justify);
+            
             return;
         }
         if (show && (sm_ret == 0 || sm_ret ==0 && justify == Graphics.TEXT_JUSTIFY_LEFT)) { //msg_ret ==0 means, don't show this when there is a special msg up
