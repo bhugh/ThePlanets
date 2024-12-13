@@ -17,13 +17,13 @@ Monkey C for Garmin IQ watches.
 
 _****** Planetary, sun, & moon positions:_  [Greg Miller's version of the VSOP Pico algorithm](https://github.com/gmiller123456/vsop87-multilang/blob/master/Languages/JavaScript/vsop87a_pico.js)
 
- * LICENSE: PUBLIC DOMAIN
+ ** LICENSE of Miller's VSOP code: PUBLIC DOMAIN
 
 _******* Sunrise/Set calculations calculations and some astronomical functions (found in functions.mc)_ are adapted from:
     SolarSystem by Ioannis Nasios 
    https://github.com/IoannisNasios/solarsystem
 
- * LICENSE & COPYRIGHT of Nasios's original code: The MIT License, Copyright (c) 2020, Ioannis Nasios.
+ ** LICENSE & COPYRIGHT of Nasios's original code: The MIT License, Copyright (c) 2020, Ioannis Nasios.
 
 _SOFTWARE LICENSE_
  * Portions due to Greg Miller's implementation of the VSOP algorithm Public Domain.
