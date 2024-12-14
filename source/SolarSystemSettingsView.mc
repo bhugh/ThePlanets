@@ -47,9 +47,9 @@ var planetsOption=[
 ];
 
 var planetsOption_values=[
-    ["Sun", "Mercury","Venus","Earth", "Mars","Jupiter","Saturn","Uranus","Neptune","Pluto","Ceres","Chiron","Eris", "Gonggong","Quaoar", "Makemake", "Haumea"],
-    ["Sun", "Mercury","Venus","Earth", "Mars","Jupiter","Saturn","Uranus","Neptune","Pluto"], //List of names not used on VSOP but can be useful elsewhere
-    ["Sun","Mercury", "Ceres","Chiron","Eris", "Gonggong","Quaoar", "Makemake", "Haumea"],
+    ["Sun", "Mercury","Venus","Earth", "Moon","Mars","Jupiter","Saturn","Uranus","Neptune","Pluto","Ceres","Chiron","Eris", "Gonggong","Quaoar", "Makemake", "Haumea"],
+    ["Sun", "Mercury","Venus","Earth", "Moon", "Mars","Jupiter","Saturn","Uranus","Neptune","Pluto"], //List of names not used on VSOP but can be useful elsewhere
+    ["Sun","Mercury", "Earth", "Moon", "Ceres","Chiron","Eris", "Gonggong","Quaoar", "Makemake", "Haumea"], //can't have moon w/o earth...
  
 
 ];

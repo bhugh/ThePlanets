@@ -45,7 +45,7 @@ class sunRiseSet_cache{
         //includ UT & dst as well, as those are localized in the same way                    
         //var index = year+"|"+month+"|"+day+"|"+ UT+dst +"|"+lat_index+"|"+ lon_index;
 
-        var time_mod = Math.round(0.0d + timeAdd_hrs/24.0d + julianDate(year, 
+        var time_mod = Math.round(0.0 + timeAdd_hrs/24.0 + julianDate(year, 
             month, day, 0, 0, UT, dst)).toNumber();
         var index = time_mod + "|"+ +"|"+lat_index+"|"+ lon_index;
         var ret;
@@ -227,15 +227,15 @@ class sunRiseSet{
         dst = dst1;
         longitude = longitude1;
         latitude = latitude1;
-        var pr=0d;
-        if (dst==1) {pr=1/24d;}
-        var JDN= ((367l*(year) - Math.floor(7*(year + Math.floor((month+9 )/12))/4)) + Math.floor(275*(month)/9) + (day + 1721013.5d - UT/24d ) );
-        var JD1= (JDN + (12)/24d + 0/1440d - pr); //(hour)/24 + (min)/1440; in this case  noon (hr12, min0)
-        var JD = JD1 + timeAdd_hrs /24.0d;
-        var j2000= 2451543.5d;
+        var pr=0;
+        if (dst==1) {pr=1/24f;}
+        var JDN= ((367l*(year) - Math.floor(7*(year + Math.floor((month+9 )/12))/4)) + Math.floor(275*(month)/9) + (day + 1721013.5 - UT/24f ) );
+        var JD1= (JDN + (12)/24f + 0/1440f - pr); //(hour)/24 + (min)/1440; in this case  noon (hr12, min0)
+        var JD = JD1 + timeAdd_hrs /24.0f;
+        var j2000= 2451543.5;
         d = JD - j2000;
         //self.d = d;
-        oblecl=23.4393d - 3.563E-7d * d; //obliquity of the ecliptic, i.e. the "tilt" of the Earth's axis of rotation (currently 23.4 degrees and slowly decreasing)
+        oblecl=23.4393 - 3.563E-7 * d; //obliquity of the ecliptic, i.e. the "tilt" of the Earth's axis of rotation (currently 23.4 degrees and slowly decreasing)
         oblecl= Math.toRadians(oblecl);
         //self.oblecl = oblecl ;
     }
@@ -250,16 +250,16 @@ class sunRiseSet{
         */
         
         //Sun's trajectory elements
-        var w=282.9404d + 4.70935E-5d * d      ;
-        var e=(0.016709d - (1.151E-9  * d))   ;
-        var M=356.047d + 0.9856002585d * d   ;
+        var w=282.9404 + 4.70935E-5 * d      ;
+        var e=(0.016709 - (1.151E-9  * d))   ;
+        var M=356.047 + 0.9856002585 * d   ;
         M=normalize(M);
         var L=w+M   ;
         L=normalize(L);
 
         var M2=M;
         M=Math.toRadians(M);
-        var E=M2 + (180d/Math.PI)*e*Math.sin(M)*(1+e*Math.cos(M));
+        var E=M2 + (180/Math.PI)*e*Math.sin(M)*(1+e*Math.cos(M));
         E=Math.toRadians(E);
         var x=Math.cos(E)-e;
         var y=Math.sin(E)*Math.sqrt(1-e*e);
@@ -286,7 +286,7 @@ class sunRiseSet{
         //Decl=Math.toDegrees(Decl); //can't transform to degrees yet...
         //RA2=RA/15;
         
-        var gmsto=L/15.0d + 12.0d;
+        var gmsto=L/15.0 + 12.0;
         
         var sidtime=(-dst + gmsto - UT + longitude/15);
 
@@ -368,28 +368,28 @@ class sunRiseSet{
         var dst = dst1;
         var longitude = longitude1;
         //var latitude = latitude1;
-        var pr=0d;
-        if (dst==1) {pr=1/24d;}
-        var JDN= ((367l*(year) - Math.floor(7*(year + Math.floor((month+9 )/12))/4)) + Math.floor(275*(month)/9) + (day + 1721013.5d - UT/24d ) );
-        var JD= (JDN + (hour)/24d + min/1440d - pr); //(hour)/24 + (min)/1440; in this case  noon (hr12, min0)
-        var j2000= 2451543.5d;
+        var pr=0;
+        if (dst==1) {pr=1/24f;}
+        var JDN= ((367l*(year) - Math.floor(7*(year + Math.floor((month+9 )/12))/4)) + Math.floor(275*(month)/9) + (day + 1721013.5 - UT/24f ) );
+        var JD= (JDN + (hour)/24f + min/1440f - pr); //(hour)/24 + (min)/1440; in this case  noon (hr12, min0)
+        var j2000= 2451543.5;
         var d = JD - j2000;
         //self.d = d;
-        var oblecl=23.4393d - 3.563E-7d * d;
+        var oblecl=23.4393 - 3.563E-7 * d;
         oblecl= Math.toRadians(oblecl);
         //self.oblecl = oblecl ;
         
         //Sun's trajectory elements
-        var w=282.9404d + 4.70935E-5d * d      ;
-        var e=(0.016709d - (1.151E-9  * d))   ;
-        var M=356.047d + 0.9856002585d * d   ;
+        var w=282.9404 + 4.70935E-5 * d      ;
+        var e=(0.016709 - (1.151E-9  * d))   ;
+        var M=356.047 + 0.9856002585 * d   ;
         M=normalize(M);
         var L=w+M   ;
         L=normalize(L);
 
         var M2=M;
         M=Math.toRadians(M);
-        var E=M2 + (180d/Math.PI)*e*Math.sin(M)*(1+e*Math.cos(M));
+        var E=M2 + (180/Math.PI)*e*Math.sin(M)*(1+e*Math.cos(M));
         E=Math.toRadians(E);
         var x=Math.cos(E)-e;
         var y=Math.sin(E)*Math.sqrt(1-e*e);
@@ -416,7 +416,7 @@ class sunRiseSet{
         //Decl=Math.toDegrees(Decl); //can't transform to degrees yet...
         //RA2=RA/15;
         
-        var gmsto=L/15.0d + 12.0d;
+        var gmsto=L/15.0 + 12.0;
         
         var sidtime=(-dst + gmsto - UT + longitude/15);
 

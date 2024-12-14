@@ -16,7 +16,7 @@ import Toybox.Lang;
 
 //module SSFunc {
 
-    var fc = 0.0000000001d; //correction for Math.floor to avoid like 49.999999999
+    var fc = 0.0000001; //correction for Math.floor to avoid like 49.999999999
 
     function normalize(degrees) {  
         /*
@@ -37,7 +37,7 @@ import Toybox.Lang;
             //case instanceof Long:
             //    return degrees%360;
             default:
-                return (degrees/360.0d - Math.floor(degrees/360.0d + fc)) *360.0d;
+                return (degrees/360.0 - Math.floor(degrees/360.0 + fc)) *360.0;
         }        
 
     }
@@ -63,7 +63,7 @@ import Toybox.Lang;
             //case instanceof Long:
             //    return degrees%360;
             default:
-                ret = (degrees/360.0d - Math.floor(degrees/360.0d + fc)) *360.0d;
+                ret = (degrees/360.0 - Math.floor(degrees/360.0 + fc)) *360.0;
         }  
 
         if (ret > 180 ) { return ret - 360;}
@@ -78,7 +78,7 @@ import Toybox.Lang;
         return (a/b - Math.floor(a/b + fc)) *b;
     }
 
-    const J2000_0= 2451543.5d; // 2000 Jan 0.0 TDT, which is the same as 1999 Dec 31.0 TDT, i.e. precisely at midnight TDT  (Jan 0.0 is not the first day of January but rather the LAST day of December, so a full day before Jan 1.0)
+    const J2000_0= 2451543.5; // 2000 Jan 0.0 TDT, which is the same as 1999 Dec 31.0 TDT, i.e. precisely at midnight TDT  (Jan 0.0 is not the first day of January but rather the LAST day of December, so a full day before Jan 1.0)
     //This is actually NOT the same as J2000, which is 1 Jan 2000 at noon, Julian Date 2451545, or 2000 Jan 1.5.
     //This MIGHT be a mistake by someone who was trying to use J2000 but missed by a little?  In obliquity of ecliptic calc below the difference will be negligible.
 
@@ -88,10 +88,10 @@ import Toybox.Lang;
     function julianDate (year, month, day, hour, min, UT, dst) {
 
 
-        var pr=0d;
-        if (dst==1) {pr=1/24d;}
-        var JDN= ((367l*(year) - Math.floor(7*(year + Math.floor((month+9 )/12))/4)) + Math.floor(275*(month)/9) + (day + 1721013.5d - UT/24d ) );
-        var JD= (JDN + (hour)/24d + min/1440d - pr); //(hour)/24 + (min)/1440; in this case  noon (hr12, min0)
+        var pr=0;
+        if (dst==1) {pr=1/24.0;}
+        var JDN= ((367l*(year) - Math.floor(7*(year + Math.floor((month+9 )/12))/4)) + Math.floor(275*(month)/9) + (day + 1721013.5f - UT/24f ) );
+        var JD= (JDN + (hour)/24.0 + min/1440.0f - pr); //(hour)/24 + (min)/1440; in this case  noon (hr12, min0)
         return JD;
 
     }
@@ -118,7 +118,7 @@ import Toybox.Lang;
 
         var d = j2000_0Date(year, month, day, hour, min, UT, dst);
         
-        return 23.4393d - 3.563E-7d * d; //obliquity of the ecliptic, i.e. the "tilt" of the Earth's axis of rotation (currently 23.4 degrees and slowly decreasing)
+        return 23.4393f - 3.563E-7f * d; //obliquity of the ecliptic, i.e. the "tilt" of the Earth's axis of rotation (currently 23.4 degrees and slowly decreasing)
         
     }
 

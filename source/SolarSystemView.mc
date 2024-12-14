@@ -190,7 +190,7 @@ class SolarSystemBaseView extends WatchUi.View {
     public function drawARC (dc, hr1, hr2, xc, yc, r, width, color) {
         if (hr1 == null || hr2 == null) {return false;}
         dc.setPenWidth(width);
-        dc.setColor(color, Graphics.COLOR_TRANSPARENT);
+        if (color != null) {dc.setColor(color, Graphics.COLOR_TRANSPARENT);}
         dc.drawArc(xc, yc, r, Graphics.ARC_CLOCKWISE, 270 - hr1 * 15, 270 - hr2 *15);   
         return true;
     }
@@ -453,7 +453,7 @@ class SolarSystemBaseView extends WatchUi.View {
 
     var r, whh, whh_sun, vspo_rep, font, srs, sunrise_events, pp, pp2, pp_sun, moon_info, moon_info2, moon_info3, moon_info4, elp82, sun_info3,keys, now, sid, x, y ,x2, y2;
     var ang_deg, ang_rad, size, mult, sub, key, key1, textHeight, kys, add_duration, col;
-    var sun_adj, hour_adj,final_adj, noon_adj_hrs, noon_adj_deg;
+    var sun_adj, hour_adj,final_adj, noon_adj_hrs, noon_adj_deg, moon_age_deg;
     var input;
 
 /*
@@ -680,11 +680,11 @@ class SolarSystemBaseView extends WatchUi.View {
         };
         moon = new Moon(input);
         */
-        simple_moon = new simpleMoon();
+        //simple_moon = new simpleMoon();
         
-        moon_info3 = simple_moon.eclipticPos (now_info, now.timeZoneOffset, now.dst, time_add_hrs); 
+        moon_info3 = eclipticPos_moon (now_info, now.timeZoneOffset, now.dst, time_add_hrs); 
         //sun_info3 =  simple_moon.eclipticSunPos (now_info, now.timeZoneOffset, now.dst); 
-        simple_moon = null;
+        //simple_moon = null;
 
         //elp82 = new ELP82();
         //moon_info4 = elp82.eclipticMoonELP82 (now_info, now.timeZoneOffset, now.dst);
@@ -704,6 +704,7 @@ class SolarSystemBaseView extends WatchUi.View {
         //System.println("Moon ecl pos: " + moon_info);
         //pp.put("Moon", [pp["Sun"][0] + moon_info[0]]);
         pp.put("Moon", [moon_info3[0]]);
+        moon_age_deg = normalize (pp["Moon"][0] - pp["Sun"][0]); //0-360 with 0 being new moon, 90 1st q, 180 full, 270 last q
         //pp["Sun"] = [sun_info3[:lat], sun_info3[:lon], sun_info3[:r]];
         //System.println("Sun info3: " + sun_info3);
         //System.println("Moon info: " + moon_info);
@@ -746,7 +747,7 @@ class SolarSystemBaseView extends WatchUi.View {
         //now_info.hour=0 being the actual local midnight.
         //pp/ecliptic degrees start at midnight (bottom of circle) & proceed COUNTERclockwise.
         sun_adj = 270 - pp["Sun"][0];
-        hour_adj = normalize(now_info.hour*15 + time_add_hrs*15.0d + now_info.min*15/60);
+        hour_adj = normalize(now_info.hour*15 + time_add_hrs*15.0 + now_info.min*15/60);
         //We align everything so that NOON is directly up (SOLAR noon, NOT 12:00pm)
         noon_adj_hrs = 12 - sunrise_events[:NOON][0];
         noon_adj_deg = 15 * noon_adj_hrs;
@@ -802,12 +803,13 @@ class SolarSystemBaseView extends WatchUi.View {
         //sid = 5.5*15;
         init_findSpot();
         for (var i = 0; i<whh.size(); i++) {
-        //for (var i = 0; i<kys.size(); i++) {
+        //for (var i = 0; i<kys.size(); i++) {            
 
             //key = kys[i];
             key = whh[i];
             //System.println ("kys: " + key + " " + key1);
             //if ( ["Ceres", "Uranus", "Neptune", "Pluto", "Eris", "Chiron"].indexOf(key)> -1) {continue;}
+            if (pp[key] == null) {continue;}
             ang_deg =  -pp[key][0] - final_adj;
             ang_rad = Math.toRadians(ang_deg);
             x = r* Math.cos(ang_rad) + xc;
@@ -876,7 +878,7 @@ class SolarSystemBaseView extends WatchUi.View {
         
         //whh_sun  = ["Sun"];
         //var small_whh = ["Sun","Mercury","Venus","Earth", "Mars", "Ceres"];
-        var small_whh = ["Sun","Mercury","Venus","Earth", "Mars"];
+        var small_whh = ["Sun","Mercury","Venus","Earth", "Moon", "Mars"];
         var full_whh =  ["Sun", "Mercury","Venus","Earth", "Mars","Jupiter","Saturn","Uranus","Neptune","Pluto","Ceres","Chiron","Eris", "Gonggong","Quaoar", "Makemake", "Haumea"];
         //whh = full_whh; //new way, now we have zoom
         whh = planetsOption_values[planetsOption_value];
@@ -946,11 +948,36 @@ class SolarSystemBaseView extends WatchUi.View {
             key = zoom_whh[i];
             if (whh.indexOf(key)<0) {continue;} //in case dwarf planet/asteroids eliminated by ***planetsOption***
             //System.println("KEY whh: " + key);
+            if (pp[key] == null) {continue;}
             var rd = pp[key][0]*pp[key][0]+pp[key][1]*pp[key][1];
             if (rd> max) {max = rd;}
             //System.println("MM: " + key + " " + pp[key][0] + " " + pp[key][1] + " " + rd);
             //if ((pp[key][0]).abs() > maxX) { maxX = (pp[key][0]).abs();}
             //if ((pp[key][1]).abs() > maxY) { maxY = (pp[key][1]).abs();}
+        }
+
+        
+
+        if (whh.indexOf("Moon")>-1 && whh.indexOf("Earth")>-1) {
+            //simple_moon = new simpleMoon();
+
+            //eclip lon/lat of moon, in degrees.  Relative to earth.
+            moon_info3 = eclipticPos_moon (now_info, now.timeZoneOffset, now.dst, time_add_hrs); 
+            //sun_info3 =  simple_moon.eclipticSunPos (now_info, now.timeZoneOffset, now.dst); 
+            //simple_moon = null;
+            //var ang = Math.arctan2(-x,y);
+
+            var ang_rad = Math.toRadians(270+moon_info3[0]); //change to screen coord system (270-theta) then to rads
+            //var radius_au = 0.002569;//au, is it 384,399km ; ok, that doesn't work
+
+            var radius_au = 0.07; //WAG
+
+            var xm=Math.cos ( ang_rad) * radius_au + pp["Earth"][0];
+            var ym=Math.sin ( ang_rad) * radius_au + pp["Earth"][1];
+
+            pp.put("Moon", [xm,ym,pp["Earth"][2]]);
+            kys.add("Moon");
+
         }
 
         
@@ -1020,14 +1047,16 @@ class SolarSystemBaseView extends WatchUi.View {
 
         //sid = 5.5*15;
         init_findSpotRect();
+        System.println("kys whh " + kys + " \n" + whh);
         for (var i = 0; i<whh.size(); i++) {
         //for (var i = 0; i<kys.size(); i++) {
 
-            key1 = kys[i];
+            //key1 = kys[i];
             key = whh[i];
             //System.println ("kys: " + key + " " + key1);
             //if ( ["Ceres", "Uranus", "Neptune", "Pluto", "Eris", "Chiron"].indexOf(key)> -1) {continue;}
             if (key == null || pp[key] == null) {continue;} //not much else to do...
+            //if (key1 == null || pp[key1] == null) {continue;} //not much else to do...
 
             x = scale * pp[key][0] + xc;
             y = scale * pp[key][1] + yc;
@@ -1450,7 +1479,7 @@ class SolarSystemBaseView extends WatchUi.View {
             var j2 = j2000Date (new_date_info.year, new_date_info.month, new_date_info.day, new_date_info.hour, new_date_info.min, 0, 0);
 
             var targDate_days = j2 + addTime_hrs/24l;
-            var targDate_years = targDate_days/365.25d + 2000d; 
+            var targDate_years = targDate_days/365.25f + 2000f; 
 
 
 
@@ -1558,7 +1587,14 @@ class SolarSystemBaseView extends WatchUi.View {
              case "Earth":
                 size =b_size *jup_size * 6/7.0*2/5.0 * 13/50.0;
                 col = Graphics.COLOR_BLUE;
+                fillcol = Graphics.COLOR_BLUE;
                 break;   
+            case "Moon":
+                size =b_size *jup_size * 6/7.0*2/5.0 * 13/50.0;
+                col = Graphics.COLOR_LT_GRAY;
+                fillcol = Graphics.COLOR_WHITE;
+                break;                
+                
              case "Pluto":
                 size =b_size *jup_size /22.0/3.0;
                 col = Graphics.COLOR_WHITE;
@@ -1590,11 +1626,13 @@ class SolarSystemBaseView extends WatchUi.View {
              if (correction< 1.5) {correction=1.5;}             
               size = size * correction;
             }
+            //if (key.equals("Moon")){size /= 3.667;} //real-life factor
             
             }
         if (type == :ecliptic) {
+            if (key.equals("Moon")){size =  8*b_size;} //same as sun
             size = Math.sqrt(Math.sqrt(Math.sqrt(size))) * 5;
-
+            
             if (min_c > 120) { //for higher res watches where things tend to come out tiny
                 correction = 0.3 * textHeight/    Math.sqrt(Math.sqrt(Math.sqrt(size))) / 5;
                 //System.println("ecliptic correction " + correction);
@@ -1604,7 +1642,9 @@ class SolarSystemBaseView extends WatchUi.View {
             }
         }
 
-        if (size < min_size) { size = min_size; }
+        if (size < min_size && ! key.equals("Moon")) { size = min_size; }
+
+        if (type == :orrery && (key.equals("Moon"))) {size /= 2;}
 
         size *= planetSizeFactor;
 
@@ -1612,6 +1652,7 @@ class SolarSystemBaseView extends WatchUi.View {
         dc.fillCircle(x, y, size);
         dc.setColor(col, Graphics.COLOR_TRANSPARENT);
         dc.drawCircle(x, y, size);
+        dc.setPenWidth(1);
         switch (key) {
             case "Sun" :
                 //dc.setColor(Graphics.COLOR_YELLOW, Graphics.COLOR_TRANSPARENT);
@@ -1622,7 +1663,7 @@ class SolarSystemBaseView extends WatchUi.View {
             case "Venus":
                 dc.fillCircle(x, y, size);
                 dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);        
-                dc.fillCircle(x, y, 1);
+                dc.fillCircle(x, y,size/4);
                 break;
             case "Jupiter":
                 dc.drawLine(x-size*.945, y-size/4, x+size*.945, y-size/4);
@@ -1635,6 +1676,93 @@ class SolarSystemBaseView extends WatchUi.View {
                 //dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
                 dc.drawLine(x-size*1.5, y+size*.41 , x+size*1.5, y-size*.15);
                 //dc.drawLine(x-size, y+size/4, x+size, y+size/4);
+                break;
+            case "Neptune" :
+                dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);                //
+                dc.drawLine(x, y+3*size/5.5, x, y-3*size/4);
+                drawARC (dc, 18, 6, x, y - 1*size/2.0, size*2/3.0, 1, null);
+                break;
+            case "Uranus" :
+                
+                //dc.drawLine(x, y+4*size/5, x, y-4*size/5);
+                dc.fillCircle (x, y, size/3);  
+                drawARC (dc, 0, 24, x, y,3*size/4.0, 1, null);
+                break;
+             case "Pluto" :
+                
+                //dc.drawLine(x, y+4*size/5, x, y-4*size/5);
+                dc.drawLine(x-size/7.0, y+2*size/4, x-size/7.0, y-2*size/4);                      
+                //dc.drawLine(x-size/3.0, y+3*size/4, x-size/3.0, y-3*size/4);                      
+                drawARC (dc, 10, 26, x, y-size/6,size/1.7, 1, null);
+                break;
+
+             case "Chiron" :
+                
+                //dc.drawLine(x, y+4*size/5, x, y-4*size/5);
+                //dc.drawLine(x-size/7.0, y+2*size/4, x-size/7.0, y-2*size/4);                      
+                //dc.drawLine(x-size/3.0, y+3*size/4, x-size/3.0, y-3*size/4);                      
+                drawARC (dc, 23,13, x+size/7, y,size/1.6, 1, null);
+                break;
+            case "Eris" :
+                
+                //dc.drawLine(x, y+4*size/5, x, y-4*size/5);
+                //dc.drawLine(x-size/7.0, y+2*size/4, x-size/7.0, y-2*size/4);                      
+                //dc.drawLine(x-size/3.0, y+3*size/4, x-size/3.0, y-3*size/4);                      
+                drawARC (dc, 23, 13, x+size/7, y,size/1.6, 1, null);
+                dc.drawLine(x+size/7-size/1.6, y, x+size/3.4,y);
+                break;  
+            case "Makemake" :                
+                dc.drawLine(x, y+4*size/8.0, x, y-3*size/8.0);
+                dc.drawLine(x - 2*size/4.0, y-3*size/8, x + 2*size/4.0, y-3*size/8);
+            
+                break;
+            case "Gonggong" :                
+                dc.drawLine(x-size/4.0 + size/15, y-size/2.0, x - size/4.0, y+size/2.0);
+                dc.drawLine(x+size/4.0 + size/15, y-size/2.0, x + size/4.0, y+size/2.0);
+                dc.drawLine(x+size/2.0, y-size/4.0, x - size/2.0, y-size/4.0);
+                dc.drawLine(x+size/2.0, y+size/4.0, x - size/2.0, y+size/4.0);
+                
+            case "Quaoar" :                
+                dc.drawLine(x + size/10, y-size/1.7, x + size/2.0, y);
+                dc.drawLine(x + size/2.0, y,x, y+size/1.7);
+                dc.drawLine(x, y+size/1.7,x - size/2.0, y);
+                dc.drawLine(x - size/2.0, y, x - size/10, y-size/1.7);
+                break; 
+             case "Haumea" :                
+                drawARC (dc, 0, 24, x, y - size/3,size/3, 1, null);
+                drawARC (dc, 0, 24, x, y + size/3,size/3, 1, null);
+                
+                break;                                      
+
+            case "Moon" :  
+                if( type == :orrery) {break;}  
+                if (moon_age_deg > 315 || moon_age_deg <= 45) { //NEW moon
+                        dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);                //0x171f25
+                        dc.fillCircle(x, y, size);
+                }
+
+                else if (moon_age_deg > 45 && moon_age_deg <= 135) { //1st quarter
+                        dc.setColor(0x171f25, Graphics.COLOR_TRANSPARENT);                
+                        dc.fillCircle(x, y, size);
+                        
+                        dc.setClip (x-size, y-size,size, size*2);
+                        dc.setColor(0xf0f9ff, Graphics.COLOR_TRANSPARENT);                
+                        dc.fillCircle(x, y, size);
+                        dc.clearClip();
+
+                }
+                else if (moon_age_deg > 135 && moon_age_deg <= 225) { //FULL
+                        dc.setColor(0xf0f9ff, Graphics.COLOR_TRANSPARENT);                
+                        dc.fillCircle(x, y, size);
+                }
+                else if (moon_age_deg > 225 && moon_age_deg <= 315) { //Last quarter
+                        dc.setColor(0x171f25, Graphics.COLOR_TRANSPARENT);                
+                        dc.fillCircle(x, y, size);
+                        dc.setClip (x, y-size,size, size*2);
+                        dc.setColor(0xf0f9ff, Graphics.COLOR_TRANSPARENT);                
+                        dc.fillCircle(x, y, size);
+                        dc.clearClip();
+                }
                 break;
         }
         /*
@@ -1764,25 +1892,25 @@ class SolarSystemBaseView extends WatchUi.View {
         var x =  40000000000001l;
         var y =  -4000000000001l;
         _lines = [normalize (400.0).toString(),
-        normalize (-400d),
-        normalize (-170d),
+        normalize (-400f),
+        normalize (-170f),
         normalize (400f),
         normalize (170l),
         normalize(-570l),
-        normalize(735d),];
+        normalize(735f),];
         
         return;
         */
         /*
         // TEST CODE
-        var x =  400000000000001.348258d;
-        var y =  -400000000000001.944324d;
+        var x =  400000000000001.348258f;
+        var y =  -400000000000001.944324f;
         _lines = [spherical2rectangular(x,y,1),
         spherical2rectangular(90,90,1),
         spherical2rectangular(180,180,1),
         spherical2rectangular(270,270,1),
         spherical2rectangular(270,90,1),
-        spherical2rectangular(270000000.0,90d,1),
+        spherical2rectangular(270000000.0,90f,1),
         ];
         var z = rectangular2spherical(1,0,0);
         _lines = [z,

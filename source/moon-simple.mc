@@ -14,7 +14,7 @@ import Toybox.Math;
 import Toybox.System;
 import Toybox.Lang; 
 
-class simpleMoon {
+//class simpleMoon {
    /*
     //  can use Time.Gregorian.info() output for now_info &
     // now = System.getClockTime(); output for now.timeZoneOffset and now.dst
@@ -26,9 +26,9 @@ class simpleMoon {
 
         var JD = julianDate (now_info.year, now_info.month, now_info.day, now_info.hour, now_info.min, timeZoneOffset_sec/3600, dst);
 
-        var T = (JD - 2451545.0d)/36525d;
+        var T = (JD - 2451545.0)/36525f;
 
-        return 29.5305888531d + 0.00000021621d* T - 3.64E-10d * T*T;
+        return 29.5305888531f + 0.00000021621f* T - 3.64E-10 * T*T;
     }
 
     //Using above month length, you can calculate new moon etc starting with any
@@ -56,12 +56,12 @@ class simpleMoon {
     }
     */
 
-    public function eclipticPos (now_info, timeZoneOffset_sec, dst,  addTime_hrs) {
+    public function eclipticPos_moon (now_info, timeZoneOffset_sec, dst,  addTime_hrs) {
 
         //var sml_days  = synodicMonthLength_days(now_info, timeZoneOffset_sec, dst );
         //var base_JD = julianDate (2025, 1, 29 , 12, 36, 0, 0);
         var current_JD = julianDate (now_info.year, now_info.month, now_info.day,now_info.hour, now_info.min, timeZoneOffset_sec/3600, dst);
-        current_JD += addTime_hrs/24.0d;
+        current_JD += addTime_hrs/24.0;
         return getGeocentricMoonPos(current_JD);
     }
 
@@ -70,7 +70,7 @@ class simpleMoon {
     // Source
     // https://celestialprogramming.com/lowprecisionmoonposition.html
     //Input: Julian Date
-    //Output: Ecliptical Long, Lat 
+    //Output: Ecliptical Long, Lat in degrees
     // (rem-ed out portion converts this to geocentric RA & Decl)
 
     function getGeocentricMoonPos(jd){
@@ -96,5 +96,4 @@ class simpleMoon {
     */
     }
 
-
-}
+//}
