@@ -7,7 +7,7 @@ Or dive deeper into planetary, dwarf planet, & asteroid motion in the Solar Syst
 
 Watch tonight's sky, or the outer Solar System over the next 4000 years, unfold in beautiful animations and graphics.
 
-The planetary motion model is based on algorithms from the sophisticated VSOP model of planetary motion for very good accuracy for visual and general observation purposes for hundreds and thousands of years into the past a future.  And you can view solar system, planet, and dwarf planet, positions with reasonable accuracy through tens of thousands of years into the future or past.
+The planetary motion model is based on algorithms from the sophisticated VSOP model of planetary motion for very good accuracy for visual and general observation purposes for hundreds and thousands of years into the past and future.  You can view solar system, planet, and dwarf planet, positions with reasonable, though not perfect, accuracy through tens of thousands of years into the future or past.
 
 **USAGE AND TIPS**
 *Planet abbreviations:*
@@ -28,7 +28,7 @@ The planetary motion model is based on algorithms from the sophisticated VSOP mo
  * Qu Quaoar (ringed dwarf planet) 
  * Ce Ceres (dwarf planet/asteroid) 
  * Ch Chiron (ringed dwarf planet)
- * 
+
 This encompasses all of the Solar System planets and most of the larger dwarf planets.
 
 _Tips About Screens & General Usage_
