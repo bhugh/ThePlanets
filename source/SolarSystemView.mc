@@ -1721,6 +1721,7 @@ class SolarSystemBaseView extends WatchUi.View {
                 dc.drawLine(x+size/4.0 + size/15, y-size/2.0, x + size/4.0, y+size/2.0);
                 dc.drawLine(x+size/2.0, y-size/4.0, x - size/2.0, y-size/4.0);
                 dc.drawLine(x+size/2.0, y+size/4.0, x - size/2.0, y+size/4.0);
+                break;
                 
             case "Quaoar" :                
                 dc.drawLine(x + size/10, y-size/1.7, x + size/2.0, y);
