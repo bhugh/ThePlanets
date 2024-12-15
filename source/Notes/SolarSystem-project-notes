@@ -8,10 +8,24 @@ Remove:
   Fenix 5/quatrix works fine
   D2 Air X10 good
 
-  FR 735, planet dots & planets somehow not lined up with each other. They're just off..then entering menu crashed.  PLenty of memory so ??/??!? Xed
+  FR 735, ..then entering menu crashed.  PLenty of memory so ??/??!? Xed
+
+     -- planet dots & planets somehow not lined up with each other. They're just off FIXED!!!!!
+
+Approach 20 - entering menu crashed
+
+ - So FR 735, App 20 don't support Menu2 , Xed
+
+ menu crashes bec. Menu2 is not avail on some early devices.  Set up so menu just imm exits for those devices & they are good (they just don't get any menu)
 
   FR930xt, immediate crash Xed
 
+  Epix, does not have Math.floor, Xed
+  FR235, not enough memory, fR230 same
+  FR 630 same, 920XT
+  D2 Bravo & titanium same
+  fenix 3
+  Vivoactive
 
 
 

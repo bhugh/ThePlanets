@@ -28,13 +28,13 @@ var allOrbitParms = null;
     //Adde synodic month & solar yr as exact time options
     var speeds = [-24*365*10, -24*365*7, -24*365*4, -24*365*2,-24*365.2422, -24*365, //0; year multiples (added 0)
                 -24*183, -24*122, -24*91, -24*61, -24*31, -29.53059*24, -24*15, //6; 1/2, 1/4, 1/12, 1/24 of a year (added 1)
-                -24*7,-24*5, -24*3, -24*2-5/60, -24*2, -24*2+5/60, -24-5/60, -24, -24+5/60, //11; Days up to a week, with 1&2 days +1/-1 hrsso you can adjust them easily
+                -24*7,-24*5, -24*3, -24*2-5/60.0, -24*2, -24*2+5/60.0, -24-5/60.0, -24, -24+5/60.0, //11; Days up to a week, with 1&2 days +1/-1 hrsso you can adjust them easily
                 -12,-6,-4,-2, -1, //22;Hours (added 1)
                 -30/60.0,-15/60.0,-10/60.0, -5/60.0, -3/60.0, -2/60.0, -1/60.0,  //27; minutes (added 0)
                 1/600000.0,  //34; Zero ( but still has very slight movement, also avoids /0 just in case)
                 1/60.0, 2/60.0, 3/60.0, 5/60.0, 10/60.0, 15/60.0, 30/60.0,  //35; minutes (added 0)
                 1,2,4,6,12,  //42; Hours (added 1)
-                24-5/60, 24,24+5/60, 24*2-5/60, 24*2,24*2+5/60, 24*3,24*5, 24*7, //47; Days up to a week (added 0)
+                24-5/60.0, 24,24+5/60.0, 24*2-5/60.0, 24*2,24*2+5/60.0, 24*3,24*5, 24*7, //47; Days up to a week (added 0)
                 24*15,29.53059*24, 24*31, 24*61, 24*91, 24*122, 24*183, //56; 1/2, 1/4, 1/12, 1/24 of a year (added 1)
                 24*365,24*365.2422, 24*365*2, 24*365*4, 24*365 * 7, 24*365 * 10]; //63; year multiples (added 0)
 var speeds_index = 34; //the currently used speed that will be added to TIME @ each update of screen
@@ -120,6 +120,10 @@ class SolarSystemBaseApp extends Application.AppBase {
     */
 
     public function readAStorageValue(name, defoolt, size  ) {
+        if (!(Application has :Storage)) {
+            $.Options_Dict[name] = defoolt;
+            return;
+        }
         var temp = Storage.getValue(name);        
         $.Options_Dict[name] = temp  != null ? temp : defoolt;
         if ($.Options_Dict[name]>size-1) {$.Options_Dict[name] = defoolt;}

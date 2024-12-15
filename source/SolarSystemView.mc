@@ -18,8 +18,9 @@ class SolarSystemBaseView extends WatchUi.View {
     var lastLoc;
     private var _lines as Array<String>;
     private var _offscreenBuffer as BufferedBitmap?;
+    private var _planetIcon as BitmapResource?;
     
-    public var xc, yc, min_c, targetDc;
+    public var xc, yc, min_c, max_c, targetDc, screenShape, thisSys;
     
     //private var page;
     
@@ -37,7 +38,9 @@ class SolarSystemBaseView extends WatchUi.View {
         // Initial value shown until we have position data
         setPosition();
 
-        _lines = ["No position info"];
+        //_lines = ["No position info"];
+
+        _planetIcon = WatchUi.loadResource($.Rez.Drawables.Jupiter) as BitmapResource;
     }
 
     //up to 3 msg lines to display & how long to display them
@@ -106,10 +109,14 @@ class SolarSystemBaseView extends WatchUi.View {
     //! Load your resources here
     //! @param dc Device context
     public function onLayout(dc as Dc) as Void {
+
+        thisSys = System.getDeviceSettings();
         
         xc = dc.getWidth() / 2;
         yc = dc.getHeight() / 2;
         min_c  = (xc < yc) ? xc : yc;
+        max_c = (xc > yc) ? xc : yc;
+        screenShape = thisSys.screenShape;
 
         startAnimationTimer($.hz);
 
@@ -151,7 +158,7 @@ class SolarSystemBaseView extends WatchUi.View {
                     ]
                 };
 
-                    if (Graphics has :createBufferedBitmap) {
+            if (Graphics has :createBufferedBitmap) {
                 // get() used to return resource as Graphics.BufferedBitmap
                 _offscreenBuffer = Graphics.createBufferedBitmap(offscreenBufferOptions).get() as BufferedBitmap;
             } else if (Graphics has :BufferedBitmap) { // If this device supports BufferedBitmap, allocate the buffers we use for drawing
@@ -188,6 +195,7 @@ class SolarSystemBaseView extends WatchUi.View {
     //drawArc start at 3'oclock & goes CCW in degrees
     //whereas hrs start at midnight (6'oclock position) and proceed clockwise.  Thus 270 - hr*15.
     public function drawARC (dc, hr1, hr2, xc, yc, r, width, color) {
+        
         if (hr1 == null || hr2 == null) {return false;}
         dc.setPenWidth(width);
         if (color != null) {dc.setColor(color, Graphics.COLOR_TRANSPARENT);}
@@ -970,7 +978,7 @@ class SolarSystemBaseView extends WatchUi.View {
             var ang_rad = Math.toRadians(270+moon_info3[0]); //change to screen coord system (270-theta) then to rads
             //var radius_au = 0.002569;//au, is it 384,399km ; ok, that doesn't work
 
-            var radius_au = 0.07; //WAG
+            var radius_au = 0.11; //WAG , was .07, really nds to be see per earth size as drawn...
 
             var xm=Math.cos ( ang_rad) * radius_au + pp["Earth"][0];
             var ym=Math.sin ( ang_rad) * radius_au + pp["Earth"][1];
@@ -994,7 +1002,7 @@ class SolarSystemBaseView extends WatchUi.View {
 
             } else {
                 targetDc = dc;
-                //System.println ("NOTTTTT Using offscreenBUFFER");
+                System.println ("NOTTTTT Using offscreenBUFFER");
             }
         }
         
@@ -1029,9 +1037,16 @@ class SolarSystemBaseView extends WatchUi.View {
 
        
 
-            //System.println ("going to drawOrbits3");
-            targetDc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-            drawOrbits3(targetDc, pp, scale, xc, yc, big_small, [full_whh,whh, small_whh], Graphics.COLOR_WHITE); 
+            //System.println ("going to drawOrbits3 " + dc + " " + targetDc + " " + (dc==targetDc));
+            //targetDc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+
+            if (_offscreenBuffer == null) {
+                //for SOME REASON just setting targetDc = dc DOESN"T WORK !!!!??!?!?!?!??!
+                drawOrbits3(dc, pp, scale, xc, yc, big_small, [full_whh,whh, small_whh], Graphics.COLOR_WHITE); 
+            } else {            
+                drawOrbits3(targetDc, pp, scale, xc, yc, big_small, [full_whh,whh, small_whh], Graphics.COLOR_WHITE); 
+            }
+        
 
             
             
@@ -1047,7 +1062,7 @@ class SolarSystemBaseView extends WatchUi.View {
 
         //sid = 5.5*15;
         init_findSpotRect();
-        System.println("kys whh " + kys + " \n" + whh);
+        //System.println("kys whh " + kys + " \n" + whh);
         for (var i = 0; i<whh.size(); i++) {
         //for (var i = 0; i<kys.size(); i++) {
 
@@ -1072,8 +1087,8 @@ class SolarSystemBaseView extends WatchUi.View {
             
             //save some by not drawing if very close to sun.  Would save more
             //by not even calcing their position, somehow...
-
-            if (radius < 1.05 * min_c && radius > 0.1 * min_c) {            
+            //System.println("key12: " + key);
+            if ((radius < 1.05 * max_c && radius > 0.1 * min_c) || key.equals("Sun")) {            
                 fillSpotRect(x,y);//try to avoid putting labels on top of a planet
                 drawPlanet(dc, key, x, y, 4, ang_rad, :orrery, big_small, small_whh);
             }
@@ -1315,7 +1330,7 @@ class SolarSystemBaseView extends WatchUi.View {
                 case 0:                
                 case 6:                
                 default:
-                    msg = ["THE","PLANETS", "", "*press UP or SWIPE*",animation_count + 1];
+                    msg = ["THE","PLANETS", "", "Press *UP* or *SWIPE*",animation_count + 1];
                     break;                
                 case 1:                
                     msg = ["UP/DOWN/SWIPE:","Time Forward", "/Back",animation_count + 1];
@@ -1352,11 +1367,11 @@ class SolarSystemBaseView extends WatchUi.View {
         if ($.buttonPresses > msgSaveButtonPress && msgDisplayed ==true && msg==savedMSG) {
             message = null; //have to remove the msg or it keeps popping back  up
             msgDisplayed = false; 
-            System.println("ShowMSG: Exiting current msg; a button was pressed after display.");
+            //System.println("ShowMSG: Exiting current msg; a button was pressed after display.");
             return 0;
             }   //but out of msg as soon as a button presses
 
-        System.println("ShowMSG: we are displaying the msg...");  
+        //System.println("ShowMSG: we are displaying the msg...");  
         savedMSG = msg;  
         var numMsg=0;
         for (var i = 0; i<msg.size()-1; i++) {if (msg[i] != null && msg[i].length()>0 ) { numMsg++;}}
@@ -1403,6 +1418,16 @@ class SolarSystemBaseView extends WatchUi.View {
 
                 dc.drawText(xstart, ystart + i*textHeight, font, msg[i], jstify);
 
+                if (msg[i].equals("PLANETS") || msg[i].equals("Options")) {
+                    dc.setClip (0, ystart+2,  2*xc,  2* textHeight -2  );
+                    var hgt = _planetIcon.getHeight();
+                    //System.println("Hgt " + hgt);
+                    var ht = (2*textHeight-2 - hgt)/2.0;//40=height of icon
+                    if (ht<0) {ht=0;}
+                    dc.drawBitmap(5, ht + ystart +2, _planetIcon);
+                    dc.clearClip();
+                }
+
                 if (!lined) {
                     if (i==0) { 
                         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
@@ -1429,7 +1454,25 @@ class SolarSystemBaseView extends WatchUi.View {
         //System.println("showDate" + show);
         var justify = Graphics.TEXT_JUSTIFY_CENTER;
         var targTime_sec = (addTime_hrs*3600).toLong() + time_now.value();
-        if (type ==:orrery) {ycent = 0.25*yc;}
+        var xcent2= xcent;
+        var ycent2 = ycent;
+        if (type ==:orrery) {
+           ycent = 0.1*yc;
+           ycent2= ycent;
+          if (screenShape == System.SCREEN_SHAPE_RECTANGLE)
+           {
+            ycent = 0.1*yc;
+            ycent2 = ycent;
+            xcent = 1.4*xc;
+            xcent2=xcent;
+        }
+           if( screenShape== System.SCREEN_SHAPE_SEMI_OCTAGON) {
+            ycent = 0.35*yc;
+            xcent = 1.68*xc;
+            ycent2 = 0.0*yc;
+            xcent2 = .7*xc;
+        }
+        }
         
         //System.println("DATE!!!!!: " + new_date.value() + " OR... " + targTime_sec + " yr: "+ new_date_info.year + "add_hjrs "+ addTime_hrs);
 
@@ -1489,9 +1532,9 @@ class SolarSystemBaseView extends WatchUi.View {
 
         if (stop) {
             dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
-            dc.fillRectangle(.25* dc.getWidth(), ycent+ .5*textHeight, .5*dc.getWidth(), textHeight);
+            dc.fillRectangle(xcent2 - .25* dc.getWidth(), ycent2+ .5*textHeight, .5*dc.getWidth(), textHeight);
             dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(xcent, ycent+ .5*textHeight, font, "(stopped)", justify);
+            dc.drawText(xcent2, ycent2+ .5*textHeight, font, "(stopped)", justify);
             
             return;
         }
@@ -1518,12 +1561,17 @@ class SolarSystemBaseView extends WatchUi.View {
             }
             else {
                 var dv = $.speeds[$.speeds_index];
-                intvl = "(" + dv.format("%.1d") + " hour)";
+                //System.println("DV " + dv);
+                if (dv == Math.floor(dv)) {
+                    intvl = "(" + dv.format("%.1d") + " hour)";
+                }else{
+                    intvl = "(" + dv.format("%.1f") + " hour)";
+                }
             }
-            dc.drawText(xcent, ycent+ .5*textHeight, font, intvl, justify);
+            dc.drawText(xcent2, ycent2+ .5*textHeight, font, intvl, justify);
             //$.show_intvl = false;
         } else if ((15*$.hz).toNumber() < 2.0* $.hz) {
-            dc.drawText(xcent, ycent+ .5*textHeight, font, msg, justify);
+            dc.drawText(xcent2, ycent2+ .5*textHeight, font, msg, justify);
         }
         
     }
@@ -1531,11 +1579,12 @@ class SolarSystemBaseView extends WatchUi.View {
     var def_size = 175.0 /2;
     var b_size = 2.0;
     var jup_size = 4.0;
-    var min_size = 2.0;
+    var min_size = 1.0;
     var fillcol= Graphics.COLOR_BLACK;
     //var col = Graphics.COLOR_WHITE;
 
     public function drawPlanet(dc, key, x, y, base_size, ang_rad, type, big_small, small_whh) {
+        //System.println("key: " + key);
 
         drawPlanetCount++;
         col = Graphics.COLOR_WHITE;
@@ -1546,24 +1595,28 @@ class SolarSystemBaseView extends WatchUi.View {
         if (type == :orrery) { size = b_size/32.0;}
         if (key.equals("Sun")) {
             size = 8*b_size;
+            if (type == :orrery) {size = 4*b_size;}
+            col = 0xf7ef05;
+            fillcol = 0xf7ef05;
             //if (type == :orrery) { size = b_size;}
             
         }
         switch (key) {
             case "Mercury":
                 size = b_size *jup_size /22.0 * 3/4.0;
-                col = Graphics.COLOR_LT_GRAY;
-                fillcol = Graphics.COLOR_DK_GRAY;
+                col = 0x8f8aae;
+                fillcol = 0x70708f;
                 break;
             case "Venus":
                 size =b_size*jup_size/ 10.0;
-                col = 0xf3eb98;
+                col = 0xc3cb58;
+                fillcol = 0x838b48;
                 break;
 
             case "Mars":
                 size =b_size*jup_size /22.0;
                 col = 0xff9a8e;
-                fillcol = 0x5f4a5e;
+                fillcol = 0x9f4a5e;
 
                 break;
             case "Saturn":
@@ -1591,8 +1644,8 @@ class SolarSystemBaseView extends WatchUi.View {
                 break;   
             case "Moon":
                 size =b_size *jup_size * 6/7.0*2/5.0 * 13/50.0;
-                col = Graphics.COLOR_LT_GRAY;
-                fillcol = Graphics.COLOR_WHITE;
+                col = 0xe0e0e0;        
+                fillcol = 0x171f25;                                
                 break;                
                 
              case "Pluto":
@@ -1642,32 +1695,82 @@ class SolarSystemBaseView extends WatchUi.View {
             }
         }
 
-        if (size < min_size && ! key.equals("Moon")) { size = min_size; }
-
-        if (type == :orrery && (key.equals("Moon"))) {size /= 2;}
+        if (size < min_size) { size = min_size; }
+        
+        /* {
+            if (key.equals("Moon"))
+            { size = min_size/2.0; }
+            
+            else 
+        }*/
+        //System.println("size " + key + " " + size);
+        if (type == :orrery && (key.equals("Moon"))) {
+            size = size/3.2;
+            if (size<0.5) {size=0.5;}
+        }
+        //System.println("size2 " + key + " " + size);
 
         size *= planetSizeFactor;
-
+        var pen = Math.round(size/10.0).toNumber();
+        if (pen<1) {pen=1;}
+        dc.setPenWidth(pen);
         dc.setColor(fillcol, Graphics.COLOR_BLACK);        
-        dc.fillCircle(x, y, size);
+        if (size>1) {dc.fillCircle(x, y, size);}
         dc.setColor(col, Graphics.COLOR_TRANSPARENT);
         dc.drawCircle(x, y, size);
-        dc.setPenWidth(1);
+        
         switch (key) {
             case "Sun" :
                 //dc.setColor(Graphics.COLOR_YELLOW, Graphics.COLOR_TRANSPARENT);
                 dc.setColor(0xf7ef05, Graphics.COLOR_TRANSPARENT);
+                if (type == :orrery) {break;}
                 
                 dc.fillCircle(x, y, size);
+                for (var i = 0; i< 2*Math.PI; i += 2*Math.PI/8.0) {
+                    var r1 = size *1.2;
+                    var r2 = size * 1.5;
+                    var x1 = x + Math.cos (i) * r1;
+                    var y1 = y + Math.sin (i) * r1;
+                    var x2 = x + Math.cos (i) * r2;
+                    var y2 = y + Math.sin (i) * r2;
+                    dc.drawLine(x1,y1,x2,y2);
+
+                }
+                break;
+            case "Mercury" :                
+                //dc.setColor(0x656585, Graphics.COLOR_TRANSPARENT);        
+                drawARC (dc, 17, 7, x, y - size/2.0,size/2.25, pen, null);
+                drawARC (dc, 0, 24, x, y + size/3.0,size/2.25, pen, null);
                 break;
             case "Venus":
-                dc.fillCircle(x, y, size);
-                dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);        
-                dc.fillCircle(x, y,size/4);
+                //dc.fillCircle(x, y, size);
+                //dc.setColor(0x737348, Graphics.COLOR_TRANSPARENT);        
+                //drawARC (dc, 17, 7, x, y - size/2.5,size/2.3, 1, null);
+                drawARC (dc, 0, 24, x, y - size/5.0,size/2.0, pen, null);
+                dc.drawLine (x, y - size/5.0 + size/2.0, x, y+4.0*size/5.0);
+
+                dc.drawLine (x-size/5.0, y + size/2.0, x+size/5.0, y + size/2.0);
+
+                //dc.fillCircle(x, y,size/4);
                 break;
+            case "Mars":
+                //dc.fillCircle(x, y, size);
+                //dc.setColor(0x734348, Graphics.COLOR_TRANSPARENT);        
+                      var x1 = x - size/12.0;
+                var y1 = y + size/12.0;
+                //drawARC (dc, 17, 7, x, y - size/2.5,size/2.3, 1, null);
+                drawARC (dc, 0, 24, x1, y1 ,size/2.0, pen, null);
+          
+                dc.drawLine (x1 + size/4.0 + size/18.0 , y1 - size/2.0 - size/18.00,x1 + size/2.0+ size/18.0, y1 - size/2.0 - size/18.0);
+                dc.drawLine (x1 + size/2.0 + size/18.0, y1 - size/4.0- size/18.0,x1 + size/2.0+ size/18.0, y1 - size/2.0 - size/18.0);
+
+                //dc.drawLine (x-size/5.0, y + size/2.0, x+size/5.0, y + size/2.0);
+
+                //dc.fillCircle(x, y,size/4);
+                break;    
             case "Jupiter":
-                dc.drawLine(x-size*.945, y-size/4, x+size*.945, y-size/4);
-                dc.drawLine(x-size*.945, y+size/4, x+size*.945, y+size/4);
+                dc.drawLine(x-size*.968+pen/3.0, y-size/4, x+size*.968-pen/3.0, y-size/4);
+                dc.drawLine(x-size*.968+pen/3.0, y+size/4, x+size*.968-pen/3.0, y+size/4);
                 break;
             case "Saturn":
                 dc.drawLine(x-size*1.7, y+size/3, x+size*1.7, y-size/3);
@@ -1678,22 +1781,24 @@ class SolarSystemBaseView extends WatchUi.View {
                 //dc.drawLine(x-size, y+size/4, x+size, y+size/4);
                 break;
             case "Neptune" :
-                dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);                //
-                dc.drawLine(x, y+3*size/5.5, x, y-3*size/4);
-                drawARC (dc, 18, 6, x, y - 1*size/2.0, size*2/3.0, 1, null);
+                dc.setColor(Graphics.COLOR_DK_GRAY, Graphics.COLOR_TRANSPARENT);   
+                y1 = y + size/12.0;             //
+                dc.drawLine(x, y1+3*size/5.5, x, y1-3*size/4);
+                drawARC (dc, 18, 6, x, y1 - 1*size/2.0, size*2/3.0, pen, null);
                 break;
             case "Uranus" :
                 
                 //dc.drawLine(x, y+4*size/5, x, y-4*size/5);
+                dc.setColor(Graphics.COLOR_BLUE, Graphics.COLOR_TRANSPARENT);                //
                 dc.fillCircle (x, y, size/3);  
-                drawARC (dc, 0, 24, x, y,3*size/4.0, 1, null);
+                if (size>4) {drawARC (dc, 0, 24, x, y,3*size/4.0, pen, null);}
                 break;
              case "Pluto" :
                 
                 //dc.drawLine(x, y+4*size/5, x, y-4*size/5);
                 dc.drawLine(x-size/7.0, y+2*size/4, x-size/7.0, y-2*size/4);                      
                 //dc.drawLine(x-size/3.0, y+3*size/4, x-size/3.0, y-3*size/4);                      
-                drawARC (dc, 10, 26, x, y-size/6,size/1.7, 1, null);
+                drawARC (dc, 10, 27, x+size/10.0, y-size/6,size/2.8, pen, null);
                 break;
 
              case "Chiron" :
@@ -1701,15 +1806,15 @@ class SolarSystemBaseView extends WatchUi.View {
                 //dc.drawLine(x, y+4*size/5, x, y-4*size/5);
                 //dc.drawLine(x-size/7.0, y+2*size/4, x-size/7.0, y-2*size/4);                      
                 //dc.drawLine(x-size/3.0, y+3*size/4, x-size/3.0, y-3*size/4);                      
-                drawARC (dc, 23,13, x+size/7, y,size/1.6, 1, null);
+                drawARC (dc, 23,13, x+size/7, y,size/1.9, pen, null);
                 break;
             case "Eris" :
                 
                 //dc.drawLine(x, y+4*size/5, x, y-4*size/5);
                 //dc.drawLine(x-size/7.0, y+2*size/4, x-size/7.0, y-2*size/4);                      
                 //dc.drawLine(x-size/3.0, y+3*size/4, x-size/3.0, y-3*size/4);                      
-                drawARC (dc, 23, 13, x+size/7, y,size/1.6, 1, null);
-                dc.drawLine(x+size/7-size/1.6, y, x+size/3.4,y);
+                drawARC (dc, 23, 13, x+size/7, y,size/1.8, pen, null);
+                dc.drawLine(x+size/7-size/1.5, y, x+size/3.4,y);
                 break;  
             case "Makemake" :                
                 dc.drawLine(x, y+4*size/8.0, x, y-3*size/8.0);
@@ -1717,54 +1822,71 @@ class SolarSystemBaseView extends WatchUi.View {
             
                 break;
             case "Gonggong" :                
-                dc.drawLine(x-size/4.0 + size/15, y-size/2.0, x - size/4.0, y+size/2.0);
-                dc.drawLine(x+size/4.0 + size/15, y-size/2.0, x + size/4.0, y+size/2.0);
+                //dc.drawLine(x-size/4.0 + size/15, y-size/2.0, x - size/4.0, y+size/2.0);
+                //dc.drawLine(x+size/4.0 + size/15, y-size/2.0, x + size/4.0, y+size/2.0);
+                dc.drawLine(x + size/15, y-size/1.8, x - size/15.0, y+size/1.8);
                 dc.drawLine(x+size/2.0, y-size/4.0, x - size/2.0, y-size/4.0);
                 dc.drawLine(x+size/2.0, y+size/4.0, x - size/2.0, y+size/4.0);
                 break;
                 
             case "Quaoar" :                
-                dc.drawLine(x + size/10, y-size/1.7, x + size/2.0, y);
-                dc.drawLine(x + size/2.0, y,x, y+size/1.7);
+                dc.drawLine(x , y-size/1.7, x + size/2.0, y);
+                dc.drawLine(x + size/2.0, y,x , y+size/1.7);
                 dc.drawLine(x, y+size/1.7,x - size/2.0, y);
-                dc.drawLine(x - size/2.0, y, x - size/10, y-size/1.7);
+                dc.drawLine(x - size/2.0, y, x , y-size/1.7);
                 break; 
              case "Haumea" :                
-                drawARC (dc, 0, 24, x, y - size/3,size/3, 1, null);
-                drawARC (dc, 0, 24, x, y + size/3,size/3, 1, null);
+                drawARC (dc, 0, 24, x, y - size/3,size/3, pen, null);
+                drawARC (dc, 0, 24, x, y + size/3,size/3, pen, null);
                 
                 break;                                      
 
             case "Moon" :  
-                if( type == :orrery) {break;}  
-                if (moon_age_deg > 315 || moon_age_deg <= 45) { //NEW moon
-                        dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);                //0x171f25
+                if( type == :orrery) {
+                        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);  
+                        //System.println("Orrery moon..");
+                        dc.drawCircle(x, y, size);              
+                        
                         dc.fillCircle(x, y, size);
+                        break;
+                }  else {
+                if (moon_age_deg > 315 || moon_age_deg <= 45) { //NEW moon
+
+                        dc.setColor(0x171f25, Graphics.COLOR_TRANSPARENT);                //0x171f25
+                        dc.fillCircle(x, y, size);
+                        dc.setColor(0xf0f9ff, Graphics.COLOR_TRANSPARENT);  
+                        dc.drawCircle(x, y, size);
                 }
 
                 else if (moon_age_deg > 45 && moon_age_deg <= 135) { //1st quarter
-                        dc.setColor(0x171f25, Graphics.COLOR_TRANSPARENT);                
-                        dc.fillCircle(x, y, size);
-                        
-                        dc.setClip (x-size, y-size,size, size*2);
                         dc.setColor(0xf0f9ff, Graphics.COLOR_TRANSPARENT);                
+                        dc.drawCircle(x, y, size);
+                        dc.setClip (x, y-size,size, size*2);                        
+                        dc.setColor(0xf0f9ff, Graphics.COLOR_TRANSPARENT);  
                         dc.fillCircle(x, y, size);
                         dc.clearClip();
 
                 }
                 else if (moon_age_deg > 135 && moon_age_deg <= 225) { //FULL
-                        dc.setColor(0xf0f9ff, Graphics.COLOR_TRANSPARENT);                
+                        
+                        dc.setColor(0xf0f9ff, Graphics.COLOR_TRANSPARENT);  
+                        
+                        dc.drawCircle(x, y, size);              
+                        
                         dc.fillCircle(x, y, size);
                 }
                 else if (moon_age_deg > 225 && moon_age_deg <= 315) { //Last quarter
-                        dc.setColor(0x171f25, Graphics.COLOR_TRANSPARENT);                
-                        dc.fillCircle(x, y, size);
-                        dc.setClip (x, y-size,size, size*2);
-                        dc.setColor(0xf0f9ff, Graphics.COLOR_TRANSPARENT);                
+                        
+                        dc.setColor(0xf0f9ff, Graphics.COLOR_TRANSPARENT);  
+                        dc.drawCircle(x, y, size);
+                        
+                        dc.setClip (x-size, y-size,size, size*2);
+                        dc.setColor(0xf0f9ff, Graphics.COLOR_TRANSPARENT);  
                         dc.fillCircle(x, y, size);
                         dc.clearClip();
                 }
                 break;
+                }
         }
         /*
         if (key.equals("Sun") ) {
@@ -1794,6 +1916,7 @@ class SolarSystemBaseView extends WatchUi.View {
             if ($.hz == null ) {hez = 5;} 
             else { hez = $.hz * 4; mlt2 = 4;}
 
+            ///########### SHOW NAME ABBREVIATION ##########################
             if ((textDisplay_count * mlt2) % (mlt*hez).toNumber() < hez || drawThis) {
             
                 if (type == :ecliptic) {
@@ -1808,12 +1931,12 @@ class SolarSystemBaseView extends WatchUi.View {
                         //drawAngledText(x as Lang.Numeric, y as Lang.Numeric, font as Graphics.VectorFont, text as Lang.String, justification as Graphics.TextJustification or Lang.Number, angle as Lang.Numeric) as Void
                     }
                 } else if (type == :orrery) {
-
+                    
                     var drawSmall = big_small==0 
                     || (big_small==1 && (small_whh.indexOf(key)==-1 || orrZoomOption_values[$.Options_Dict["orrZoomOption"]] >= 4))
                     || (big_small==2 && ( small_whh.indexOf(key)==-1 || orrZoomOption_values[$.Options_Dict["orrZoomOption"]] >= 8));
                     
-                    if (!key.equals("Sun") && drawSmall)  {
+                    if (!key.equals("Sun") && !key.equals("Moon") && drawSmall)  {
                         sub = findSpotRect(x,y);
                         //mult = 2 + sub;
                         x2 = sub[0];

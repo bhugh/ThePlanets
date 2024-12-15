@@ -61,7 +61,7 @@ var planetsOption_value = planetsOption_default; //use the NUMBER not the VALUES
 
 //TODO: User could tweak size of PLANETS & also radius of circle/overall scale
 var Options_Dict = {  };
-var labelDisplayOption=[ "Always On", "Always Off", "Freq Flash", "Less Flash", "Random Flash"];
+var labelDisplayOption=[ "Always On", "Always Off", "Frequent Flash", "Seldom Flash", "Random Flash"];
 var labelDisplayOption_size = 5;
 var labelDisplayOption_default = 2;
 
@@ -71,27 +71,28 @@ var refreshOption=[
     "4 per sec.",
     "3 per sec.",
     "2  per sec.",
+    /*
     "1 per sec.",
     "1 per 1.5 sec.",
     "1 per 2 sec.",
     "1 per 3 sec.",
     "1 per min.",
-    "1 per 5 min.",
+    "1 per 5 min.", */
     ];
 var refreshOption_values=[  //in HZ
         10.0,
         5.0,
         4.0, 
         3.0, 
-        2.0, 
+        2.0, /*
         1.0, 
         1/1.5, 
         1/2.0, 
         1/3.0, 
         1/60.0, 
-        1/60.0*5,
+        1/60.0*5,*/
     ];    
-var refreshOption_size = 11;
+var refreshOption_size = 5;
 var refreshOption_default = 2;
 
 var screen0MoveOption=[
@@ -133,13 +134,13 @@ var screen0MoveOption_size = 15;
 var screen0MoveOption_default = 6;
 
 var planetSizeOption=[
-     "Very small" , 
+     "XX Small" , 
+     "Very Small" , 
      "Small" , 
-     "Normal" , 
-     "Large", 
+     "Normal", 
+     "Large",      
      "Very Large",      
      "XXLarge",      
-     "XXXLarge",      
 ];
 
 var planetSizeOption_values=[
@@ -153,7 +154,7 @@ var planetSizeOption_values=[
 
 ];
 var planetSizeOption_size = 7;
-var planetSizeOption_default = 2;
+var planetSizeOption_default = 3;
 var planetSizeFactor = 1.0;
 
 var eclipticSizeOption=[
@@ -252,11 +253,18 @@ class SolarSystemSettingsView extends WatchUi.View {
         */
         //System.println("onShow...");
 
+                //Some watches dont have Menu2, in that case teh Menu 
+        //key just becomes EXIT...
+        if (!(WatchUi has :Menu2)) {
+            System.exit();
+        }
+        
+
         // if this is the first call to `onShow', then we want the menu to immediately appear
         if (firstShow) {
             //System.println("firstShow...");
             //WatchUi.switchToView(new $.ElegantAnaSettingsMenu(), new $.ElegantAnaSettingsMenuDelegate(), WatchUi.SLIDE_IMMEDIATE);
-            WatchUi.pushView(new $.SolarSystemSettingsMenu(), new $.SolarSystemSettingsMenuDelegate(), WatchUi.SLIDE_RIGHT);
+            WatchUi.pushView(new $.SolarSystemSettingsMenu(), new $.SolarSystemSettingsMenuDelegate(), WatchUi.SLIDE_IMMEDIATE);
             //WatchUi.popView(WatchUi.SLIDE_IMMEDIATE); //SLIDE_RIGHT
             firstShow = false;
         }
@@ -316,9 +324,10 @@ class SolarSystemSettingsDelegate extends WatchUi.BehaviorDelegate {
     //! Handle the menu event
     //! @return true if handled, false otherwise
     public function onMenu() as Boolean {
-        var menu = new $.SolarSystemSettingsMenu();
+        
 
-       
+
+        var menu = new $.SolarSystemSettingsMenu();
 
         WatchUi.pushView(menu, new $.SolarSystemSettingsMenuDelegate(), WatchUi.SLIDE_IMMEDIATE);
         return true;

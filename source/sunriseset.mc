@@ -52,7 +52,7 @@ class sunRiseSet_cache{
 
         var myStats = System.getSystemStats();
 
-        System.println("Memory/sunriseset: " + myStats.totalMemory + " " + myStats.usedMemory + " " + myStats.freeMemory + " MAX_CACHE: " + MAX_CACHE);
+        //System.println("Memory/sunriseset: " + myStats.totalMemory + " " + myStats.usedMemory + " " + myStats.freeMemory + " MAX_CACHE: " + MAX_CACHE);
         //myStats = null;
 
         if (g_cache.hasKey(index)) {

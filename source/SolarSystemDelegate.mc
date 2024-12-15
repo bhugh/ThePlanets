@@ -100,6 +100,10 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
             WatchUi.requestUpdate();
         } else {
             speeds_index --;
+            if ($.view_modes[$.view_index] == 2 || $.view_modes[$.view_index] == 4  || $.view_modes[$.view_index]==5) {
+                if (speeds_index <47 && speeds_index >21) {speeds_index = 21;}
+
+            }
             if (speeds_index<0)  {speeds_index=0; }
             $.show_intvl = 0;
             
@@ -135,6 +139,10 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
             WatchUi.requestUpdate();
         } else {
                 speeds_index ++;
+                if ($.view_modes[$.view_index] == 2 || $.view_modes[$.view_index] == 4  || $.view_modes[$.view_index]==5) {
+                if (speeds_index <47 && speeds_index >21) {speeds_index = 47;}
+
+                }
                 if (speeds_index>= speeds.size()) {speeds_index = speeds.size()-1;}
                 $.show_intvl = 0;
                 
@@ -164,7 +172,7 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
     
     function onKey(keyEvent) {
         var keyvent =  keyEvent.getKey();
-        System.println("GOT KEEY!!!!!!!!!: " + keyvent);         // e.g. KEY_MENU = 7
+        //System.println("GOT KEEY!!!!!!!!!: " + keyvent);         // e.g. KEY_MENU = 7
 
         if (keyvent == 7) {
 
