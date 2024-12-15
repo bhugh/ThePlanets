@@ -24,13 +24,10 @@
             <iq:product id="descentmk351mm"/>
             <iq:product id="enduro"/>
             <iq:product id="enduro3"/>
-            <iq:product id="epix"/>
             <iq:product id="epix2"/>
             <iq:product id="epix2pro42mm"/>
             <iq:product id="epix2pro47mm"/>
             <iq:product id="epix2pro51mm"/>
-            <iq:product id="fenix3"/>
-            <iq:product id="fenix3_hr"/>
             <iq:product id="fenix5"/>
             <iq:product id="fenix5plus"/>
             <iq:product id="fenix5s"/>
@@ -58,6 +55,8 @@
             <iq:product id="fenixe"/>
             <iq:product id="fr165"/>
             <iq:product id="fr165m"/>
+            <iq:product id="fr230"/>
+            <iq:product id="fr235"/>
             <iq:product id="fr245"/>
             <iq:product id="fr245m"/>
             <iq:product id="fr255"/>
@@ -67,11 +66,10 @@
             <iq:product id="fr265"/>
             <iq:product id="fr265s"/>
             <iq:product id="fr55"/>
-            <iq:product id="fr630"/>
             <iq:product id="fr645"/>
             <iq:product id="fr645m"/>
+            <iq:product id="fr735xt"/>
             <iq:product id="fr745"/>
-            <iq:product id="fr935"/>
             <iq:product id="fr945"/>
             <iq:product id="fr945lte"/>
             <iq:product id="fr955"/>
@@ -118,8 +116,16 @@
         <iq:permissions>
             <iq:uses-permission id="Positioning"/>
             <iq:uses-permission id="Positioning"/>
+            <iq:uses-permission id="Positioning"/>
+            <iq:uses-permission id="Positioning"/>
+            <iq:uses-permission id="Positioning"/>
+            <iq:uses-permission id="Positioning"/>
         </iq:permissions>
         <iq:languages>
+            <iq:language>eng</iq:language>
+            <iq:language>eng</iq:language>
+            <iq:language>eng</iq:language>
+            <iq:language>eng</iq:language>
             <iq:language>eng</iq:language>
             <iq:language>eng</iq:language>
         </iq:languages>
