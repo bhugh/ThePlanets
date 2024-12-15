@@ -11,14 +11,14 @@ import Toybox.WatchUi;
 import Toybox.Math;
 import Toybox.System;
 
+var _planetIcon as BitmapResource?;
 
 //! This view displays the position information
 class SolarSystemBaseView extends WatchUi.View {
 
     var lastLoc;
     private var _lines as Array<String>;
-    private var _offscreenBuffer as BufferedBitmap?;
-    private var _planetIcon as BitmapResource?;
+    private var _offscreenBuffer as BufferedBitmap?;    
     
     public var xc, yc, min_c, max_c, targetDc, screenShape, thisSys;
     
@@ -267,6 +267,7 @@ class SolarSystemBaseView extends WatchUi.View {
         count++;
         textDisplay_count ++;
         drawPlanetCount =0; //incremented when drawing each planet; refreshed on each new screen draw
+        if(buttonPresses>0) {_planetIcon = null;}
         planetRand = Math.rand(); //1 new random number for drawPlanet, per screen refresh
 
         if ($.view_index != old_mode) {
@@ -1345,7 +1346,7 @@ class SolarSystemBaseView extends WatchUi.View {
                     msg = ["BACK:","STOP Time if started", "OR: Prev Mode/Exit",animation_count + 1];   
                     break;                     
                 case 5:                
-                    msg = ["MENU:","Change", "Options",animation_count + 1];   
+                    msg = ["MENU:","Change Options", "or Exit",animation_count + 1];   
                     break;                         
             }
         }
@@ -1418,14 +1419,16 @@ class SolarSystemBaseView extends WatchUi.View {
 
                 dc.drawText(xstart, ystart + i*textHeight, font, msg[i], jstify);
 
-                if (msg[i].equals("PLANETS") || msg[i].equals("Options")) {
-                    dc.setClip (0, ystart+2,  2*xc,  2* textHeight -2  );
-                    var hgt = _planetIcon.getHeight();
-                    //System.println("Hgt " + hgt);
-                    var ht = (2*textHeight-2 - hgt)/2.0;//40=height of icon
-                    if (ht<0) {ht=0;}
-                    dc.drawBitmap(5, ht + ystart +2, _planetIcon);
-                    dc.clearClip();
+                if (msg[i].equals("PLANETS") || msg[i].equals("or Exit")) {
+                    if (_planetIcon != null) {
+                        dc.setClip (0, ystart+2,  2*xc,  2* textHeight -2  );
+                        var hgt = _planetIcon.getHeight();
+                        //System.println("Hgt " + hgt);
+                        var ht = (2*textHeight-2 - hgt)/2.0;//40=height of icon
+                        if (ht<0) {ht=0;}
+                        dc.drawBitmap(5, ht + ystart +2, _planetIcon);
+                        dc.clearClip();
+                    }
                 }
 
                 if (!lined) {
