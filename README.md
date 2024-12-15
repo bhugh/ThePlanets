@@ -15,6 +15,7 @@ The planetary motion model is based on algorithms from the sophisticated VSOP mo
  * Me Mercury
  * Ve Venus
  * Ea Earth
+ * Mo Moon
  * Ma Mars
  * Ju Jupiter
  * Sa Saturn     
