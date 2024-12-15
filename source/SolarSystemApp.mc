@@ -89,6 +89,9 @@ class SolarSystemBaseApp extends Application.AppBase {
     //! @param state Startup arguments
     public function onStart(state as Dictionary?) as Void {  
         System.println("onStart...");
+        started = true;
+        timeWasAdded = true;
+
         //readStorageValues();
         Position.enableLocationEvents(Position.LOCATION_CONTINUOUS, method(:onPosition));
     }
@@ -97,7 +100,9 @@ class SolarSystemBaseApp extends Application.AppBase {
     //! @param state Shutdown arguments
     public function onStop(state as Dictionary?) as Void {
         _positionView.stopAnimationTimer();
+        started = false;
         Position.enableLocationEvents(Position.LOCATION_DISABLE, method(:onPosition));
+        
     }
 
     //! Update the current position

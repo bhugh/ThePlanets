@@ -14,7 +14,7 @@ import Toybox.System;
 var _planetIcon as BitmapResource?;
 var newModeOrZoom = false;
 var speedWasChanged = false;
-var timeWasAdded = false;
+var timeWasAdded = true; //helpful if this is true to make sure we DRAW SOMETHING at the start.
 var drawPlanetCount =0;
 var count = 0;
 
@@ -60,26 +60,29 @@ class SolarSystemBaseView extends WatchUi.View {
     
     function animationTimerCallback() as Void {
 
-           if ($.view_modes[$.view_index] == 0 ) {
-            started = true;
-           }
+           //if ($.view_modes[$.view_index] == 0 ) {
+           // started = true;
+           //}
            $.animation_count ++;
            animSinceModeChange ++;
-           if ($.started) {
-             if ($.view_modes[$.view_index]>0) {
+           if ($.started
+                && ($.view_modes[$.view_index]>0) ) {
                 $.time_add_hrs += $.speeds[$.speeds_index];
                 WatchUi.requestUpdate();
-             } else if (mod($.animation_count,$.hz)==0) {
-                //update screen #0 at 1 $.hz, much like a watchface...
+             } else if ($.view_modes[$.view_index] == 0) { //view_mode==0, we always request the update & let it figure it out
                 WatchUi.requestUpdate();
-                
              }
-                WatchUi.requestUpdate();
+             //} else if (mod($.animation_count,$.hz)==0) {
+                //update screen #0 at 1 $.hz, much like a watchface...
+                //WatchUi.requestUpdate();
+                
+             //}
+            
            //Allow msgs etc when screen is stopped, but just @ a lower $.hz 
-           } else if ($.animation_count%3 == 0) {
-             WatchUi.requestUpdate();
-           }
-           //System.println("animationTimer: " + $.animation_count + " started: " + $.started);
+           //} else if ($.animation_count%3 == 0) {
+           //  WatchUi.requestUpdate();
+           //}
+           //System.println("animationTimer: " + $.animation_count + " started: " + $.started + $.speedWasChanged +$.timeWasAdded);
     }
 
 
@@ -145,6 +148,7 @@ class SolarSystemBaseView extends WatchUi.View {
     //! Restore the state of the app and prepare the view to be shown
     public function onShow() as Void {
         started = true;
+        timeWasAdded = true;
 
     }
 
@@ -296,7 +300,7 @@ class SolarSystemBaseView extends WatchUi.View {
         } else {
             stopping_completed =false;
         }
-
+        //System.println("made it #1");
         textDisplay_count ++;
         $.drawPlanetCount =0; //incremented when drawing each planet; refreshed on each new screen draw
         if($.buttonPresses>0) {_planetIcon = null;}

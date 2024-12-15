@@ -22,6 +22,7 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
     public function onSelect() as Boolean {
 
         $.buttonPresses++;
+        $.timeWasAdded=true;
         if (buttonPresses == 1) {return;} //1st buttonpress just gets out of intro titles
 
         if (_mainview.animation_count == last_animation_count) {
@@ -62,6 +63,7 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
     //if started, stop.
     public function onBack() as Boolean {
         $.buttonPresses++;
+        $.timeWasAdded=true;
         if (buttonPresses == 1) {return;} //1st buttonpress just gets out of intro titles
 
         //$.show_intvl = 0; //This makes screen clear of orbits, not good
@@ -98,6 +100,7 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
         //System.println("onNextPage..." );
         $.buttonPresses++;
         $.speedWasChanged = true;
+        $.timeWasAdded=true;
         if (buttonPresses == 1) {return;} //1st buttonpress just gets out of intro titles
 
         if ($.view_modes[$.view_index] == 0) {
@@ -140,6 +143,7 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
 
         $.buttonPresses++;
         $.speedWasChanged = true;
+        $.timeWasAdded=true;
         if (buttonPresses == 1) {return;} //1st buttonpress just gets out of intro titles
         
         if ($.view_modes[$.view_index] == 0) {
@@ -175,6 +179,7 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
     function onTap(clickEvent) {
         System.println("Click1: " + clickEvent.getCoordinates()); // e.g. [36, 40]
         System.println("Click2: " + clickEvent.getType());        // CLICK_TYPE_TAP = 0
+        $.timeWasAdded=true;
         return true;
     }
 
@@ -204,6 +209,7 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
 function changeModes(previousMode){
         //System.println("chmodes..." );
         
+        $.timeWasAdded = true; //forces draw of screen in mode 0...
         $.animSinceModeChange = 0;
         $.show_intvl = 0; //used by showDate to decide when/how long to show (5 min) type labels
         //$.time_add_hrs = .5; //reset to present time //NOW Do this, or not, individually per MODE below
