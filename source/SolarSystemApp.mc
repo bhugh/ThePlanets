@@ -98,7 +98,7 @@ class SolarSystemBaseApp extends Application.AppBase {
         
 
         //readStorageValues();
-        Position.enableLocationEvents(Position.LOCATION_CONTINUOUS, method(:onPosition));
+        Position.enableLocationEvents(Position.LOCATION_ONE_SHOT, method(:onPosition));
     }
 
     //! Handle app shutdown
@@ -113,8 +113,12 @@ class SolarSystemBaseApp extends Application.AppBase {
     //! Update the current position
     //! @param info Position information
     public function onPosition(info as Info) as Void {
-        System.println("onPosition...");
+        System.println("onPosition... count: " + $.count);
         _positionView.setPosition();
+
+        //We only need this ONCE, not continuously, so . . . 
+        Position.enableLocationEvents(Position.LOCATION_DISABLE, method(:onPosition));
+
     }
 
     //! Return the initial view for the app

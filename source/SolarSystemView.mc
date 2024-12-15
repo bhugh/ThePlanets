@@ -309,7 +309,11 @@ class SolarSystemBaseView extends WatchUi.View {
             //when stopped, we do run ONCE every FIVE MINUTES so as to update the 
             //display to current time
             //Thus you could use this as a kind of a clock face
-            var run_once = now.min%5==0 && now.sec==0;
+            //var run_once = now.min%5==0 && now.sec==0;
+
+            //UPDATE: Need to run it once per MINUTE in order to update the 
+            //time shown...
+            var run_once = now.sec==0;
             
             if (stopping_completed && !run_once ) {return;}
             
