@@ -75,6 +75,8 @@ _******* Sunrise/Set calculations calculations and some astronomical functions (
 
  ** LICENSE & COPYRIGHT of Nasios's original code: The MIT License, Copyright (c) 2020, Ioannis Nasios.
 
+ _******* Logo Image:_ Backlight Saturn, [PIA08329: In Saturn's Shadow](https://photojournal.jpl.nasa.gov/catalog/PIA08329) Cassini Mission, credit NASA.
+
 _SOFTWARE LICENSE_
  * Portions due to Greg Miller's implementation of the VSOP algorithm Public Domain.
  * Portions based on Ioannis Masios's Sunrise/Set algorithm, MIT License
