@@ -15,6 +15,7 @@ var _planetIcon as BitmapResource?;
 var newModeOrZoom = false;
 var speedWasChanged = false;
 var timeWasAdded = true; //helpful if this is true to make sure we DRAW SOMETHING at the start.
+var countWhenMode0Started = 0;
 var drawPlanetCount =0;
 var count = 0;
 
@@ -65,18 +66,25 @@ class SolarSystemBaseView extends WatchUi.View {
            //}
            $.animation_count ++;
            animSinceModeChange ++;
+
            if ($.started
                 && ($.view_modes[$.view_index]>0) ) {
                 $.time_add_hrs += $.speeds[$.speeds_index];
+              
+            }
+
+           WatchUi.requestUpdate();
+           
                 WatchUi.requestUpdate();
-             } else if ($.view_modes[$.view_index] == 0) { //view_mode==0, we always request the update & let it figure it out
-                WatchUi.requestUpdate();
-             }
+            // } else if ($.view_modes[$.view_index] == 0) { //view_mode==0, we always request the update & let it figure it out
+             //   WatchUi.requestUpdate();
+             //}
              //} else if (mod($.animation_count,$.hz)==0) {
                 //update screen #0 at 1 $.hz, much like a watchface...
                 //WatchUi.requestUpdate();
                 
              //}
+             
             
            //Allow msgs etc when screen is stopped, but just @ a lower $.hz 
            //} else if ($.animation_count%3 == 0) {
@@ -101,6 +109,7 @@ class SolarSystemBaseView extends WatchUi.View {
         animationTimer= new Timer.Timer();
         
         animationTimer.start(method(:animationTimerCallback), 1000/hertz, true);
+        started = true;
     }
 
     public function stopAnimationTimer(){
@@ -287,8 +296,15 @@ class SolarSystemBaseView extends WatchUi.View {
         now = System.getClockTime();
 
         //If stopping, we need to run ONCE more, then hold there.  Tricky
-        if (!started || ($.view_modes[$.view_index] == 0 && !$.timeWasAdded)) {
-            
+        if (!started 
+            || (
+                 ($.view_modes[$.view_index] == 0 && !$.timeWasAdded)
+                 && $.buttonPresses > 0 
+                 && $.animation_count - $.countWhenMode0Started>3*$.hz
+               
+               )  
+            )
+        {
             //when stopped, we do run ONCE every FIVE MINUTES so as to update the 
             //display to current time
             //Thus you could use this as a kind of a clock face

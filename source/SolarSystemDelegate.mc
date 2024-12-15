@@ -217,6 +217,7 @@ function changeModes(previousMode){
 
         switch($.view_modes[$.view_index]){
             case (0):
+                $.countWhenMode0Started = $.animation_count;
                 //time_add_inc = 0.25;
                 //$.time_add_hrs = .5; //reset to present time
                 if (previousMode != null && previousMode==5 ) {  //mode 5 often moves years into the future...
