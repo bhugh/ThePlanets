@@ -3,14 +3,11 @@
 <iq:manifest xmlns:iq="http://www.garmin.com/xml/connectiq" version="1">
     <iq:application entry="SolarSystemBaseApp" id="153a34d3-72a7-4453-a803-ed94083e4180" launcherIcon="@Drawables.LauncherIcon" minSdkVersion="1.2.0" name="@Strings.AppName" type="watch-app">
         <iq:products>
-            <iq:product id="approachs60"/>
             <iq:product id="approachs62"/>
             <iq:product id="approachs7042mm"/>
             <iq:product id="approachs7047mm"/>
             <iq:product id="d2air"/>
             <iq:product id="d2airx10"/>
-            <iq:product id="d2bravo"/>
-            <iq:product id="d2bravo_titanium"/>
             <iq:product id="d2charlie"/>
             <iq:product id="d2delta"/>
             <iq:product id="d2deltapx"/>
@@ -55,8 +52,6 @@
             <iq:product id="fenixe"/>
             <iq:product id="fr165"/>
             <iq:product id="fr165m"/>
-            <iq:product id="fr230"/>
-            <iq:product id="fr235"/>
             <iq:product id="fr245"/>
             <iq:product id="fr245m"/>
             <iq:product id="fr255"/>

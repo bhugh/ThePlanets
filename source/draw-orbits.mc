@@ -15,13 +15,14 @@ function drawOrbits3 (myDc, pp, scale, xc,yc, big_small, WHHs, color) {
 
 
    
-    var full_whh = WHHs[0];
+    //var full_whh = WHHs[0];
     var whh = WHHs[1];
-    var small_whh = WHHs[2];
+    //var small_whh = WHHs[2];
 
-    var per = 50;
+    /* var per = 50;
     if (big_small == 0) {per = 10;}
     if (big_small == 1) {per = 20;}
+    */
     
     myDc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
     myDc.setPenWidth(1);

@@ -22,6 +22,7 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
     public function onSelect() as Boolean {
 
         $.buttonPresses++;
+        if (buttonPresses == 1) {return;} //1st buttonpress just gets out of intro titles
 
         if (_mainview.animation_count == last_animation_count) {
             animation_retry_tally ++;
@@ -61,6 +62,8 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
     //if started, stop.
     public function onBack() as Boolean {
         $.buttonPresses++;
+        if (buttonPresses == 1) {return;} //1st buttonpress just gets out of intro titles
+
         //$.show_intvl = 0; //This makes screen clear of orbits, not good
         if (!started || $.view_index == 0) {
             var old_index = $.view_index;
@@ -94,10 +97,13 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
 
         //System.println("onNextPage..." );
         $.buttonPresses++;
+        $.speedWasChanged = true;
+        if (buttonPresses == 1) {return;} //1st buttonpress just gets out of intro titles
 
         if ($.view_modes[$.view_index] == 0) {
             $.time_add_hrs -= speeds[speeds_index];
-            WatchUi.requestUpdate();
+            $.timeWasAdded=true;
+            //WatchUi.requestUpdate();
         } else {
             speeds_index --;
             if ($.view_modes[$.view_index] == 2 || $.view_modes[$.view_index] == 4  || $.view_modes[$.view_index]==5) {
@@ -133,10 +139,13 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
         //System.println("onPrevPage..." );
 
         $.buttonPresses++;
+        $.speedWasChanged = true;
+        if (buttonPresses == 1) {return;} //1st buttonpress just gets out of intro titles
         
         if ($.view_modes[$.view_index] == 0) {
             $.time_add_hrs += speeds[speeds_index];
-            WatchUi.requestUpdate();
+            $.timeWasAdded=true;
+            //WatchUi.requestUpdate();
         } else {
                 speeds_index ++;
                 if ($.view_modes[$.view_index] == 2 || $.view_modes[$.view_index] == 4  || $.view_modes[$.view_index]==5) {
@@ -229,6 +238,7 @@ function changeModes(previousMode){
             case(3):
                 //time_add_inc = 24*3; //1 day
                 $.time_add_hrs = 0; //reset to present time
+                $.newModeOrZoom = true; //gives signal to reset the dots
                 //speeds_index = 41; //1 day OLD/too slow on real watch
                 speeds_index = 53; //3 day
                 solarSystemView_class.sendMessage("Inner", "Solar System", "(Use Up/Down)", "", 5);
@@ -236,6 +246,7 @@ function changeModes(previousMode){
             case(4):
                 //time_add_inc = 24*15; //14 days
                 $.time_add_hrs = 0; //reset to present time
+                $.newModeOrZoom = true; //gives signal to reset the dots
                 //speeds_index = 46; //15 days = OLD , too slow on real watch
                 speeds_index = 64; //1 SOLAR year
                 solarSystemView_class.sendMessage("Outer", "Solar System", "(Use Up/Down)", "",5);
@@ -244,6 +255,7 @@ function changeModes(previousMode){
             case(5):
                 //time_add_inc = 24*15; //90 days
                 $.time_add_hrs = 0; //reset to present time
+                $.newModeOrZoom = true; //gives signal to reset the dots
                 //speeds_index = 48; //61 days, too slow on real watch
                 speeds_index = 64; //4 yrs
                 solarSystemView_class.sendMessage("Far Outer", "Solar System","(Use Up/Down)", "",5);

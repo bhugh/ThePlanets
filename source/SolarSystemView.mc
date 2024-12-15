@@ -12,6 +12,11 @@ import Toybox.Math;
 import Toybox.System;
 
 var _planetIcon as BitmapResource?;
+var newModeOrZoom = false;
+var speedWasChanged = false;
+var timeWasAdded = false;
+var drawPlanetCount =0;
+var count = 0;
 
 //! This view displays the position information
 class SolarSystemBaseView extends WatchUi.View {
@@ -21,6 +26,8 @@ class SolarSystemBaseView extends WatchUi.View {
     private var _offscreenBuffer as BufferedBitmap?;    
     
     public var xc, yc, min_c, max_c, targetDc, screenShape, thisSys;
+    
+    
     
     //private var page;
     
@@ -47,7 +54,7 @@ class SolarSystemBaseView extends WatchUi.View {
     public function sendMessage (msg1, msg2, msg3, msg4, time_sec) {
         // /2.0 cuts display timein half, need a better solution involving actual
         //clock than guessing about animation  frequency
-        message = [msg1, msg2, msg3, msg4, animation_count + time_sec * hz/2.0 ];
+        message = [msg1, msg2, msg3, msg4, $.animation_count + time_sec * hz/2.0 ];
     }
 
     
@@ -56,23 +63,23 @@ class SolarSystemBaseView extends WatchUi.View {
            if ($.view_modes[$.view_index] == 0 ) {
             started = true;
            }
-           animation_count ++;
+           $.animation_count ++;
            animSinceModeChange ++;
            if ($.started) {
              if ($.view_modes[$.view_index]>0) {
                 $.time_add_hrs += $.speeds[$.speeds_index];
                 WatchUi.requestUpdate();
-             } else if (mod(animation_count,$.hz)==0) {
+             } else if (mod($.animation_count,$.hz)==0) {
                 //update screen #0 at 1 $.hz, much like a watchface...
                 WatchUi.requestUpdate();
                 
              }
                 WatchUi.requestUpdate();
            //Allow msgs etc when screen is stopped, but just @ a lower $.hz 
-           } else if (animation_count%3 == 0) {
+           } else if ($.animation_count%3 == 0) {
              WatchUi.requestUpdate();
            }
-           //System.println("animationTimer: " + animation_count + " started: " + $.started);
+           //System.println("animationTimer: " + $.animation_count + " started: " + $.started);
     }
 
 
@@ -119,6 +126,7 @@ class SolarSystemBaseView extends WatchUi.View {
         screenShape = thisSys.screenShape;
 
         startAnimationTimer($.hz);
+        thisSys = null;
 
             
 
@@ -171,7 +179,7 @@ class SolarSystemBaseView extends WatchUi.View {
                 _offscreenBuffer = null;
                 
             }
-
+            /*
             if (null != _offscreenBuffer) {
                 // If we have an offscreen buffer that we are using to draw the background,
                 // set the draw context of that buffer as our target.
@@ -181,6 +189,7 @@ class SolarSystemBaseView extends WatchUi.View {
                 targetDc = dc;
                 
             }
+            */
             offScreenBuffer_started = true;
     }
 
@@ -208,6 +217,7 @@ class SolarSystemBaseView extends WatchUi.View {
             case (0): //manual ecliptic (& follows clock time)
                 stopOffScreenBuffer();
                 largeEcliptic(dc, 0);
+                $.timeWasAdded = false;
                 break;
             case (1):  //slow-moving animated ecliptic
                 stopOffScreenBuffer();
@@ -223,12 +233,14 @@ class SolarSystemBaseView extends WatchUi.View {
                 break;    
             case(3): //top view of center 4 planets
                 //time_add_inc = 24*3;
+                
                 startOffScreenBuffer(dc);
                 largeOrrery(dc, 0);
                 //if (move) {$.time_add_hrs += speeds[speeds_index];}
                 //if ($.started) {WatchUi.requestUpdate();}
                 break;
             case(4): //top view of main planets
+                
                 startOffScreenBuffer(dc);
                 largeOrrery(dc, 1);
                 //if (move) {$.time_add_hrs += speeds[speeds_index];}
@@ -238,6 +250,7 @@ class SolarSystemBaseView extends WatchUi.View {
             
             case(5):  //top view taking in some trans-neptunian objects
                 //if (move) {$.time_add_hrs += speeds[speeds_index];}
+                
                 startOffScreenBuffer(dc);
                 largeOrrery(dc, 2);
                 //if ($.started) {WatchUi.requestUpdate();}
@@ -256,18 +269,37 @@ class SolarSystemBaseView extends WatchUi.View {
     }
 
     //! Update the view
-    //! @param dc Device context
-    var count = 0;
+    //! @param dc Device context    
+    var save_count =-10;
+    var stopping_completed = true;
     var textDisplay_count = 0;
     var old_mode = -1;
-    var drawPlanetCount =0;
+    
     var planetRand = 0;
     public function onUpdate(dc as Dc) as Void {
         //System.println("count: " + count);
-        count++;
+        $.count++;
+
+        now = System.getClockTime();
+
+        //If stopping, we need to run ONCE more, then hold there.  Tricky
+        if (!started || ($.view_modes[$.view_index] == 0 && !$.timeWasAdded)) {
+            
+            //when stopped, we do run ONCE every FIVE MINUTES so as to update the 
+            //display to current time
+            //Thus you could use this as a kind of a clock face
+            var run_once = now.min%5==0 && now.sec==0;
+            
+            if (stopping_completed && !run_once ) {return;}
+            
+            stopping_completed = true; //not yet actually but once this function has finished
+        } else {
+            stopping_completed =false;
+        }
+
         textDisplay_count ++;
-        drawPlanetCount =0; //incremented when drawing each planet; refreshed on each new screen draw
-        if(buttonPresses>0) {_planetIcon = null;}
+        $.drawPlanetCount =0; //incremented when drawing each planet; refreshed on each new screen draw
+        if($.buttonPresses>0) {_planetIcon = null;}
         planetRand = Math.rand(); //1 new random number for drawPlanet, per screen refresh
 
         if ($.view_index != old_mode) {
@@ -332,7 +364,7 @@ class SolarSystemBaseView extends WatchUi.View {
             case 12:
                 largeOrrery(dc, 0);
                 time_add_inc = 24*3;
-                $.show_intvl = false;
+                $.show_$.newModeOrZoom = false;
                 $.time_add_hrs += time_add_inc;
                 WatchUi.requestUpdate();                 
 
@@ -340,14 +372,14 @@ class SolarSystemBaseView extends WatchUi.View {
             case 13:
                 largeOrrery(dc, 0);
                 time_add_inc = 24*7;
-                $.show_intvl = false;
+                $.show_$.newModeOrZoom = false;
                 $.time_add_hrs += time_add_inc;
                 WatchUi.requestUpdate();                                 
                 break;   
             case 14:
                 largeOrrery(dc, 0);
                 time_add_inc = 14*24;   
-                $.show_intvl = false;
+                $.show_$.newModeOrZoom = false;
                 $.time_add_hrs += time_add_inc;
                 WatchUi.requestUpdate();                             
                 break;   
@@ -653,7 +685,7 @@ class SolarSystemBaseView extends WatchUi.View {
         //add_duration = new Time.Duration($.time_add_hrs*3600);
         //System.println("View Ecliptic:" + add_duration + " " + $.time_add_hrs);
 
-        now = System.getClockTime();
+        //now = System.getClockTime();
         //var now_info = Time.Gregorian.info(Time.now().add(add_duration), Time.FORMAT_SHORT);
         var time_now = Time.now();
         var now_info = Time.Gregorian.info(time_now, Time.FORMAT_SHORT);
@@ -824,7 +856,7 @@ class SolarSystemBaseView extends WatchUi.View {
             x = r* Math.cos(ang_rad) + xc;
             y = r* Math.sin(ang_rad) + yc;
 
-            drawPlanet(dc, key, x, y, 2, ang_rad, :ecliptic, null, null);   
+            drawPlanet(dc, key, [x, y,r], 2, ang_rad, :ecliptic, null, null);   
             
         }
 
@@ -910,7 +942,7 @@ class SolarSystemBaseView extends WatchUi.View {
         //add_duration = new Time.Duration($.time_add_hrs*3600);
         //System.println("View Rectangular:" + add_duration + " " + $.time_add_hrs);
 
-        now = System.getClockTime();
+        //now = System.getClockTime();
         //var now_info = Time.Gregorian.info(Time.now().add(add_duration), Time.FORMAT_SHORT);
         var time_now = Time.now();
         var now_info = Time.Gregorian.info(time_now, Time.FORMAT_SHORT);
@@ -989,22 +1021,36 @@ class SolarSystemBaseView extends WatchUi.View {
 
         }
 
-        
+        //reset screen when changing speed, but ONLY if the setting requires it (resetDots)
+        var showWithSpeedChange = false;
+        if ($.Options_Dict["resetDots"] == 1 && $.speedWasChanged ) {showWithSpeedChange = true;}
+        //System.println("RDSWC: " +$.Options_Dict["resetDots"] + " " + showWithSpeedChange + " " + $.newModeOrZoom );
         
         //Things we do ONLY WHEN FIRST STARTING OUT IN THIS MODE & ZOOM LEVEL
-        if ($.show_intvl == 0 ){ 
-            scale = (min_c*0.85*eclipticSizeFactor)/Math.sqrt(max) * $.orrZoomOption_values[$.Options_Dict["orrZoomOption"]] ;  
+        if ($.newModeOrZoom || showWithSpeedChange) {//gives signal to reset the dots 
+            //var oldscale = scale;
+                //System.println("RDSWC - new scale & targetDc: " +$.Options_Dict["resetDots"] + " " + showWithSpeedChange + " " + $.newModeOrZoom );
+            
+                scale = (min_c*0.85*eclipticSizeFactor)/Math.sqrt(max) * $.orrZoomOption_values[$.Options_Dict["orrZoomOption"]] ;  
 
-            if (null != _offscreenBuffer) {
-                targetDc.setColor(Graphics.COLOR_TRANSPARENT, Graphics.COLOR_BLACK);
-                targetDc.clear();        
-                targetDc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-                //System.println ("Using offscreenBUFFER");
+            //must clear screen if scale has changed, otherwise clear it per resetDots setting
+            
 
-            } else {
-                targetDc = dc;
-                System.println ("NOTTTTT Using offscreenBUFFER");
-            }
+                if (null != _offscreenBuffer) {
+                    targetDc = _offscreenBuffer.getDc();                      
+                    targetDc.setColor(Graphics.COLOR_TRANSPARENT, Graphics.COLOR_BLACK);
+                    targetDc.clear();        
+                    targetDc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+                    targetDc = null;
+                    //System.println ("Using offscreenBUFFER");
+
+                } else {
+                    targetDc = dc;
+                    System.println ("NOTTTTT Using offscreenBUFFER");
+                }
+            
+            $.newModeOrZoom = false;
+            $.speedWasChanged = false;
         }
         
         //}
@@ -1044,17 +1090,21 @@ class SolarSystemBaseView extends WatchUi.View {
             if (_offscreenBuffer == null) {
                 //for SOME REASON just setting targetDc = dc DOESN"T WORK !!!!??!?!?!?!??!
                 drawOrbits3(dc, pp, scale, xc, yc, big_small, [full_whh,whh, small_whh], Graphics.COLOR_WHITE); 
-            } else {            
+            } else {      
+                targetDc = _offscreenBuffer.getDc();      
                 drawOrbits3(targetDc, pp, scale, xc, yc, big_small, [full_whh,whh, small_whh], Graphics.COLOR_WHITE); 
+                dc.drawBitmap(0, 0, _offscreenBuffer);
+                targetDc = null;
+                
             }
         
 
             
             
-            if (null != _offscreenBuffer) {
-                dc.drawBitmap(0, 0, _offscreenBuffer);
+            /*if (null != _offscreenBuffer) {
+                
                 //System.println ("Using offscreenBUFFER");
-            } 
+            }*/ 
         }
 
         //System.println("MM2: " + min_c + " " + scale + " " + max + " ");
@@ -1091,7 +1141,7 @@ class SolarSystemBaseView extends WatchUi.View {
             //System.println("key12: " + key);
             if ((radius < 1.05 * max_c && radius > 0.1 * min_c) || key.equals("Sun")) {            
                 fillSpotRect(x,y);//try to avoid putting labels on top of a planet
-                drawPlanet(dc, key, x, y, 4, ang_rad, :orrery, big_small, small_whh);
+                drawPlanet(dc, key, [x, y,radius], 4, ang_rad, :orrery, big_small, small_whh);
             }
             
             
@@ -1250,19 +1300,27 @@ class SolarSystemBaseView extends WatchUi.View {
         xy_desp[0][1]=( (x-xc)/xc * 2*xc/sr_x - x);
         xy_desp[1][1]=( (y-yc)/yc * 2*yc/sr_y - y);
 
+        /*
         var xy_max = 0;
         var x_ret =0;
         var y_ret = 0;
         var x_try = 0;
+
         var y_try = 0;
+
         for (var i = 0; i<2; i++) {
             x_try = xy_desp[0][i];
             if (x_try == null) {x_try =1;} //for SOME REASON the compiler won't believe that x_try will be a number; thinks it's a NULL.  So it won't compile without this little trick.  Same for y_try.
+
+            /* *** this part never worked for some reason
             for (var j = 0; j<2; j++) {
                 y_try = xy_desp[1][j];
                 if (y_try == null) {y_try =1;}
                 //System.println("TRIES: " + x_try + " " + y_try);
+
                 var sq = x_try*x_try + y_try*y_try;
+
+
                 //var sq = xy_desp[0][i]*xy_desp[0][i] + xy_desp[1][j]*xy_desp[1][j];
                 /*
                 if ( sq <= min_c*min_c && sq>xy_max){
@@ -1271,12 +1329,14 @@ class SolarSystemBaseView extends WatchUi.View {
                     y_ret = y_try;
                 }
                 */
-            }
+            //}
+            /*
         }
         if (xy_max > 0) {
             //fillSpotRect (x_ret,y_ret);
             return findSpotRect_fix([x_ret, y_ret], [x,y]);
         } 
+        */
 
         //last resort
         return [x+xc/10.0, y + yc/10.0];
@@ -1327,32 +1387,32 @@ class SolarSystemBaseView extends WatchUi.View {
         if ($.buttonPresses < 1) {
             //making all timings 1/2 the rate because it is so much
             //slower on real watch vs simulator.  But needs a better solution involving actual clock time probably
-            switch (mod(animation_count/(3*$.hz),7.0).toNumber()){
+            switch (mod($.animation_count/(3*$.hz),7.0).toNumber()){
                 case 0:                
                 case 6:                
                 default:
-                    msg = ["THE","PLANETS", "", "Press *UP* or *SWIPE*",animation_count + 1];
+                    msg = ["THE","PLANETS", "", "Press *UP* or *SWIPE*",$.animation_count + 1];
                     break;                
                 case 1:                
-                    msg = ["UP/DOWN/SWIPE:","Time Forward", "/Back",animation_count + 1];
+                    msg = ["UP/DOWN/SWIPE:","Time Forward", "/Back",$.animation_count + 1];
                     break;
                 case 2:                
-                    msg = ["UP/DOWN/SWIPE:","OR: Time Faster", "/Slower",animation_count + 1];
+                    msg = ["UP/DOWN/SWIPE:","OR: Time Faster", "/Slower",$.animation_count + 1];
                     break;                    
                 case 3:
-                    msg = ["SELECT/TAP:","START Time if stopped", "OR: Next Mode",animation_count + 1];   
+                    msg = ["SELECT/TAP:","START Time if stopped", "OR: Next Mode",$.animation_count + 1];   
                     break;                 
                 case 4:                
-                    msg = ["BACK:","STOP Time if started", "OR: Prev Mode/Exit",animation_count + 1];   
+                    msg = ["BACK:","STOP Time if started", "OR: Prev Mode/Exit",$.animation_count + 1];   
                     break;                     
                 case 5:                
-                    msg = ["MENU:","Change Options", "or Exit",animation_count + 1];   
+                    msg = ["MENU:","Change Options", "or Exit",$.animation_count + 1];   
                     break;                         
             }
         }
 
         if (msg == null) { msgDisplayed = false; return 0;}
-        if (msg[msg.size()-1] < animation_count){ msgDisplayed = false; 
+        if (msg[msg.size()-1] < $.animation_count){ msgDisplayed = false; 
         message = null;
         //System.println("ShowMSG: Exiting current msg time expired");
         return 0;}
@@ -1586,10 +1646,14 @@ class SolarSystemBaseView extends WatchUi.View {
     var fillcol= Graphics.COLOR_BLACK;
     //var col = Graphics.COLOR_WHITE;
 
-    public function drawPlanet(dc, key, x, y, base_size, ang_rad, type, big_small, small_whh) {
+    public function drawPlanet(dc, key, xyr, base_size, ang_rad, type, big_small, small_whh) {
         //System.println("key: " + key);
 
-        drawPlanetCount++;
+        $.drawPlanetCount++;
+        var x = xyr[0];
+        var y = xyr[1];
+        var radius = xyr[2];
+
         col = Graphics.COLOR_WHITE;
         fillcol = Graphics.COLOR_BLACK;
         b_size = base_size/def_size*min_c;
@@ -1598,7 +1662,7 @@ class SolarSystemBaseView extends WatchUi.View {
         if (type == :orrery) { size = b_size/32.0;}
         if (key.equals("Sun")) {
             size = 8*b_size;
-            if (type == :orrery) {size = 4*b_size;}
+            if (type == :orrery) {size = 2*b_size;}
             col = 0xf7ef05;
             fillcol = 0xf7ef05;
             //if (type == :orrery) { size = b_size;}
@@ -1606,24 +1670,24 @@ class SolarSystemBaseView extends WatchUi.View {
         }
         switch (key) {
             case "Mercury":
-                size = b_size *jup_size /22.0 * 3/4.0;
+                size = b_size *jup_size*0.03488721374;
                 col = 0x8f8aae;
                 fillcol = 0x70708f;
                 break;
             case "Venus":
-                size =b_size*jup_size/ 10.0;
-                col = 0xc3cb58;
-                fillcol = 0x838b48;
+                size =b_size*jup_size * 0.08655290298;
+                col = 0xffff88;
+                fillcol = 0x838370;
                 break;
 
             case "Mars":
-                size =b_size*jup_size /22.0;
+                size =b_size*jup_size * 0.04847591938;
                 col = 0xff9a8e;
                 fillcol = 0x9f4a5e;
 
                 break;
             case "Saturn":
-                size =b_size *jup_size * 6/7;
+                size =b_size *jup_size * 0.832944744;
                 col = 0x947ec2;
                 break;
             case "Jupiter":
@@ -1631,48 +1695,86 @@ class SolarSystemBaseView extends WatchUi.View {
                 col = 0xcf9c63;
                 break;
             case "Neptune":
-                size =b_size *jup_size * 6/7.0*2/5.0;
+                size =b_size *jup_size * 0.3521906424;
                 col = Graphics.COLOR_BLUE;
                 fillcol = col;
                 break;
             case "Uranus":
-                size =b_size *jup_size * 6/7.0*2/5.0;
+                size =b_size *jup_size * 0.3627755289;
                 col = Graphics.COLOR_BLUE;
                 fillcol = Graphics.COLOR_GREEN;
                 break;
              case "Earth":
-                size =b_size *jup_size * 6/7.0*2/5.0 * 13/50.0;
+                size =b_size *jup_size * 0.09113015119;
                 col = Graphics.COLOR_BLUE;
                 fillcol = Graphics.COLOR_BLUE;
                 break;   
             case "Moon":
-                size =b_size *jup_size * 6/7.0*2/5.0 * 13/50.0;
+                size =b_size *jup_size * 0.09113015119; //same as EARTH here, we adjust to true size rel. to earth below
                 col = 0xe0e0e0;        
                 fillcol = 0x171f25;                                
                 break;                
                 
              case "Pluto":
-                size =b_size *jup_size /22.0/3.0;
+                size =b_size *jup_size * 0.016993034; 
                 col = Graphics.COLOR_WHITE;
                 fillcol = Graphics.COLOR_RED;
                 break;   
              case "Ceres":
-                size =b_size *jup_size /22.0/3.0/3.0; //1/3 of pluto
+                size =b_size *jup_size * 0.006708529416; //1/3 of pluto
                 col = Graphics.COLOR_LT_GRAY;
                 break;   
              case "Chiron": //rings, light brownish???
-                size =b_size *jup_size /22.0/3.0/10; //100-200km only, 1/10th of Pluto
+                size =b_size *jup_size*0.001544821273; //100-200km only, 1/10th of Pluto
                 col = Graphics.COLOR_LT_GRAY;
                 break;   
              case "Eris": //white & uniform, has a dark moon
-                size =b_size *jup_size /22.0/3.0; //nearly identical to pluto
+                size =b_size *jup_size * 0.01663543648; //nearly identical to pluto
                 col = Graphics.COLOR_WHITE;
                 break;   
+             case "Quaoar":
+                size =b_size *jup_size * 0.007767018066;
+                col = Graphics.COLOR_LT_GRAY;
+                break; 
+             case "Makemake":
+                size =b_size *jup_size * 0.01022728898;
+                col = Graphics.COLOR_LT_GRAY;
+                break;        
+             case "Eris":
+                size =b_size *jup_size * 0.01663543648;
+                col = Graphics.COLOR_LT_GRAY;
+                break;
+             case "Gonggong":
+                size =b_size *jup_size * 0.008796898914;
+                col = Graphics.COLOR_LT_GRAY;
+                break;              
+             case "Haumea":
+                size =b_size *jup_size * 0.01127147373;
+                col = Graphics.COLOR_LT_GRAY;
+                break;                 
         }
         
+        //to allow earth, moon, venus, mars to be shown more @ real size in 
+        //this view
+        var preserve_size = false;
+        if (type == :orrery && big_small == 0 && !key.equals("Sun")) {size = 1.5* size; min_size = min_size/2.0; preserve_size = true;}
+
+        else if (type == :orrery && (big_small ==1) && planetsOption_value ==2 && !key.equals("Sun")) {size = 1.5* size; min_size = min_size/2.0; preserve_size = true;}
+
+        //When look@ dwarf planets only, allow THOSE TO set the size value
+        else if (type == :orrery && (big_small ==2) && planetsOption_value ==2 && !key.equals("Sun")) {size = 12*size;min_size = min_size/2.0; preserve_size = true;}
+        
+        else if (type == :orrery &&  (big_small ==2) && planetsOption_value ==1 && !key.equals("Sun")) {size = size/8.0;min_size = min_size/2.0; preserve_size = true;}
+        
+        else if (type == :orrery &&  (big_small ==2) && !key.equals("Sun")) {size = size/4.0;min_size = min_size/1.5; preserve_size = true;}
+
+        else if (type == :orrery &&  (big_small ==1) && planetsOption_value ==1 && !key.equals("Sun")) {size = size/8.0;min_size = min_size/2.0; preserve_size = true;}
+
+        else if (type == :orrery &&  (big_small ==1) && !key.equals("Sun")) {size = size/6.0;min_size = min_size/2.0; preserve_size = true;}
+
         var correction =  1;
         if (type == :orrery) { 
-            size = Math.sqrt(size);
+            if (!preserve_size) {size = Math.sqrt(size);}
 
             if (min_c > 120) { //for higher res watches where things tend to come out tiny
                 //trying to make the largest things about as large as half the letter's height
@@ -1685,7 +1787,7 @@ class SolarSystemBaseView extends WatchUi.View {
             //if (key.equals("Moon")){size /= 3.667;} //real-life factor
             
             }
-        if (type == :ecliptic) {
+        else if (type == :ecliptic) {
             if (key.equals("Moon")){size =  8*b_size;} //same as sun
             size = Math.sqrt(Math.sqrt(Math.sqrt(size))) * 5;
             
@@ -1699,6 +1801,9 @@ class SolarSystemBaseView extends WatchUi.View {
         }
 
         if (size < min_size) { size = min_size; }
+
+        if (type == :orrery && big_small == 1 && key.equals("Sun")) {size = size/2.0;}
+        if (type == :orrery && big_small == 2 && key.equals("Sun")) {size = size/4.0;}
         
         /* {
             if (key.equals("Moon"))
@@ -1708,10 +1813,19 @@ class SolarSystemBaseView extends WatchUi.View {
         }*/
         //System.println("size " + key + " " + size);
         if (type == :orrery && (key.equals("Moon"))) {
-            size = size/3.2;
-            if (size<0.5) {size=0.5;}
+            if (big_small == 0)  {
+                //we set moon's size equal to earth above
+                //now we adj the end product to get
+                //the right proportions (with no MIN for moon as for all  other objects)
+                size = size/3.671; //EXACT for orrery mode 1
+
+            } else {                            
+                size = size/3.2; //a little less exact for modes 2,3
+                
+            }
+            if (size<0.5) {size=0.5;} //keep it from comppletely disappearing no matter what
         }
-        //System.println("size2 " + key + " " + size);
+        //System.println("size2 " + key + " " + size + " " + min_size);
 
         size *= planetSizeFactor;
         var pen = Math.round(size/10.0).toNumber();
@@ -1741,7 +1855,7 @@ class SolarSystemBaseView extends WatchUi.View {
                 }
                 break;
             case "Mercury" :                
-                //dc.setColor(0x656585, Graphics.COLOR_TRANSPARENT);        
+                dc.setColor(0xffffff, Graphics.COLOR_TRANSPARENT);        
                 drawARC (dc, 17, 7, x, y - size/2.0,size/2.25, pen, null);
                 drawARC (dc, 0, 24, x, y + size/3.0,size/2.25, pen, null);
                 break;
@@ -1749,6 +1863,7 @@ class SolarSystemBaseView extends WatchUi.View {
                 //dc.fillCircle(x, y, size);
                 //dc.setColor(0x737348, Graphics.COLOR_TRANSPARENT);        
                 //drawARC (dc, 17, 7, x, y - size/2.5,size/2.3, 1, null);
+                dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT); 
                 drawARC (dc, 0, 24, x, y - size/5.0,size/2.0, pen, null);
                 dc.drawLine (x, y - size/5.0 + size/2.0, x, y+4.0*size/5.0);
 
@@ -1909,7 +2024,7 @@ class SolarSystemBaseView extends WatchUi.View {
             else if ($.Options_Dict["Label Display Option"]==4 ) {
                 
                     //sparkly labels effect/random 1/4 of the planets @ any time
-                  drawThis = (planetRand + drawPlanetCount)%pp.size()<pp.size()/8;
+                  drawThis = (planetRand + $.drawPlanetCount)%pp.size()<pp.size()/8;
                   mlt = 20;
                 
                 }
@@ -1935,11 +2050,12 @@ class SolarSystemBaseView extends WatchUi.View {
                     }
                 } else if (type == :orrery) {
                     
-                    var drawSmall = big_small==0 
-                    || (big_small==1 && (small_whh.indexOf(key)==-1 || orrZoomOption_values[$.Options_Dict["orrZoomOption"]] >= 4))
-                    || (big_small==2 && ( small_whh.indexOf(key)==-1 || orrZoomOption_values[$.Options_Dict["orrZoomOption"]] >= 8));
+                    //var drawSmall = big_small==0  
+                        //|| (radius > 4*b_size); //4*b_size is size of sun as drawn in orrery view
+                    //|| (big_small==1 && (small_whh.indexOf(key)==-1 || orrZoomOption_values[$.Options_Dict["orrZoomOption"]] >= 4))
+                    //|| (big_small==2 && ( small_whh.indexOf(key)==-1 || orrZoomOption_values[$.Options_Dict["orrZoomOption"]] >= 8));
                     
-                    if (!key.equals("Sun") && !key.equals("Moon") && drawSmall)  {
+                    if (!key.equals("Sun") && !key.equals("Moon") )  {
                         sub = findSpotRect(x,y);
                         //mult = 2 + sub;
                         x2 = sub[0];
@@ -1961,7 +2077,7 @@ class SolarSystemBaseView extends WatchUi.View {
         var eve_hor_start_deg = normalize  ( 270 - (horizon_pm)*15  - noon_adj_dg);
         var eve_hor_end_deg =normalize (- eve_hor_start_deg);
         var morn_hor_end_deg = normalize (eve_hor_end_deg + 180);'
-        var morn_hor_start_deg = normalize (eve_hor_start_deg + 180);'
+        //var morn_hor_start_deg = normalize (eve_hor_start_deg + 180);'
         var hor_ang_deg = 0;
         
         final_adj = normalize(270 - final_adj);

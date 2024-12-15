@@ -9,7 +9,6 @@ import Toybox.Graphics;
 import Toybox.Lang;
 import Toybox.WatchUi;
 
-
 var orrZoomOption=[
      "4X out" , 
      "2X out" , 
@@ -49,7 +48,7 @@ var planetsOption=[
 var planetsOption_values=[
     ["Sun", "Mercury","Venus","Earth", "Moon","Mars","Jupiter","Saturn","Uranus","Neptune","Pluto","Ceres","Chiron","Eris", "Gonggong","Quaoar", "Makemake", "Haumea"],
     ["Sun", "Mercury","Venus","Earth", "Moon", "Mars","Jupiter","Saturn","Uranus","Neptune","Pluto"], //List of names not used on VSOP but can be useful elsewhere
-    ["Sun","Mercury", "Earth", "Moon", "Ceres","Chiron","Eris", "Gonggong","Quaoar", "Makemake", "Haumea"], //can't have moon w/o earth...
+    ["Sun","Mercury", "Earth", "Moon", "Ceres","Chiron","Pluto","Eris", "Gonggong","Quaoar", "Makemake", "Haumea"], //can't have moon w/o earth...
  
 
 ];
@@ -61,7 +60,7 @@ var planetsOption_value = planetsOption_default; //use the NUMBER not the VALUES
 
 //TODO: User could tweak size of PLANETS & also radius of circle/overall scale
 var Options_Dict = {  };
-var labelDisplayOption=[ "Always On", "Always Off", "Frequent Flash", "Seldom Flash", "Random Flash"];
+var labelDisplayOption=[ "Always On", "Always Off", "Frequent Flash", "Infrequent Flash", "Random Flash"];
 var labelDisplayOption_size = 5;
 var labelDisplayOption_default = 2;
 
@@ -199,6 +198,16 @@ var orbitCirclesOption_values=[
 ];
 var orbitCirclesOption_size = 2;
 var orbitCirclesOption_default = 0;
+
+
+var resetDots=[
+     "Off" , 
+     "On" ,                
+];
+
+
+var resetDots_size = 2;
+var resetDots_default = 1;
 
 
 
