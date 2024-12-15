@@ -49,6 +49,7 @@ class SolarSystemBaseView extends WatchUi.View {
         //_lines = ["No position info"];
 
         _planetIcon = WatchUi.loadResource($.Rez.Drawables.Jupiter) as BitmapResource;
+        startAnimationTimer($.hz);
     }
 
     //up to 3 msg lines to display & how long to display them

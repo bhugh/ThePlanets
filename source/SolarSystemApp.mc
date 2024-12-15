@@ -89,8 +89,13 @@ class SolarSystemBaseApp extends Application.AppBase {
     //! @param state Startup arguments
     public function onStart(state as Dictionary?) as Void {  
         System.println("onStart...");
-        started = true;
-        timeWasAdded = true;
+        $.started = true;
+        $.timeWasAdded = true;
+        $.buttonPresses = 0;
+        $.animation_count = 0;
+        $.countWhenMode0Started = 0;
+        _positionView.startAnimationTimer($.hz);
+        
 
         //readStorageValues();
         Position.enableLocationEvents(Position.LOCATION_CONTINUOUS, method(:onPosition));
@@ -102,7 +107,7 @@ class SolarSystemBaseApp extends Application.AppBase {
         _positionView.stopAnimationTimer();
         started = false;
         Position.enableLocationEvents(Position.LOCATION_DISABLE, method(:onPosition));
-        
+
     }
 
     //! Update the current position
