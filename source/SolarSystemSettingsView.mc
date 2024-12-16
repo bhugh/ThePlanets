@@ -132,6 +132,15 @@ var screen0MoveOption_values=[
 var screen0MoveOption_size = 15;
 var screen0MoveOption_default = 6;
 
+var thetaOption =[
+    "Time Step",
+    "Viewpoint",   //1 min
+    //"View Altitude",
+    //"Both" 
+];
+var thetaOption_size = 2;
+var thetaOption_default = 0;
+
 var planetSizeOption=[
      "XX Small" , 
      "Very Small" , 
@@ -183,6 +192,7 @@ var eclipticSizeOption_default = 4;
 var eclipticSizeFactor = 1.0;
 
 
+/*
 var orbitCirclesOption=[
      "On" , 
      //"Bright Gray" , 
@@ -198,8 +208,9 @@ var orbitCirclesOption_values=[
 ];
 var orbitCirclesOption_size = 2;
 var orbitCirclesOption_default = 0;
+*/
 
-
+/*
 var resetDots=[
      "Off" , 
      "On" ,                
@@ -208,7 +219,7 @@ var resetDots=[
 
 var resetDots_size = 2;
 var resetDots_default = 1;
-
+*/
 
 
 

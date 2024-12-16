@@ -44,7 +44,9 @@ class VSOP87_cache{
         if ((myStats.freeMemory< lastFreeMemory && $.count > lastCount + 15) 
             || $.count%1000 == 0 ) {
 
-               System.println("Memory/VSOP222: " + myStats.totalMemory + " " + myStats.usedMemory + " " + myStats.freeMemory + " MAX_CACHE: " + MAX_CACHE + " count: "  + $.count + " animation_count: " + $.animation_count + " drawPlanetCount: " + $.drawPlanetCount + " buttonPresses: " + $.buttonPresses );
+               System.println("Memory/VSOP222: " + myStats.totalMemory + " " + myStats.usedMemory + " " + myStats.freeMemory + " MAX_CACHE: " + MAX_CACHE + " count: "  + $.count + " animation_count: " + $.animation_count + " drawPlanetCount: " + $.drawPlanetCount + " buttonPresses: " + $.buttonPresses + " at " +  now.hour.format("%02d") + ":" +
+            now.min.format("%02d") + ":" +
+            now.sec.format("%02d") );
 
                lastFreeMemory = myStats.freeMemory;
                lastCount = $.count;

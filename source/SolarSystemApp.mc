@@ -21,8 +21,9 @@ var sunrise_cache;
 var vspo87a;
 var vsop_cache;
 var allOrbitParms = null;
-    var view_modes = [0, 1,2,3,4,5]; //manual move ecl, minuts ecl, day ecl, inner orr, mid orr, full orr
-    var view_index = 0;
+    //var view_mode = [0, 1,2,3,4,5]; //manual move ecl, minuts ecl, day ecl, inner orr, mid orr, full orr
+    var view_mode = 0;
+    var num_view_modes = 9;
 
     //unit is HOUR
     //all are chosen to be WHOLE DAYS however, to make the sun stand still when moving forward on the eliptical screens
@@ -43,9 +44,11 @@ var speeds_index = 34; //the currently used speed that will be added to TIME @ e
 var screen0Move_index = 33;
 
 var started = false; //whether to move forward on an update, ie STOPPED or STARTED moving
+var reset_date_stop = false; //set TRUE when reset date is called, which STOPS time.
 var hz = 5.0; //updates per second (Requested from OS)
 
 var message = [];
+var message_until = 0;
 var animation_count = 0;
 var buttonPresses = 0;
 var orreryDraws = 0;
@@ -60,7 +63,7 @@ var solarSystemView_class; //saved instance of main class
 class SolarSystemBaseApp extends Application.AppBase {
 
     //enum {ECLIPTIC_STATIC, ECLIPTIC_MOVE, SMALL_ORRERY, MED_ORRERY, LARGE_ORRERY}
-    //var view_modes = [ECLIPTIC_STATIC, ECLIPTIC_MOVE, SMALL_ORRERY, MED_ORRERY, LARGE_ORRERY];
+    //var view_mode = [ECLIPTIC_STATIC, ECLIPTIC_MOVE, SMALL_ORRERY, MED_ORRERY, LARGE_ORRERY];
 
 
     private var _positionView as SolarSystemBaseView;
@@ -75,10 +78,14 @@ class SolarSystemBaseApp extends Application.AppBase {
         _positionDelegate = new $.SolarSystemBaseDelegate(_positionView);
         //geo_cache = new Geocentric_cache();
         readStorageValues();
+        $.now = System.getClockTime();
+        $.time_now = Time.now();
+        $.now_info = Time.Gregorian.info($.time_now, Time.FORMAT_SHORT);
+
         sunrise_cache = new sunRiseSet_cache();
         vsop_cache = new VSOP87_cache();
         System.println("inited...");
-        view_index=0;
+        view_mode=0;
         $.changeModes(null); //inits speeds_index properly
         
         
@@ -94,6 +101,13 @@ class SolarSystemBaseApp extends Application.AppBase {
         $.buttonPresses = 0;
         $.animation_count = 0;
         $.countWhenMode0Started = 0;
+        $.now = System.getClockTime(); //before ANY routines or functions run, so all can have access if necessary        
+        $.time_now = Time.now();
+        $.now_info = Time.Gregorian.info($.time_now, Time.FORMAT_SHORT);
+        System.println ("onStart at " 
+            +  $.now.hour.format("%02d") + ":" +
+            $.now.min.format("%02d") + ":" +
+            $.now.sec.format("%02d") + " " + now_info.year + "-" + now_info.month + "-" + now_info.day);
         _positionView.startAnimationTimer($.hz);
         
 
@@ -104,9 +118,17 @@ class SolarSystemBaseApp extends Application.AppBase {
     //! Handle app shutdown
     //! @param state Shutdown arguments
     public function onStop(state as Dictionary?) as Void {
+        System.println ("onStop at " 
+            +  $.now.hour.format("%02d") + ":" +
+            $.now.min.format("%02d") + ":" +
+            $.now.sec.format("%02d"));
         _positionView.stopAnimationTimer();
         started = false;
         Position.enableLocationEvents(Position.LOCATION_DISABLE, method(:onPosition));
+        _positionView = null;
+        _positionDelegate = null;
+        settings_view = null;
+        settings_delegate = null;
 
     }
 
@@ -124,8 +146,14 @@ class SolarSystemBaseApp extends Application.AppBase {
     //! Return the initial view for the app
     //! @return Array [View]
     public function getInitialView() as [Views] or [Views, InputDelegates] {
-        System.println("getInitialView...");
+        System.println ("getInitialView at " 
+            +  now.hour.format("%02d") + ":" +
+            now.min.format("%02d") + ":" +
+            now.sec.format("%02d"));
         return [_positionView, _positionDelegate];
+        _positionDelegate = null;
+        _positionView = null;
+
     }
     /*
     // settingsview works only for watch faces & data fields (?)
@@ -156,6 +184,9 @@ class SolarSystemBaseApp extends Application.AppBase {
 
         readAStorageValue("orrZoomOption", orrZoomOption_default, orrZoomOption_size );
 
+        //readAStorageValue("thetaOption", thetaOption_default, thetaOption_size );
+        $.Options_Dict["thetaOption"] = 0; //just always default to TIME INTERVAL here.
+
         readAStorageValue("Label Display Option",labelDisplayOption_default, labelDisplayOption_size );
 
         readAStorageValue("Refresh Option",refreshOption_default, refreshOption_size );
@@ -165,10 +196,11 @@ class SolarSystemBaseApp extends Application.AppBase {
         readAStorageValue("Planet Size Option", planetSizeOption_default, planetSizeOption_size );
 
         readAStorageValue("Ecliptic Size Option", eclipticSizeOption_default, eclipticSizeOption_size );
-
+/*
         readAStorageValue("Orbit Circles Option", orbitCirclesOption_default, orbitCirclesOption_size );
 
         readAStorageValue("resetDots", resetDots_default, resetDots_size );
+        */
 
         readAStorageValue("planetsOption", planetsOption_default, planetsOption_size );
 
@@ -177,6 +209,8 @@ class SolarSystemBaseApp extends Application.AppBase {
 
 
         //Now IMPLEMENT the above values
+
+        
 
         //#####SCREEN0 MOVE
         $.screen0Move_index = screen0MoveOption_values[$.Options_Dict["Screen0 Move Option"]];

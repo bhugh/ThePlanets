@@ -1,0 +1,356 @@
+/*************************************************************
+*
+* Adapted directly from:
+* SolarSystem by Ioannis Nasios 
+* https://github.com/IoannisNasios/solarsystem
+*
+* LICENSE & COPYRIGHT of original code:
+* The MIT License, Copyright (c) 2020, Ioannis Nasios
+*
+* Monkey C/Garmin IQ version of the code, with many modifications,
+* Copyright (c) 2024, Brent Hugh. Released under the MIT license.
+*
+***************************************************************/
+
+//import math      
+//from .functions import normalize, spherical_ecliptic2equatorial
+//from .functions import spherical_equatorial2ecliptic
+
+using Toybox.Math;
+using Toybox.System;
+
+
+class Moon {
+       /*Import date and place outputs moons position, phase and rise-set time.
+       
+       Moon is a class that feeded with date data as well as  geocoordicates  
+       outputs moons position around Earth, moon phase and moonrise-moonset/
+       //topographic returns RA, DECL etc relative to earth
+       //topo = false returns ecliptic lon, lat & distance
+    
+    Args:
+        year (int): Year (4 digits) ex. 2020
+        month (int): Month (1-12)
+        day (int): Day (1-31)
+        hour (int): Hour (0-23)
+        minute (int): Minute (0-60)
+        UT: Time Zone (deviation from UT, -12:+14), ex. for Greece (GMT + 2) 
+            enter UT = 2
+        dst (int): daylight saving time (0 or 1). Wheather dst is applied at 
+                   given time and place
+        longitude (float): longitude of place of Moonrise - Moonset in demical 
+                            format
+        latitude (float): latitude of place of Moonrise-Moonset in demical format
+        topographic (bool): Wheather or not moon's position around earth will be calculated regarding earth surface or center
+
+    */  
+
+    var year, month, day, UT, dst, longitude, latitude, topographic;
+    var sidtime, L, E, M, w, d, e, oblecl;
+    
+    // year, month, day, hour, minute, UT, dst, 
+    //longitude, latitude, topographic
+    /*     input = {:year => now_info.year,
+        :month => now_info.month,
+        :day => now_info.day,
+        :hour => now_info.hour,
+        :minute => now_info.min,
+        :UT => now.timeZoneOffset/3600,
+        :dst => now.dst,
+        :longitude => lastLoc[0], 
+        :latitude => lastLoc[1],
+        :topographic => false, 
+        };
+    */
+
+    function initialize (input) {
+        self.year = input[:year];
+        self.month = input[:month];
+        self.day = input[:day];
+        self.UT = input[:UT];
+        self.dst = input[:dst];
+        self.longitude = input[:longitude];
+        
+        self.latitude = Math.toRadians(input[:latitude]);
+        self.topographic = input[:topographic];
+        var pr=0d;
+        if (dst==1) { pr=1/24.0d;}
+        // JDN=  (367*(year) - Math.floor(7*(year + Math.floor((month+9 )/12))/4));
+        // + Math.floor(275*(month)/9) + (day + 1721013.5 - UT/24. ) // ;
+        var JDN=( (367*(year) - Math.floor(7*(year + Math.floor((month+9 )/12))/4))
+        + Math.floor(275*(month)/9) + (day + 1721013.5 - UT/24.0 ) );
+        var JD= (JDN + (input[:hour])/24.0d + input[:minute]/1440d - pr);
+        var j2000= 2451543.5;
+        d= JD - j2000;        
+        oblecl=23.4393 - 3.563E-7 * d;
+        oblecl= Math.toRadians(oblecl);
+        
+        
+        
+        w=282.9404 + 4.70935E-5 * d      ;
+        e=(0.016709 - (1.151E-9  * self.d))   ;
+        M=356.047 + 0.9856002585 * self.d   ;
+        M=normalize(M);
+        L=w+M   ;
+        L=normalize(L);
+
+        var gmsto=L/15 + 12 ;
+        sidtime=(-dst + gmsto - UT + longitude/15);
+  
+ 
+     }
+
+        
+    function position(){
+        /*Method which returns moon's position around Earth
+        
+        Returns:
+            tuple: Moon's positions around earth in horizontal projection 
+            (long, lat and distance in multiple of earth radius)
+
+        */
+        
+        //moons position
+        var Ns=125.1228 - 0.0529538083d*self.d;
+        var is_=5.1454;
+        var ws=318.0634d + 0.1643573223d*self.d;
+        var as_=60.2666d; //earth's equatorial radius;
+        var es=0.054900d;
+        var Ms=115.3654d + 13.0649929509d*self.d;
+        Ns=normalize(Ns);
+        ws=normalize(ws);
+        Ms=normalize(Ms);
+        
+        
+        var Ms2=Math.toRadians(Ms);
+        var E0=Ms + (180/Math.PI)*es*Math.sin(Ms2)*(1+es*Math.cos(Ms2));
+        E0=normalize(E0) ;
+        var E02=Math.toRadians(E0);
+        var E1=E0 - (E0 - (180/Math.PI)*es*Math.sin(E02)-Ms)/(1-es*Math.cos(E02));
+        E1=normalize(E1) ;
+        
+        var E=Math.toRadians(E1);
+        var xs=as_*(Math.cos(E)-es);
+        var ys=as_*(Math.sqrt(1 - es*es))*Math.sin(E);
+        var rs=Math.sqrt(xs*xs+ys*ys);
+        var vs=Math.atan2(ys, xs);
+        vs=normalize(Math.toDegrees(vs));
+        
+        var xseclip=rs*(Math.cos(Math.toRadians(Ns))*Math.cos(Math.toRadians(vs+ws)) -
+                    Math.sin(Math.toRadians(Ns))*Math.sin(Math.toRadians(vs+ws))
+                    *Math.cos(Math.toRadians(is_)));
+        var yseclip=rs*(Math.sin(Math.toRadians(Ns))*Math.cos(Math.toRadians(vs+ws)) + 
+                    Math.cos(Math.toRadians(Ns))*Math.sin(Math.toRadians(vs+ws))
+                    *Math.cos(Math.toRadians(is_)));
+        var zseclip=rs*Math.sin(Math.toRadians(vs+ws))*Math.sin(Math.toRadians(is_)) ;
+        
+        var long2 = Math.atan2( yseclip, xseclip );
+        long2=normalize(Math.toDegrees(long2));
+        var lat2 = Math.atan2( zseclip, Math.sqrt( xseclip*xseclip + 
+                                              yseclip*yseclip ) );
+        lat2=Math.toDegrees(lat2);
+          
+        //Moon's Peturbations
+        
+        var Ls=Ns+ws+Ms; //moon' s mean longitude
+        Ls=normalize(Ls);
+        
+        //moon' s mean anomally
+        var Ds=Ls-self.L;  //moon' s mean elogation
+        Ds=normalize(Ds);
+        var Fs=Ls-Ns; //moon' s argument of latitude
+        Fs=normalize(Fs);
+        
+        //Peturbations in Longitude
+        var D1=-1.274*Math.sin(Math.toRadians(Ms- 2*Ds)); //evection
+        var D2=0.658*Math.sin(Math.toRadians(2*Ds)); //variation
+        var D3=-0.186*Math.sin(Math.toRadians(self.M));
+        var D4=-0.059*Math.sin(Math.toRadians(2*Ms- 2*Ds));
+        var D5=-0.057*Math.sin(Math.toRadians(Ms - 2*Ds + self.M));
+        var D6=0.053*Math.sin(Math.toRadians(Ms + 2*Ds));
+        var D7=0.046*Math.sin(Math.toRadians(2*Ds - self.M));
+        var D8=0.041*Math.sin(Math.toRadians(Ms - self.M));
+        var D9=-0.035*Math.sin(Math.toRadians(Ds)); //parallactic equation
+        var D10=-0.031*Math.sin(Math.toRadians(Ms + self.M));
+        var D11=-0.015*Math.sin(Math.toRadians(2*Fs - 2*Ds));
+        var D12=0.011*Math.sin(Math.toRadians(Ms - 4*Ds));
+        //Peturbations in Latitude
+        var D13=-0.173*Math.sin(Math.toRadians(Fs - 2*Ds));
+        var D14=-0.055*Math.sin(Math.toRadians(Ms - Fs - 2*Ds));
+        var D15=-0.046*Math.sin(Math.toRadians(Ms + Fs - 2*Ds));
+        var D16=0.033*Math.sin(Math.toRadians(Fs + 2*Ds));
+        var D17=0.017*Math.sin(Math.toRadians(2*Ms + Fs));
+        //Peturbations in Distance
+        var D18=-0.58*Math.cos(Math.toRadians(Ms - 2*Ds));
+        var D19=-0.46*Math.cos(Math.toRadians(2*Ds));
+        
+        var longdists=D1+D2+D3+D4+D5+D6+D7+D8+D9+D10+D11+D12;
+        var latdists=D13+D14+D15+D16+D17;
+        var moondist=D18+D19;
+        //
+        long2=long2+longdists;
+        lat2=lat2+latdists;
+        var r_s=rs+moondist;
+        
+        
+        if ( self.topographic==false) {
+            return [long2, lat2, r_s]; }
+        
+        else {
+            
+            var ret = spherical_ecliptic2equatorial(long2, lat2, r_s,
+                                                              self.oblecl);
+            var RA_s = ret[0];
+            var Decl_s =  ret[1];
+            r_s= ret[2];                                                                
+            //
+            var mpar=Math.toDegrees(Math.asin(1/r_s)); 
+            //
+            var gclat=Math.toDegrees(self.latitude) - 0.1924*Math.sin(2*self.latitude);
+            var rho= 0.99833 + 0.00167*Math.cos(2*self.latitude);
+            var HA_s=normalize(self.sidtime*15 - RA_s);
+            var g = Math.toDegrees(Math.atan(Math.tan(Math.toRadians(gclat))/
+                                       Math.cos(Math.toRadians(HA_s)))); 
+            var topRA_s = (RA_s  - mpar*rho*Math.cos(Math.toRadians(gclat))*
+                  Math.sin(Math.toRadians(HA_s))/Math.cos(Math.toRadians(Decl_s)) );
+                  
+            var topDecl_s = ( Decl_s - mpar*rho*Math.sin(Math.toRadians(gclat))*
+            Math.sin(Math.toRadians(g - Decl_s))/Math.sin(Math.toRadians(g)) );
+             
+        
+            return spherical_equatorial2ecliptic(topRA_s, topDecl_s, r_s, 
+                                                 self.oblecl);
+        
+        }
+    }
+        
+
+    function phase() {
+        /*Method which returns moon's phase
+        
+        Returns:
+            float: Moon's phase (percent of illumination)
+            
+        */        
+        var ret = Moon.position();
+
+        var long2 = ret[0];
+        var lat2 =  ret[1];
+        var r_s= ret[2];
+
+        var M2=self.M;
+        var E=( M2 + (180/Math.PI)*self.e * Math.sin(Math.toRadians(self.M))*
+        (1+ self.e *Math.cos(Math.toRadians(self.M))) );
+        E=Math.toRadians(E);
+        var x=Math.cos(E)-self.e; 
+        var y=Math.sin(E)*Math.sqrt(1-self.e*self.e);
+        
+        //       r=Math.sqrt(x*x + y*y) //
+
+        var v=Math.atan2(y,x);  
+        v=Math.toDegrees(v);
+        var lon=(v+self.w);    
+        lon=normalize(lon);
+        lon=Math.toRadians(lon);
+        
+        
+        var long2_s=Math.toRadians(long2);
+        var lat2_s=Math.toRadians(lat2);
+        var x_s_eclip = Math.cos(long2_s) * Math.cos(lat2_s);
+        var y_s_eclip = Math.sin(long2_s) * Math.cos(lat2_s);
+        var z_s_eclip = Math.sin(lat2_s);
+        
+        var x_s_equat = x_s_eclip;
+        var y_s_equat = ( y_s_eclip * Math.cos(self.oblecl) - z_s_eclip * 
+                     Math.sin(self.oblecl) );
+        var z_s_equat = ( y_s_eclip * Math.sin(self.oblecl) + z_s_eclip * 
+                     Math.cos(self.oblecl) );
+        
+        var RA_s = Math.atan2(y_s_equat, x_s_equat);
+        RA_s=normalize(Math.toDegrees(RA_s));
+        var Decl_s = Math.atan2(z_s_equat, Math.sqrt(x_s_equat*x_s_equat + 
+                                                 y_s_equat*y_s_equat));
+        Decl_s = Math.toDegrees(Decl_s);
+         
+        var mpar=Math.toDegrees(Math.asin(1/r_s)); 
+        //alt_topoc=alt_geoc - mpar*Math.cos(alt_geoc)
+        var gclat=Math.toDegrees(self.latitude) - 0.1924*Math.sin(2*self.latitude);
+        var rho= 0.99833 + 0.00167*Math.cos(2*self.latitude);
+        var HA_s=normalize(self.sidtime*15 - RA_s);
+        var g = Math.toDegrees(Math.atan(Math.tan(Math.toRadians(gclat))/
+                                   Math.cos(Math.toRadians(HA_s)))); 
+        var topRA_s = ( RA_s  - mpar*rho*Math.cos(Math.toRadians(gclat))*
+          Math.sin(Math.toRadians(HA_s))/Math.cos(Math.toRadians(Decl_s)) );
+          
+        var topDecl_s = ( Decl_s - mpar*rho*Math.sin(Math.toRadians(gclat))*
+          Math.sin(Math.toRadians(g - Decl_s))/Math.sin(Math.toRadians(g)));
+        
+
+        //fasi selinis
+        var x21=Math.cos(Math.toRadians(topRA_s))*Math.cos(Math.toRadians(topDecl_s));
+        var y21=Math.sin(Math.toRadians(topRA_s))*Math.cos(Math.toRadians(topDecl_s));
+        var z21=Math.sin(Math.toRadians(topDecl_s));
+        
+        var x221=x21;
+        var y221=y21*Math.cos(-self.oblecl)-z21*Math.sin(-self.oblecl);
+        var z221=y21*Math.sin(-self.oblecl)+z21*Math.cos(-self.oblecl);
+        
+        var mlon21=normalize(Math.toDegrees(Math.atan2(y221, x221)));
+        var mlat21=Math.toDegrees(Math.atan2(z221, Math.sqrt(x221*x221 + y221*y221)));
+        mlon21=Math.toRadians(mlon21);
+        mlat21=Math.toRadians(mlat21);
+        var elong_s=Math.toDegrees(Math.acos(Math.cos(lon - mlon21)* 
+                                       Math.cos(mlat21)));
+        //elong_s2=normalize(360- Math.toDegrees(lon) + Math.toDegrees(mlon21))
+        var FV21=180 - elong_s;
+        var phase = (1 + Math.cos(Math.toRadians(FV21))) / 2; 
+        
+        return phase;
+    }
+
+/*
+
+    function moonriseset(){
+        /*Method which returns moon's rise and set time
+        
+        Returns:
+            tuple: Moon's time of given date where moon rises and sets
+
+        */
+
+        //var MoonPos = Moon(self.year, self.month, self.day, 12,
+        //       0, self.UT, self.dst, self.longitude, 
+        //       self.latitude, True);
+/*        
+        var ret = position();
+        var long2 = ret[0];
+        var lat2 =  ret[1];
+        var r_s= ret[2];
+        
+        ret =  spherical_ecliptic2equatorial(long2, lat2, 
+                                                         r_s, self.oblecl);
+
+        var topRA_s = ret[0];
+        var topDecl_s =  ret[1];
+        r_s= ret[2];                                                         
+
+        var aDecl_s=Math.toRadians(topDecl_s);
+        var T_s=normalize((topRA_s - self.sidtime*15))/15.04107 ;
+        //mesouranima selinis
+        var h=Math.toRadians(0); 
+        var adi_s=( (Math.sin(h) -Math.sin(self.latitude)*Math.sin(aDecl_s))/
+          (Math.cos(self.latitude)*Math.cos(aDecl_s)) );
+        var Lha_s=Math.acos(adi_s);
+        Lha_s= (Math.toDegrees(Lha_s))/15.04107;
+        //ores apo to mesouranima os tin anatoli i os tin disi
+        var anatoli_s=T_s - Lha_s;  
+        if (anatoli_s<0) { anatoli_s=anatoli_s+24 ;}
+        if (anatoli_s > 24) { anatoli_s=anatoli_s - 24 ;}
+        var disi_s=T_s + Lha_s;
+        if (disi_s < 0) { disi_s=disi_s + 24 ;}
+        if (disi_s > 24) { disi_s=disi_s - 24 ;}
+        
+        return[anatoli_s, disi_s];
+    }
+    */
+}

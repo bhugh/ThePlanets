@@ -18,6 +18,10 @@ var timeWasAdded = true; //helpful if this is true to make sure we DRAW SOMETHIN
 var countWhenMode0Started = 0;
 var drawPlanetCount =0;
 var count = 0;
+var now, time_now, now_info;
+
+var the_rad = 0; //angles to rotate, theta & gamma
+var ga_rad = 0 ;
 
 //! This view displays the position information
 class SolarSystemBaseView extends WatchUi.View {
@@ -38,7 +42,7 @@ class SolarSystemBaseView extends WatchUi.View {
         //page = pg;
 
         //speeds_index = 19; //inited in app.mc where the var is located
-        view_index = 0;
+        view_mode = 0;
         Math.srand(952310);
         
 
@@ -52,24 +56,32 @@ class SolarSystemBaseView extends WatchUi.View {
         startAnimationTimer($.hz);
     }
 
-    //up to 3 msg lines to display & how long to display them
-    public function sendMessage (msg1, msg2, msg3, msg4, time_sec) {
+    //msg lines in an array to display & how long to display them
+    //3 or 4 usually fit
+    public function sendMessage (time_sec, msgs) {
         // /2.0 cuts display timein half, need a better solution involving actual
         //clock than guessing about animation  frequency
-        message = [msg1, msg2, msg3, msg4, $.animation_count + time_sec * hz/2.0 ];
+        //message_until = $.animation_count + time_sec * hz/2.0;
+        message_until = time_now.value() + time_sec;
+        //message = [msg1, msg2, msg3, msg4, $.animation_count + time_sec * hz/2.0 ];
+        message = [message_until];
+        System.println("sm: " + time_sec + " "+ message +  " : " + msgs);
+        message = message.addAll(msgs);        
+        System.println("sm2: " + time_sec + " "+ message +  " : " + msgs);
+        
     }
 
     
     function animationTimerCallback() as Void {
 
-           //if ($.view_modes[$.view_index] == 0 ) {
+           //if ($.view_modes[$.view_mode] == 0 ) {
            // started = true;
            //}
            $.animation_count ++;
            animSinceModeChange ++;
 
            if ($.started
-                && ($.view_modes[$.view_index]>0) ) {
+                && ($.view_mode>0) ) {
                 $.time_add_hrs += $.speeds[$.speeds_index];
               
             }
@@ -77,7 +89,7 @@ class SolarSystemBaseView extends WatchUi.View {
            WatchUi.requestUpdate();
            
                 WatchUi.requestUpdate();
-            // } else if ($.view_modes[$.view_index] == 0) { //view_mode==0, we always request the update & let it figure it out
+            // } else if ($.view_modes[$.view_mode] == 0) { //view_mode==0, we always request the update & let it figure it out
              //   WatchUi.requestUpdate();
              //}
              //} else if (mod($.animation_count,$.hz)==0) {
@@ -97,6 +109,12 @@ class SolarSystemBaseView extends WatchUi.View {
 
     var animationTimer=null;
     public function startAnimationTimer(hertz){
+        var now2 = System.getClockTime();
+        System.println ("Start Animation Timer at " 
+            +  now2.hour.format("%02d") + ":" +
+            now2.min.format("%02d") + ":" +
+            now2.sec.format("%02d"));
+
         if (animationTimer != null) {
             try {
                 animationTimer.stop();
@@ -110,10 +128,17 @@ class SolarSystemBaseView extends WatchUi.View {
         animationTimer= new Timer.Timer();
         
         animationTimer.start(method(:animationTimerCallback), 1000/hertz, true);
-        started = true;
+        $.started = true;
+        if ($.reset_date_stop) {$.started=false;}
     }
 
     public function stopAnimationTimer(){
+
+        System.println ("Stop Animation Timer at " 
+            +  $.now.hour.format("%02d") + ":" +
+            $.now.min.format("%02d") + ":" +
+            $.now.sec.format("%02d"));
+
         if (animationTimer != null) {
             try {
                 animationTimer.stop();
@@ -129,6 +154,10 @@ class SolarSystemBaseView extends WatchUi.View {
     //! Load your resources here
     //! @param dc Device context
     public function onLayout(dc as Dc) as Void {
+        System.println ("onLayout at " 
+            +  $.now.hour.format("%02d") + ":" +
+            $.now.min.format("%02d") + ":" +
+            $.now.sec.format("%02d"));
 
         thisSys = System.getDeviceSettings();
         
@@ -152,13 +181,25 @@ class SolarSystemBaseView extends WatchUi.View {
 
     //! Handle view being hidden
     public function onHide() as Void {
+        System.println ("onHide at " 
+            +  $.now.hour.format("%02d") + ":" +
+            $.now.min.format("%02d") + ":" +
+            $.now.sec.format("%02d"));
         started = false;
     }
 
     //! Restore the state of the app and prepare the view to be shown
     public function onShow() as Void {
+        System.println ("onShow at " 
+            +  $.now.hour.format("%02d") + ":" +
+            $.now.min.format("%02d") + ":" +
+            $.now.sec.format("%02d"));
         started = true;
+        if ($.reset_date_stop) {$.started = false;} // after a Date Reset we STOP at that moment until user wants to start.
         timeWasAdded = true;
+        settings_view = null;
+        settings_delegate = null;
+        startAnimationTimer($.hz);
 
     }
 
@@ -227,7 +268,7 @@ class SolarSystemBaseView extends WatchUi.View {
     }
 
     public function doUpdate(dc, move){
-        switch($.view_modes[$.view_index]){
+        switch($.view_mode){
             case (0): //manual ecliptic (& follows clock time)
                 stopOffScreenBuffer();
                 largeEcliptic(dc, 0);
@@ -246,6 +287,7 @@ class SolarSystemBaseView extends WatchUi.View {
                 //if ($.started) {WatchUi.requestUpdate();}
                 break;    
             case(3): //top view of center 4 planets
+            case (4): //oblique
                 //time_add_inc = 24*3;
                 
                 startOffScreenBuffer(dc);
@@ -253,7 +295,8 @@ class SolarSystemBaseView extends WatchUi.View {
                 //if (move) {$.time_add_hrs += speeds[speeds_index];}
                 //if ($.started) {WatchUi.requestUpdate();}
                 break;
-            case(4): //top view of main planets
+            case(5): //top view of main planets
+            case(6): //oblique view of main planets
                 
                 startOffScreenBuffer(dc);
                 largeOrrery(dc, 1);
@@ -262,7 +305,8 @@ class SolarSystemBaseView extends WatchUi.View {
 
                 break;
             
-            case(5):  //top view taking in some trans-neptunian objects
+            case(7):  //top view taking in some trans-neptunian objects
+            case(8):  //top view taking in some trans-neptunian objects
                 //if (move) {$.time_add_hrs += speeds[speeds_index];}
                 
                 startOffScreenBuffer(dc);
@@ -290,30 +334,35 @@ class SolarSystemBaseView extends WatchUi.View {
     var old_mode = -1;
     
     var planetRand = 0;
+    
     public function onUpdate(dc as Dc) as Void {
         //System.println("count: " + count);
         $.count++;
 
-        now = System.getClockTime();
+        $.now = System.getClockTime();
+
+
 
         //If stopping, we need to run ONCE more, then hold there.  Tricky
-        if (!started 
-            || (
-                 ($.view_modes[$.view_index] == 0 && !$.timeWasAdded)
-                 && $.buttonPresses > 0 
-                 && $.animation_count - $.countWhenMode0Started>3*$.hz
-               
-               )  
+        if (animation_count>message_until && (
+                !started 
+                ||  (
+                    ($.view_mode == 0 && !$.timeWasAdded)
+                    && $.buttonPresses > 0 
+                    && $.animation_count - $.countWhenMode0Started>3*$.hz
+                
+                    )  
+                )
             )
         {
             //when stopped, we do run ONCE every FIVE MINUTES so as to update the 
             //display to current time
             //Thus you could use this as a kind of a clock face
-            //var run_once = now.min%5==0 && now.sec==0;
+            //var run_once = $.now.min%5==0 && $.now.sec==0;
 
             //UPDATE: Need to run it once per MINUTE in order to update the 
             //time shown...
-            var run_once = now.sec==0;
+            var run_once = $.now.sec==0;
             
             if (stopping_completed && !run_once ) {return;}
             
@@ -323,13 +372,33 @@ class SolarSystemBaseView extends WatchUi.View {
         }
         //System.println("made it #1");
         textDisplay_count ++;
+        $.reset_date_stop = false;
         $.drawPlanetCount =0; //incremented when drawing each planet; refreshed on each new screen draw
         if($.buttonPresses>0) {_planetIcon = null;}
         planetRand = Math.rand(); //1 new random number for drawPlanet, per screen refresh
 
-        if ($.view_index != old_mode) {
+        if ($.view_mode != old_mode) {
             textDisplay_count =0;
-            old_mode = $.view_index;
+            old_mode = $.view_mode;
+        }
+
+        
+
+        $.time_now = Time.now();
+        $.now_info = Time.Gregorian.info($.time_now, Time.FORMAT_SHORT);
+
+        //In case we are holding @ beginning of mode & not started
+        //we just print dates & msgs and that's it. exit.
+        if (animation_count>message_until && !started ) {
+
+            if ($.view_mode >3 ) {
+                showDate(dc, $.now_info, $.time_now, time_add_hrs,  xc, yc, true, true, :orrery);
+            } else {
+                 showDate(dc, $.now_info, $.time_now, time_add_hrs, xc, yc, true, true, :ecliptic_latlon);
+            }
+
+            return;
+            
         }
         //largeEcliptic(dc, 0);
         
@@ -561,21 +630,21 @@ class SolarSystemBaseView extends WatchUi.View {
         now = System.getClockTime();
         var now_info = Time.Gregorian.info(Time.now().add(add_duration), Time.FORMAT_SHORT);
 
-        System.println("View Ecliptic:" + now_info.year + " " + now_info.month + " " + now_info.day + " " + now_info.hour + " " + now_info.min + " " + now.timeZoneOffset/3600 + " " + now.dst);
+        System.println("View Ecliptic:" + now_info.year + " " + $.now_info.month + " " + $.now_info.day + " " + $.now_info.hour + " " + $.now_info.min + " " + $.now.timeZoneOffset/3600 + " " + $.now.dst);
         
-        //g = new Geocentric(now_info.year, now_info.month, now_info.day, now_info.hour, now_info.min, now.timeZoneOffset/3600, now.dst,"ecliptic", whh);
+        //g = new Geocentric($.now_info.year, $.now_info.month, $.now_info.day, $.now_info.hour, $.now_info.min, $.now.timeZoneOffset/3600, $.now.dst,"ecliptic", whh);
 
         //geo_cache actually ignores UT, dst, which - we'll correct for that later
-        //        g = geo_cache.fetch(now_info.year, now_info.month, now_info.day, now_info.hour, now_info.min, now.timeZoneOffset/3600, now.dst,"ecliptic", whh);
+        //        g = geo_cache.fetch($.now_info.year, $.now_info.month, $.now_info.day, $.now_info.hour, $.now_info.min, $.now.timeZoneOffset/3600, $.now.dst,"ecliptic", whh);
         
         //setPosition();
 
-        showDate(dc, now_info, xc, yc, true,Graphics.TEXT_JUSTIFY_CENTER);
+        showDate(dc, $.now_info, xc, yc, true,Graphics.TEXT_JUSTIFY_CENTER);
 
-        //srs = new sunRiseSet(now_info.year, now_info.month, now_info.day, now.timeZoneOffset/3600, now.dst, lastLoc[0], lastLoc[1]);
+        //srs = new sunRiseSet($.now_info.year, $.now_info.month, $.now_info.day, $.now.timeZoneOffset/3600, $.now.dst, lastLoc[0], lastLoc[1]);
         
         //sunrise_events = srs.riseSet();
-        sunrise_events = sunrise_cache.fetch(now_info.year, now_info.month, now_info.day, now.timeZoneOffset/3600, now.dst, lastLoc[0], lastLoc[1]);
+        sunrise_events = sunrise_cache.fetch($.now_info.year, $.now_info.month, $.now_info.day, $.now.timeZoneOffset/3600, $.now.dst, lastLoc[0], lastLoc[1]);
 
         System.println("Sunrise_set: " + sunrise_events);
         //sunrise_set = [sunrise_set[0]*15, sunrise_set[1]*15]; //hrs to degrees
@@ -592,13 +661,13 @@ class SolarSystemBaseView extends WatchUi.View {
         
         //pp=g.position();
         //geo_cache actually ignores UT, dst, which - we'll correct for that later
-        pp = $.geo_cache.fetch(now_info.year, now_info.month, now_info.day, now_info.hour, now_info.min, now.timeZoneOffset/3600, now.dst,"ecliptic", whh);
+        pp = $.geo_cache.fetch($.now_info.year, $.now_info.month, $.now_info.day, $.now_info.hour, $.now_info.min, $.now.timeZoneOffset/3600, $.now.dst,"ecliptic", whh);
         kys = pp.keys();
         //dc.drawCircle(xc, yc, r);
         
-        var sid_old = now_info.hour*15 + now_info.min*15/60; //approx.....
+        var sid_old = $.now_info.hour*15 + $.now_info.min*15/60; //approx.....
         //sid = sunrise_events[SIDEREAL_TIME][0] * 15;
-        sid = srs.siderealTime(now_info.year, now_info.month, now_info.day, now_info.hour, now_info.min, now.timeZoneOffset/3600, now.dst, lastLoc[0], lastLoc[1]);
+        sid = srs.siderealTime($.now_info.year, $.now_info.month, $.now_info.day, $.now_info.hour, $.now_info.min, $.now.timeZoneOffset/3600, $.now.dst, lastLoc[0], lastLoc[1]);
 
         //g = null;
         srs = null;
@@ -711,15 +780,15 @@ class SolarSystemBaseView extends WatchUi.View {
         //System.println("View Ecliptic:" + add_duration + " " + $.time_add_hrs);
 
         //now = System.getClockTime();
-        //var now_info = Time.Gregorian.info(Time.now().add(add_duration), Time.FORMAT_SHORT);
-        var time_now = Time.now();
-        var now_info = Time.Gregorian.info(time_now, Time.FORMAT_SHORT);
+        //var $.now_info = Time.Gregorian.info(Time.now().add(add_duration), Time.FORMAT_SHORT);
+        //var $.time_now = Time.now();
+        //var $.now_info = Time.Gregorian.info($.time_now, Time.FORMAT_SHORT);
         
 
 
 
-        //System.println("View Ecliptic:" + now_info.year + " " + now_info.month + " " + now_info.day + " " + now_info.hour + " " + now_info.min + " " + now.timeZoneOffset/3600 + " " + now.dst);
-        //g = new Geocentric(now_info.year, now_info.month, now_info.day, now_info.hour, now_info.min, now.timeZoneOffset/3600, now.dst,"ecliptic", whh);
+        //System.println("View Ecliptic:" + $.now_info.year + " " + $.now_info.month + " " + $.now_info.day + " " + $.now_info.hour + " " + $.now_info.min + " " + $.now.timeZoneOffset/3600 + " " + $.now.dst);
+        //g = new Geocentric($.now_info.year, $.now_info.month, $.now_info.day, $.now_info.hour, $.now_info.min, $.now.timeZoneOffset/3600, $.now.dst,"ecliptic", whh);
 
         //pp=g.position();
         //kys = pp.keys();
@@ -730,16 +799,16 @@ class SolarSystemBaseView extends WatchUi.View {
         //sun @ the correct time.  We also put in a small adjustment
         //So that local solar noon is always directly UP & solor 
         //midnight is directly DOWN on the circle.
-        //pp2 = $.geo_cache.fetch(now_info.year, now_info.month, now_info.day, now_info.hour, now_info.min, now.timeZoneOffset/3600, now.dst,"ecliptic", whh);
-        //moon_info = simple_moon.lunarPhase(now_info, now.timeZoneOffset, now.dst);
+        //pp2 = $.geo_cache.fetch($.now_info.year, $.now_info.month, $.now_info.day, $.now_info.hour, $.now_info.min, $.now.timeZoneOffset/3600, $.now.dst,"ecliptic", whh);
+        //moon_info = simple_moon.lunarPhase($.now_info, $.now.timeZoneOffset, $.now.dst);
 
-        /* input = {:year => now_info.year,
-        :month => now_info.month,
-        :day => now_info.day,
-        :hour => now_info.hour,
-        :minute => now_info.min,
-        :UT => now.timeZoneOffset/3600,
-        :dst => now.dst,
+        /* input = {:year => $.now_info.year,
+        :month => $.now_info.month,
+        :day => $.now_info.day,
+        :hour => $.now_info.hour,
+        :minute => $.now_info.min,
+        :UT => $.now.timeZoneOffset/3600,
+        :dst => $.now.dst,
         :longitude => lastLoc[0], 
         :latitude => lastLoc[1],
         :topographic => false, 
@@ -748,21 +817,21 @@ class SolarSystemBaseView extends WatchUi.View {
         */
         //simple_moon = new simpleMoon();
         
-        moon_info3 = eclipticPos_moon (now_info, now.timeZoneOffset, now.dst, time_add_hrs); 
-        //sun_info3 =  simple_moon.eclipticSunPos (now_info, now.timeZoneOffset, now.dst); 
+        moon_info3 = eclipticPos_moon ($.now_info, $.now.timeZoneOffset, $.now.dst, time_add_hrs); 
+        //sun_info3 =  simple_moon.eclipticSunPos ($.now_info, $.now.timeZoneOffset, $.now.dst); 
         //simple_moon = null;
 
         //elp82 = new ELP82();
-        //moon_info4 = elp82.eclipticMoonELP82 (now_info, now.timeZoneOffset, now.dst);
+        //moon_info4 = elp82.eclipticMoonELP82 ($.now_info, $.now.timeZoneOffset, $.now.dst);
         //elp82 = null;
 
         
-        // moon_info2 = simple_moon.lunarPhase(now_info, now.timeZoneOffset, now.dst);
+        // moon_info2 = simple_moon.lunarPhase($.now_info, $.now.timeZoneOffset, $.now.dst);
         //moon_info = moon.position();
         //vspo87a = new vsop87a_nano();
         //vspo87a = new vsop87a_pico();
-        //pp = vspo87a.planetCoord(now_info, now.timeZoneOffset, now.dst, :ecliptic_latlon);
-        pp = vsop_cache.fetch(now_info, now.timeZoneOffset, now.dst, time_add_hrs, :ecliptic_latlon);        
+        //pp = vspo87a.planetCoord($.now_info, $.now.timeZoneOffset, $.now.dst, :ecliptic_latlon);
+        pp = vsop_cache.fetch($.now_info, $.now.timeZoneOffset, $.now.dst, time_add_hrs, :ecliptic_latlon);        
         //vspo87a = null;
 
         //System.println("Moon simple3: " + moon_info3 + " elp82: "+ moon_info4);
@@ -785,7 +854,7 @@ class SolarSystemBaseView extends WatchUi.View {
         kys = pp.keys();
         //g = null;
 
-        //g = new Geocentric(now_info.year, now_info.month, now_info.day, 0, 0, now.timeZoneOffset/3600, now.dst,"ecliptic", whh_sun);
+        //g = new Geocentric($.now_info.year, $.now_info.month, $.now_info.day, 0, 0, $.now.timeZoneOffset/3600, $.now.dst,"ecliptic", whh_sun);
 
         //pp_sun = g.position();
 
@@ -797,10 +866,10 @@ class SolarSystemBaseView extends WatchUi.View {
         //var pos_info = self.lastLoc.getInfo();
         //var deg = pos_info.position.toDegrees();
 
-        //srs = new sunRiseSet(now_info.year, now_info.month, now_info.day, now.timeZoneOffset/3600, now.dst, lastLoc[0], lastLoc[1]);
+        //srs = new sunRiseSet($.now_info.year, $.now_info.month, $.now_info.day, $.now.timeZoneOffset/3600, $.now.dst, lastLoc[0], lastLoc[1]);
         //sunrise_events = srs.riseSet();
 
-        sunrise_events = sunrise_cache.fetch(now_info.year, now_info.month, now_info.day, now.timeZoneOffset/3600, now.dst, time_add_hrs, lastLoc[0], lastLoc[1]);
+        sunrise_events = sunrise_cache.fetch($.now_info.year, $.now_info.month, $.now_info.day, $.now.timeZoneOffset/3600, $.now.dst, time_add_hrs, lastLoc[0], lastLoc[1]);
 
         //System.println("Sunrise_set: " + sunrise_events);
         //System.println("Sunrise_set: " + sunrise_set);
@@ -810,10 +879,10 @@ class SolarSystemBaseView extends WatchUi.View {
         //geo_cache.fetch brings back the positions for UTC & no dst, so we'll need to correct
         //for that
         //TODO: We could put in a correction for EXACT LONGITUDE instead of just depending on 
-        //now_info.hour=0 being the actual local midnight.
+        //$.now_info.hour=0 being the actual local midnight.
         //pp/ecliptic degrees start at midnight (bottom of circle) & proceed COUNTERclockwise.
         sun_adj = 270 - pp["Sun"][0];
-        hour_adj = normalize(now_info.hour*15 + time_add_hrs*15.0 + now_info.min*15/60);
+        hour_adj = normalize($.now_info.hour*15 + time_add_hrs*15.0 + $.now_info.min*15/60);
         //We align everything so that NOON is directly up (SOLAR noon, NOT 12:00pm)
         noon_adj_hrs = 12 - sunrise_events[:NOON][0];
         noon_adj_deg = 15 * noon_adj_hrs;
@@ -854,11 +923,11 @@ class SolarSystemBaseView extends WatchUi.View {
         
         
         
-        //sid = now_info.hour*15 + now_info.min*15/60; //approx.....
+        //sid = $.now_info.hour*15 + $.now_info.min*15/60; //approx.....
 
         
         //sid = sunrise_events[SIDEREAL_TIME][0] * 15;
-        //sid = srs.siderealTime(now_info.year, now_info.month, now_info.day, now_info.hour, now_info.min, now.timeZoneOffset/3600, now.dst, lastLoc[0], lastLoc[1]);        
+        //sid = srs.siderealTime($.now_info.year, $.now_info.month, $.now_info.day, $.now_info.hour, $.now_info.min, $.now.timeZoneOffset/3600, $.now.dst, lastLoc[0], lastLoc[1]);        
 
         srs = null;
 
@@ -885,11 +954,11 @@ class SolarSystemBaseView extends WatchUi.View {
             
         }
 
-        if ($.show_intvl < 5 * $.hz && $.view_index != 0) {
-            showDate(dc, now_info, time_now, time_add_hrs, xc, yc, true, true, :ecliptic_latlon);
+        if ($.show_intvl < 5 * $.hz && $.view_mode != 0) {
+            showDate(dc, $.now_info, $.time_now, time_add_hrs, xc, yc, true, true, :ecliptic_latlon);
             $.show_intvl++;
         } else {
-            showDate(dc, now_info, time_now, time_add_hrs, xc, yc, true, false, :ecliptic_latlon);
+            showDate(dc, $.now_info, $.time_now, time_add_hrs, xc, yc, true, false, :ecliptic_latlon);
         }
 
         pp=null;
@@ -903,12 +972,21 @@ class SolarSystemBaseView extends WatchUi.View {
         spots = null;
 
     }
+    
+    var x1, y1;
 
     var scale = 1;
     //big_small = 0 for small (selectio nof visible planets) & 1 for big (all planets)
     public function largeOrrery(dc, big_small) {
          // Set background color
          $.orreryDraws++;
+
+
+        
+        
+
+         //th += Math.PI/240;
+         //ga_rad += Math.PI/240;
 
         //don't need these caches in the Orrery view & we are having out of memory
         //errors at times here....
@@ -968,19 +1046,21 @@ class SolarSystemBaseView extends WatchUi.View {
         //System.println("View Rectangular:" + add_duration + " " + $.time_add_hrs);
 
         //now = System.getClockTime();
-        //var now_info = Time.Gregorian.info(Time.now().add(add_duration), Time.FORMAT_SHORT);
-        var time_now = Time.now();
-        var now_info = Time.Gregorian.info(time_now, Time.FORMAT_SHORT);
+        //var $.now_info = Time.Gregorian.info(Time.now().add(add_duration), Time.FORMAT_SHORT);
+        //var $.time_now = Time.now();
+        //var $.now_info = Time.Gregorian.info($.time_now, Time.FORMAT_SHORT);
 
 
 
-        //System.println("View Rectangular:" + now_info.year + " " + now_info.month + " " + now_info.day + " " + now_info.hour + " " + now_info.min + " " + now.timeZoneOffset/3600 + " " + now.dst);
-        //g = new Heliocentric(now_info.year, now_info.month, now_info.day, now_info.hour, now_info.min, now.timeZoneOffset/3600, now.dst,"rectangular", whh);
+        //System.println("View Rectangular:" + $.now_info.year + " " + $.now_info.month + " " + $.now_info.day + " " + $.now_info.hour + " " + $.now_info.min + " " + $.now.timeZoneOffset/3600 + " " + $.now.dst);
+        //g = new Heliocentric($.now_info.year, $.now_info.month, $.now_info.day, $.now_info.hour, $.now_info.min, $.now.timeZoneOffset/3600, $.now.dst,"rectangular", whh);
+
+        var oblecl=  obliquityEcliptic_rad ($.now_info.year, $.now_info.month, $.now_info.day, $.now_info.hour + time_add_hrs, 0, 0, 0);
 
         //pp=g.planets();
         //vspo87a = new vsop87a_pico();
-        //pp = vspo87a.planetCoord(now_info, now.timeZoneOffset, now.dst, :helio_xyz);
-        pp = vsop_cache.fetch(now_info, now.timeZoneOffset, now.dst, time_add_hrs, :helio_xyz);
+        //pp = vspo87a.planetCoord($.now_info, $.now.timeZoneOffset, $.now.dst, :helio_xyz);
+        pp = vsop_cache.fetch($.now_info, $.now.timeZoneOffset, $.now.dst, time_add_hrs, :helio_xyz);
         //vspo87a = null;
 
 
@@ -994,13 +1074,13 @@ class SolarSystemBaseView extends WatchUi.View {
         //System.println("whh: " + whh);
 
 
-        //g = new Geocentric(now_info.year, now_info.month, now_info.day, 0, 0, now.timeZoneOffset/3600, now.dst,"ecliptic", whh_sun);
+        //g = new Geocentric($.now_info.year, $.now_info.month, $.now_info.day, 0, 0, $.now.timeZoneOffset/3600, $.now.dst,"ecliptic", whh_sun);
 
         //pp_sun = g.position();
 
         //This puts our midnight sun @ the bottom of the graph; everything else relative to it
         //sun_adj = 270 - pp_sun["Sun"][0];
-        //hour_adj = now_info.hour*15 + now_info.min*15/60;
+        //hour_adj = $.now_info.hour*15 + $.now_info.min*15/60;
         //final_adj = sun_adj - hour_adj;
 
         //System.println("pp_sun:" + pp_sun);
@@ -1015,7 +1095,8 @@ class SolarSystemBaseView extends WatchUi.View {
             if (whh.indexOf(key)<0) {continue;} //in case dwarf planet/asteroids eliminated by ***planetsOption***
             //System.println("KEY whh: " + key);
             if (pp[key] == null) {continue;}
-            var rd = pp[key][0]*pp[key][0]+pp[key][1]*pp[key][1];
+            var rd = pp[key][0]*pp[key][0]+pp[key][1]*pp[key][1]
+               + pp[key][2]*pp[key][2];
             if (rd> max) {max = rd;}
             //System.println("MM: " + key + " " + pp[key][0] + " " + pp[key][1] + " " + rd);
             //if ((pp[key][0]).abs() > maxX) { maxX = (pp[key][0]).abs();}
@@ -1028,8 +1109,8 @@ class SolarSystemBaseView extends WatchUi.View {
             //simple_moon = new simpleMoon();
 
             //eclip lon/lat of moon, in degrees.  Relative to earth.
-            moon_info3 = eclipticPos_moon (now_info, now.timeZoneOffset, now.dst, time_add_hrs); 
-            //sun_info3 =  simple_moon.eclipticSunPos (now_info, now.timeZoneOffset, now.dst); 
+            moon_info3 = eclipticPos_moon ($.now_info, $.now.timeZoneOffset, $.now.dst, time_add_hrs); 
+            //sun_info3 =  simple_moon.eclipticSunPos ($.now_info, $.now.timeZoneOffset, $.now.dst); 
             //simple_moon = null;
             //var ang = Math.arctan2(-x,y);
 
@@ -1047,12 +1128,14 @@ class SolarSystemBaseView extends WatchUi.View {
         }
 
         //reset screen when changing speed, but ONLY if the setting requires it (resetDots)
-        var showWithSpeedChange = false;
-        if ($.Options_Dict["resetDots"] == 1 && $.speedWasChanged ) {showWithSpeedChange = true;}
+        //var showWithSpeedChange = false;
+        //if ($.Options_Dict["resetDots"] == 1 && $.speedWasChanged ) {showWithSpeedChange = true;}
+        //if ($.speedWasChanged ) {showWithSpeedChange = true;}
         //System.println("RDSWC: " +$.Options_Dict["resetDots"] + " " + showWithSpeedChange + " " + $.newModeOrZoom );
         
         //Things we do ONLY WHEN FIRST STARTING OUT IN THIS MODE & ZOOM LEVEL
-        if ($.newModeOrZoom || showWithSpeedChange) {//gives signal to reset the dots 
+        //if ($.newModeOrZoom || showWithSpeedChange) {//gives signal to reset the dots 
+        if ($.newModeOrZoom || $.speedWasChanged ) {//gives signal to reset the dots 
             //var oldscale = scale;
                 //System.println("RDSWC - new scale & targetDc: " +$.Options_Dict["resetDots"] + " " + showWithSpeedChange + " " + $.newModeOrZoom );
             
@@ -1087,7 +1170,7 @@ class SolarSystemBaseView extends WatchUi.View {
         
 
         /*if ($.orreryDraws == 1) {
-            allOrbitParms = generateAllParms(now_info, time_add_hrs, full_whh, pp);
+            allOrbitParms = generateAllParms($.now_info, time_add_hrs, full_whh, pp);
             System.println("allorbit: " + allOrbitParms);
         } */
 
@@ -1101,11 +1184,38 @@ class SolarSystemBaseView extends WatchUi.View {
 
             //var tDc = dc;
             //if (big_small == 3) {tDc = targetDc;}
+        //var mx = Math.sqrt(max);    
+
+        for (var i = 0; i<kys.size(); i++) {
+            key = kys[i];
+            System.println("ga th: " + ga_rad + " " + the_rad) ;
+            //System.println("XYZ PERS: " + key + pp[key]);
+
+            //First we have t ocorrect for the obliquity of the ecliptic
+            //which makes the plan of the solar system at a "tilt" to
+            //the equatorial coordinates.
+            var y0 = pp[key][1] * Math.cos(oblecl) + pp[key][2] * Math.sin(oblecl);
+            var z0 = pp[key][1] *Math.sin(oblecl) - pp[key][2] * Math.cos(oblecl);
+
+            y1 = y0 *Math.cos(ga_rad) + pp[key][0] * Math.sin(ga_rad);
+            x1 = y0 *Math.sin(ga_rad) - pp[key][0] * Math.cos(ga_rad);
+            //x1 = x;
+
+            y2 = y1 * Math.cos(the_rad) - z0* Math.sin(the_rad);
+            //var z2 = y1 *Math.sin(the_rad) + pp[key][2] * Math.cos(the_rad);
+            //y2 = y1;
+            //var pers_fact = (5*mx + (z2+ mx)/2)/6.0/mx;
+            pp[key][0] = x1;// *pers_fact;
+            pp[key][1] = y2;// * pers_fact; // * pers_fact;  
+            
+            //System.println("XYZ' PERS: " + x2 + " " + y1 + " " );
+        }
+
 
         //*************** PLANET TRACKS **********************************    
 
         //System.println ("nearly to drawOrbits3");
-        if ($.Options_Dict["Orbit Circles Option"]==0 ) {
+        //if ($.Options_Dict["Orbit Circles Option"]==0 ) {
 
        
 
@@ -1130,7 +1240,7 @@ class SolarSystemBaseView extends WatchUi.View {
                 
                 //System.println ("Using offscreenBUFFER");
             }*/ 
-        }
+        //}
 
         //System.println("MM2: " + min_c + " " + scale + " " + max + " ");
 
@@ -1149,7 +1259,10 @@ class SolarSystemBaseView extends WatchUi.View {
             if (key == null || pp[key] == null) {continue;} //not much else to do...
             //if (key1 == null || pp[key1] == null) {continue;} //not much else to do...
 
+
+
             x = scale * pp[key][0] + xc;
+            
             y = scale * pp[key][1] + yc;
 
 
@@ -1224,10 +1337,10 @@ class SolarSystemBaseView extends WatchUi.View {
         }
 
         if ($.show_intvl < 5 * $.hz ) { 
-            showDate(dc, now_info, time_now, time_add_hrs,  xc, yc, true, true, :orrery);
+            showDate(dc, $.now_info, $.time_now, time_add_hrs,  xc, yc, true, true, :orrery);
             $.show_intvl++;}
             else {
-                showDate(dc, now_info, time_now, time_add_hrs,  xc, yc, true, false, :orrery);
+                showDate(dc, $.now_info, $.time_now, time_add_hrs,  xc, yc, true, false, :orrery);
         }
 
         pp=null;
@@ -1245,14 +1358,16 @@ class SolarSystemBaseView extends WatchUi.View {
     }
     var spots;
     function init_findSpot(){
-        spots = [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1];
+        //spots = [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1];
+        spots = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]b;
     }
     function findSpot (angle) {
         angle = normalize (angle);
         if (angle == 360) {angle =0;}
         var num = (Math.floor( angle * 13 / 360.0)).toNumber();
-        spots[num]++;
-        return spots[num];        
+        //System.println("spot " + spots[num]);
+        if (spots[num]<254) {spots[num]++;}
+        return (spots[num]).toNumber() - 1 ;        
 
     }
 
@@ -1269,7 +1384,7 @@ class SolarSystemBaseView extends WatchUi.View {
         sr_minc2=sr_minc*sr_minc;
         spots_rect=new [sr_x];
         for (var i = 0; i<sr_x; i++) {
-            var tmp = new [sr_y];
+            var tmp = new [sr_y]b;
             //spots_rect.add(tmp);
             for (var j = 0; j<sr_y; j++) {
                 //spots_rect[i].add(0);
@@ -1412,35 +1527,38 @@ class SolarSystemBaseView extends WatchUi.View {
         if ($.buttonPresses < 1) {
             //making all timings 1/2 the rate because it is so much
             //slower on real watch vs simulator.  But needs a better solution involving actual clock time probably
-            switch (mod($.animation_count/(3*$.hz),7.0).toNumber()){
+            switch (mod($.time_now.value()/(3),7.0).toNumber()){
                 case 0:                
                 case 6:                
                 default:
-                    msg = ["THE","PLANETS", "", "Press *UP* or *SWIPE*",$.animation_count + 1];
+                    msg = [$.time_now.value() + 1,"THE","PLANETS", "", "Press *UP* or *SWIPE*"];
                     break;                
                 case 1:                
-                    msg = ["UP/DOWN/SWIPE:","Time Forward", "/Back",$.animation_count + 1];
+                    msg = [$.time_now.value() + 1,"UP/DOWN/SWIPE:","Time Forward", "/Back"];
                     break;
                 case 2:                
-                    msg = ["UP/DOWN/SWIPE:","OR: Time Faster", "/Slower",$.animation_count + 1];
+                    msg = [$.time_now.value() + 1,"UP/DOWN/SWIPE:","OR: Time Faster", "/Slower"];
                     break;                    
                 case 3:
-                    msg = ["SELECT/TAP:","START Time if stopped", "OR: Next Mode",$.animation_count + 1];   
+                    msg = [$.time_now.value() + 1,"SELECT/TAP:","START Time if stopped", "OR: Next Mode"];   
                     break;                 
                 case 4:                
-                    msg = ["BACK:","STOP Time if started", "OR: Prev Mode/Exit",$.animation_count + 1];   
+                    msg = [$.time_now.value() + 1,"BACK:","STOP Time if started", "OR: Prev Mode/Exit"];   
                     break;                     
                 case 5:                
-                    msg = ["MENU:","Change Options", "or Exit",$.animation_count + 1];   
+                    msg = [$.time_now.value() + 1,"MENU:","Change Options", "or Exit"];   
                     break;                         
             }
         }
 
-        if (msg == null) { msgDisplayed = false; return 0;}
-        if (msg[msg.size()-1] < $.animation_count){ msgDisplayed = false; 
-        message = null;
-        //System.println("ShowMSG: Exiting current msg time expired");
-        return 0;}
+        if (msg == null || !(msg instanceof Array) || msg.size() == 0) { msgDisplayed = false; return 0;}
+        System.println("msg[0] " + msg);
+        System.println("time_now : " + $.time_now.value());
+        if (msg[0] < $.time_now.value()){ msgDisplayed = false; 
+            message = null;
+            //System.println("ShowMSG: Exiting current msg time expired");
+            return 0;
+        }
 
         //System.println("ShowMSG: curr msg = prev: " + msg.toString().equals(savedMSG.toString()) + " 2nd way: " + msg == savedMSG );
 
@@ -1460,7 +1578,7 @@ class SolarSystemBaseView extends WatchUi.View {
         //System.println("ShowMSG: we are displaying the msg...");  
         savedMSG = msg;  
         var numMsg=0;
-        for (var i = 0; i<msg.size()-1; i++) {if (msg[i] != null && msg[i].length()>0 ) { numMsg++;}}
+        for (var i = 1; i<msg.size(); i++) {if (msg[i] != null && msg[i].length()>0 ) { numMsg++;}}
         var ystart = 1.5 * yc - textHeight*numMsg/2;
         var xstart = xc;
 
@@ -1484,10 +1602,11 @@ class SolarSystemBaseView extends WatchUi.View {
         var ct_i = 0;      
         var lined = false;          
         for (var i = 0; i<msg.size()-1; i++) {
-            if (msg[i] != null ) { 
+            System.println(" msg[i+1] " +  msg[i+1]);
+            if (msg[i+1] != null ) { 
                 
                 ct_i++;
-                if (msg[i].length()==0){
+                if (msg[i+1].length()==0){
                     //a blank line =""
                     dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
                     dc.drawLine(0, ystart + (i)*textHeight, dc.getWidth(), ystart + i*textHeight);
@@ -1502,9 +1621,9 @@ class SolarSystemBaseView extends WatchUi.View {
                 
                 dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);
 
-                dc.drawText(xstart, ystart + i*textHeight, font, msg[i], jstify);
+                dc.drawText(xstart, ystart + i*textHeight, font, msg[i+1], jstify);
 
-                if (msg[i].equals("PLANETS") || msg[i].equals("or Exit")) {
+                if (msg[i+1].equals("PLANETS") || msg[i+1].equals("or Exit")) {
                     if (_planetIcon != null) {
                         dc.setClip (0, ystart+2,  2*xc,  2* textHeight -2  );
                         var hgt = _planetIcon.getHeight();
@@ -1538,10 +1657,10 @@ class SolarSystemBaseView extends WatchUi.View {
 
     }
 
-    function showDate(dc, date, time_now, addTime_hrs ,xcent, ycent, incl_years, show, type){
+    function showDate(dc, date, time_nw, addTime_hrs ,xcent, ycent, incl_years, show, type){
         //System.println("showDate" + show);
         var justify = Graphics.TEXT_JUSTIFY_CENTER;
-        var targTime_sec = (addTime_hrs*3600).toLong() + time_now.value();
+        var targTime_sec = (addTime_hrs*3600).toLong() + time_nw.value();
         var xcent2= xcent;
         var ycent2 = ycent;
         if (type ==:orrery) {
@@ -1564,7 +1683,7 @@ class SolarSystemBaseView extends WatchUi.View {
         
         //System.println("DATE!!!!!: " + new_date.value() + " OR... " + targTime_sec + " yr: "+ new_date_info.year + "add_hjrs "+ addTime_hrs);
 
-        var stop = !started && $.view_modes[$.view_index]!=0;
+        var stop = !started && $.view_mode!=0;
 
         if (incl_years == null) { incl_years = false; }
         font = Graphics.FONT_TINY;
@@ -1677,7 +1796,7 @@ class SolarSystemBaseView extends WatchUi.View {
         $.drawPlanetCount++;
         var x = xyr[0];
         var y = xyr[1];
-        var radius = xyr[2];
+        //var radius = xyr[2];
 
         col = Graphics.COLOR_WHITE;
         fillcol = Graphics.COLOR_BLACK;
@@ -2378,7 +2497,7 @@ class SolarSystemBaseView extends WatchUi.View {
 
         //System.println ("sc2");
         
-        //$.Options_Dict["Location"] = [self.lastLoc, now.value()];
+        //$.Options_Dict["Location"] = [self.lastLoc, $.now.value()];
         //Storage.setValue("Location",$.Options_Dict["Location"]);
         //System.println ("sc3");
         /* For testing
