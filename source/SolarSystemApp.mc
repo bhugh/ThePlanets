@@ -59,7 +59,7 @@ var show_intvl = 0; //whether or not to show current SPEED on display
 var animSinceModeChange = 0; //used to tell when to blank screen etc.
 var solarSystemView_class; //saved instance of main class 
 
-//! This app displays information about the user's position
+
 class SolarSystemBaseApp extends Application.AppBase {
 
     //enum {ECLIPTIC_STATIC, ECLIPTIC_MOVE, SMALL_ORRERY, MED_ORRERY, LARGE_ORRERY}

@@ -10,6 +10,7 @@ import Toybox.Position;
 import Toybox.WatchUi;
 import Toybox.Math;
 import Toybox.System;
+import Toybox.Application.Storage;
 
 var _planetIcon as BitmapResource?;
 var newModeOrZoom = false;
@@ -48,7 +49,12 @@ class SolarSystemBaseView extends WatchUi.View {
 
         
         // Initial value shown until we have position data
-        setPosition();
+        //setPosition(); //Don't call this until the device is ready &
+        //calls it via a callback. Instead this INIT function will load
+        //some semi, sensible data and thne setPOisition() will fill in the rest
+        //later as available.  Also this & setPosition save position found
+        //to the date store so initposition can use it next time.
+        setInitPosition();
 
         //_lines = ["No position info"];
 
@@ -2423,11 +2429,26 @@ class SolarSystemBaseView extends WatchUi.View {
         WatchUi.requestUpdate();
     }
     */
+    //Until setPosition gets a callback we will use SOME value for lastLoc
+    //We call setInitPosition immeidately upon startup & then setPosition will fill in
+    //later as correct data is available.
+    function setInitPosition () {
+        if (lastLoc == null) {self.lastLoc = new Position.Location(            
+                    { :latitude => 39.833333, :longitude => -98.583333, :format => :degrees }
+                    ).toDegrees(); }
+        if ($.Options_Dict.hasKey("lastLoc")) {lastLoc = $.Options_Dict["lastLoc"];}
+        
+        var temp = Storage.getValue("lastLoc");
+        if (temp!=null) {lastLoc = temp;}
+        Storage.setValue("lastLoc", lastLoc);
+        $.Options_Dict.put("lastLoc", lastLoc);
+        System.println("setINITPosition at " + animation_count + " to: "  + lastLoc);
+    }
 
     //fills in the variable lastLoc with current location and/or
     //several fallbacks
     function setPosition () {
-        //System.println ("sc1");
+        System.println ("setPosition getting position...");
 
         var pinfo = Position.getInfo();
         //System.println ("sc1: Null? " + (pinfo==null));
@@ -2507,7 +2528,15 @@ class SolarSystemBaseView extends WatchUi.View {
             ).toRadians();
         */
         //System.println ("lastLoc: " + lastLoc );
+
+        if (lastLoc != null) {
+            $.Options_Dict.put("lastLoc", lastLoc);
+            Storage.setValue("lastLoc", lastLoc);
+        }
+        System.println("setPosition (final) at " + animation_count + " to: "  + lastLoc);
     }
+
+    
 
 }
 
