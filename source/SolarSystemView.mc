@@ -65,9 +65,9 @@ class SolarSystemBaseView extends WatchUi.View {
         message_until = time_now.value() + time_sec;
         //message = [msg1, msg2, msg3, msg4, $.animation_count + time_sec * hz/2.0 ];
         message = [message_until];
-        System.println("sm: " + time_sec + " "+ message +  " : " + msgs);
+        //System.println("sm: " + time_sec + " "+ message +  " : " + msgs);
         message = message.addAll(msgs);        
-        System.println("sm2: " + time_sec + " "+ message +  " : " + msgs);
+        //System.println("sm2: " + time_sec + " "+ message +  " : " + msgs);
         
     }
 
@@ -1188,7 +1188,7 @@ class SolarSystemBaseView extends WatchUi.View {
 
         for (var i = 0; i<kys.size(); i++) {
             key = kys[i];
-            System.println("ga th: " + ga_rad + " " + the_rad) ;
+            //System.println("ga th: " + ga_rad + " " + the_rad) ;
             //System.println("XYZ PERS: " + key + pp[key]);
 
             //First we have t ocorrect for the obliquity of the ecliptic
@@ -1552,8 +1552,8 @@ class SolarSystemBaseView extends WatchUi.View {
         }
 
         if (msg == null || !(msg instanceof Array) || msg.size() == 0) { msgDisplayed = false; return 0;}
-        System.println("msg[0] " + msg);
-        System.println("time_now : " + $.time_now.value());
+        //System.println("msg[0] " + msg);
+        //System.println("time_now : " + $.time_now.value());
         if (msg[0] < $.time_now.value()){ msgDisplayed = false; 
             message = null;
             //System.println("ShowMSG: Exiting current msg time expired");
@@ -1602,7 +1602,7 @@ class SolarSystemBaseView extends WatchUi.View {
         var ct_i = 0;      
         var lined = false;          
         for (var i = 0; i<msg.size()-1; i++) {
-            System.println(" msg[i+1] " +  msg[i+1]);
+            //System.println(" msg[i+1] " +  msg[i+1]);
             if (msg[i+1] != null ) { 
                 
                 ct_i++;
