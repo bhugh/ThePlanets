@@ -275,9 +275,9 @@ E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_So
     }
     [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc"; @line = 94; ]
     function handleNextPrevious(type) {
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_94_38_144_4_start:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_94_38_150_4_start:
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 98 8 ]
-        [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_94_38_144_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_94_38_144_4_stop" ]
+        [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_94_38_150_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_94_38_150_4_stop" ]
         %mult.1 = local;
 E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_98_19_98_42_begin:
         %tmp.2 = lgetv %type;
@@ -309,278 +309,336 @@ E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_So
         %tmp.18 = true;
         putv %tmp.17 :timeWasAdded %tmp.18;
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 104 8 ]
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_104_8_104_40_if_stmt:
-        %tmp.20 = getv ? :buttonPresses;
-        %tmp.21 = 1;
-        %tmp.22 = eq %tmp.20 %tmp.21;
-        bf %tmp.22 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_104_8_104_40_if_end;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_104_8_104_40_if_true:
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_104_32_104_40_start:
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 104 33 ]
+        %tmp.19 = getm $;
+        %tmp.20 = true;
+        putv %tmp.19 :run_oneTime %tmp.20;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 105 8 ]
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_105_8_105_40_if_stmt:
+        %tmp.22 = getv ? :buttonPresses;
+        %tmp.23 = 1;
+        %tmp.24 = eq %tmp.22 %tmp.23;
+        bf %tmp.24 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_105_8_105_40_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_105_8_105_40_if_true:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_105_32_105_40_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 105 33 ]
         ret ?;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_104_32_104_40_stop:
-        goto @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_104_8_104_40_if_end;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_104_8_104_40_if_end:
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 106 8 ]
-        [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_94_38_144_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_94_38_144_4_stop" ]
-        %in.2 = local;
-        %tmp.23 = getm $;
-        %tmp.24 = getv %tmp.23 :view_mode;
-        lputv %in.2 %tmp.24;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_105_32_105_40_stop:
+        goto @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_105_8_105_40_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_105_8_105_40_if_end:
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 107 8 ]
-        [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_94_38_144_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_94_38_144_4_stop" ]
-        %od.3 = local;
+        [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_94_38_150_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_94_38_150_4_stop" ]
+        %in.2 = local;
         %tmp.25 = getm $;
-        %tmp.26 = getv %tmp.25 :Options_Dict;
-        %tmp.27 = "thetaOption";
-        %tmp.28 = agetv %tmp.26 %tmp.27;
-        lputv %od.3 %tmp.28;
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 111 8 ]
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_111_8_121_8_if_stmt:
-        %tmp.30 = lgetv %in.2;
-        %tmp.31 = 0;
-        %tmp.32 = eq %tmp.30 %tmp.31;
-        bf %tmp.32 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_111_8_121_8_if_false;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_111_8_121_8_if_true:
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_111_21_115_8_start:
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 112 12 ]
-        %tmp.33 = getm $;
-        %tmp.34 = getm $;
-        %tmp.35 = getv %tmp.34 :time_add_hrs;
-        %tmp.37 = lgetv %mult.1;
-        %tmp.39 = getv ? :speeds;
-        %tmp.41 = getv ? :speeds_index;
-        %tmp.42 = agetv %tmp.39 %tmp.41;
-        %tmp.43 = mul %tmp.37 %tmp.42;
-        %tmp.44 = add %tmp.35 %tmp.43;
-        putv %tmp.33 :time_add_hrs dup %tmp.44;
+        %tmp.26 = getv %tmp.25 :view_mode;
+        lputv %in.2 %tmp.26;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 108 8 ]
+        [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_94_38_150_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_94_38_150_4_stop" ]
+        %od.3 = local;
+        %tmp.27 = getm $;
+        %tmp.28 = getv %tmp.27 :Options_Dict;
+        %tmp.29 = "thetaOption";
+        %tmp.30 = agetv %tmp.28 %tmp.29;
+        lputv %od.3 %tmp.30;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 112 8 ]
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_112_8_127_8_if_stmt:
+        %tmp.32 = lgetv %in.2;
+        %tmp.33 = 0;
+        %tmp.34 = eq %tmp.32 %tmp.33;
+        bf %tmp.34 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_112_8_127_8_if_false;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_112_8_127_8_if_true:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_112_21_116_8_start:
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 113 12 ]
-        %tmp.45 = getm $;
-        %tmp.46 = true;
-        putv %tmp.45 :timeWasAdded %tmp.46;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_111_21_115_8_stop:
-        goto @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_111_8_121_8_if_end;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_111_8_121_8_if_false:
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 115 15 ]
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_115_15_121_8_if_stmt:
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_115_19_115_57_begin:
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_115_19_115_35_begin:
-        %tmp.48 = lgetv %in.2;
-        %tmp.49 = 1;
-        %tmp.50 = eq %tmp.48 %tmp.49;
-        bt %tmp.50 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_115_15_121_8_if_true;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_115_30_115_35_false:
-        %tmp.52 = lgetv %in.2;
-        %tmp.53 = 2;
-        %tmp.54 = eq %tmp.52 %tmp.53;
-        push %tmp.54;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_115_30_115_35_end:
-        %tmp.55 = phi [%tmp.50 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_115_19_115_35_begin] [%tmp.54 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_115_30_115_35_false] [%tmp.55 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_115_30_115_35_end];
-        bt %tmp.55 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_115_15_121_8_if_true;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_115_40_115_57_false:
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_115_41_115_56_begin:
-        %tmp.57 = lgetv %in.2;
-        %tmp.58 = 2;
-        %tmp.59 = gt %tmp.57 %tmp.58;
-        bf %tmp.59 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_115_15_121_8_if_end;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_115_51_115_56_true:
-        %tmp.61 = lgetv %od.3;
-        %tmp.62 = 0;
-        %tmp.63 = eq %tmp.61 %tmp.62;
-        push %tmp.63;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_115_51_115_56_end:
-        %tmp.64 = phi [%tmp.59 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_115_41_115_56_begin] [%tmp.63 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_115_51_115_56_true] [%tmp.64 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_115_51_115_56_end];
-        push %tmp.64;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_115_40_115_57_end:
-        %tmp.65 = phi [%tmp.55 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_115_19_115_57_begin] [%tmp.64 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_115_40_115_57_false] [%tmp.65 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_115_40_115_57_end];
-        bf %tmp.65 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_115_15_121_8_if_end;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_115_15_121_8_if_true:
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_115_59_121_8_start:
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 116 12 ]
-        %tmp.66 = getv self :speeds_index;
-        %tmp.68 = lgetv %mult.1;
-        %tmp.69 = add %tmp.66 %tmp.68;
-        putv self :speeds_index dup %tmp.69;
+        %tmp.35 = getm $;
+        %tmp.36 = getm $;
+        %tmp.37 = getv %tmp.36 :time_add_hrs;
+        %tmp.39 = lgetv %mult.1;
+        %tmp.40 = getm $;
+        %tmp.41 = getv %tmp.40 :speeds;
+        %tmp.42 = getm $;
+        %tmp.43 = getv %tmp.42 :speeds_index;
+        %tmp.44 = agetv %tmp.41 %tmp.43;
+        %tmp.45 = mul %tmp.39 %tmp.44;
+        %tmp.46 = add %tmp.37 %tmp.45;
+        putv %tmp.35 :time_add_hrs dup %tmp.46;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 114 12 ]
+        %tmp.47 = getm $;
+        %tmp.48 = true;
+        putv %tmp.47 :timeWasAdded %tmp.48;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_112_21_116_8_stop:
+        goto @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_112_8_127_8_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_112_8_127_8_if_false:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 116 15 ]
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_116_15_127_8_if_stmt:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_116_19_116_57_begin:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_116_19_116_35_begin:
+        %tmp.50 = lgetv %in.2;
+        %tmp.51 = 1;
+        %tmp.52 = eq %tmp.50 %tmp.51;
+        bt %tmp.52 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_116_15_127_8_if_true;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_116_30_116_35_false:
+        %tmp.54 = lgetv %in.2;
+        %tmp.55 = 2;
+        %tmp.56 = eq %tmp.54 %tmp.55;
+        push %tmp.56;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_116_30_116_35_end:
+        %tmp.57 = phi [%tmp.52 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_116_19_116_35_begin] [%tmp.56 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_116_30_116_35_false] [%tmp.57 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_116_30_116_35_end];
+        bt %tmp.57 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_116_15_127_8_if_true;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_116_40_116_57_false:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_116_41_116_56_begin:
+        %tmp.59 = lgetv %in.2;
+        %tmp.60 = 2;
+        %tmp.61 = gt %tmp.59 %tmp.60;
+        bf %tmp.61 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_116_15_127_8_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_116_51_116_56_true:
+        %tmp.63 = lgetv %od.3;
+        %tmp.64 = 0;
+        %tmp.65 = eq %tmp.63 %tmp.64;
+        push %tmp.65;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_116_51_116_56_end:
+        %tmp.66 = phi [%tmp.61 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_116_41_116_56_begin] [%tmp.65 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_116_51_116_56_true] [%tmp.66 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_116_51_116_56_end];
+        push %tmp.66;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_116_40_116_57_end:
+        %tmp.67 = phi [%tmp.57 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_116_19_116_57_begin] [%tmp.66 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_116_40_116_57_false] [%tmp.67 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_116_40_116_57_end];
+        bf %tmp.67 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_116_15_127_8_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_116_15_127_8_if_true:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_116_59_127_8_start:
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 117 12 ]
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_117_12_120_12_if_stmt:
-        %tmp.70 = newa 5;
-        %tmp.71 = 2;
-        %tmp.72 = dup %tmp.70;
-        %tmp.73 = aputv %tmp.72 0 %tmp.71;
-        %tmp.74 = 5;
-        %tmp.75 = dup %tmp.73;
-        %tmp.76 = aputv %tmp.75 1 %tmp.74;
-        %tmp.77 = 6;
-        %tmp.78 = dup %tmp.76;
-        %tmp.79 = aputv %tmp.78 2 %tmp.77;
-        %tmp.80 = 7;
+        %tmp.68 = getm $;
+        %tmp.69 = getm $;
+        %tmp.70 = getv %tmp.69 :speeds_index;
+        %tmp.72 = lgetv %mult.1;
+        %tmp.73 = getm $;
+        %tmp.74 = getv %tmp.73 :speeds;
+        %tmp.75 = getv function %tmp.74 :size;
+        %tmp.76 = invoke %tmp.74 %tmp.75();
+        %tmp.77 = mod %tmp.72 %tmp.76;
+        %tmp.78 = add %tmp.70 %tmp.77;
+        putv %tmp.68 :speeds_index dup %tmp.78;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 121 12 ]
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_121_12_126_12_if_stmt:
+        %tmp.79 = newa 5;
+        %tmp.80 = 2;
         %tmp.81 = dup %tmp.79;
-        %tmp.82 = aputv %tmp.81 3 %tmp.80;
-        %tmp.83 = 8;
+        %tmp.82 = aputv %tmp.81 0 %tmp.80;
+        %tmp.83 = 5;
         %tmp.84 = dup %tmp.82;
-        %tmp.85 = aputv %tmp.84 4 %tmp.83;
-        %tmp.86 = getv function %tmp.85 :indexOf;
-        %tmp.87 = getm $;
-        %tmp.88 = getv %tmp.87 :view_mode;
-        %tmp.89 = invoke %tmp.85 %tmp.86(%tmp.88);
-        %tmp.90 = -1;
-        %tmp.91 = gt %tmp.89 %tmp.90;
-        bf %tmp.91 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_117_12_120_12_if_end;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_117_12_120_12_if_true:
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_117_55_120_12_start:
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 118 16 ]
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_118_16_119_59_if_stmt:
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_118_20_118_54_begin:
-        %tmp.93 = getv ? :speeds_index;
-        %tmp.94 = 47;
-        %tmp.95 = lt %tmp.93 %tmp.94;
-        bf %tmp.95 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_118_16_119_59_if_end;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_118_40_118_54_true:
-        %tmp.97 = getv ? :speeds_index;
-        %tmp.98 = 21;
-        %tmp.99 = gt %tmp.97 %tmp.98;
-        push %tmp.99;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_118_40_118_54_end:
-        %tmp.100 = phi [%tmp.95 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_118_20_118_54_begin] [%tmp.99 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_118_40_118_54_true] [%tmp.100 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_118_40_118_54_end];
-        bf %tmp.100 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_118_16_119_59_if_end;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_118_16_119_59_if_true:
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_118_58_119_59_start:
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 119 20 ]
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_119_35_119_56_begin:
-        %tmp.102 = lgetv %type;
-        %tmp.104 = const :next;
-        %tmp.105 = eq %tmp.102 %tmp.104;
-        bf %tmp.105 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_119_35_119_56_false;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_119_35_119_56_true:
-        %tmp.106 = 21;
-        push %tmp.106;
-        goto @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_119_35_119_56_end;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_119_35_119_56_false:
-        %tmp.107 = 47;
-        push %tmp.107;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_119_35_119_56_end:
-        %tmp.108 = phi [%tmp.105 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_119_35_119_56_begin] [%tmp.106 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_119_35_119_56_true] [%tmp.107 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_119_35_119_56_false] [%tmp.108 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_119_35_119_56_end];
-        putv self :speeds_index %tmp.108;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_118_58_119_59_stop:
-        goto @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_118_16_119_59_if_end;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_118_16_119_59_if_end:
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_117_55_120_12_stop:
-        goto @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_117_12_120_12_if_end;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_117_12_120_12_if_end:
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_115_59_121_8_stop:
-        goto @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_115_15_121_8_if_end;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_115_15_121_8_if_end:
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_111_8_121_8_if_end:
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 131 8 ]
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_131_8_134_8_if_stmt:
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_131_12_131_25_begin:
-        %tmp.110 = lgetv %in.2;
-        %tmp.111 = 2;
-        %tmp.112 = gt %tmp.110 %tmp.111;
-        bf %tmp.112 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_131_8_134_8_if_end;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_131_20_131_25_true:
-        %tmp.114 = lgetv %od.3;
-        %tmp.115 = 1;
-        %tmp.116 = eq %tmp.114 %tmp.115;
+        %tmp.85 = aputv %tmp.84 1 %tmp.83;
+        %tmp.86 = 6;
+        %tmp.87 = dup %tmp.85;
+        %tmp.88 = aputv %tmp.87 2 %tmp.86;
+        %tmp.89 = 7;
+        %tmp.90 = dup %tmp.88;
+        %tmp.91 = aputv %tmp.90 3 %tmp.89;
+        %tmp.92 = 8;
+        %tmp.93 = dup %tmp.91;
+        %tmp.94 = aputv %tmp.93 4 %tmp.92;
+        %tmp.95 = getv function %tmp.94 :indexOf;
+        %tmp.96 = getm $;
+        %tmp.97 = getv %tmp.96 :view_mode;
+        %tmp.98 = invoke %tmp.94 %tmp.95(%tmp.97);
+        %tmp.99 = -1;
+        %tmp.100 = gt %tmp.98 %tmp.99;
+        bf %tmp.100 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_121_12_126_12_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_121_12_126_12_if_true:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_121_55_126_12_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 122 16 ]
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_122_16_125_61_if_stmt:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_122_20_122_58_begin:
+        %tmp.101 = getm $;
+        %tmp.102 = getv %tmp.101 :speeds_index;
+        %tmp.103 = 47;
+        %tmp.104 = lt %tmp.102 %tmp.103;
+        bf %tmp.104 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_122_16_125_61_if_false;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_122_42_122_58_true:
+        %tmp.105 = getm $;
+        %tmp.106 = getv %tmp.105 :speeds_index;
+        %tmp.107 = 34;
+        %tmp.108 = gt %tmp.106 %tmp.107;
+        push %tmp.108;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_122_42_122_58_end:
+        %tmp.109 = phi [%tmp.104 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_122_20_122_58_begin] [%tmp.108 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_122_42_122_58_true] [%tmp.109 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_122_42_122_58_end];
+        bf %tmp.109 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_122_16_125_61_if_false;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_122_16_125_61_if_true:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_122_62_123_61_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 123 20 ]
+        %tmp.110 = getm $;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_123_37_123_58_begin:
+        %tmp.112 = lgetv %type;
+        %tmp.114 = const :next;
+        %tmp.115 = eq %tmp.112 %tmp.114;
+        bf %tmp.115 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_123_37_123_58_false;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_123_37_123_58_true:
+        %tmp.116 = 34;
         push %tmp.116;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_131_20_131_25_end:
-        %tmp.117 = phi [%tmp.112 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_131_12_131_25_begin] [%tmp.116 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_131_20_131_25_true] [%tmp.117 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_131_20_131_25_end];
-        bf %tmp.117 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_131_8_134_8_if_end;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_131_8_134_8_if_true:
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_131_29_134_8_start:
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 132 12 ]
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_132_12_133_49_if_stmt:
-        %tmp.119 = lgetv %type;
-        %tmp.121 = const :next;
-        %tmp.122 = eq %tmp.119 %tmp.121;
-        bf %tmp.122 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_132_12_133_49_if_false;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_132_12_133_49_if_true:
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_132_31_132_64_start:
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 132 33 ]
-        %tmp.123 = getv self :the_rad;
-        %tmp.125 = lgetv %mult.1;
-        %tmp.126 = getm $.Toybox.Math;
-        %tmp.127 = getv %tmp.126 :PI;
-        %tmp.128 = mul %tmp.125 %tmp.127;
-        %tmp.129 = 18.0;
-        %tmp.130 = div %tmp.128 %tmp.129;
-        %tmp.131 = add %tmp.123 %tmp.130;
-        putv self :the_rad dup %tmp.131;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_132_31_132_64_stop:
-        goto @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_132_12_133_49_if_end;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_132_12_133_49_if_false:
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_133_17_133_49_start:
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 133 19 ]
-        %tmp.132 = getv self :ga_rad;
-        %tmp.134 = lgetv %mult.1;
-        %tmp.135 = getm $.Toybox.Math;
-        %tmp.136 = getv %tmp.135 :PI;
-        %tmp.137 = mul %tmp.134 %tmp.136;
-        %tmp.138 = 18.0;
-        %tmp.139 = div %tmp.137 %tmp.138;
-        %tmp.140 = add %tmp.132 %tmp.139;
-        putv self :ga_rad dup %tmp.140;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_133_17_133_49_stop:
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_132_12_133_49_if_end:
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_131_29_134_8_stop:
-        goto @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_131_8_134_8_if_end;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_131_8_134_8_if_end:
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 136 12 ]
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_136_12_136_50_if_stmt:
-        %tmp.142 = getv ? :speeds_index;
-        %tmp.143 = 0;
-        %tmp.144 = lt %tmp.142 %tmp.143;
-        bf %tmp.144 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_136_12_136_50_if_end;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_136_12_136_50_if_true:
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_136_33_136_50_start:
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 136 34 ]
-        %tmp.145 = 0;
-        putv self :speeds_index %tmp.145;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_136_33_136_50_stop:
-        goto @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_136_12_136_50_if_end;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_136_12_136_50_if_end:
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 137 12 ]
-        %tmp.146 = getm $;
-        %tmp.147 = 0;
-        putv %tmp.146 :show_intvl %tmp.147;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_94_38_144_4_stop:
+        goto @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_123_37_123_58_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_123_37_123_58_false:
+        %tmp.117 = 47;
+        push %tmp.117;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_123_37_123_58_end:
+        %tmp.118 = phi [%tmp.115 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_123_37_123_58_begin] [%tmp.116 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_123_37_123_58_true] [%tmp.117 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_123_37_123_58_false] [%tmp.118 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_123_37_123_58_end];
+        putv %tmp.110 :speeds_index %tmp.118;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_122_62_123_61_stop:
+        goto @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_122_16_125_61_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_122_16_125_61_if_false:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 124 21 ]
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_124_21_125_61_if_stmt:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_124_25_124_63_begin:
+        %tmp.119 = getm $;
+        %tmp.120 = getv %tmp.119 :speeds_index;
+        %tmp.121 = 34;
+        %tmp.122 = lt %tmp.120 %tmp.121;
+        bf %tmp.122 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_124_21_125_61_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_124_47_124_63_true:
+        %tmp.123 = getm $;
+        %tmp.124 = getv %tmp.123 :speeds_index;
+        %tmp.125 = 21;
+        %tmp.126 = gt %tmp.124 %tmp.125;
+        push %tmp.126;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_124_47_124_63_end:
+        %tmp.127 = phi [%tmp.122 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_124_25_124_63_begin] [%tmp.126 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_124_47_124_63_true] [%tmp.127 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_124_47_124_63_end];
+        bf %tmp.127 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_124_21_125_61_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_124_21_125_61_if_true:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_124_67_125_61_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 125 20 ]
+        %tmp.128 = getm $;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_125_37_125_58_begin:
+        %tmp.130 = lgetv %type;
+        %tmp.132 = const :next;
+        %tmp.133 = eq %tmp.130 %tmp.132;
+        bf %tmp.133 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_125_37_125_58_false;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_125_37_125_58_true:
+        %tmp.134 = 21;
+        push %tmp.134;
+        goto @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_125_37_125_58_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_125_37_125_58_false:
+        %tmp.135 = 34;
+        push %tmp.135;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_125_37_125_58_end:
+        %tmp.136 = phi [%tmp.133 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_125_37_125_58_begin] [%tmp.134 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_125_37_125_58_true] [%tmp.135 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_125_37_125_58_false] [%tmp.136 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_125_37_125_58_end];
+        putv %tmp.128 :speeds_index %tmp.136;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_124_67_125_61_stop:
+        goto @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_124_21_125_61_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_124_21_125_61_if_end:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_122_16_125_61_if_end:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_121_55_126_12_stop:
+        goto @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_121_12_126_12_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_121_12_126_12_if_end:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_116_59_127_8_stop:
+        goto @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_116_15_127_8_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_116_15_127_8_if_end:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_112_8_127_8_if_end:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 137 8 ]
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_137_8_140_8_if_stmt:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_137_12_137_25_begin:
+        %tmp.138 = lgetv %in.2;
+        %tmp.139 = 2;
+        %tmp.140 = gt %tmp.138 %tmp.139;
+        bf %tmp.140 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_137_8_140_8_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_137_20_137_25_true:
+        %tmp.142 = lgetv %od.3;
+        %tmp.143 = 1;
+        %tmp.144 = eq %tmp.142 %tmp.143;
+        push %tmp.144;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_137_20_137_25_end:
+        %tmp.145 = phi [%tmp.140 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_137_12_137_25_begin] [%tmp.144 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_137_20_137_25_true] [%tmp.145 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_137_20_137_25_end];
+        bf %tmp.145 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_137_8_140_8_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_137_8_140_8_if_true:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_137_29_140_8_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 138 12 ]
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_138_12_139_49_if_stmt:
+        %tmp.147 = lgetv %type;
+        %tmp.149 = const :next;
+        %tmp.150 = eq %tmp.147 %tmp.149;
+        bf %tmp.150 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_138_12_139_49_if_false;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_138_12_139_49_if_true:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_138_31_138_64_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 138 33 ]
+        %tmp.151 = getv self :the_rad;
+        %tmp.153 = lgetv %mult.1;
+        %tmp.154 = getm $.Toybox.Math;
+        %tmp.155 = getv %tmp.154 :PI;
+        %tmp.156 = mul %tmp.153 %tmp.155;
+        %tmp.157 = 18.0;
+        %tmp.158 = div %tmp.156 %tmp.157;
+        %tmp.159 = add %tmp.151 %tmp.158;
+        putv self :the_rad dup %tmp.159;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_138_31_138_64_stop:
+        goto @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_138_12_139_49_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_138_12_139_49_if_false:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_139_17_139_49_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 139 19 ]
+        %tmp.160 = getv self :ga_rad;
+        %tmp.162 = lgetv %mult.1;
+        %tmp.163 = getm $.Toybox.Math;
+        %tmp.164 = getv %tmp.163 :PI;
+        %tmp.165 = mul %tmp.162 %tmp.164;
+        %tmp.166 = 18.0;
+        %tmp.167 = div %tmp.165 %tmp.166;
+        %tmp.168 = add %tmp.160 %tmp.167;
+        putv self :ga_rad dup %tmp.168;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_139_17_139_49_stop:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_138_12_139_49_if_end:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_137_29_140_8_stop:
+        goto @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_137_8_140_8_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_137_8_140_8_if_end:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 142 12 ]
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_142_12_142_54_if_stmt:
+        %tmp.169 = getm $;
+        %tmp.170 = getv %tmp.169 :speeds_index;
+        %tmp.171 = 0;
+        %tmp.172 = lt %tmp.170 %tmp.171;
+        bf %tmp.172 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_142_12_142_54_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_142_12_142_54_if_true:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_142_35_142_54_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 142 36 ]
+        %tmp.173 = getm $;
+        %tmp.174 = 0;
+        putv %tmp.173 :speeds_index %tmp.174;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_142_35_142_54_stop:
+        goto @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_142_12_142_54_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_142_12_142_54_if_end:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 143 12 ]
+        %tmp.175 = getm $;
+        %tmp.176 = 0;
+        putv %tmp.175 :show_intvl %tmp.176;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_94_38_150_4_stop:
     }
     //! Handle going to the next view
     //! @return true if handled, false otherwise
-    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc"; @line = 151; ]
+    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc"; @line = 157; ]
     public
     function onNextPage() as Boolean {
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_151_44_154_4_start:
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 152 6 ]
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_157_44_160_4_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 158 6 ]
         %tmp.1 = self;
         %tmp.2 = getv function %tmp.1 :handleNextPrevious;
         %tmp.4 = const :next;
         invoke %tmp.1 %tmp.2(%tmp.4);
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 153 6 ]
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 159 6 ]
         %tmp.5 = true;
         ret %tmp.5;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_151_44_154_4_stop:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_157_44_160_4_stop:
     }
     //! Handle going to the previous view
     //! @return true if handled, false otherwise
-    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc"; @line = 158; ]
+    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc"; @line = 164; ]
     public
     function onPreviousPage() as Boolean {
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_158_48_202_4_start:
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 161 8 ]
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_164_48_208_4_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 167 8 ]
         %tmp.1 = self;
         %tmp.2 = getv function %tmp.1 :handleNextPrevious;
         %tmp.4 = const :previous;
         invoke %tmp.1 %tmp.2(%tmp.4);
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 200 8 ]
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 206 8 ]
         %tmp.5 = true;
         ret %tmp.5;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_158_48_202_4_stop:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_164_48_208_4_stop:
     }
-    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc"; @line = 204; ]
+    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc"; @line = 210; ]
     function onTap(clickEvent) {
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_204_31_209_4_start:
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 205 8 ]
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_210_31_215_4_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 211 8 ]
         %tmp.1 = getm $.Toybox.System;
         %tmp.2 = getv function %tmp.1 :println;
         %tmp.3 = "Click1: ";
@@ -589,7 +647,7 @@ E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_So
         %tmp.6 = invoke %tmp.4 %tmp.5();
         %tmp.7 = add %tmp.3 %tmp.6;
         invoke %tmp.1 %tmp.2(%tmp.7);
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 206 8 ]
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 212 8 ]
         %tmp.8 = getm $.Toybox.System;
         %tmp.9 = getv function %tmp.8 :println;
         %tmp.10 = "Click2: ";
@@ -598,50 +656,50 @@ E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_So
         %tmp.13 = invoke %tmp.11 %tmp.12();
         %tmp.14 = add %tmp.10 %tmp.13;
         invoke %tmp.8 %tmp.9(%tmp.14);
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 207 8 ]
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 213 8 ]
         %tmp.15 = getm $;
         %tmp.16 = true;
         putv %tmp.15 :timeWasAdded %tmp.16;
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 208 8 ]
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 214 8 ]
         %tmp.17 = true;
         ret %tmp.17;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_204_31_209_4_stop:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_210_31_215_4_stop:
     }
-    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc"; @line = 212; ]
+    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc"; @line = 218; ]
     function onKey(keyEvent) {
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_212_29_230_4_start:
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 213 8 ]
-        [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_212_29_230_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_212_29_230_4_stop" ]
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_218_29_236_4_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 219 8 ]
+        [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_218_29_236_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_218_29_236_4_stop" ]
         %keyvent.1 = local;
         %tmp.1 = lgetv %keyEvent;
         %tmp.2 = getv function %tmp.1 :getKey;
         %tmp.3 = invoke %tmp.1 %tmp.2();
         lputv %keyvent.1 %tmp.3;
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 216 8 ]
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_216_8_226_8_if_stmt:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 222 8 ]
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_222_8_232_8_if_stmt:
         %tmp.5 = lgetv %keyvent.1;
         %tmp.6 = 7;
         %tmp.7 = eq %tmp.5 %tmp.6;
-        bf %tmp.7 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_216_8_226_8_if_end;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_216_8_226_8_if_true:
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_216_26_226_8_start:
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 218 12 ]
+        bf %tmp.7 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_222_8_232_8_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_222_8_232_8_if_true:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_222_26_232_8_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 224 12 ]
         %tmp.8 = getm $;
         %tmp.11 = getm $;
         %tmp.12 = getv %tmp.11 :buttonPresses;
         %tmp.13 = add %tmp.12 1;
         putv %tmp.8 :buttonPresses dup %tmp.13;
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 219 12 ]
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 225 12 ]
         %tmp.17 = getm $;
         %tmp.18 = getv %tmp.17 :SolarSystemSettingsView;
         %tmp.14 = newc %tmp.18 ();
         putv self :settings_view %tmp.14;
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 220 12 ]
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 226 12 ]
         %tmp.22 = getm $;
         %tmp.23 = getv %tmp.22 :SolarSystemSettingsDelegate;
         %tmp.19 = newc %tmp.23 ();
         putv self :settings_delegate %tmp.19;
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 222 12 ]
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 228 12 ]
         %tmp.24 = self;
         %tmp.25 = getv function %tmp.24 :pushView;
         %tmp.27 = getv ? :settings_view;
@@ -649,477 +707,490 @@ E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_So
         %tmp.30 = getm $.Toybox.WatchUi;
         %tmp.31 = getv %tmp.30 :SLIDE_IMMEDIATE;
         invoke %tmp.24 %tmp.25(%tmp.27, %tmp.29, %tmp.31);
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 225 12 ]
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 231 12 ]
         %tmp.32 = true;
         ret %tmp.32;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_216_26_226_8_stop:
-        goto @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_216_8_226_8_if_end;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_216_8_226_8_if_end:
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 227 8 ]
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_222_26_232_8_stop:
+        goto @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_222_8_232_8_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_222_8_232_8_if_end:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 233 8 ]
         %tmp.33 = false;
         ret %tmp.33;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_212_29_230_4_stop:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_218_29_236_4_stop:
     }
 }
-[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc"; @line = 234; ]
+[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc"; @line = 240; ]
 function changeModes(previousMode) {
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_234_34_354_0_start:
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 237 8 ]
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_240_34_369_0_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 243 8 ]
     %tmp.1 = getm $;
     %tmp.2 = true;
     putv %tmp.1 :timeWasAdded %tmp.2;
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 238 8 ]
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 244 8 ]
     %tmp.3 = getm $;
     %tmp.4 = 0;
     putv %tmp.3 :animSinceModeChange %tmp.4;
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 239 8 ]
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 245 8 ]
     %tmp.5 = getm $;
     %tmp.6 = 0;
     putv %tmp.5 :show_intvl %tmp.6;
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 241 8 ]
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 247 8 ]
     %tmp.7 = getm $;
     %tmp.8 = getv %tmp.7 :Options_Dict;
     %tmp.10 = getv ? :orrZoomOption_default;
     %tmp.11 = "orrZoomOption";
     aputv %tmp.8 %tmp.11 %tmp.10;
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 243 8 ]
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 249 8 ]
     %tmp.12 = getm $;
     %tmp.13 = getv %tmp.12 :view_mode;
     push %tmp.13;
-    switch %tmp.13 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_243_8_351_8_switchStmtEnd;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_243_8_351_8_switchStmtBegin:
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 244 12 ]
+    switch %tmp.13 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_249_8_366_8_switchStmtEnd;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_249_8_366_8_switchStmtBegin:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 250 12 ]
     %tmp.14 = dup %tmp.13;
     %tmp.15 = 0;
     %tmp.16 = getv function %tmp.14 :equals;
     %tmp.17 = invoke %tmp.14 %tmp.16 (%tmp.15);
-    bt %tmp.17 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_244_12_253_21_switchCase;
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 254 12 ]
+    bt %tmp.17 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_250_12_260_21_switchCase;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 261 12 ]
     %tmp.18 = dup %tmp.13;
     %tmp.19 = 1;
     %tmp.20 = getv function %tmp.18 :equals;
     %tmp.21 = invoke %tmp.18 %tmp.20 (%tmp.19);
-    bt %tmp.21 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_254_12_260_21_switchCase;
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 261 12 ]
+    bt %tmp.21 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_261_12_268_21_switchCase;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 269 12 ]
     %tmp.22 = dup %tmp.13;
     %tmp.23 = 2;
     %tmp.24 = getv function %tmp.22 :equals;
     %tmp.25 = invoke %tmp.22 %tmp.24 (%tmp.23);
-    bt %tmp.25 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_261_12_269_21_switchCase;
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 270 12 ]
+    bt %tmp.25 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_269_12_278_21_switchCase;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 279 12 ]
     %tmp.26 = dup %tmp.13;
     %tmp.27 = 3;
     %tmp.28 = getv function %tmp.26 :equals;
     %tmp.29 = invoke %tmp.26 %tmp.28 (%tmp.27);
-    bt %tmp.29 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_270_12_281_21_switchCase;
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 282 12 ]
+    bt %tmp.29 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_279_12_291_21_switchCase;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 292 12 ]
     %tmp.30 = dup %tmp.13;
     %tmp.31 = 4;
     %tmp.32 = getv function %tmp.30 :equals;
     %tmp.33 = invoke %tmp.30 %tmp.32 (%tmp.31);
-    bt %tmp.33 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_282_12_293_21_switchCase;
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 294 12 ]
+    bt %tmp.33 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_292_12_304_21_switchCase;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 305 12 ]
     %tmp.34 = dup %tmp.13;
     %tmp.35 = 5;
     %tmp.36 = getv function %tmp.34 :equals;
     %tmp.37 = invoke %tmp.34 %tmp.36 (%tmp.35);
-    bt %tmp.37 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_294_12_305_21_switchCase;
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 306 12 ]
+    bt %tmp.37 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_305_12_317_21_switchCase;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 318 12 ]
     %tmp.38 = dup %tmp.13;
     %tmp.39 = 6;
     %tmp.40 = getv function %tmp.38 :equals;
     %tmp.41 = invoke %tmp.38 %tmp.40 (%tmp.39);
-    bt %tmp.41 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_306_12_317_21_switchCase;
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 320 12 ]
+    bt %tmp.41 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_318_12_330_21_switchCase;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 333 12 ]
     %tmp.42 = dup %tmp.13;
     %tmp.43 = 7;
     %tmp.44 = getv function %tmp.42 :equals;
     %tmp.45 = invoke %tmp.42 %tmp.44 (%tmp.43);
-    bt %tmp.45 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_320_12_331_21_switchCase;
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 333 12 ]
+    bt %tmp.45 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_333_12_345_21_switchCase;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 347 12 ]
     %tmp.46 = dup %tmp.13;
     %tmp.47 = 8;
     %tmp.48 = getv function %tmp.46 :equals;
     %tmp.49 = invoke %tmp.46 %tmp.48 (%tmp.47);
-    bt %tmp.49 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_333_12_346_21_switchCase;
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 347 12 ]
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_243_8_351_8_switchStmtDefault:
-    goto @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_243_8_351_8_defaultCodeBegin;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_244_12_253_21_switchCase:
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 245 16 ]
-    %tmp.50 = getm $;
-    %tmp.51 = getm $;
-    %tmp.52 = getv %tmp.51 :animation_count;
-    putv %tmp.50 :countWhenMode0Started %tmp.52;
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 248 16 ]
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_248_16_250_16_if_stmt:
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_248_20_248_58_begin:
-    %tmp.54 = lgetv %previousMode;
-    %tmp.55 = null;
-    %tmp.56 = ne %tmp.54 %tmp.55;
-    bf %tmp.56 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_248_16_250_16_if_end;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_248_44_248_58_true:
-    %tmp.58 = lgetv %previousMode;
-    %tmp.59 = as %tmp.58 { (!Null) };
-    %tmp.60 = 5;
-    %tmp.61 = eq %tmp.59 %tmp.60;
-    push %tmp.61;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_248_44_248_58_end:
-    %tmp.62 = phi [%tmp.56 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_248_20_248_58_begin] [%tmp.61 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_248_44_248_58_true] [%tmp.62 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_248_44_248_58_end];
-    bf %tmp.62 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_248_16_250_16_if_end;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_248_16_250_16_if_true:
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_248_62_250_16_start:
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 249 20 ]
-    %tmp.63 = getm $;
-    %tmp.64 = 0;
-    putv %tmp.63 :time_add_hrs %tmp.64;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_248_62_250_16_stop:
-    goto @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_248_16_250_16_if_end;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_248_16_250_16_if_end:
+    bt %tmp.49 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_347_12_361_21_switchCase;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 362 12 ]
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_249_8_366_8_switchStmtDefault:
+    goto @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_249_8_366_8_defaultCodeBegin;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_250_12_260_21_switchCase:
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 251 16 ]
-    %tmp.66 = getv ? :screen0Move_index;
-    putv self :speeds_index %tmp.66;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_251_16_251_74_if_stmt:
+    %tmp.51 = getv ? :vsop_cache;
+    %tmp.52 = null;
+    %tmp.53 = eq %tmp.51 %tmp.52;
+    bf %tmp.53 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_251_16_251_74_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_251_16_251_74_if_true:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_251_41_251_74_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 251 42 ]
+    %tmp.57 = getv ? :VSOP87_cache;
+    %tmp.54 = newc %tmp.57 ();
+    putv self :vsop_cache %tmp.54;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_251_41_251_74_stop:
+    goto @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_251_16_251_74_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_251_16_251_74_if_end:
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 252 16 ]
-    %tmp.68 = getv ? :solarSystemView_class;
-    %tmp.69 = getv function %tmp.68 :sendMessage;
-    %tmp.70 = 5;
-    %tmp.71 = newa 4;
-    %tmp.72 = "Manual Mode";
-    %tmp.73 = dup %tmp.71;
-    %tmp.74 = aputv %tmp.73 0 %tmp.72;
-    %tmp.75 = "Use Up/Down";
-    %tmp.76 = dup %tmp.74;
-    %tmp.77 = aputv %tmp.76 1 %tmp.75;
-    %tmp.78 = "";
-    %tmp.79 = dup %tmp.77;
-    %tmp.80 = aputv %tmp.79 2 %tmp.78;
-    %tmp.81 = null;
-    %tmp.82 = dup %tmp.80;
-    %tmp.83 = aputv %tmp.82 3 %tmp.81;
-    invoke %tmp.68 %tmp.69(%tmp.70, %tmp.83);
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 253 16 ]
-    goto break @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_243_8_351_8_switchStmtEnd;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_254_12_260_21_switchCase:
+    %tmp.58 = getm $;
+    %tmp.59 = getm $;
+    %tmp.60 = getv %tmp.59 :animation_count;
+    putv %tmp.58 :countWhenMode0Started %tmp.60;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 255 16 ]
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_255_16_257_16_if_stmt:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_255_20_255_58_begin:
+    %tmp.62 = lgetv %previousMode;
+    %tmp.63 = null;
+    %tmp.64 = ne %tmp.62 %tmp.63;
+    bf %tmp.64 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_255_16_257_16_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_255_44_255_58_true:
+    %tmp.66 = lgetv %previousMode;
+    %tmp.67 = as %tmp.66 { (!Null) };
+    %tmp.68 = 5;
+    %tmp.69 = eq %tmp.67 %tmp.68;
+    push %tmp.69;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_255_44_255_58_end:
+    %tmp.70 = phi [%tmp.64 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_255_20_255_58_begin] [%tmp.69 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_255_44_255_58_true] [%tmp.70 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_255_44_255_58_end];
+    bf %tmp.70 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_255_16_257_16_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_255_16_257_16_if_true:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_255_62_257_16_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 256 20 ]
+    %tmp.71 = getm $;
+    %tmp.72 = 0;
+    putv %tmp.71 :time_add_hrs %tmp.72;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_255_62_257_16_stop:
+    goto @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_255_16_257_16_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_255_16_257_16_if_end:
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 258 16 ]
-    %tmp.84 = 38;
-    putv self :speeds_index %tmp.84;
+    %tmp.74 = getv ? :screen0Move_index;
+    putv self :speeds_index %tmp.74;
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 259 16 ]
-    %tmp.86 = getv ? :solarSystemView_class;
-    %tmp.87 = getv function %tmp.86 :sendMessage;
-    %tmp.88 = 5;
-    %tmp.89 = newa 4;
-    %tmp.90 = "Auto Mode (Slow)";
-    %tmp.91 = dup %tmp.89;
-    %tmp.92 = aputv %tmp.91 0 %tmp.90;
-    %tmp.93 = "Use Up/Down";
-    %tmp.94 = dup %tmp.92;
-    %tmp.95 = aputv %tmp.94 1 %tmp.93;
-    %tmp.96 = "";
-    %tmp.97 = dup %tmp.95;
-    %tmp.98 = aputv %tmp.97 2 %tmp.96;
-    %tmp.99 = null;
-    %tmp.100 = dup %tmp.98;
-    %tmp.101 = aputv %tmp.100 3 %tmp.99;
-    invoke %tmp.86 %tmp.87(%tmp.88, %tmp.101);
+    %tmp.76 = getv ? :solarSystemView_class;
+    %tmp.77 = getv function %tmp.76 :sendMessage;
+    %tmp.78 = 5;
+    %tmp.79 = newa 4;
+    %tmp.80 = "Manual Mode";
+    %tmp.81 = dup %tmp.79;
+    %tmp.82 = aputv %tmp.81 0 %tmp.80;
+    %tmp.83 = "Use Up/Down";
+    %tmp.84 = dup %tmp.82;
+    %tmp.85 = aputv %tmp.84 1 %tmp.83;
+    %tmp.86 = "";
+    %tmp.87 = dup %tmp.85;
+    %tmp.88 = aputv %tmp.87 2 %tmp.86;
+    %tmp.89 = null;
+    %tmp.90 = dup %tmp.88;
+    %tmp.91 = aputv %tmp.90 3 %tmp.89;
+    invoke %tmp.76 %tmp.77(%tmp.78, %tmp.91);
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 260 16 ]
-    goto break @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_243_8_351_8_switchStmtEnd;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_261_12_269_21_switchCase:
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 264 16 ]
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_264_16_266_16_if_stmt:
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_264_20_264_58_begin:
-    %tmp.103 = lgetv %previousMode;
-    %tmp.104 = null;
-    %tmp.105 = ne %tmp.103 %tmp.104;
-    bf %tmp.105 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_264_16_266_16_if_end;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_264_44_264_58_true:
-    %tmp.107 = lgetv %previousMode;
-    %tmp.108 = as %tmp.107 { (!Null) };
-    %tmp.109 = 3;
-    %tmp.110 = eq %tmp.108 %tmp.109;
-    push %tmp.110;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_264_44_264_58_end:
-    %tmp.111 = phi [%tmp.105 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_264_20_264_58_begin] [%tmp.110 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_264_44_264_58_true] [%tmp.111 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_264_44_264_58_end];
-    bf %tmp.111 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_264_16_266_16_if_end;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_264_16_266_16_if_true:
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_264_62_266_16_start:
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 265 20 ]
-    %tmp.112 = getm $;
-    %tmp.113 = 0;
-    putv %tmp.112 :time_add_hrs %tmp.113;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_264_62_266_16_stop:
-    goto @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_264_16_266_16_if_end;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_264_16_266_16_if_end:
+    goto break @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_249_8_366_8_switchStmtEnd;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_261_12_268_21_switchCase:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 262 16 ]
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_262_16_262_74_if_stmt:
+    %tmp.93 = getv ? :vsop_cache;
+    %tmp.94 = null;
+    %tmp.95 = eq %tmp.93 %tmp.94;
+    bf %tmp.95 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_262_16_262_74_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_262_16_262_74_if_true:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_262_41_262_74_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 262 42 ]
+    %tmp.99 = getv ? :VSOP87_cache;
+    %tmp.96 = newc %tmp.99 ();
+    putv self :vsop_cache %tmp.96;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_262_41_262_74_stop:
+    goto @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_262_16_262_74_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_262_16_262_74_if_end:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 266 16 ]
+    %tmp.100 = 38;
+    putv self :speeds_index %tmp.100;
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 267 16 ]
-    %tmp.114 = 48;
-    putv self :speeds_index %tmp.114;
+    %tmp.102 = getv ? :solarSystemView_class;
+    %tmp.103 = getv function %tmp.102 :sendMessage;
+    %tmp.104 = 5;
+    %tmp.105 = newa 4;
+    %tmp.106 = "Auto Mode (Slow)";
+    %tmp.107 = dup %tmp.105;
+    %tmp.108 = aputv %tmp.107 0 %tmp.106;
+    %tmp.109 = "Use Up/Down";
+    %tmp.110 = dup %tmp.108;
+    %tmp.111 = aputv %tmp.110 1 %tmp.109;
+    %tmp.112 = "";
+    %tmp.113 = dup %tmp.111;
+    %tmp.114 = aputv %tmp.113 2 %tmp.112;
+    %tmp.115 = null;
+    %tmp.116 = dup %tmp.114;
+    %tmp.117 = aputv %tmp.116 3 %tmp.115;
+    invoke %tmp.102 %tmp.103(%tmp.104, %tmp.117);
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 268 16 ]
-    %tmp.116 = getv ? :solarSystemView_class;
-    %tmp.117 = getv function %tmp.116 :sendMessage;
-    %tmp.118 = 5;
-    %tmp.119 = newa 4;
-    %tmp.120 = "Auto Mode (Fast)";
-    %tmp.121 = dup %tmp.119;
-    %tmp.122 = aputv %tmp.121 0 %tmp.120;
-    %tmp.123 = "Use Up/Down";
-    %tmp.124 = dup %tmp.122;
-    %tmp.125 = aputv %tmp.124 1 %tmp.123;
-    %tmp.126 = "";
-    %tmp.127 = dup %tmp.125;
-    %tmp.128 = aputv %tmp.127 2 %tmp.126;
-    %tmp.129 = null;
-    %tmp.130 = dup %tmp.128;
-    %tmp.131 = aputv %tmp.130 3 %tmp.129;
-    invoke %tmp.116 %tmp.117(%tmp.118, %tmp.131);
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 269 16 ]
-    goto break @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_243_8_351_8_switchStmtEnd;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_270_12_281_21_switchCase:
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 272 16 ]
-    %tmp.132 = getm $;
-    %tmp.133 = 0;
-    putv %tmp.132 :time_add_hrs %tmp.133;
+    goto break @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_249_8_366_8_switchStmtEnd;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_269_12_278_21_switchCase:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 270 16 ]
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_270_16_270_74_if_stmt:
+    %tmp.119 = getv ? :vsop_cache;
+    %tmp.120 = null;
+    %tmp.121 = eq %tmp.119 %tmp.120;
+    bf %tmp.121 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_270_16_270_74_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_270_16_270_74_if_true:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_270_41_270_74_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 270 42 ]
+    %tmp.125 = getv ? :VSOP87_cache;
+    %tmp.122 = newc %tmp.125 ();
+    putv self :vsop_cache %tmp.122;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_270_41_270_74_stop:
+    goto @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_270_16_270_74_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_270_16_270_74_if_end:
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 273 16 ]
-    %tmp.134 = getm $;
-    %tmp.135 = true;
-    putv %tmp.134 :newModeOrZoom %tmp.135;
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 275 16 ]
-    %tmp.136 = 53;
-    putv self :speeds_index %tmp.136;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_273_16_275_16_if_stmt:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_273_20_273_58_begin:
+    %tmp.127 = lgetv %previousMode;
+    %tmp.128 = null;
+    %tmp.129 = ne %tmp.127 %tmp.128;
+    bf %tmp.129 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_273_16_275_16_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_273_44_273_58_true:
+    %tmp.131 = lgetv %previousMode;
+    %tmp.132 = as %tmp.131 { (!Null) };
+    %tmp.133 = 3;
+    %tmp.134 = eq %tmp.132 %tmp.133;
+    push %tmp.134;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_273_44_273_58_end:
+    %tmp.135 = phi [%tmp.129 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_273_20_273_58_begin] [%tmp.134 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_273_44_273_58_true] [%tmp.135 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_273_44_273_58_end];
+    bf %tmp.135 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_273_16_275_16_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_273_16_275_16_if_true:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_273_62_275_16_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 274 20 ]
+    %tmp.136 = getm $;
+    %tmp.137 = 0;
+    putv %tmp.136 :time_add_hrs %tmp.137;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_273_62_275_16_stop:
+    goto @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_273_16_275_16_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_273_16_275_16_if_end:
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 276 16 ]
-    %tmp.138 = getv ? :solarSystemView_class;
-    %tmp.139 = getv function %tmp.138 :sendMessage;
-    %tmp.140 = 3;
-    %tmp.141 = newa 4;
-    %tmp.142 = "Inner Solar";
-    %tmp.143 = dup %tmp.141;
-    %tmp.144 = aputv %tmp.143 0 %tmp.142;
-    %tmp.145 = "System-Top Vw";
-    %tmp.146 = dup %tmp.144;
-    %tmp.147 = aputv %tmp.146 1 %tmp.145;
-    %tmp.148 = "(Use Up/Down)";
-    %tmp.149 = dup %tmp.147;
-    %tmp.150 = aputv %tmp.149 2 %tmp.148;
-    %tmp.151 = "";
-    %tmp.152 = dup %tmp.150;
-    %tmp.153 = aputv %tmp.152 3 %tmp.151;
-    invoke %tmp.138 %tmp.139(%tmp.140, %tmp.153);
+    %tmp.138 = 48;
+    putv self :speeds_index %tmp.138;
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 277 16 ]
-    %tmp.154 = 0;
-    putv self :ga_rad %tmp.154;
+    %tmp.140 = getv ? :solarSystemView_class;
+    %tmp.141 = getv function %tmp.140 :sendMessage;
+    %tmp.142 = 5;
+    %tmp.143 = newa 4;
+    %tmp.144 = "Auto Mode (Fast)";
+    %tmp.145 = dup %tmp.143;
+    %tmp.146 = aputv %tmp.145 0 %tmp.144;
+    %tmp.147 = "Use Up/Down";
+    %tmp.148 = dup %tmp.146;
+    %tmp.149 = aputv %tmp.148 1 %tmp.147;
+    %tmp.150 = "";
+    %tmp.151 = dup %tmp.149;
+    %tmp.152 = aputv %tmp.151 2 %tmp.150;
+    %tmp.153 = null;
+    %tmp.154 = dup %tmp.152;
+    %tmp.155 = aputv %tmp.154 3 %tmp.153;
+    invoke %tmp.140 %tmp.141(%tmp.142, %tmp.155);
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 278 16 ]
-    %tmp.155 = 0;
-    putv self :the_rad %tmp.155;
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 279 16 ]
-    %tmp.156 = getm $;
-    %tmp.157 = getv %tmp.156 :Options_Dict;
-    %tmp.158 = 0;
-    %tmp.159 = "thetaOption";
-    aputv %tmp.157 %tmp.159 %tmp.158;
+    goto break @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_249_8_366_8_switchStmtEnd;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_279_12_291_21_switchCase:
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 280 16 ]
+    %tmp.156 = null;
+    putv self :vsop_cache %tmp.156;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 282 16 ]
+    %tmp.157 = getm $;
+    %tmp.158 = 0;
+    putv %tmp.157 :time_add_hrs %tmp.158;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 283 16 ]
+    %tmp.159 = getm $;
     %tmp.160 = true;
-    putv self :started %tmp.160;
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 281 16 ]
-    goto break @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_243_8_351_8_switchStmtEnd;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_282_12_293_21_switchCase:
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 284 16 ]
-    %tmp.161 = getm $;
-    %tmp.162 = 0;
-    putv %tmp.161 :time_add_hrs %tmp.162;
+    putv %tmp.159 :newModeOrZoom %tmp.160;
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 285 16 ]
-    %tmp.163 = getm $;
-    %tmp.164 = true;
-    putv %tmp.163 :newModeOrZoom %tmp.164;
+    %tmp.161 = 53;
+    putv self :speeds_index %tmp.161;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 286 16 ]
+    %tmp.163 = getv ? :solarSystemView_class;
+    %tmp.164 = getv function %tmp.163 :sendMessage;
+    %tmp.165 = 3;
+    %tmp.166 = newa 4;
+    %tmp.167 = "Inner Solar";
+    %tmp.168 = dup %tmp.166;
+    %tmp.169 = aputv %tmp.168 0 %tmp.167;
+    %tmp.170 = "System-Top View";
+    %tmp.171 = dup %tmp.169;
+    %tmp.172 = aputv %tmp.171 1 %tmp.170;
+    %tmp.173 = "(Use Up/Down)";
+    %tmp.174 = dup %tmp.172;
+    %tmp.175 = aputv %tmp.174 2 %tmp.173;
+    %tmp.176 = "";
+    %tmp.177 = dup %tmp.175;
+    %tmp.178 = aputv %tmp.177 3 %tmp.176;
+    invoke %tmp.163 %tmp.164(%tmp.165, %tmp.178);
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 287 16 ]
-    %tmp.165 = 54;
-    putv self :speeds_index %tmp.165;
+    %tmp.179 = 0;
+    putv self :ga_rad %tmp.179;
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 288 16 ]
-    %tmp.167 = getv ? :solarSystemView_class;
-    %tmp.168 = getv function %tmp.167 :sendMessage;
-    %tmp.169 = 3;
-    %tmp.170 = newa 4;
-    %tmp.171 = "Inner Solar";
-    %tmp.172 = dup %tmp.170;
-    %tmp.173 = aputv %tmp.172 0 %tmp.171;
-    %tmp.174 = "System-Side Vw";
-    %tmp.175 = dup %tmp.173;
-    %tmp.176 = aputv %tmp.175 1 %tmp.174;
-    %tmp.177 = "(Use Up/Down)";
-    %tmp.178 = dup %tmp.176;
-    %tmp.179 = aputv %tmp.178 2 %tmp.177;
-    %tmp.180 = "";
-    %tmp.181 = dup %tmp.179;
-    %tmp.182 = aputv %tmp.181 3 %tmp.180;
-    invoke %tmp.167 %tmp.168(%tmp.169, %tmp.182);
+    %tmp.180 = 0;
+    putv self :the_rad %tmp.180;
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 289 16 ]
+    %tmp.181 = getm $;
+    %tmp.182 = getv %tmp.181 :Options_Dict;
     %tmp.183 = 0;
-    putv self :ga_rad %tmp.183;
+    %tmp.184 = "thetaOption";
+    aputv %tmp.182 %tmp.184 %tmp.183;
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 290 16 ]
-    %tmp.184 = 1.45;
-    putv self :the_rad %tmp.184;
+    %tmp.185 = true;
+    putv self :started %tmp.185;
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 291 16 ]
-    %tmp.185 = getm $;
-    %tmp.186 = getv %tmp.185 :Options_Dict;
-    %tmp.187 = 1;
-    %tmp.188 = "thetaOption";
-    aputv %tmp.186 %tmp.188 %tmp.187;
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 292 16 ]
-    %tmp.189 = true;
-    putv self :started %tmp.189;
+    goto break @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_249_8_366_8_switchStmtEnd;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_292_12_304_21_switchCase:
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 293 16 ]
-    goto break @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_243_8_351_8_switchStmtEnd;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_294_12_305_21_switchCase:
+    %tmp.186 = null;
+    putv self :vsop_cache %tmp.186;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 295 16 ]
+    %tmp.187 = getm $;
+    %tmp.188 = 0;
+    putv %tmp.187 :time_add_hrs %tmp.188;
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 296 16 ]
-    %tmp.190 = getm $;
-    %tmp.191 = 0;
-    putv %tmp.190 :time_add_hrs %tmp.191;
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 297 16 ]
-    %tmp.192 = getm $;
-    %tmp.193 = true;
-    putv %tmp.192 :newModeOrZoom %tmp.193;
+    %tmp.189 = getm $;
+    %tmp.190 = true;
+    putv %tmp.189 :newModeOrZoom %tmp.190;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 298 16 ]
+    %tmp.191 = 54;
+    putv self :speeds_index %tmp.191;
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 299 16 ]
-    %tmp.194 = 64;
-    putv self :speeds_index %tmp.194;
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 300 16 ]
-    %tmp.196 = getv ? :solarSystemView_class;
-    %tmp.197 = getv function %tmp.196 :sendMessage;
-    %tmp.198 = 3;
-    %tmp.199 = newa 4;
-    %tmp.200 = "Outer Solar";
+    %tmp.193 = getv ? :solarSystemView_class;
+    %tmp.194 = getv function %tmp.193 :sendMessage;
+    %tmp.195 = 3;
+    %tmp.196 = newa 4;
+    %tmp.197 = "Inner Solar";
+    %tmp.198 = dup %tmp.196;
+    %tmp.199 = aputv %tmp.198 0 %tmp.197;
+    %tmp.200 = "System-Side View";
     %tmp.201 = dup %tmp.199;
-    %tmp.202 = aputv %tmp.201 0 %tmp.200;
-    %tmp.203 = "System-Top";
+    %tmp.202 = aputv %tmp.201 1 %tmp.200;
+    %tmp.203 = "(Use Up/Down)";
     %tmp.204 = dup %tmp.202;
-    %tmp.205 = aputv %tmp.204 1 %tmp.203;
-    %tmp.206 = "(Use Up/Down)";
+    %tmp.205 = aputv %tmp.204 2 %tmp.203;
+    %tmp.206 = "";
     %tmp.207 = dup %tmp.205;
-    %tmp.208 = aputv %tmp.207 2 %tmp.206;
-    %tmp.209 = "";
-    %tmp.210 = dup %tmp.208;
-    %tmp.211 = aputv %tmp.210 3 %tmp.209;
-    invoke %tmp.196 %tmp.197(%tmp.198, %tmp.211);
+    %tmp.208 = aputv %tmp.207 3 %tmp.206;
+    invoke %tmp.193 %tmp.194(%tmp.195, %tmp.208);
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 300 16 ]
+    %tmp.209 = 0;
+    putv self :ga_rad %tmp.209;
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 301 16 ]
-    %tmp.212 = 0;
-    putv self :ga_rad %tmp.212;
+    %tmp.210 = 1.45;
+    putv self :the_rad %tmp.210;
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 302 16 ]
-    %tmp.213 = 0;
-    putv self :the_rad %tmp.213;
+    %tmp.211 = getm $;
+    %tmp.212 = getv %tmp.211 :Options_Dict;
+    %tmp.213 = 1;
+    %tmp.214 = "thetaOption";
+    aputv %tmp.212 %tmp.214 %tmp.213;
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 303 16 ]
-    %tmp.214 = getm $;
-    %tmp.215 = getv %tmp.214 :Options_Dict;
-    %tmp.216 = 0;
-    %tmp.217 = "thetaOption";
-    aputv %tmp.215 %tmp.217 %tmp.216;
+    %tmp.215 = true;
+    putv self :started %tmp.215;
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 304 16 ]
-    %tmp.218 = true;
-    putv self :started %tmp.218;
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 305 16 ]
-    goto break @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_243_8_351_8_switchStmtEnd;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_306_12_317_21_switchCase:
+    goto break @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_249_8_366_8_switchStmtEnd;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_305_12_317_21_switchCase:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 306 16 ]
+    %tmp.216 = null;
+    putv self :vsop_cache %tmp.216;
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 308 16 ]
-    %tmp.219 = getm $;
-    %tmp.220 = 0;
-    putv %tmp.219 :time_add_hrs %tmp.220;
+    %tmp.217 = getm $;
+    %tmp.218 = 0;
+    putv %tmp.217 :time_add_hrs %tmp.218;
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 309 16 ]
-    %tmp.221 = getm $;
-    %tmp.222 = true;
-    putv %tmp.221 :newModeOrZoom %tmp.222;
+    %tmp.219 = getm $;
+    %tmp.220 = true;
+    putv %tmp.219 :newModeOrZoom %tmp.220;
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 311 16 ]
-    %tmp.223 = 65;
-    putv self :speeds_index %tmp.223;
+    %tmp.221 = 64;
+    putv self :speeds_index %tmp.221;
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 312 16 ]
-    %tmp.225 = getv ? :solarSystemView_class;
-    %tmp.226 = getv function %tmp.225 :sendMessage;
-    %tmp.227 = 3;
-    %tmp.228 = newa 4;
-    %tmp.229 = "Outer Solar";
-    %tmp.230 = dup %tmp.228;
-    %tmp.231 = aputv %tmp.230 0 %tmp.229;
-    %tmp.232 = "System-Side Vw";
-    %tmp.233 = dup %tmp.231;
-    %tmp.234 = aputv %tmp.233 1 %tmp.232;
-    %tmp.235 = "(Use Up/Down)";
-    %tmp.236 = dup %tmp.234;
-    %tmp.237 = aputv %tmp.236 2 %tmp.235;
-    %tmp.238 = "";
-    %tmp.239 = dup %tmp.237;
-    %tmp.240 = aputv %tmp.239 3 %tmp.238;
-    invoke %tmp.225 %tmp.226(%tmp.227, %tmp.240);
+    %tmp.223 = getv ? :solarSystemView_class;
+    %tmp.224 = getv function %tmp.223 :sendMessage;
+    %tmp.225 = 3;
+    %tmp.226 = newa 4;
+    %tmp.227 = "Outer Solar";
+    %tmp.228 = dup %tmp.226;
+    %tmp.229 = aputv %tmp.228 0 %tmp.227;
+    %tmp.230 = "System-Top View";
+    %tmp.231 = dup %tmp.229;
+    %tmp.232 = aputv %tmp.231 1 %tmp.230;
+    %tmp.233 = "(Use Up/Down)";
+    %tmp.234 = dup %tmp.232;
+    %tmp.235 = aputv %tmp.234 2 %tmp.233;
+    %tmp.236 = "";
+    %tmp.237 = dup %tmp.235;
+    %tmp.238 = aputv %tmp.237 3 %tmp.236;
+    invoke %tmp.223 %tmp.224(%tmp.225, %tmp.238);
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 313 16 ]
-    %tmp.241 = 1.0472;
-    putv self :ga_rad %tmp.241;
+    %tmp.239 = 0;
+    putv self :ga_rad %tmp.239;
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 314 16 ]
-    %tmp.242 = -1.517;
-    putv self :the_rad %tmp.242;
+    %tmp.240 = 0;
+    putv self :the_rad %tmp.240;
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 315 16 ]
-    %tmp.243 = getm $;
-    %tmp.244 = getv %tmp.243 :Options_Dict;
-    %tmp.245 = 1;
-    %tmp.246 = "thetaOption";
-    aputv %tmp.244 %tmp.246 %tmp.245;
+    %tmp.241 = getm $;
+    %tmp.242 = getv %tmp.241 :Options_Dict;
+    %tmp.243 = 0;
+    %tmp.244 = "thetaOption";
+    aputv %tmp.242 %tmp.244 %tmp.243;
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 316 16 ]
-    %tmp.247 = true;
-    putv self :started %tmp.247;
+    %tmp.245 = true;
+    putv self :started %tmp.245;
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 317 16 ]
-    goto break @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_243_8_351_8_switchStmtEnd;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_320_12_331_21_switchCase:
+    goto break @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_249_8_366_8_switchStmtEnd;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_318_12_330_21_switchCase:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 319 16 ]
+    %tmp.246 = null;
+    putv self :vsop_cache %tmp.246;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 321 16 ]
+    %tmp.247 = getm $;
+    %tmp.248 = 0;
+    putv %tmp.247 :time_add_hrs %tmp.248;
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 322 16 ]
-    %tmp.248 = getm $;
-    %tmp.249 = 0;
-    putv %tmp.248 :time_add_hrs %tmp.249;
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 323 16 ]
-    %tmp.250 = getm $;
-    %tmp.251 = true;
-    putv %tmp.250 :newModeOrZoom %tmp.251;
+    %tmp.249 = getm $;
+    %tmp.250 = true;
+    putv %tmp.249 :newModeOrZoom %tmp.250;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 324 16 ]
+    %tmp.251 = 65;
+    putv self :speeds_index %tmp.251;
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 325 16 ]
-    %tmp.252 = 64;
-    putv self :speeds_index %tmp.252;
+    %tmp.253 = getv ? :solarSystemView_class;
+    %tmp.254 = getv function %tmp.253 :sendMessage;
+    %tmp.255 = 3;
+    %tmp.256 = newa 4;
+    %tmp.257 = "Outer Solar";
+    %tmp.258 = dup %tmp.256;
+    %tmp.259 = aputv %tmp.258 0 %tmp.257;
+    %tmp.260 = "System-Side View";
+    %tmp.261 = dup %tmp.259;
+    %tmp.262 = aputv %tmp.261 1 %tmp.260;
+    %tmp.263 = "(Use Up/Down)";
+    %tmp.264 = dup %tmp.262;
+    %tmp.265 = aputv %tmp.264 2 %tmp.263;
+    %tmp.266 = "";
+    %tmp.267 = dup %tmp.265;
+    %tmp.268 = aputv %tmp.267 3 %tmp.266;
+    invoke %tmp.253 %tmp.254(%tmp.255, %tmp.268);
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 326 16 ]
-    %tmp.254 = getv ? :solarSystemView_class;
-    %tmp.255 = getv function %tmp.254 :sendMessage;
-    %tmp.256 = 3;
-    %tmp.257 = newa 4;
-    %tmp.258 = "Far Outer";
-    %tmp.259 = dup %tmp.257;
-    %tmp.260 = aputv %tmp.259 0 %tmp.258;
-    %tmp.261 = "Solar System";
-    %tmp.262 = dup %tmp.260;
-    %tmp.263 = aputv %tmp.262 1 %tmp.261;
-    %tmp.264 = "(Use Up/Down)";
-    %tmp.265 = dup %tmp.263;
-    %tmp.266 = aputv %tmp.265 2 %tmp.264;
-    %tmp.267 = "";
-    %tmp.268 = dup %tmp.266;
-    %tmp.269 = aputv %tmp.268 3 %tmp.267;
-    invoke %tmp.254 %tmp.255(%tmp.256, %tmp.269);
+    %tmp.269 = 1.0472;
+    putv self :ga_rad %tmp.269;
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 327 16 ]
-    %tmp.270 = 0;
-    putv self :ga_rad %tmp.270;
+    %tmp.270 = -1.517;
+    putv self :the_rad %tmp.270;
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 328 16 ]
-    %tmp.271 = 0;
-    putv self :the_rad %tmp.271;
+    %tmp.271 = getm $;
+    %tmp.272 = getv %tmp.271 :Options_Dict;
+    %tmp.273 = 1;
+    %tmp.274 = "thetaOption";
+    aputv %tmp.272 %tmp.274 %tmp.273;
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 329 16 ]
-    %tmp.272 = getm $;
-    %tmp.273 = getv %tmp.272 :Options_Dict;
-    %tmp.274 = 0;
-    %tmp.275 = "thetaOption";
-    aputv %tmp.273 %tmp.275 %tmp.274;
+    %tmp.275 = true;
+    putv self :started %tmp.275;
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 330 16 ]
-    %tmp.276 = true;
-    putv self :started %tmp.276;
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 331 16 ]
-    goto break @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_243_8_351_8_switchStmtEnd;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_333_12_346_21_switchCase:
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 335 16 ]
+    goto break @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_249_8_366_8_switchStmtEnd;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_333_12_345_21_switchCase:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 334 16 ]
+    %tmp.276 = null;
+    putv self :vsop_cache %tmp.276;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 336 16 ]
     %tmp.277 = getm $;
     %tmp.278 = 0;
     putv %tmp.277 :time_add_hrs %tmp.278;
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 336 16 ]
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 337 16 ]
     %tmp.279 = getm $;
     %tmp.280 = true;
     putv %tmp.279 :newModeOrZoom %tmp.280;
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 338 16 ]
-    %tmp.281 = 65;
-    putv self :speeds_index %tmp.281;
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 339 16 ]
+    %tmp.281 = 64;
+    putv self :speeds_index %tmp.281;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 340 16 ]
     %tmp.283 = getv ? :solarSystemView_class;
     %tmp.284 = getv function %tmp.283 :sendMessage;
     %tmp.285 = 3;
@@ -1127,7 +1198,7 @@ E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_So
     %tmp.287 = "Far Outer";
     %tmp.288 = dup %tmp.286;
     %tmp.289 = aputv %tmp.288 0 %tmp.287;
-    %tmp.290 = "Solar System2";
+    %tmp.290 = "Solar System-Top";
     %tmp.291 = dup %tmp.289;
     %tmp.292 = aputv %tmp.291 1 %tmp.290;
     %tmp.293 = "(Use Up/Down)";
@@ -1137,31 +1208,81 @@ E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_So
     %tmp.297 = dup %tmp.295;
     %tmp.298 = aputv %tmp.297 3 %tmp.296;
     invoke %tmp.283 %tmp.284(%tmp.285, %tmp.298);
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 342 16 ]
-    %tmp.299 = 0.896264;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 341 16 ]
+    %tmp.299 = 0;
     putv self :ga_rad %tmp.299;
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 343 16 ]
-    %tmp.300 = -1.417994;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 342 16 ]
+    %tmp.300 = 0;
     putv self :the_rad %tmp.300;
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 344 16 ]
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 343 16 ]
     %tmp.301 = getm $;
     %tmp.302 = getv %tmp.301 :Options_Dict;
-    %tmp.303 = 1;
+    %tmp.303 = 0;
     %tmp.304 = "thetaOption";
     aputv %tmp.302 %tmp.304 %tmp.303;
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 345 16 ]
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 344 16 ]
     %tmp.305 = true;
     putv self :started %tmp.305;
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 346 16 ]
-    goto break @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_243_8_351_8_switchStmtEnd;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_347_12_348_31_switchCase:
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_243_8_351_8_defaultCodeBegin:
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 348 14 ]
-    %tmp.306 = 36;
-    putv self :speeds_index %tmp.306;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_243_8_351_8_switchStmtEnd:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 345 16 ]
+    goto break @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_249_8_366_8_switchStmtEnd;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_347_12_361_21_switchCase:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 348 16 ]
+    %tmp.306 = null;
+    putv self :vsop_cache %tmp.306;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 350 16 ]
+    %tmp.307 = getm $;
+    %tmp.308 = 0;
+    putv %tmp.307 :time_add_hrs %tmp.308;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 351 16 ]
+    %tmp.309 = getm $;
+    %tmp.310 = true;
+    putv %tmp.309 :newModeOrZoom %tmp.310;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 353 16 ]
+    %tmp.311 = 65;
+    putv self :speeds_index %tmp.311;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 354 16 ]
+    %tmp.313 = getv ? :solarSystemView_class;
+    %tmp.314 = getv function %tmp.313 :sendMessage;
+    %tmp.315 = 3;
+    %tmp.316 = newa 4;
+    %tmp.317 = "Far Outer";
+    %tmp.318 = dup %tmp.316;
+    %tmp.319 = aputv %tmp.318 0 %tmp.317;
+    %tmp.320 = "Solar System-Side";
+    %tmp.321 = dup %tmp.319;
+    %tmp.322 = aputv %tmp.321 1 %tmp.320;
+    %tmp.323 = "(Use Up/Down)";
+    %tmp.324 = dup %tmp.322;
+    %tmp.325 = aputv %tmp.324 2 %tmp.323;
+    %tmp.326 = "";
+    %tmp.327 = dup %tmp.325;
+    %tmp.328 = aputv %tmp.327 3 %tmp.326;
+    invoke %tmp.313 %tmp.314(%tmp.315, %tmp.328);
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 357 16 ]
+    %tmp.329 = 0.896264;
+    putv self :ga_rad %tmp.329;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 358 16 ]
+    %tmp.330 = -1.417994;
+    putv self :the_rad %tmp.330;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 359 16 ]
+    %tmp.331 = getm $;
+    %tmp.332 = getv %tmp.331 :Options_Dict;
+    %tmp.333 = 1;
+    %tmp.334 = "thetaOption";
+    aputv %tmp.332 %tmp.334 %tmp.333;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 360 16 ]
+    %tmp.335 = true;
+    putv self :started %tmp.335;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 361 16 ]
+    goto break @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_249_8_366_8_switchStmtEnd;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_362_12_363_31_switchCase:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_249_8_366_8_defaultCodeBegin:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc" 363 14 ]
+    %tmp.336 = 36;
+    putv self :speeds_index %tmp.336;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_249_8_366_8_switchStmtEnd:
     pop;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_234_34_354_0_stop:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemDelegate_mc_240_34_369_0_stop:
 }
 [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemDelegate.mc"; @line = 1; ]
 <init> {

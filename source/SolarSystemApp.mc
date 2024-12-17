@@ -43,9 +43,11 @@ var allOrbitParms = null;
 var speeds_index = 34; //the currently used speed that will be added to TIME @ each update of screen
 var screen0Move_index = 33;
 
-var started = false; //whether to move forward on an update, ie STOPPED or STARTED moving
+var started = true; //whether to move forward on an update, ie STOPPED or STARTED moving
+var save_started = null;
 var reset_date_stop = false; //set TRUE when reset date is called, which STOPS time.
 var hz = 5.0; //updates per second (Requested from OS)
+var run_oneTime = true; //set to TRUE by anything that once the screeupdate to run ONCE when it is stopped
 
 var message = [];
 var message_until = 0;
@@ -82,8 +84,7 @@ class SolarSystemBaseApp extends Application.AppBase {
         $.time_now = Time.now();
         $.now_info = Time.Gregorian.info($.time_now, Time.FORMAT_SHORT);
 
-        sunrise_cache = new sunRiseSet_cache();
-        vsop_cache = new VSOP87_cache();
+        sunrise_cache = new sunRiseSet_cache();        
         System.println("inited...");
         view_mode=0;
         $.changeModes(null); //inits speeds_index properly
@@ -97,6 +98,7 @@ class SolarSystemBaseApp extends Application.AppBase {
     public function onStart(state as Dictionary?) as Void {  
         System.println("onStart...");
         $.started = true;
+        $.run_oneTime = true;
         $.timeWasAdded = true;
         $.buttonPresses = 0;
         $.animation_count = 0;

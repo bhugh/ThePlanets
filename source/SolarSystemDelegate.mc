@@ -95,12 +95,13 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
         //_view.nextSensor();
         //$.show_intvl = false;
         //_mainview.$.time_add_hrs -= _mainview.time_add_inc;
-        var mult = (type == :next) ? -1 : 1;
+        var mult = (type == :next) ? -1 : 1; //forward OR back dep on button
 
         //System.println("onNextPage..." + mult + " " + type);
         $.buttonPresses++;
         $.speedWasChanged = true;
         $.timeWasAdded=true;
+        $.run_oneTime = true; //in case we're stopped, it will run just once
         if (buttonPresses == 1) {return;} //1st buttonpress just gets out of intro titles
 
         var in = $.view_mode;
@@ -109,14 +110,19 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
         //System.println("onNextPage... od:" + od + " in:" + in + " type==next: " + ( type == :next));
 
         if (in == 0) {
-            $.time_add_hrs += mult *speeds[speeds_index];
+            $.time_add_hrs += mult *$.speeds[$.speeds_index];
             $.timeWasAdded=true;
             //WatchUi.requestUpdate();
         } else if (in == 1 || in ==2 || (in > 2 && od ==0)){
-            speeds_index += mult;
+            $.speeds_index += mult%$.speeds.size();
+
+            //For "Big" time movement screens, skipp over all the 
+            //time steps from like -24 to 24 hours, except for Zero
             if ([2,5,6,7,8].indexOf($.view_mode) > -1) {
-                if (speeds_index <47 && speeds_index >21) {
-                    speeds_index = type == :next ? 21 : 47;}        
+                if ($.speeds_index <47 && $.speeds_index >34) {
+                    $.speeds_index = type == :next ? 34 : 47;}        
+                else if ($.speeds_index <34 && $.speeds_index >21) {
+                    $.speeds_index = type == :next ? 21 : 34;}            
             }
         }
         
@@ -133,7 +139,7 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
             else { ga_rad += mult * Math.PI/18.0;}
         }
 
-            if (speeds_index<0)  {speeds_index=0; }
+            if ($.speeds_index<0)  {$.speeds_index=0; }
             $.show_intvl = 0;
             
 
@@ -242,6 +248,7 @@ function changeModes(previousMode){
 
         switch($.view_mode){
             case (0):
+                if (vsop_cache == null)  {vsop_cache = new VSOP87_cache();}
                 $.countWhenMode0Started = $.animation_count;
                 //time_add_inc = 0.25;
                 //$.time_add_hrs = .5; //reset to present time
@@ -252,6 +259,7 @@ function changeModes(previousMode){
                 solarSystemView_class.sendMessage(5, ["Manual Mode", "Use Up/Down", "", null]);
                 break;
             case (1):
+                if (vsop_cache == null)  {vsop_cache = new VSOP87_cache();}
                 //time_add_inc=1;
                 //DON'T reset to present time here bec. we're usually coming from mode 0 or mode 2& can just continue seamlessly
                 //$.time_add_hrs = .5; //reset to present time
@@ -259,6 +267,7 @@ function changeModes(previousMode){
                 solarSystemView_class.sendMessage(5, ["Auto Mode (Slow)", "Use Up/Down", "", null]);
                 break;
             case(2):
+                if (vsop_cache == null)  {vsop_cache = new VSOP87_cache();}
                 //time_add_inc = 24*3; //1 day
                 //DON'T reset to present time here bec. we're usually coming from mode 0 or mode 2& can just continue seamlessly
                 if (previousMode != null && previousMode==3 ) {  //mode 3 often moves years into the future...
@@ -268,48 +277,52 @@ function changeModes(previousMode){
                 solarSystemView_class.sendMessage(5, ["Auto Mode (Fast)", "Use Up/Down", "",null]);
                 break;                
             case(3):
+                vsop_cache = null;
                 //time_add_inc = 24*3; //1 day
                 $.time_add_hrs = 0; //reset to present time
                 $.newModeOrZoom = true; //gives signal to reset the dots
                 //speeds_index = 41; //1 day OLD/too slow on real watch
                 speeds_index = 53; //3 day
-                solarSystemView_class.sendMessage(3, ["Inner Solar", "System-Top Vw", "(Use Up/Down)", ""]);
+                solarSystemView_class.sendMessage(3, ["Inner Solar", "System-Top View", "(Use Up/Down)", ""]);
                 ga_rad = 0 ; //rotation around the disk; viewpoint
                 the_rad = 0; //angles above the disk; altitude. radians.  0,0 is flat from the top.
                 $.Options_Dict["thetaOption"] = 0;
                 started = true;
                 break;
             case(4):
+                vsop_cache = null;
                 //time_add_inc = 24*3; //1 day
                 $.time_add_hrs = 0; //reset to present time
                 $.newModeOrZoom = true; //gives signal to reset the dots
                 //speeds_index = 41; //1 day OLD/too slow on real watch
                 speeds_index = 54; //3 day
-                solarSystemView_class.sendMessage(3, ["Inner Solar", "System-Side Vw", "(Use Up/Down)", ""]);
+                solarSystemView_class.sendMessage(3, ["Inner Solar", "System-Side View", "(Use Up/Down)", ""]);
                 ga_rad = 0 ; //rotation around the disk; viewpoint
                 the_rad = 1.45; //angles above the disk; altitude. radians.  0,0 is flat from the top.
                 $.Options_Dict["thetaOption"] = 1;
                 started = true;
                 break;                
             case(5):
+                vsop_cache = null;
                 //time_add_inc = 24*15; //14 days
                 $.time_add_hrs = 0; //reset to present time
                 $.newModeOrZoom = true; //gives signal to reset the dots
                 //speeds_index = 46; //15 days = OLD , too slow on real watch
                 speeds_index = 64; //1 SOLAR year
-                solarSystemView_class.sendMessage(3, ["Outer Solar", "System-Top", "(Use Up/Down)", ""]);
+                solarSystemView_class.sendMessage(3, ["Outer Solar", "System-Top View", "(Use Up/Down)", ""]);
                 ga_rad = 0 ; //rotation around the disk; viewpoint
                 the_rad = 0; //angles above the disk; altitude. 
                 $.Options_Dict["thetaOption"] = 0;
                 started = true;
                 break;
             case(6):
+                vsop_cache = null;
                 //time_add_inc = 24*15; //14 days
                 $.time_add_hrs = 0; //reset to present time
                 $.newModeOrZoom = true; //gives signal to reset the dots
                 //speeds_index = 46; //15 days = OLD , too slow on real watch
                 speeds_index = 65; //1 SOLAR year
-                solarSystemView_class.sendMessage(3, ["Outer Solar", "System-Side Vw", "(Use Up/Down)", ""]);
+                solarSystemView_class.sendMessage(3, ["Outer Solar", "System-Side View", "(Use Up/Down)", ""]);
                 ga_rad = 1.0472 ; //rotation around the disk; viewpoint //8632 - ga th: 0.523599 -1.517060
                 the_rad = -1.517; //angles above the disk; altitude. 
                 $.Options_Dict["thetaOption"] = 1;
@@ -318,12 +331,13 @@ function changeModes(previousMode){
                             
             
             case(7):
+                vsop_cache = null;
                 //time_add_inc = 24*15; //90 days
                 $.time_add_hrs = 0; //reset to present time
                 $.newModeOrZoom = true; //gives signal to reset the dots
                 //speeds_index = 48; //61 days, too slow on real watch
                 speeds_index = 64; //4 yrs
-                solarSystemView_class.sendMessage(3, ["Far Outer", "Solar System","(Use Up/Down)", ""]);
+                solarSystemView_class.sendMessage(3, ["Far Outer", "Solar System-Top","(Use Up/Down)", ""]);
                 ga_rad = 0 ; //rotation around the disk; viewpoint
                 the_rad = 0; //angles above the disk; altitude. 
                 $.Options_Dict["thetaOption"] = 0;
@@ -331,12 +345,13 @@ function changeModes(previousMode){
                 break;
             
             case(8):
+                vsop_cache = null;
                 //time_add_inc = 24*15; //90 days
                 $.time_add_hrs = 0; //reset to present time
                 $.newModeOrZoom = true; //gives signal to reset the dots
                 //speeds_index = 48; //61 days, too slow on real watch
                 speeds_index = 65; //4 yrs
-                solarSystemView_class.sendMessage(3, ["Far Outer", "Solar System2","(Use Up/Down)", ""]);
+                solarSystemView_class.sendMessage(3, ["Far Outer", "Solar System-Side","(Use Up/Down)", ""]);
                 //0.372665 -1.417994 ga th , good
                 //ga th: 0.896264 -1.417994 better
                 ga_rad = 0.896264 ; //rotation around the disk; viewpoint
