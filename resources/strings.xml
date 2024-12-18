@@ -1,3 +1,33 @@
 <resources>
     <string id="AppName">The Planets</string>
+    <string id="small_whh_arr">"Sun","Mercury","Venus","Earth", "Moon", "Mars", "AsteroidA", "AsteroidB"</string>
+    <string id="full_whh_arr">"Sun", "Mercury","Venus","Earth", "Mars", "AsteroidA", "AsteroidB", "Jupiter","Saturn","Uranus","Neptune","Pluto","Ceres","Chiron","Eris", "Gonggong","Quaoar", "Makemake", "Haumea"</string>
+    <string id="zoom_whh_arr">"Sun","Mercury","Venus","Earth", "Mars", "AsteroidA", "AsteroidB", "Ceres","Jupiter","Saturn","Uranus","Neptune"</string>
 </resources>
+
+<!--
+        var small_whh = ["Sun","Mercury","Venus","Earth", "Moon", "Mars", "AsteroidA", "AsteroidB"];
+        var full_whh =  ["Sun", "Mercury","Venus","Earth", "Mars", "AsteroidA", "AsteroidB", "Jupiter","Saturn","Uranus","Neptune","Pluto","Ceres","Chiron","Eris", "Gonggong","Quaoar", "Makemake", "Haumea"];
+                     zoom_whh = ["Sun","Mercury","Venus","Earth", "Mars", "AsteroidA", "AsteroidB", "Ceres","Jupiter","Saturn","Uranus","Neptune"];
+planetsOption_values=[
+    ["Sun", "Mercury","Venus","Earth", "Moon","Mars","AsteroidA", "AsteroidB","Jupiter","Saturn","Uranus","Neptune","Pluto","Ceres","Chiron","Eris", "Gonggong","Quaoar", "Makemake", "Haumea"],      
+
+    ["Sun", "Mercury","Venus","Earth", "Moon", "Mars","AsteroidA", "AsteroidB", "Jupiter","Saturn","Uranus","Neptune","Pluto"],     
+
+    ["Sun","Mercury", "Earth", "Moon", "Ceres","AsteroidA", "AsteroidB", "Chiron","Pluto","Eris", "Gonggong","Quaoar", "Makemake", "Haumea"]          
+
+
+                     orrZoomOption=[
+     "4X out" , 
+     "2X out" , 
+     "1X" , 
+     "2X in" , 
+     "4X in" , 
+     "8X in" ,      
+     "16X in", 
+     "32X in", 
+     "64X in", 
+     "128X in", 
+];
+
+        -->

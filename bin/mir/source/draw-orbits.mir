@@ -1,0 +1,381 @@
+[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\draw-orbits.mc"; @line = 1; ]
+import Toybox.Lang;
+[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\draw-orbits.mc"; @line = 2; ]
+import Toybox.Math;
+[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\draw-orbits.mc"; @line = 3; ]
+import Toybox.System;
+[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\draw-orbits.mc"; @line = 4; ]
+import Toybox.Graphics;
+[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\draw-orbits.mc"; @line = 7; @position = 4; ]
+var save_points;
+[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\draw-orbits.mc"; @line = 8; @position = 4; ]
+var save_big_small = null;
+[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\draw-orbits.mc"; @line = 11; ]
+function drawOrbits3(myDc, pp, scale, xc, yc, big_small, WHHs, color) {
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_11_70_52_0_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\draw-orbits.mc" 19 4 ]
+    [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_11_70_52_0_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_11_70_52_0_stop" ]
+    %whh.1 = local;
+    %tmp.2 = lgetv %WHHs;
+    %tmp.3 = 1;
+    %tmp.4 = agetv %tmp.2 %tmp.3;
+    lputv %whh.1 %tmp.4;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\draw-orbits.mc" 27 4 ]
+    %tmp.5 = lgetv %myDc;
+    %tmp.6 = getv function %tmp.5 :setColor;
+    %tmp.7 = getm $.Toybox.Graphics;
+    %tmp.8 = getv %tmp.7 :COLOR_WHITE;
+    %tmp.9 = getm $.Toybox.Graphics;
+    %tmp.10 = getv %tmp.9 :COLOR_TRANSPARENT;
+    invoke %tmp.5 %tmp.6(%tmp.8, %tmp.10);
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\draw-orbits.mc" 28 4 ]
+    %tmp.11 = lgetv %myDc;
+    %tmp.12 = getv function %tmp.11 :setColor;
+    %tmp.14 = lgetv %color;
+    %tmp.15 = getm $.Toybox.Graphics;
+    %tmp.16 = getv %tmp.15 :COLOR_TRANSPARENT;
+    invoke %tmp.11 %tmp.12(%tmp.14, %tmp.16);
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\draw-orbits.mc" 29 4 ]
+    %tmp.17 = lgetv %myDc;
+    %tmp.18 = getv function %tmp.17 :setPenWidth;
+    %tmp.19 = 1;
+    invoke %tmp.17 %tmp.18(%tmp.19);
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\draw-orbits.mc" 31 4 ]
+    for @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_31_4_49_4_for_test @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_31_4_49_4_for_incr @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_31_4_49_4_for_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_31_4_49_4_for_init:
+    [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_31_4_49_4_for_begin" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_31_4_49_4_for_end" ]
+    %j.2 = local;
+    %tmp.20 = 0;
+    lputv %j.2 %tmp.20;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_31_4_49_4_for_test:
+    %tmp.22 = lgetv %j.2;
+    %tmp.23 = lgetv %whh.1;
+    %tmp.24 = getv function %tmp.23 :size;
+    %tmp.25 = invoke %tmp.23 %tmp.24();
+    %tmp.26 = lt %tmp.22 %tmp.25;
+    bf %tmp.26 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_31_4_49_4_for_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_31_4_49_4_for_begin:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_31_36_49_4_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\draw-orbits.mc" 32 5 ]
+    [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_31_36_49_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_31_36_49_4_stop" ]
+    %key.3 = local;
+    %tmp.28 = lgetv %whh.1;
+    %tmp.30 = lgetv %j.2;
+    %tmp.31 = agetv %tmp.28 %tmp.30;
+    lputv %key.3 %tmp.31;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\draw-orbits.mc" 34 7 ]
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_34_7_48_7_if_stmt:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_34_11_34_51_begin:
+    %tmp.32 = lgetv %key.3;
+    %tmp.33 = getv function %tmp.32 :equals;
+    %tmp.34 = "Sun";
+    %tmp.35 = invoke %tmp.32 %tmp.33(%tmp.34);
+    %tmp.36 = not %tmp.35;
+    bf %tmp.36 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_34_7_48_7_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_34_33_34_51_true:
+    %tmp.37 = lgetv %key.3;
+    %tmp.38 = getv function %tmp.37 :equals;
+    %tmp.39 = "Moon";
+    %tmp.40 = invoke %tmp.37 %tmp.38(%tmp.39);
+    %tmp.41 = not %tmp.40;
+    push %tmp.41;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_34_33_34_51_end:
+    %tmp.42 = phi [%tmp.36 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_34_11_34_51_begin] [%tmp.41 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_34_33_34_51_true] [%tmp.42 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_34_33_34_51_end];
+    bf %tmp.42 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_34_7_48_7_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_34_7_48_7_if_true:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_35_7_48_7_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\draw-orbits.mc" 38 12 ]
+    [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_35_7_48_7_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_35_7_48_7_stop" ]
+    %X.4 = local;
+    %tmp.44 = lgetv %pp;
+    %tmp.46 = lgetv %key.3;
+    %tmp.47 = agetv %tmp.44 %tmp.46;
+    lputv %X.4 %tmp.47;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\draw-orbits.mc" 39 12 ]
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_39_12_39_35_if_stmt:
+    %tmp.49 = lgetv %X.4;
+    %tmp.50 = null;
+    %tmp.51 = eq %tmp.49 %tmp.50;
+    bf %tmp.51 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_39_12_39_35_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_39_12_39_35_if_true:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_39_25_39_35_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\draw-orbits.mc" 39 26 ]
+    goto break @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_31_4_49_4_for_incr;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_39_25_39_35_stop:
+    goto @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_39_12_39_35_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_39_12_39_35_if_end:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\draw-orbits.mc" 45 12 ]
+    %tmp.52 = lgetv %myDc;
+    %tmp.53 = getv function %tmp.52 :drawPoint;
+    %tmp.55 = lgetv %scale;
+    %tmp.57 = lgetv %X.4;
+    %tmp.58 = 0;
+    %tmp.59 = agetv %tmp.57 %tmp.58;
+    %tmp.60 = mul %tmp.55 %tmp.59;
+    %tmp.62 = lgetv %xc;
+    %tmp.63 = add %tmp.60 %tmp.62;
+    %tmp.65 = lgetv %scale;
+    %tmp.67 = lgetv %X.4;
+    %tmp.68 = 1;
+    %tmp.69 = agetv %tmp.67 %tmp.68;
+    %tmp.70 = mul %tmp.65 %tmp.69;
+    %tmp.72 = lgetv %yc;
+    %tmp.73 = add %tmp.70 %tmp.72;
+    invoke %tmp.52 %tmp.53(%tmp.63, %tmp.73);
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_35_7_48_7_stop:
+    goto @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_34_7_48_7_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_34_7_48_7_if_end:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_31_36_49_4_stop:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_31_4_49_4_for_incr:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\draw-orbits.mc" 31 ]
+    %tmp.76 = lgetv %j.2;
+    %tmp.77 = add %tmp.76 1;
+    lputv %j.2 %tmp.77;
+    goto @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_31_4_49_4_for_test;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_31_4_49_4_for_end:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_11_70_52_0_stop:
+}
+[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\draw-orbits.mc"; @line = 76; ]
+function drawFuzzyEllipse(myDc, swidth, sheight, xc, yc, A, B, type) {
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_76_69_100_0_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\draw-orbits.mc" 78 8 ]
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_78_8_78_47_if_stmt:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_78_12_78_29_begin:
+    %tmp.2 = lgetv %A;
+    %tmp.4 = lgetv %swidth;
+    %tmp.5 = gt %tmp.2 %tmp.4;
+    bf %tmp.5 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_78_8_78_47_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_78_25_78_29_true:
+    %tmp.7 = lgetv %B;
+    %tmp.9 = lgetv %sheight;
+    %tmp.10 = gt %tmp.7 %tmp.9;
+    push %tmp.10;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_78_25_78_29_end:
+    %tmp.11 = phi [%tmp.5 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_78_12_78_29_begin] [%tmp.10 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_78_25_78_29_true] [%tmp.11 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_78_25_78_29_end];
+    bf %tmp.11 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_78_8_78_47_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_78_8_78_47_if_true:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_78_38_78_47_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\draw-orbits.mc" 78 40 ]
+    ret ?;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_78_38_78_47_stop:
+    goto @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_78_8_78_47_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_78_8_78_47_if_end:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\draw-orbits.mc" 82 6 ]
+    [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_76_69_100_0_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_76_69_100_0_stop" ]
+    %step.1 = local;
+    %tmp.13 = lgetv %A;
+    %tmp.14 = 2.0;
+    %tmp.15 = div %tmp.13 %tmp.14;
+    lputv %step.1 %tmp.15;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\draw-orbits.mc" 83 6 ]
+    [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_76_69_100_0_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_76_69_100_0_stop" ]
+    %start.2 = local;
+    %tmp.16 = 0;
+    lputv %start.2 %tmp.16;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\draw-orbits.mc" 84 6 ]
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_84_6_84_100_if_stmt:
+    %tmp.18 = lgetv %type;
+    %tmp.20 = const :low;
+    %tmp.21 = eq %tmp.18 %tmp.20;
+    bf %tmp.21 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_84_6_84_100_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_84_6_84_100_if_true:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_84_24_84_100_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\draw-orbits.mc" 84 25 ]
+    %tmp.22 = getm $.Toybox.Math;
+    %tmp.23 = getv function %tmp.22 :rand;
+    %tmp.24 = invoke %tmp.22 %tmp.23();
+    %tmp.25 = 150;
+    %tmp.26 = mod %tmp.24 %tmp.25;
+    %tmp.27 = 100.0;
+    %tmp.28 = div %tmp.26 %tmp.27;
+    %tmp.29 = 0.5;
+    %tmp.30 = add %tmp.28 %tmp.29;
+    lputv %step.1 %tmp.30;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\draw-orbits.mc" 84 63 ]
+    %tmp.31 = getm $.Toybox.Math;
+    %tmp.32 = getv function %tmp.31 :rand;
+    %tmp.33 = invoke %tmp.31 %tmp.32();
+    %tmp.34 = 314;
+    %tmp.35 = mod %tmp.33 %tmp.34;
+    %tmp.36 = getv function %tmp.35 :toFloat;
+    %tmp.37 = invoke %tmp.35 %tmp.36();
+    lputv %start.2 %tmp.37;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_84_24_84_100_stop:
+    goto @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_84_6_84_100_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_84_6_84_100_if_end:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\draw-orbits.mc" 85 6 ]
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_85_6_85_59_if_stmt:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_85_10_85_40_begin:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_85_10_85_25_begin:
+    %tmp.39 = lgetv %step.1;
+    %tmp.40 = 25;
+    %tmp.41 = lt %tmp.39 %tmp.40;
+    bf %tmp.41 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_85_6_85_59_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_85_21_85_25_true:
+    %tmp.43 = lgetv %A;
+    %tmp.44 = 3;
+    %tmp.45 = gt %tmp.43 %tmp.44;
+    push %tmp.45;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_85_21_85_25_end:
+    %tmp.46 = phi [%tmp.41 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_85_10_85_25_begin] [%tmp.45 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_85_21_85_25_true] [%tmp.46 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_85_21_85_25_end];
+    bf %tmp.46 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_85_6_85_59_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_85_31_85_40_true:
+    %tmp.48 = lgetv %type;
+    %tmp.50 = const :high;
+    %tmp.51 = eq %tmp.48 %tmp.50;
+    push %tmp.51;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_85_31_85_40_end:
+    %tmp.52 = phi [%tmp.46 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_85_10_85_40_begin] [%tmp.51 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_85_31_85_40_true] [%tmp.52 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_85_31_85_40_end];
+    bf %tmp.52 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_85_6_85_59_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_85_6_85_59_if_true:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_85_46_85_59_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\draw-orbits.mc" 85 48 ]
+    %tmp.53 = 25;
+    lputv %step.1 %tmp.53;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_85_46_85_59_stop:
+    goto @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_85_6_85_59_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_85_6_85_59_if_end:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\draw-orbits.mc" 89 6 ]
+    for @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_89_6_99_6_for_test @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_89_6_99_6_for_incr @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_89_6_99_6_for_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_89_6_99_6_for_init:
+    [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_89_6_99_6_for_begin" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_89_6_99_6_for_end" ]
+    %theta.3 = local;
+    %tmp.55 = lgetv %start.2;
+    lputv %theta.3 %tmp.55;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_89_6_99_6_for_test:
+    %tmp.57 = lgetv %theta.3;
+    %tmp.58 = 2;
+    %tmp.59 = getm $.Toybox.Math;
+    %tmp.60 = getv %tmp.59 :PI;
+    %tmp.61 = mul %tmp.58 %tmp.60;
+    %tmp.62 = lt %tmp.57 %tmp.61;
+    bf %tmp.62 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_89_6_99_6_for_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_89_6_99_6_for_begin:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_89_81_99_6_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\draw-orbits.mc" 92 9 ]
+    [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_89_81_99_6_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_89_81_99_6_stop" ]
+    %ran.4 = local;
+    %tmp.63 = getm $.Toybox.Math;
+    %tmp.64 = getv function %tmp.63 :rand;
+    %tmp.65 = invoke %tmp.63 %tmp.64();
+    %tmp.66 = 1000;
+    %tmp.67 = mod %tmp.65 %tmp.66;
+    lputv %ran.4 %tmp.67;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\draw-orbits.mc" 93 9 ]
+    [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_89_81_99_6_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_89_81_99_6_stop" ]
+    %addme.5 = local;
+    %tmp.68 = .95;
+    %tmp.70 = lgetv %ran.4;
+    %tmp.72 = lgetv %ran.4;
+    %tmp.73 = mul %tmp.70 %tmp.72;
+    %tmp.74 = 10000000.0;
+    %tmp.75 = div %tmp.73 %tmp.74;
+    %tmp.76 = add %tmp.68 %tmp.75;
+    lputv %addme.5 %tmp.76;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\draw-orbits.mc" 94 9 ]
+    [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_89_81_99_6_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_89_81_99_6_stop" ]
+    %x.6 = local;
+    %tmp.78 = lgetv %xc;
+    %tmp.80 = lgetv %A;
+    %tmp.82 = lgetv %addme.5;
+    %tmp.83 = mul %tmp.80 %tmp.82;
+    %tmp.84 = getm $.Toybox.Math;
+    %tmp.85 = getv function %tmp.84 :cos;
+    %tmp.87 = lgetv %theta.3;
+    %tmp.88 = invoke %tmp.84 %tmp.85(%tmp.87);
+    %tmp.89 = mul %tmp.83 %tmp.88;
+    %tmp.90 = add %tmp.78 %tmp.89;
+    lputv %x.6 %tmp.90;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\draw-orbits.mc" 95 9 ]
+    [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_89_81_99_6_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_89_81_99_6_stop" ]
+    %y.7 = local;
+    %tmp.92 = lgetv %yc;
+    %tmp.94 = lgetv %B;
+    %tmp.96 = lgetv %addme.5;
+    %tmp.97 = mul %tmp.94 %tmp.96;
+    %tmp.98 = getm $.Toybox.Math;
+    %tmp.99 = getv function %tmp.98 :sin;
+    %tmp.101 = lgetv %theta.3;
+    %tmp.102 = invoke %tmp.98 %tmp.99(%tmp.101);
+    %tmp.103 = mul %tmp.97 %tmp.102;
+    %tmp.104 = add %tmp.92 %tmp.103;
+    lputv %y.7 %tmp.104;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\draw-orbits.mc" 96 9 ]
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_96_9_96_59_if_stmt:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_96_13_96_40_begin:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_96_13_96_28_begin:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_96_13_96_21_begin:
+    %tmp.106 = lgetv %x.6;
+    %tmp.107 = 0;
+    %tmp.108 = lt %tmp.106 %tmp.107;
+    bt %tmp.108 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_96_9_96_59_if_true;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_96_19_96_21_false:
+    %tmp.110 = lgetv %y.7;
+    %tmp.111 = 0;
+    %tmp.112 = lt %tmp.110 %tmp.111;
+    push %tmp.112;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_96_19_96_21_end:
+    %tmp.113 = phi [%tmp.108 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_96_13_96_21_begin] [%tmp.112 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_96_19_96_21_false] [%tmp.113 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_96_19_96_21_end];
+    bt %tmp.113 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_96_9_96_59_if_true;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_96_26_96_28_false:
+    %tmp.115 = lgetv %x.6;
+    %tmp.117 = lgetv %swidth;
+    %tmp.118 = gt %tmp.115 %tmp.117;
+    push %tmp.118;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_96_26_96_28_end:
+    %tmp.119 = phi [%tmp.113 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_96_13_96_28_begin] [%tmp.118 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_96_26_96_28_false] [%tmp.119 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_96_26_96_28_end];
+    bt %tmp.119 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_96_9_96_59_if_true;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_96_38_96_40_false:
+    %tmp.121 = lgetv %y.7;
+    %tmp.123 = lgetv %sheight;
+    %tmp.124 = gt %tmp.121 %tmp.123;
+    push %tmp.124;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_96_38_96_40_end:
+    %tmp.125 = phi [%tmp.119 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_96_13_96_40_begin] [%tmp.124 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_96_38_96_40_false] [%tmp.125 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_96_38_96_40_end];
+    bf %tmp.125 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_96_9_96_59_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_96_9_96_59_if_true:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_96_49_96_59_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\draw-orbits.mc" 96 50 ]
+    goto break @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_89_6_99_6_for_incr;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_96_49_96_59_stop:
+    goto @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_96_9_96_59_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_96_9_96_59_if_end:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\draw-orbits.mc" 97 9 ]
+    %tmp.126 = getm $.Toybox.System;
+    %tmp.127 = getv function %tmp.126 :println;
+    %tmp.128 = "Aster: ";
+    %tmp.130 = lgetv %x.6;
+    %tmp.131 = add %tmp.128 %tmp.130;
+    %tmp.132 = ":";
+    %tmp.133 = add %tmp.131 %tmp.132;
+    %tmp.135 = lgetv %y.7;
+    %tmp.136 = add %tmp.133 %tmp.135;
+    invoke %tmp.126 %tmp.127(%tmp.136);
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\draw-orbits.mc" 98 9 ]
+    %tmp.137 = lgetv %myDc;
+    %tmp.138 = getv function %tmp.137 :drawPoint;
+    %tmp.140 = lgetv %x.6;
+    %tmp.142 = lgetv %y.7;
+    invoke %tmp.137 %tmp.138(%tmp.140, %tmp.142);
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_89_81_99_6_stop:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_89_6_99_6_for_incr:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\draw-orbits.mc" 89 ]
+    %tmp.143 = lgetv %theta.3;
+    %tmp.144 = getm $.Toybox.Math;
+    %tmp.145 = getv %tmp.144 :PI;
+    %tmp.146 = 2.0;
+    %tmp.147 = mul %tmp.145 %tmp.146;
+    %tmp.149 = lgetv %step.1;
+    %tmp.150 = div %tmp.147 %tmp.149;
+    %tmp.151 = add %tmp.143 %tmp.150;
+    lputv %theta.3 %tmp.151;
+    goto @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_89_6_99_6_for_test;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_89_6_99_6_for_end:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_76_69_100_0_stop:
+}
+[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\draw-orbits.mc"; @line = 1; ]
+<init> {
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\draw-orbits.mc" 7 4 ]
+    %tmp.152 = newd 0;
+    putv self :save_points %tmp.152;
+}

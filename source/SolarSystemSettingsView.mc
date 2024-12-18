@@ -46,9 +46,9 @@ var planetsOption=[
 ];
 
 var planetsOption_values=[
-    ["Sun", "Mercury","Venus","Earth", "Moon","Mars","Jupiter","Saturn","Uranus","Neptune","Pluto","Ceres","Chiron","Eris", "Gonggong","Quaoar", "Makemake", "Haumea"],
-    ["Sun", "Mercury","Venus","Earth", "Moon", "Mars","Jupiter","Saturn","Uranus","Neptune","Pluto"], //List of names not used on VSOP but can be useful elsewhere
-    ["Sun","Mercury", "Earth", "Moon", "Ceres","Chiron","Pluto","Eris", "Gonggong","Quaoar", "Makemake", "Haumea"], //can't have moon w/o earth...
+    ["Sun", "Mercury","Venus","Earth", "Moon","Mars","AsteroidA", "AsteroidB","Jupiter","Saturn","Uranus","Neptune","Pluto","Ceres","Chiron","Eris", "Gonggong","Quaoar", "Makemake", "Haumea"],
+    ["Sun", "Mercury","Venus","Earth", "Moon", "Mars","AsteroidA", "AsteroidB", "Jupiter","Saturn","Uranus","Neptune","Pluto"], //List of names not used on VSOP but can be useful elsewhere
+    ["Sun","Mercury", "Earth", "Moon", "Ceres","AsteroidA", "AsteroidB", "Chiron","Pluto","Eris", "Gonggong","Quaoar", "Makemake", "Haumea"], //can't have moon w/o earth...
  
 
 ];
@@ -94,6 +94,7 @@ var refreshOption_values=[  //in HZ
 var refreshOption_size = 5;
 var refreshOption_default = 2;
 
+/*
 var screen0MoveOption=[
      "1min" , 
      "2min" , 
@@ -131,6 +132,7 @@ var screen0MoveOption_values=[
 ];
 var screen0MoveOption_size = 15;
 var screen0MoveOption_default = 6;
+*/
 
 var thetaOption =[
     "Time Step",
@@ -165,6 +167,7 @@ var planetSizeOption_size = 7;
 var planetSizeOption_default = 3;
 var planetSizeFactor = 1.0;
 
+/*
 var eclipticSizeOption=[
      "Xsmall" , 
      "Very small" , 
@@ -189,8 +192,10 @@ var eclipticSizeOption_values=[
 ];
 var eclipticSizeOption_size = 7;
 var eclipticSizeOption_default = 4;
-var eclipticSizeFactor = 1.0;
 
+*/
+
+var eclipticSizeFactor = 1.0;
 
 /*
 var orbitCirclesOption=[

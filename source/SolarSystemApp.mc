@@ -40,8 +40,8 @@ var allOrbitParms = null;
                 24-15/60.0, 24,24+15/60.0, 24*2-15/60.0, 24*2,24*2+15/60.0, 24*3,24*5, 24*7, //47; Days up to a week (added 0)
                 24*15,29.53059*24, 24*31, 24*61, 24*91, 24*122, 24*183, //56; 1/2, 1/4, 1/12, 1/24 of a year (added 1)
                 24*365,24*365.2422, 24*365*2, 24*365*4, 24*365 * 7, 24*365 * 10]; //63; year multiples (added 0)
-var speeds_index = 34; //the currently used speed that will be added to TIME @ each update of screen
-var screen0Move_index = 33;
+var speeds_index; //the currently used speed that will be added to TIME @ each update of screen  //
+//var screen0Move_index = 33;
 
 var started = true; //whether to move forward on an update, ie STOPPED or STARTED moving
 var save_started = null;
@@ -88,6 +88,9 @@ class SolarSystemBaseApp extends Application.AppBase {
         System.println("inited...");
         view_mode=0;
         $.changeModes(null); //inits speeds_index properly
+
+
+        //System.println("ARR" + toArray("HI|THERE FRED|M<SYUEIJFJ |FIEJKDF:LKJF|SKDJFF|SDLKJSDFLKJ|THIESNEK|FJIEKJF","|",0));
         
         
 
@@ -193,11 +196,11 @@ class SolarSystemBaseApp extends Application.AppBase {
 
         readAStorageValue("Refresh Option",refreshOption_default, refreshOption_size );
 
-        readAStorageValue("Screen0 Move Option",screen0MoveOption_default, screen0MoveOption_size );
+        //readAStorageValue("Screen0 Move Option",screen0MoveOption_default, screen0MoveOption_size );
 
         readAStorageValue("Planet Size Option", planetSizeOption_default, planetSizeOption_size );
 
-        readAStorageValue("Ecliptic Size Option", eclipticSizeOption_default, eclipticSizeOption_size );
+        //readAStorageValue("Ecliptic Size Option", eclipticSizeOption_default, eclipticSizeOption_size );
 /*
         readAStorageValue("Orbit Circles Option", orbitCirclesOption_default, orbitCirclesOption_size );
 
@@ -206,6 +209,10 @@ class SolarSystemBaseApp extends Application.AppBase {
 
         readAStorageValue("planetsOption", planetsOption_default, planetsOption_size );
 
+        var temp = Storage.getValue("helpBanners");
+        $.Options_Dict["helpBanners"] = temp != null ? temp : true;
+        Storage.setValue("helpBanners",$.Options_Dict["helpBanners"]); 
+
        
 
 
@@ -213,10 +220,11 @@ class SolarSystemBaseApp extends Application.AppBase {
         //Now IMPLEMENT the above values
 
         
-
+        /*
         //#####SCREEN0 MOVE
         $.screen0Move_index = screen0MoveOption_values[$.Options_Dict["Screen0 Move Option"]];
-                    
+        */
+
         //###### REFRESH RATE
         $.hz = refreshOption_values[$.Options_Dict["Refresh Option"]];                
         _positionView.startAnimationTimer($.hz);           
@@ -224,8 +232,10 @@ class SolarSystemBaseApp extends Application.AppBase {
         //##### PLANET SIZE
         planetSizeFactor = planetSizeOption_values[$.Options_Dict["Planet Size Option"]];
 
+        /*
         //##### ECLIPTIC SIZE
         eclipticSizeFactor = eclipticSizeOption_values[$.Options_Dict["Ecliptic Size Option"]];
+        */
 
         //##### Display all or only planets
         planetsOption_value = $.Options_Dict["planetsOption"]; //the number not the array (unusual) 

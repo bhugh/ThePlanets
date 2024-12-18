@@ -50,7 +50,9 @@ class SolarSystemSettingsMenu extends WatchUi.Menu2 {
     Menu2.initialize({:title=>"Settings"});
         
     Menu2.addItem(new WatchUi.ToggleMenuItem("Exit App", null, "exitapp", false, null));
-    Menu2.addItem(new WatchUi.ToggleMenuItem("Reset Date (to now)", null, "resetdate", false, null));
+
+    Menu2.addItem(new WatchUi.ToggleMenuItem("Reset to Current Time", null, "resetDate", false, null));
+
 
     /*if ($.Options_Dict["helpOption"] == null) { $.Options_Dict["helpOption"] = helpOption_default; }
     Menu2.addItem(new WatchUi.MenuItem("Help - Abbreviations",
@@ -68,9 +70,11 @@ class SolarSystemSettingsMenu extends WatchUi.Menu2 {
     Menu2.addItem(new WatchUi.MenuItem("Objects to show in Solar System?",
     $.planetsOption[$.Options_Dict["planetsOption"]],"planetsOption",{}));  
 
+    /*
     if ($.Options_Dict["Screen0 Move Option"] == null) { $.Options_Dict["Screen0 Move Option"] = $.screen0MoveOption_default; }
     Menu2.addItem(new WatchUi.MenuItem("Manual Mode Time Interval",
     $.screen0MoveOption[$.Options_Dict["Screen0 Move Option"]],"Screen0 Move Option",{})); 
+    */
 
 
     
@@ -78,9 +82,11 @@ class SolarSystemSettingsMenu extends WatchUi.Menu2 {
     Menu2.addItem(new WatchUi.MenuItem("Planet Display Size?",
     $.planetSizeOption[$.Options_Dict["Planet Size Option"]],"Planet Size Option",{}));   
 
+ /*
     if ($.Options_Dict["Ecliptic Size Option"] == null) { $.Options_Dict["Ecliptic Size Option"] = $.eclipticSizeOption_default; }
     Menu2.addItem(new WatchUi.MenuItem("Ecliptic Circle Size?",
     $.eclipticSizeOption[$.Options_Dict["Ecliptic Size Option"]],"Ecliptic Size Option",{}));    
+    */
 
 /*
     if ($.Options_Dict["Orbit Circles Option"] == null) { $.Options_Dict["Orbit Circles Option"] = $.orbitCirclesOption_default; }
@@ -95,6 +101,8 @@ class SolarSystemSettingsMenu extends WatchUi.Menu2 {
     if ($.Options_Dict["Label Display Option"] == null) { $.Options_Dict["Label Display Option"] = $.labelDisplayOption_default; }
     Menu2.addItem(new WatchUi.MenuItem("Display Planet Labels?",
         $.labelDisplayOption[$.Options_Dict["Label Display Option"]],"Label Display Option",{}));
+
+    Menu2.addItem(new WatchUi.ToggleMenuItem("Help Banners: Off-On", null, "helpBanners", $.Options_Dict["helpBanners"], null));        
 
     if ($.Options_Dict["Refresh Option"] == null) { $.Options_Dict["Refresh Option"] = $.refreshOption_default; }
     Menu2.addItem(new WatchUi.MenuItem("Screen Refresh Rate?",
@@ -196,17 +204,20 @@ class SolarSystemSettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
                 System.println("EXIT COMMAND RECEIVED (settings) ....");
                 WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
                 System.exit();
-            }
-            if (ret != null && ret.equals("resetdate")) {
+            } else 
+           
+            if (ret != null && ret.equals("resetDate")) {
                 $.time_add_hrs = 0;
                 $.started=false;
                 $.reset_date_stop = true;
                 $.run_oneTime = true;
                 WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
                 
-            } else {
-                Storage.setValue(menuItem.getId() as String, menuItem.isEnabled());
-                $.Options_Dict[menuItem.getId() as String] = menuItem.isEnabled();
+            } 
+            
+            else {
+                Storage.setValue(ret, menuItem.isEnabled());
+                $.Options_Dict[ret] = menuItem.isEnabled();
             }
             
         }
@@ -233,7 +244,6 @@ class SolarSystemSettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
         
         }
 
-        id=menuItem.getId();
 
             if(id.equals("planetsOption")) {
             $.Options_Dict[id]=($.Options_Dict[id]+1)%planetsOption_size;
@@ -277,16 +287,6 @@ class SolarSystemSettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
         solarSystemView_class.startAnimationTimer($.hz);           
         }
 
-        if(id.equals("Screen0 Move Option")) {
-        $.Options_Dict[id]=($.Options_Dict[id]+1)%screen0MoveOption_size;
-        menuItem.setSubLabel($.screen0MoveOption[$.Options_Dict[id]]);
-
-        Storage.setValue(id as String, $.Options_Dict[id]);    
-
-        $.screen0Move_index = screen0MoveOption_values[$.Options_Dict[id]];
-        if (view_mode == 0 ) {speeds_index = $.screen0Move_index;}
-        
-        }
 
         if(id.equals("Planet Size Option")) {
         $.Options_Dict[id]=($.Options_Dict[id]+1)%planetSizeOption_size;
@@ -297,6 +297,7 @@ class SolarSystemSettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
         planetSizeFactor = planetSizeOption_values[$.Options_Dict[id]];        
         }
 
+        /*
         if(id.equals("Ecliptic Size Option")) {
         $.Options_Dict[id]=($.Options_Dict[id]+1)%eclipticSizeOption_size;
         menuItem.setSubLabel($.eclipticSizeOption[$.Options_Dict[id]]);
@@ -306,6 +307,7 @@ class SolarSystemSettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
         eclipticSizeFactor = eclipticSizeOption_values[$.Options_Dict[id]];
         
         }
+        */
 /*
         if(id.equals("Orbit Circles Option")) {
         $.Options_Dict[id]=($.Options_Dict[id]+1)%orbitCirclesOption_size;

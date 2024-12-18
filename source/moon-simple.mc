@@ -74,11 +74,11 @@ import Toybox.Lang;
     // (rem-ed out portion converts this to geocentric RA & Decl)
 
     function getGeocentricMoonPos(jd){
-	var T = (jd-2451545)/36525;
-	var L = 218.32 + 481267.881*T + 6.29*sind(135.0 + 477198.87*T) - 1.27*sind(259.3 - 413335.36*T) + 0.66*sind(235.7 + 890534.22*T) + 0.21*sind(269.9 + 954397.74*T) - 0.19*sind(357.5 + 35999.05*T) - 0.11*sind(186.5 + 966404.03*T);
-	var B = 5.13*sind( 93.3 + 483202.02*T) + 0.28*sind(228.2 + 960400.89*T) - 0.28*sind(318.3 + 6003.15*T) - 0.17*sind(217.6 - 407332.21*T);
+	var T = ((jd-2451545)/36525).toFloat();
+	var L = 218.32f + 481267.881f*T + 6.29f*sind(135.0f + 477198.87f*T) - 1.27f*sind(259.3 - 413335.36f*T) + 0.66f*sind(235.7f + 890534.22f*T) + 0.21f*sind(269.9f + 954397.74f*T) - 0.19f*sind(357.5f + 35999.05f*T) - 0.11f*sind(186.5f + 966404.03f*T);
+	var B = 5.13f*sind( 93.3f + 483202.02f*T) + 0.28f*sind(228.2f + 960400.89f*T) - 0.28f*sind(318.3f + 6003.15f*T) - 0.17f*sind(217.6f - 407332.21f*T);
 	//var P = 0.9508 + 0.0518*cosd(135.0 + 477198.87*T) + 0.0095*cosd(259.3 - 413335.36*T) + 0.0078*cosd(235.7 + 890534.22*T) + 0.0028*cosd(269.9 + 954397.74*T);
-    return [normalize(L),normalize(B)];
+    return [(normalize(L)).toFloat(),(normalize(B)).toFloat()];
 
     /*
     //convert to geocentric ra & decl

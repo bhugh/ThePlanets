@@ -226,8 +226,58 @@ import Toybox.Lang;
     }
 //}
 
+//given a dict with keys =kyss & values an array [1,2,3,4,5...]
+//and separate send the keys kys (or perhaps they are a separate array...)
+//will return an array with the keys sorted ascending on the nth value of the array
+function insertionSort(kys, dict, n) {
+    //var kys = dict.getKeys();
+    for (var i = 1; i < kys.size(); i++) {
+        var kkey = kys[i];
+        var sorton = dict[kkey][n];
+        
+        var j = i - 1;
 
-function sortDict (d, sort_index) {
-    
+        // Move elements of dict[0..i-1], that are greater than key,
+        // to one position ahead of their current position
+        while (j >= 0 && dict[kys[j]][n] > sorton) {
+            kys[j + 1] = kys[j];
+            j = j - 1;
+        }
+        kys[j + 1] = kkey;
+    }
 
+
+    return kys;
+}
+
+
+//isNumber: 0 string, 1 Number, 2 Float
+function toArray(text, delimiter, isNumber)
+{
+    var arr = [];
+    var delLen = delimiter.length();
+
+
+    while (text.length() > 0)
+    {
+        var iend = text.find(delimiter);
+        if (iend == null) // If delimiter is not found
+        {
+            iend = text.length(); // Take the rest of the string
+
+        }
+
+        // Extract the substring and convert to number if applicable
+        var value = text.substring(0, iend);
+        if (isNumber==1) {value = value.toNumber();}
+        else if (isNumber==2) {value = value.toFloat();}
+        arr.add(value); // Convert to number if needed
+        
+        if (iend==null) {break;}
+        //System.println ("TXT" + iend + " d: " + delLen + "val: " + value + " txt: " + text);
+        // Update text to remove the processed part
+        text = text.substring(iend + delLen, null);
+    }
+
+    return arr; // Return the array of values
 }
