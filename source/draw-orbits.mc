@@ -8,7 +8,7 @@ var save_points = {};
 var save_big_small = null;
 
 
-function drawOrbits3 (myDc, pp, scale, xc,yc, big_small, WHHs, color) {
+function drawOrbits3 (myDc, pp, scale, xc,yc, big_small, myWhh, color) {
 
  //System.println ("starting drawOrbits3 with " + color);
  //System.println ("starting drawOrbits3 with " + color == Graphics.COLOR_WHITE );
@@ -16,7 +16,8 @@ function drawOrbits3 (myDc, pp, scale, xc,yc, big_small, WHHs, color) {
 
    
     //var full_whh = WHHs[0];
-    var whh = WHHs[1];
+    //
+    //var whh = WHHs[1];
     //var small_whh = WHHs[2];
 
     /* var per = 50;
@@ -28,9 +29,9 @@ function drawOrbits3 (myDc, pp, scale, xc,yc, big_small, WHHs, color) {
     myDc.setColor(color, Graphics.COLOR_TRANSPARENT);
     myDc.setPenWidth(1);
     
-    for (var j=0;j<whh.size(); j++) {
-     var key = whh[j];
-       //if (!key.equals("Sun") && (big_small==0 || small_whh.indexOf(key)==-1))
+    for (var j=0;j<myWhh.size(); j++) {
+     var key = myWhh[j];
+       //if (!key.equals("Sun") && (big_small==0 || small_myWhh.indexOf(key)==-1))
        if (!key.equals("Sun") && !key.equals("Moon"))
        {
 
@@ -73,7 +74,11 @@ function drawFuzzyEllipse (myDc, swidth, sheight, xc,yc, A, B, type) {
       }
 } */
 
-function drawFuzzyEllipse (myDc, swidth, sheight, xc,yc, A, B, type) {
+      const randiv = 7142857.1f; //== ranmult^2/(2* 1-ranadd);
+      const ranmult = 1000;
+      const ranadd = .93f;
+
+function drawFuzzyEllipse (myDc, swidth, sheight, xc,yc, A, B) {
         //var r = (A * B) / Math.sqrt((B * Math.cos(thetaRad))^2 + (A * Math.sin(thetaRad))^2);
         if (A> swidth && B > sheight) { return;}
          //var fact = A/(myDc.getHeight()).toFloat() * 30.0;
@@ -81,20 +86,22 @@ function drawFuzzyEllipse (myDc, swidth, sheight, xc,yc, A, B, type) {
 
       var step =  A/2.0;   
       var start = 0;
-      if (type == :low) {step = (Math.rand()%150)/100.0 + 0.5; start = (Math.rand()%314).toFloat(); }
-      if (step<25 && A > 3  && type == :high) { step = 25; }
-      //System.println("Step: " + step + " start" + start + "");
+      //if (type == :low) {step = (Math.rand()%150)/100.0 + 0.5; start = (Math.rand()%314).toFloat(); }
+      //if (step<25 && A > 3  && type == :high) { step = 25; }
+
+      if (step<25 && A > 3) { step = 25; }
+      System.println("FuzzyEllipse Step: " + step + " start" + start + "A:" + A + " B:" + B);
       //if (step>200) {step=200;}
 
       for (var theta = start; theta < 2 * Math.PI;theta += Math.PI * 2.0 / step) {
          //var adder = 0;
          //if (type == :low) {adder = Math.rand()%1000/1000.0 * Math.PI * 2;}
-         var ran = Math.rand()%1000;
-         var addme =.95 + (ran*ran)/10000000.0;
+         var ran = Math.rand()%ranmult;
+         var addme =ranadd + (ran*ran)/randiv;
          var x = xc + (A*addme) * Math.cos(theta);
          var y = yc + (B*addme) * Math.sin(theta);
-         if (x<0|| y<0 || x>swidth || y>sheight) {continue;}
-         System.println("Aster: " + x + ":" + y);
+         if (x<0|| y<0 || x>swidth || y>sheight || isUnSafeFloat(x) || isUnSafeFloat(y) ) {continue;}
+         //System.println("Aster: " + x + ":" + y);
          myDc.drawPoint(x,y);
       }
 }

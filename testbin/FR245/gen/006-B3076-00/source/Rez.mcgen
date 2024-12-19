@@ -11,6 +11,9 @@ module Rez {
     } // Drawables
 
     module Strings {
+        (:initialized) var planets_Options1 as ResourceId;
+        (:initialized) var orrzoom as ResourceId;
+        (:initialized) var orrzoom_values as ResourceId;
         (:initialized) var AppName as ResourceId;
     } // Strings
 } // Rez

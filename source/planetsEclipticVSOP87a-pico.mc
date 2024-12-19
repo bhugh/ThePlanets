@@ -21,7 +21,10 @@ class VSOP87_cache{
         g_cache = {};
         indexes = [];
     }
-
+function fetch (now_info, timeZoneOffset_sec, dst, timeAdd_hrs, type) {
+    return planetCoord(now_info, timeZoneOffset_sec, dst, timeAdd_hrs, type, null);
+}
+/*
     function fetch (now_info, timeZoneOffset_sec, dst, timeAdd_hrs, type) {
         //System.println("fetch... ");
                     
@@ -81,7 +84,7 @@ class VSOP87_cache{
                 indexes.remove(indexes[0]);
             }
             //var vsop = new vsop87a_pico();
-            ret = planetCoord(now_info, timeZoneOffset_sec, dst, timeAdd_hrs, type);
+            ret = planetCoord(now_info, timeZoneOffset_sec, dst, timeAdd_hrs, type, null);
             //vsop = null;
             //kys = ret.keys();
             if ((MAX_CACHE > 0 && type == :ecliptic_latlon) ||  
@@ -100,8 +103,9 @@ class VSOP87_cache{
         g_cache = {};
         indexes = [];
     }
-    
+    */
 }
+
 
 //VSOP87-Multilang http://www.celestialprogramming.com/
 //Greg Miller (gmiller@gregmiller.net) 2021.  Released as Public Domain
@@ -114,7 +118,7 @@ class VSOP87_cache{
     var j2000= 2451543.5f; //epoch used for some calculations (Pluto) from Ioannis
 
     // types are :ecliptic_latlon and :helio_xyz
-    public function planetCoord (now_info, timeZoneOffset_sec, dst, timeAdd_hrs, type) {
+    public function planetCoord (now_info, timeZoneOffset_sec, dst, timeAdd_hrs, type, req_array) {
 
         //var sml_days  = synodicMonthLength_days(now_info, timeZoneOffset_sec, dst );
         //var base_JD = julianDate (2025, 1, 29 , 12, 36, 0, 0);
@@ -133,9 +137,16 @@ class VSOP87_cache{
         //"sun position" even though it was all calculated with Sun  as the center
         
         var ret = {};
-        var vhh = $.planetsOption_values[planetsOption_value];
+        //var vhh = $.planetsOption_values[planetsOption_value];
+        var vhh = makePlanetsOpt(planetsOption_value);
+        if (req_array != null) {vhh = req_array;}
 
-        if (type != :helio_xyz) { vhh =$.planetsOption_values[1];}
+        if (type != :helio_xyz) { vhh =makePlanetsOpt(1);}
+
+        //deBug("VSOP1: ", vhh);
+        //deBug("VSOP2: ", req_array);
+        /*deBug("VSOP3: ", $.planetsOption_values[planetsOption_value]);
+        deBug("VSOP4: ", [$.planetsOption_value,$.planetsOption_values]);*/
 
         //if (planetsOption_value == 0 || planetsOption_value == 2 || type != :helio_xyz)
          

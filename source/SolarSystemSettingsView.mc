@@ -9,7 +9,9 @@ import Toybox.Graphics;
 import Toybox.Lang;
 import Toybox.WatchUi;
 
-var orrZoomOption=[
+var orrZoomOption;
+
+/*var orrZoomOption=[
      "4X out" , 
      "2X out" , 
      "1X" , 
@@ -20,9 +22,11 @@ var orrZoomOption=[
      "32X in", 
      "64X in", 
      "128X in", 
-];
+];*/
 
-var orrZoomOption_values=[
+var orrZoomOption_values=[];
+
+/*var orrZoomOption_values=[
     0.25,
     0.5,
     1,
@@ -35,6 +39,7 @@ var orrZoomOption_values=[
     128,    
 
 ];
+*/
 var orrZoomOption_size = 10;
 var orrZoomOption_default = 2;
 
@@ -45,13 +50,16 @@ var planetsOption=[
      
 ];
 
+var allPlanets = [];
+/*
 var planetsOption_values=[
     ["Sun", "Mercury","Venus","Earth", "Moon","Mars","AsteroidA", "AsteroidB","Jupiter","Saturn","Uranus","Neptune","Pluto","Ceres","Chiron","Eris", "Gonggong","Quaoar", "Makemake", "Haumea"],
     ["Sun", "Mercury","Venus","Earth", "Moon", "Mars","AsteroidA", "AsteroidB", "Jupiter","Saturn","Uranus","Neptune","Pluto"], //List of names not used on VSOP but can be useful elsewhere
     ["Sun","Mercury", "Earth", "Moon", "Ceres","AsteroidA", "AsteroidB", "Chiron","Pluto","Eris", "Gonggong","Quaoar", "Makemake", "Haumea"], //can't have moon w/o earth...
  
 
-];
+];*/
+
 var planetsOption_size = 3;
 var planetsOption_default = 1;
 var planetsOption_value = planetsOption_default; //use the NUMBER not the VALUES, slightly UNUSUAL

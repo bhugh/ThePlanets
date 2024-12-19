@@ -29,6 +29,12 @@ module Rez {
         <init> {
         }
         [ @file = "e:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\testbin\FR245\gen\006-B3076-00\source\Rez.mcgen"; @line = 14; @position = 27; initialized = true; ]
+        var planets_Options1 as ResourceId;
+        [ @file = "e:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\testbin\FR245\gen\006-B3076-00\source\Rez.mcgen"; @line = 15; @position = 27; initialized = true; ]
+        var orrzoom as ResourceId;
+        [ @file = "e:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\testbin\FR245\gen\006-B3076-00\source\Rez.mcgen"; @line = 16; @position = 27; initialized = true; ]
+        var orrzoom_values as ResourceId;
+        [ @file = "e:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\testbin\FR245\gen\006-B3076-00\source\Rez.mcgen"; @line = 17; @position = 27; initialized = true; ]
         var AppName as ResourceId;
     }
 }

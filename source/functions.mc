@@ -37,7 +37,7 @@ import Toybox.Lang;
             //case instanceof Long:
             //    return degrees%360;
             default:
-                return (degrees/360.0 - Math.floor(degrees/360.0 + fc)) *360.0;
+                return ((degrees/360.0 - Math.floor(degrees/360.0 + fc)) *360.0).toFloat();
         }        
 
     }
@@ -53,6 +53,11 @@ import Toybox.Lang;
             float: degrees between -180 and 180
             
         */
+        var d = normalize(degrees);
+        if (d > 180) {return d - 360;}
+        return d;
+        
+        /*
         var ret;
         switch (degrees) {
             case instanceof Number:
@@ -63,11 +68,12 @@ import Toybox.Lang;
             //case instanceof Long:
             //    return degrees%360;
             default:
-                ret = (degrees/360.0 - Math.floor(degrees/360.0 + fc)) *360.0;
+                ret = ((degrees/360.0 - Math.floor(degrees/360.0 + fc)) *360.0).toFloat();
         }  
 
         if (ret > 180 ) { return ret - 360;}
-        return ret;      
+        return ret;    
+        */  
     }
     //modular division for floats/doubles
     //a mod b
@@ -75,10 +81,10 @@ import Toybox.Lang;
     // 1.99999999 (rounds to 2 instead of 1)
     function mod (a ,b) {
         if (b ==0) { return 0; }
-        return (a/b - Math.floor(a/b + fc)) *b;
+        return ((a/b - Math.floor(a/b + fc)) *b).toFloat();
     }
 
-    const J2000_0= 2451543.5; // 2000 Jan 0.0 TDT, which is the same as 1999 Dec 31.0 TDT, i.e. precisely at midnight TDT  (Jan 0.0 is not the first day of January but rather the LAST day of December, so a full day before Jan 1.0)
+    const J2000_0= 2451543.5f; // 2000 Jan 0.0 TDT, which is the same as 1999 Dec 31.0 TDT, i.e. precisely at midnight TDT  (Jan 0.0 is not the first day of January but rather the LAST day of December, so a full day before Jan 1.0)
     //This is actually NOT the same as J2000, which is 1 Jan 2000 at noon, Julian Date 2451545, or 2000 Jan 1.5.
     //This MIGHT be a mistake by someone who was trying to use J2000 but missed by a little?  In obliquity of ecliptic calc below the difference will be negligible.
 
@@ -257,9 +263,10 @@ function toArray(text, delimiter, isNumber)
     var arr = [];
     var delLen = delimiter.length();
 
-
+    //System.println("TXT: " + text + " df " + delimiter + " isn " + isNumber);
     while (text.length() > 0)
     {
+        //System.println ("TXT " + delLen + " txt: " + text);
         var iend = text.find(delimiter);
         if (iend == null) // If delimiter is not found
         {
@@ -276,8 +283,38 @@ function toArray(text, delimiter, isNumber)
         if (iend==null) {break;}
         //System.println ("TXT" + iend + " d: " + delLen + "val: " + value + " txt: " + text);
         // Update text to remove the processed part
-        text = text.substring(iend + delLen, null);
+        //So FR 245 SIMULATOR (not real thing, only simulator) croaks when last
+        //field is NULL even though documentations says that is OK
+        text = text.substring(iend + delLen, text.length());
     }
 
     return arr; // Return the array of values
+}
+
+const FLT_MAX = 3.4028235e38f;
+
+function isnan(x as Float) as Boolean {
+    return x != x;
+}
+
+function isinf(x as Float) as Boolean {
+    return (x < -FLT_MAX || FLT_MAX < x);
+}
+
+function isUnSafeFloat(x as Float) as Boolean {
+    return isnan (x) || isinf(x);
+}
+
+function deBug(label, ary) {
+    System.print (label + ": ");
+    //if (ary == null) {System.println(" NULL!"); return;}
+
+    if (ary instanceof Lang.Array) {
+        for (var i = 0; i< ary.size(); i++) {
+        System.print(ary[i] + " : ");
+        } 
+    }else {
+        System.print(ary);
+    }
+    System.println("");
 }

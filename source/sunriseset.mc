@@ -320,11 +320,11 @@ class sunRiseSet{
             var T_sun=normalize((RA - sidtime*15))/15 ;
             if (ky == :NOON) {
                 //ret.put (ky, [T_sun,sunEventData[ky][1]]);
-                ret.put (ky, [T_sun]);                
+                ret.put (ky, [T_sun.toFloat()]);                
                 continue;
             } else if (ky == :SIDEREAL_TIME) {
                 //ret.put (ky, [sidtime ,sunEventData[ky][1]]);
-                ret.put (ky, [sidtime]);
+                ret.put (ky, [sidtime.toFloat()]);
                 continue;
             }
 
@@ -345,12 +345,12 @@ class sunRiseSet{
                 var anatoli=null;
                 if (Lha != null) {anatoli=T_sun - Lha;}
                 //ret.put (ky, [anatoli ,sunEventData[ky][1]]);
-                ret.put (ky, [anatoli]);
+                ret.put (ky, [anatoli.toFloat()]);
             } else {
                 var disi=null;
                 if (Lha != null) {disi=T_sun + Lha;}                
                 //ret.put (ky, [disi ,sunEventData[ky][1]]);
-                ret.put (ky, [disi]);
+                ret.put (ky, [disi.toFloat()]);
             }
             //var ret = [anatoli, disi];
             
@@ -360,6 +360,7 @@ class sunRiseSet{
         return ret;
     }
 
+/*
     public function siderealTime(year, month, day, hour, min, UT1, dst1, 
                  latitude1, longitude1){
 
@@ -424,4 +425,5 @@ class sunRiseSet{
 
 
     }
+    */
 }

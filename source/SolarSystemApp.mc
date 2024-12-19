@@ -22,7 +22,7 @@ var vspo87a;
 var vsop_cache;
 var allOrbitParms = null;
     //var view_mode = [0, 1,2,3,4,5]; //manual move ecl, minuts ecl, day ecl, inner orr, mid orr, full orr
-    var view_mode = 0;
+    var view_mode = 1;
     var num_view_modes = 9;
 
     //unit is HOUR
@@ -38,8 +38,8 @@ var allOrbitParms = null;
                 1/60.0, 2/60.0, 3/60.0, 5/60.0, 10/60.0, 15/60.0, 30/60.0,  //35; minutes (added 0)
                 1,2,4,6,12,  //42; Hours (added 1)
                 24-15/60.0, 24,24+15/60.0, 24*2-15/60.0, 24*2,24*2+15/60.0, 24*3,24*5, 24*7, //47; Days up to a week (added 0)
-                24*15,29.53059*24, 24*31, 24*61, 24*91, 24*122, 24*183, //56; 1/2, 1/4, 1/12, 1/24 of a year (added 1)
-                24*365,24*365.2422, 24*365*2, 24*365*4, 24*365 * 7, 24*365 * 10]; //63; year multiples (added 0)
+                24*15,29.53059*24, 24*31, 24*61, 24*91, 24*122, 24*183, 24*300, //56;300 days 1/2, 1/4, 1/12, 1/24 of a year (added 1)
+                24*365,24*365.2422, 24 * 400, 24 * 500, 24*365*2, 24*365*4, 24*365 * 7, 24*365 * 10]; //64; year multiples (added 0)
 var speeds_index; //the currently used speed that will be added to TIME @ each update of screen  //
 //var screen0Move_index = 33;
 
@@ -187,6 +187,8 @@ class SolarSystemBaseApp extends Application.AppBase {
 
         System.println("STORAGE VALUES ARE READ - PROGRAM INIT!!!!");
 
+        loadPlanetsOpt();
+      
         readAStorageValue("orrZoomOption", orrZoomOption_default, orrZoomOption_size );
 
         //readAStorageValue("thetaOption", thetaOption_default, thetaOption_size );
@@ -207,7 +209,7 @@ class SolarSystemBaseApp extends Application.AppBase {
         readAStorageValue("resetDots", resetDots_default, resetDots_size );
         */
 
-        readAStorageValue("planetsOption", planetsOption_default, planetsOption_size );
+        readAStorageValue("planetsOption", planetsOption_default, planetsOption_size );        
 
         var temp = Storage.getValue("helpBanners");
         $.Options_Dict["helpBanners"] = temp != null ? temp : true;
