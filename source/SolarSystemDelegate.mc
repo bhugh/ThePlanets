@@ -105,7 +105,7 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
         if (buttonPresses == 1) {return;} //1st buttonpress just gets out of intro titles
 
         var in = $.view_mode;
-        var od = $.Options_Dict["thetaOption"]; //od 0 change time intv, 1 = altitude (theta), 2 = direction (gamma)
+        var od = $.Options_Dict[thetaOption_enum]; //od 0 change time intv, 1 = altitude (theta), 2 = direction (gamma)
 
         //System.println("onNextPage... od:" + od + " in:" + in + " type==next: " + ( type == :next));
 
@@ -183,7 +183,7 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
         if (buttonPresses == 1) {return;} //1st buttonpress just gets out of intro titles
 
         var in = $.view_modes[$.view_mode];
-        var od = $.Options_Dict["thetaOption"]/
+        var od = $.Options_Dict[thetaOption_enum]/
 
 
         if ( in== 0) {
@@ -256,7 +256,7 @@ function changeModes(previousMode){
         $.show_intvl = 0; //used by showDate to decide when/how long to show (5 min) type labels
         LORR_orient_horizon = true; //tells large_orrery to orient the graph so earth's horizon is horizontal & meridian is UP in the viewpoint.  which we do only the first time LORR is run.
         //$.time_add_hrs = .5; //reset to present time //NOW Do this, or not, individually per MODE below
-        $.Options_Dict["orrZoomOption"] = orrZoomOption_default;
+        $.Options_Dict[orrZoomOption_enum] = orrZoomOption_default;
 
         switch($.view_mode){
            /* case (0):
@@ -269,7 +269,7 @@ function changeModes(previousMode){
                 }
                 speeds_index = 41;
                 //speeds_index = screen0Move_index; //15 mins or whatever the person has set
-                if ($.Options_Dict["helpBanners"]){solarSystemView_class.sendMessage(5, ["Manual Mode", "Use Up/Down", "", null]);}
+                if ($.Options_Dict[helpBanners_enum]){solarSystemView_class.sendMessage(5, ["Manual Mode", "Use Up/Down", "", null]);}
                 break;*/
             case (0):    
             case (1):
@@ -282,7 +282,7 @@ function changeModes(previousMode){
                 }
                 speeds_index = 41; //15 mins
                 started = false;
-                if ($.Options_Dict["helpBanners"]){solarSystemView_class.sendMessage(5, ["Auto Mode (Slow)", "Use Up/Down/Start/Stop", "", null]);}
+                if ($.Options_Dict[helpBanners_enum]){solarSystemView_class.sendMessage(5, ["Auto Mode (Slow)", "Use Up/Down/Start/Stop", "", null]);}
                 break;
             case(2):
                 if (vsop_cache == null)  {vsop_cache = new VSOP87_cache();}
@@ -293,7 +293,7 @@ function changeModes(previousMode){
                 }
                 speeds_index = 48; //1 day or 24 hrs
                 started = false;
-                if ($.Options_Dict["helpBanners"]){solarSystemView_class.sendMessage(5, ["Auto Mode (Fast)", "Use Up/Down/Start/Stop", "",null]);}
+                if ($.Options_Dict[helpBanners_enum]){solarSystemView_class.sendMessage(5, ["Auto Mode (Fast)", "Use Up/Down/Start/Stop", "",null]);}
                 break;                
             case(3):
                 vsop_cache = null;
@@ -302,13 +302,13 @@ function changeModes(previousMode){
                 $.newModeOrZoom = true; //gives signal to reset the dots
                 //speeds_index = 41; //1 day OLD/too slow on real watch
                 speeds_index = 53; //3 day
-                if ($.Options_Dict["helpBanners"]){solarSystemView_class.sendMessage(3, ["Inner Solar", "System-Top View", "-Use Up/Down/Start/Stop-", ""]);}
+                if ($.Options_Dict[helpBanners_enum]){solarSystemView_class.sendMessage(3, ["Inner Solar", "System-Top View", "-Use Up/Down/Start/Stop-", ""]);}
                 /* sunrise_events = sunrise_cache.fetch($.now_info.year, $.now_info.month, $.now_info.day, $.now.timeZoneOffset/3600, $.now.dst, time_add_hrs, lastLoc[0], lastLoc[1]);
                 sunrise_events[:NOON][0] + noon_adj_hrs */
 
                 ga_rad = 0 ; //rotation around the disk; viewpoint
                 the_rad = Math.PI; //angles above the disk; altitude. radians.  0,0 is flat from the top.
-                $.Options_Dict["thetaOption"] = 0;
+                $.Options_Dict[thetaOption_enum] = 0;
                 started = false;
                 break;
             case(4):
@@ -318,13 +318,13 @@ function changeModes(previousMode){
                 $.newModeOrZoom = true; //gives signal to reset the dots
                 //speeds_index = 41; //1 day OLD/too slow on real watch
                 speeds_index = 54; //3 day
-                if ($.Options_Dict["helpBanners"]){solarSystemView_class.sendMessage(3, ["Inner Solar", "System-Side View", "-Use Up/Down/Start/Stop-", ""]);}
+                if ($.Options_Dict[helpBanners_enum]){solarSystemView_class.sendMessage(3, ["Inner Solar", "System-Side View", "-Use Up/Down/Start/Stop-", ""]);}
                 //ga_rad = 3.1415 ; //rotation around the disk; viewpoint
                 //the_rad = 4.59; //angles above the disk; altitude. radians.  0,0 is flat from the top.
 
                 ga_rad = 0; //rotation around the disk; viewpoint
                 the_rad = -1.75; //angles above the disk; altitude. radians.  0,0 is flat from the top.
-                $.Options_Dict["thetaOption"] = 1;
+                $.Options_Dict[thetaOption_enum] = 1;
                 started = false;
                 break;                
             case(5):
@@ -334,10 +334,10 @@ function changeModes(previousMode){
                 $.newModeOrZoom = true; //gives signal to reset the dots
                 //speeds_index = 46; //15 days = OLD , too slow on real watch
                 speeds_index = 63; //300 days
-                if ($.Options_Dict["helpBanners"]){solarSystemView_class.sendMessage(3, ["Outer Solar", "System-Top View", "-Use Up/Down/Start/Stop-", ""]);}
+                if ($.Options_Dict[helpBanners_enum]){solarSystemView_class.sendMessage(3, ["Outer Solar", "System-Top View", "-Use Up/Down/Start/Stop-", ""]);}
                 ga_rad = 0 ; //rotation around the disk; viewpoint
                 the_rad = Math.PI; //angles above the disk; altitude. 
-                $.Options_Dict["thetaOption"] = 0;
+                $.Options_Dict[thetaOption_enum] = 0;
                 started = false;
                 break;
             case(6):
@@ -347,14 +347,14 @@ function changeModes(previousMode){
                 $.newModeOrZoom = true; //gives signal to reset the dots
                 //speeds_index = 46; //15 days = OLD , too slow on real watch
                 speeds_index = 63; //1 SOLAR year
-                if ($.Options_Dict["helpBanners"]){solarSystemView_class.sendMessage(3, ["Outer Solar", "System-Side View", "-Use Up/Down/Start/Stop-", ""]);}
+                if ($.Options_Dict[helpBanners_enum]){solarSystemView_class.sendMessage(3, ["Outer Solar", "System-Side View", "-Use Up/Down/Start/Stop-", ""]);}
                 //ga_rad = 4.1872 ; //rotation around the disk; viewpoint //8632 - ga th: 0.523599 -1.517060
                 //the_rad = -1.517; //angles above the disk; altitude. 
                 
                 ga_rad = 0; //rotation around the disk; viewpoint
                 the_rad = -1.75; //angles above the disk; altitude. radians.  0,0 is flat from the top.
 
-                $.Options_Dict["thetaOption"] = 1;
+                $.Options_Dict[thetaOption_enum] = 1;
                 started = false;
                 break;
                             
@@ -366,10 +366,10 @@ function changeModes(previousMode){
                 $.newModeOrZoom = true; //gives signal to reset the dots
                 //speeds_index = 48; //61 days, too slow on real watch
                 speeds_index = 66; //4 yrs
-                if ($.Options_Dict["helpBanners"]){solarSystemView_class.sendMessage(3, ["Far Outer", "Solar System-Top","-Use Up/Down/Start/Stop-", ""]);}
+                if ($.Options_Dict[helpBanners_enum]){solarSystemView_class.sendMessage(3, ["Far Outer", "Solar System-Top","-Use Up/Down/Start/Stop-", ""]);}
                 ga_rad = 0 ; //rotation around the disk; viewpoint
                 the_rad = Math.PI; //angles above the disk; altitude. 
-                $.Options_Dict["thetaOption"] = 0;
+                $.Options_Dict[thetaOption_enum] = 0;
                 started = false;
                 break;
             
@@ -380,7 +380,7 @@ function changeModes(previousMode){
                 $.newModeOrZoom = true; //gives signal to reset the dots
                 //speeds_index = 48; //61 days, too slow on real watch
                 speeds_index = 67; //500 days
-                if ($.Options_Dict["helpBanners"]){solarSystemView_class.sendMessage(3, ["Far Outer", "Solar System-Side","-Use Up/Down/Start/Stop-", ""]);}
+                if ($.Options_Dict[helpBanners_enum]){solarSystemView_class.sendMessage(3, ["Far Outer", "Solar System-Side","-Use Up/Down/Start/Stop-", ""]);}
                 //0.372665 -1.417994 ga th , good
                 //ga th: 0.896264 -1.417994 better
                 //ga_rad = 4.036264 ; //rotation around the disk; viewpoint
@@ -389,7 +389,7 @@ function changeModes(previousMode){
                 ga_rad = 0; //rotation around the disk; viewpoint
                 the_rad = -1.75; //angles above the disk; altitude. radians.  0,0 is flat from the top.
 
-                $.Options_Dict["thetaOption"] = 1;
+                $.Options_Dict[thetaOption_enum] = 1;
                 started = false;
                 break;                
             default:

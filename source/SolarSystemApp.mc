@@ -61,6 +61,12 @@ var show_intvl = 0; //whether or not to show current SPEED on display
 var animSinceModeChange = 0; //used to tell when to blank screen etc.
 var solarSystemView_class; //saved instance of main class 
 
+//enum {exitApp, resetDate, orrZoomOption, thetaOption, labelDisplayOption, refreshOption, screen0MoveOption, planetSizeOption, planetsOption, helpOption, helpBanners}
+
+//enum {EXIT_APP, RESET_DATE, ORR_ZOOM, THETA, LABEL_DISPLAY, REFRESH, PLANET_SIZE, PLANETS, HELP, HELP_BANNERS}
+
+enum {exitApp_enum, resetDate_enum, orrZoomOption_enum, thetaOption_enum, labelDisplayOption_enum, refreshOption_enum, planetSizeOption_enum, planetsOption_enum, helpOption_enum, helpBanners_enum, lastLoc_enum} //screen0MoveOption_enum, 
+
 
 class SolarSystemBaseApp extends Application.AppBase {
 
@@ -191,16 +197,17 @@ class SolarSystemBaseApp extends Application.AppBase {
       
         readAStorageValue("orrZoomOption", orrZoomOption_default, orrZoomOption_size );
 
-        //readAStorageValue("thetaOption", thetaOption_default, thetaOption_size );
-        $.Options_Dict["thetaOption"] = 0; //just always default to TIME INTERVAL here.
+        //readAStorageValue(orrZoomOption, thetaOption_default, thetaOption_size );
 
-        readAStorageValue("Label Display Option",labelDisplayOption_default, labelDisplayOption_size );
+        $.Options_Dict[thetaOption_enum] = 0; //just always default to TIME INTERVAL here.
 
-        readAStorageValue("Refresh Option",refreshOption_default, refreshOption_size );
+        readAStorageValue(labelDisplayOption_enum,labelDisplayOption_default, labelDisplayOption_size );
+
+        readAStorageValue(refreshOption_enum,refreshOption_default, refreshOption_size );
 
         //readAStorageValue("Screen0 Move Option",screen0MoveOption_default, screen0MoveOption_size );
 
-        readAStorageValue("Planet Size Option", planetSizeOption_default, planetSizeOption_size );
+        readAStorageValue(planetSizeOption_enum, planetSizeOption_default, planetSizeOption_size );
 
         //readAStorageValue("Ecliptic Size Option", eclipticSizeOption_default, eclipticSizeOption_size );
 /*
@@ -209,11 +216,11 @@ class SolarSystemBaseApp extends Application.AppBase {
         readAStorageValue("resetDots", resetDots_default, resetDots_size );
         */
 
-        readAStorageValue("planetsOption", planetsOption_default, planetsOption_size );        
+        readAStorageValue(planetsOption_enum, planetsOption_default, planetsOption_size );        
 
-        var temp = Storage.getValue("helpBanners");
-        $.Options_Dict["helpBanners"] = temp != null ? temp : true;
-        Storage.setValue("helpBanners",$.Options_Dict["helpBanners"]); 
+        var temp = Storage.getValue(helpBanners_enum);
+        $.Options_Dict[helpBanners_enum] = temp != null ? temp : true;
+        Storage.setValue(helpBanners_enum,$.Options_Dict[helpBanners_enum]); 
 
        
 
@@ -228,11 +235,11 @@ class SolarSystemBaseApp extends Application.AppBase {
         */
 
         //###### REFRESH RATE
-        $.hz = refreshOption_values[$.Options_Dict["Refresh Option"]];                
+        $.hz = refreshOption_values[$.Options_Dict[refreshOption_enum]];                
         _positionView.startAnimationTimer($.hz);           
         
         //##### PLANET SIZE
-        planetSizeFactor = planetSizeOption_values[$.Options_Dict["Planet Size Option"]];
+        planetSizeFactor = planetSizeOption_values[$.Options_Dict[planetSizeOption_enum]];
 
         /*
         //##### ECLIPTIC SIZE
@@ -240,7 +247,7 @@ class SolarSystemBaseApp extends Application.AppBase {
         */
 
         //##### Display all or only planets
-        planetsOption_value = $.Options_Dict["planetsOption"]; //the number not the array (unusual) 
+        planetsOption_value = $.Options_Dict[planetsOption_enum]; //the number not the array (unusual) 
 
         /* //Sample binary option
         temp = Storage.getValue("Show Battery");

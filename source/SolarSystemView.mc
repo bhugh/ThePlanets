@@ -1372,7 +1372,7 @@ class SolarSystemBaseView extends WatchUi.View {
             //var oldscale = scale;
                 System.println("RDSWC - new scale & targetDc: "  + $.speedWasChanged + " " + $.newModeOrZoom );
             
-                scale = (min_c*0.85*eclipticSizeFactor)/Math.sqrt(max) * $.orrZoomOption_values[$.Options_Dict["orrZoomOption"]] ;  
+                scale = (min_c*0.85*eclipticSizeFactor)/Math.sqrt(max) * $.orrZoomOption_values[$.Options_Dict[orrZoomOption_enum]] ;  
                 asteroidsRendered = false;
 
             //must clear screen if scale has changed, otherwise clear it per resetDots setting
@@ -1875,12 +1875,12 @@ class SolarSystemBaseView extends WatchUi.View {
     //shows msg & returns 0 = nothing displayed, 1 = normal msg displayed , 2 = special introductory msg displayed
     function showMessage(dc, jstify) {
         var msg = message;
-        if ($.buttonPresses < 1 && $.Options_Dict["helpBanners"]) {
+        if ($.buttonPresses < 1 && $.Options_Dict[helpBanners_enum]) {
             //making all timings 1/2 the rate because it is so much
             //slower on real watch vs simulator.  But needs a better solution involving actual clock time probably
             //$.Options_Dict[ret]
             if (startTime == null) {startTime = $.time_now.value();}
-            System.println("showM " + $.time_now.value() + " " + $.time_now.value()/(3) + " " + mod(75,7) + " : " + $.time_now.value()/(3)%7 + " :: " + mod($.time_now.value()/(3),7.0).toNumber() );
+            //System.println("showM " + $.time_now.value() + " " + $.time_now.value()/(3) + " " + mod(75,7) + " : " + $.time_now.value()/(3)%7 + " :: " + mod($.time_now.value()/(3),7.0).toNumber() );
             switch ((($.time_now.value()-startTime)/3)%7){
                 case 0:                
                 case 6:                
@@ -2589,12 +2589,12 @@ class SolarSystemBaseView extends WatchUi.View {
         }
         */
         var drawThis=false;
-        if ($.Options_Dict["Label Display Option"] != 1){
+        if ($.Options_Dict[labelDisplayOption_enum] != 1){
 
             var mlt = 4;
-            if ($.Options_Dict["Label Display Option"]==3) {mlt = 8;}
-            else if ($.Options_Dict["Label Display Option"]==0 ) {mlt = 1;}
-            else if ($.Options_Dict["Label Display Option"]==4 ) {
+            if ($.Options_Dict[labelDisplayOption_enum]==3) {mlt = 8;}
+            else if ($.Options_Dict[labelDisplayOption_enum]==0 ) {mlt = 1;}
+            else if ($.Options_Dict[labelDisplayOption_enum]==4 ) {
                 
                     //sparkly labels effect/random 1/4 of the planets @ any time
                   drawThis = (planetRand + $.drawPlanetCount)%pp.size()<pp.size()/8;
@@ -2863,12 +2863,12 @@ class SolarSystemBaseView extends WatchUi.View {
         if (lastLoc == null) {self.lastLoc = new Position.Location(            
                     { :latitude => 39.833333, :longitude => -98.583333, :format => :degrees }
                     ).toDegrees(); }
-        if ($.Options_Dict.hasKey("lastLoc")) {lastLoc = $.Options_Dict["lastLoc"];}
+        if ($.Options_Dict.hasKey(lastLoc_enum)) {lastLoc = $.Options_Dict[lastLoc_enum];}
         
-        var temp = Storage.getValue("lastLoc");
+        var temp = Storage.getValue(lastLoc_enum);
         if (temp!=null) {lastLoc = temp;}
-        Storage.setValue("lastLoc", lastLoc);
-        $.Options_Dict.put("lastLoc", lastLoc);
+        Storage.setValue(lastLoc_enum, lastLoc);
+        $.Options_Dict.put(lastLoc_enum, lastLoc);
         System.println("setINITPosition at " + animation_count + " to: "  + lastLoc);
     }
 
@@ -2957,8 +2957,8 @@ class SolarSystemBaseView extends WatchUi.View {
         //System.println ("lastLoc: " + lastLoc );
 
         if (lastLoc != null) {
-            $.Options_Dict.put("lastLoc", lastLoc);
-            Storage.setValue("lastLoc", lastLoc);
+            $.Options_Dict.put(lastLoc_enum, lastLoc);
+            Storage.setValue(lastLoc_enum, lastLoc);
         }
         System.println("setPosition (final) at " + animation_count + " to: "  + lastLoc);
     }
