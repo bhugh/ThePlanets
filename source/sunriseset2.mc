@@ -80,8 +80,8 @@ class sunRiseSet_cache2{
                 g_cache.remove(indexes[0]);
                 indexes.remove(indexes[0]);
             }
-            var g = new sunRiseSet(year, month, day, UT,dst, timeAdd_hrs, lat, lon);
-            ret = g.riseSet();
+            //var g = new sunRiseSet(year, month, day, UT,dst, timeAdd_hrs, lat, lon);
+            //ret = g.riseSet();
             //kys = ret.keys();
             g_cache.put(index,ret);
             indexes.add(index);
@@ -99,7 +99,38 @@ class sunRiseSet_cache2{
 }
 
 
+enum {
+    GMST_MID_HR,
+    TRANSIT_GMT_HR,
+    GMST_NOW_HR,
+    LMST_NOW_HR,
+    ASTRO_DAWN,
+    NAUTIC_DAWN,
+    DAWN,
+    BLUE_HOUR,
+    SUNRISE,
+    SUNRISE_END,
+    HORIZON,
+    GOLDEN_HOUR,
+    NOON,
+}
 
+//for testing, can delete later
+var sevent_names = {
+    :GMST_MID_HR => "GMST_MID_HR",
+    :TRANSIT_GMT_HR => "TRANSIT_GMT_HR",
+    :GMST_NOW_HR => "GMST_NOW_HR",
+    :LMST_NOW_HR => "LMST_NOW_HR",
+    :ASTRO_DAWN => "Astronomical Dawn",
+    :NAUTIC_DAWN => "Nautical Dawn",
+    :DAWN => "Dawn",
+    :BLUE_HOUR => "Blue Hour",
+    :SUNRISE => "Sunrise",
+    :SUNRISE_END => "Sunrise End",
+    :HORIZON => "Horizon",
+    :GOLDEN_HOUR => "Golden Hour",
+    :NOON => "Noon",
+};
 
 
 
@@ -126,15 +157,17 @@ class sunRiseSet_cache2{
     };
     */
 
+
     public var sunEventData = {
         :ASTRO_DAWN => -18,  //each one has  a twin @ - it's number, so we'll just combine the two & you can figure it out. Dawn/Dusk -18/+18, etc.
         :NAUTIC_DAWN => -12,
         :DAWN => -6 ,
-        :BLUE_HOUR_AM => -4,
-        :SUNRISE => -.833,
-        :SUNRISE_END => -.3,
-        :HORIZON_AM => 0,
-        :GOLDEN_HOUR_AM => 6,
+        :BLUE_HOUR => -4,
+        //:SUNRISE => -.833, //Sunset  START
+        :SUNRISE => -.5667, //Sunset MIDDLE OF SUN (so we're not counting the top of the sun, but the middle)
+        :SUNRISE_END => -.3, //Sunset start
+        :HORIZON => -0.5667, //For stars, planets, etc, the horizon where  they  can first be seen, "star-rise".  This is not 0 thanks to refraction etc.
+        :GOLDEN_HOUR => 6,
         :NOON => null, //noon is the highest point or whatever, but not a certain # of degrees below the horizon
 
     };
@@ -193,23 +226,58 @@ function constrain(v){
     //returns solar event times in HOURS
     //function getRiseSetfromDate_hr(year, month, day, UT, dst, time_add_hrs, 
     //             lat_deg, long_deg) {
-    function getRiseSetfromDate_hr(now_info, timeZoneOffset_sec, dst, time_add_hrs, lat_deg, lon_deg) {                    
+    function getRiseSetfromDate_hr(now_info, timeZoneOffset_sec, dst, time_add_hrs, lat_deg, lon_deg,pp_sun) {                    
+
+         lon_deg = -lon_deg; //Meeus uses West longitudes as positive - this is to correct for that
+         deBug("long(MEEUS),UT,TZ,dst", [lon_deg.format("%.2f"), lat_deg.format("%.2f"), timeZoneOffset_sec/3600, dst]);
 
         var jd = time_add_hrs /24.0f + gregorianDateToJulianDate(now_info.year, now_info.month, now_info.day, 0, 0, 0);
+
+        System.println ("JD: " + jd); 
 
         //get ra & dec for sun from VSOP87a
         //var ra = 0;
         //var dec = 0;
 
-
+        var sun_RD = pp_sun;//radec = sunPosition(jd);
 
         //return is: [Math.toDegrees(l), Math.toDegrees(t2), r];//lat, lon, r
-        var sun_radec = planetCoord (now_info, timeZoneOffset_sec, dst, time_add_hrs, :ecliptic_latlon, ["Sun"]);
+        
+        
+        if (pp_sun == null) {
+            sun_RD = planetCoord (now_info, timeZoneOffset_sec, dst, time_add_hrs, :ecliptic_latlon, ["Sun"]);
 
-        System.println("sun_radec: " + (sun_radec["Sun"][0]) + " " + (sun_radec["Sun"][1]));
+            //System.println("sun_radec(I): " + (pp_sun[0]) + " " + (pp_sun[1]));
+            //sun_RD = pp_sun;
+        }
+        System.println("sun_radec: " + (sun_RD));
 
-        var first = false;
         var ret = {};
+
+        //Greenwhich mean sidereal time @ midnight of today
+        var gmst_mid_deg=normalize(GMST_deg(Math.floor(jd)+.5));
+        //deBug("gmst: ", [gmst, jd, Math.floor(jd)+.5]);
+        ret.put(:GMST_MID_HR, gmst_mid_deg/15.0);
+        deBug("gmst, jd : ", [gmst_mid_deg, jd]);
+        //today's solar transit time in GMT
+	    var transit_GMT_DAY=normalize(sun_RD[0] + lon_deg - gmst_mid_deg)/360.0;
+        ret.put(:TRANSIT_GMT_HR, transit_GMT_DAY*24.0);
+        deBug("transit: ", [transit_GMT_DAY*24.0]);
+
+        var gmst_now_deg = normalize(GMST_deg(jd));
+        var lmst_now_hr = normalize((gmst_now_deg - lon_deg)) / 15.0;
+        ret.put(:GMST_NOW_HR, [gmst_now_deg/15.0]);
+        ret.put(:LMST_NOW_HR, [lmst_now_hr]);
+        deBug("GNMST_NOW_HR, LMST: ", [gmst_now_deg/15.0, lmst_now_hr]);
+
+        var tz_add = (timeZoneOffset_sec/3600.0f) + dst;
+        ret.put (:NOON,  constrain(transit_GMT_DAY + tz_add/24.0) * 24.0);
+        deBug("NOON,tz: ", [constrain(transit_GMT_DAY + tz_add/24.0) * 24.0, tz_add]);
+
+
+
+        var first = true;
+        
 
         for (var i = 0; i<sunEventData.size();i++) {
 
@@ -219,37 +287,50 @@ function constrain(v){
         
             var ky = kys[i];
 
-            if (ky == :NOON) { continue;}
+            //if (ky == :NOON ) { continue;}
+            if (ret.hasKey(ky) ) { continue;}
 
             //result in hrs GMT
+            //rise & set - in hours GMT
             var sun_info = getRiseSet_hr(jd,
                 sunEventData[ky], Math.toRadians(lat_deg), 
                 Math.toRadians(lon_deg),
-                Math.toRadians(sun_radec["Sun"][0]),
-                Math.toRadians(sun_radec["Sun"][1])); //transit of Sun in hours for this place/date
+                Math.toRadians(sun_RD[0]),
+                Math.toRadians(sun_RD[1]),
+                transit_GMT_DAY); 
 
             //correct for time zone & dst
 
-            var tz_add = (timeZoneOffset_sec/3600.0f) + dst;
+            
 
-            System.println("sunrise/sets " + tz_add + timeZoneOffset_sec + " " + dst);
-            var s1 = sun_info[1];
-            var s2 = sun_info[2];
+            //System.println("sunrise/sets " + tz_add + timeZoneOffset_sec + " " + dst);
+            var s1 = sun_info[0];
+            var s2 = sun_info[1];
 
             if (sun_info[1] != null) { //if one is null both are
                 s1 = mod ((s1 + tz_add) , 24);
-                s2 = mod ( s2 + tz_add, 24);
+                s2 = mod ( (s2 + tz_add), 24);
             } 
             
             ret.put (ky, [s1, s2]);
-            
-            if (first) {ret.put ("Noon", [ sun_info[0] + tz_add, sun_info[0] + tz_add]);}
-            first = false;
+            deBug(sevent_names[ky] + ": ", [s1, s2]);
+
 
             System.println("sunrise/sets " + sun_info + " " + ky) ;
+            if (ky == :HORIZON) { System.println("sunrise/sets HORIZON: " + sun_info + " " + ky) ;}
             
         }
         System.println("sunrise/sets " + ret);
+
+        for (var i = 0; i<sunEventData.size();i++) {
+
+            
+            var kys = sunEventData.keys();        
+
+        
+            var ky = kys[i];
+            System.println("ret: " + ky + " " + ret[ky] + " " + sunEventData[ky]);
+        }
 
         return ret;
 
@@ -260,12 +341,33 @@ function constrain(v){
 //Remember Meeus considers West longitudes as positive, the opposite of how everyone else does.
 //Outputs are times in hours GMT (not accounting for daylight saving time)
 //From Meeus Page 101
-function getRiseSet_hr(jd,h0, lat,lon,ra,dec){
+function getRiseSet_hr(jd,h0, lat,lon,ra,dec,transit_GMT_DAY){
 	//var h0=-0.8333f; //For Sun
 	//var h0=-0.5667; //For stars and planets
-	//const h0=0.125   //For Moon
+	//const h0=0.125   //For Moon; positive value to allow for parallax  from different viewing points around the earth
 
-    lon = -lon; //Meeus uses West longitudes as positive - this is to correct for that
+    ////TEST :
+    /*
+    ra = Math.toRadians(269.1258593113016);
+    dec = Math.toRadians(-23.43291892549076);
+    lat = Math.toRadians(39.0089438);
+    lon = Math.toRadians(-94.4400866);
+    jd = 2460664.5;
+    */
+    //REsult should be: 
+    /*Output
+        Rise:	07:35:13
+        Transit:	12:17:58
+        Set:	17:00:44
+        or Rise=.316122
+        Transit: .51247685 (local time) / .762477 (UTC)
+    */
+
+
+    //deBug("getRiseSet_hr: ", [jd,h0, lat,lon,ra,dec]);
+    //deBug("getRiseSet_hr: ", [jd,h0, Math.toDegrees(lat),Math.toDegrees(lon),Math.toDegrees(ra),Math.toDegrees(dec)]);
+
+   
 
     if (lat == 0) {lat = 0.0000001;} //to avoid divide by zero
     if (dec == 0) {dec = 0.0000001;} //to avoid divide by zero
@@ -273,17 +375,18 @@ function getRiseSet_hr(jd,h0, lat,lon,ra,dec){
     if (cosH>1 || cosH<-1) {return null;}
 	var H0=Math.acos(cosH)*180.0/Math.PI;
 
-	var gmst=GMST(Math.floor(jd)+.5);
 
-	var transit=(Math.toDegrees(ra)+Math.toDegrees(lon)-gmst)/360.0;
-	var rise=transit-(H0/360.0);
-	var set=transit+(H0/360.0);
+    //deBug("transit: ", [transit, Math.toDegrees(ra), Math.toDegrees(lon), gmst]);
+	var rise=transit_GMT_DAY-(H0/360.0);
+	var set=transit_GMT_DAY+(H0/360.0);
 
-    System.println("transit (result/UTC): " + constrain(transit));
+    //System.println("transit (result/UTC): " + constrain(transit));
 
-	var ret = [constrain(transit)*24.0,constrain(rise)*24.0,constrain(set)*24.0];
+	//var ret = [constrain(transit_GMT_DAY)*24.0,constrain(rise)*24.0,constrain(set)*24.0];
 
-    System.println("transit (results/UTC): " + ret);
+    var ret = [constrain(rise)*24.0,constrain(set)*24.0];
+
+    //System.println("transit (results/UTC): " + ret);
     return ret;
     //returns transit in DAYS....
     
@@ -293,11 +396,13 @@ function getRiseSet_hr(jd,h0, lat,lon,ra,dec){
 //Greenwhich mean sidreal time from Meeus page 88 eq 12.4
 //Input is julian date, does not have to be 0h
 //Output is angle in degrees
-function GMST(jd){
+function GMST_deg(jd){
 	var T=(jd-2451545.0)/36525.0;
 	var st=280.46061837+360.98564736629*(jd-2451545.0)+0.000387933*T*T - T*T*T/38710000.0;
-	st=mod(st,360);
-	if(st<0){st+=360;}
+	//st=mod(st,360);
+	//if(st<0){st+=360;}
+    st = normalize(st);
+    //deBug("GMST: ", [st, jd, T]);
 
 	return st;
 	//return st*Math.PI/180.0;
@@ -311,9 +416,9 @@ function exampleMeeus(){
 	var ra=Math.toRadians(41.73129);
 	var dec=Math.toRadians(18.44092);
 
-	var r=getRiseSet_hr(jd,-.833333,lat,lon,ra,dec);
+	//var r=getRiseSet_hr(jd,-.833333,lat,lon,ra,dec);
 
-    System.println("Transit (hr): "+ r) ;
+    //System.println("Transit (hr): "+ r) ;
 
 
 }

@@ -90,7 +90,7 @@ class SolarSystemBaseApp extends Application.AppBase {
         $.time_now = Time.now();
         $.now_info = Time.Gregorian.info($.time_now, Time.FORMAT_SHORT);
 
-        sunrise_cache = new sunRiseSet_cache();        
+        sunrise_cache = new sunRiseSet_cache2();        
         System.println("inited...");
         view_mode=0;
         $.changeModes(null); //inits speeds_index properly

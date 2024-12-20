@@ -78,13 +78,13 @@ function drawFuzzyEllipse (myDc, swidth, sheight, xc,yc, A, B, type) {
       const ranmult = 1000;
       const ranadd = .93f;
 
-function drawFuzzyEllipse (myDc, swidth, sheight, xc,yc, A, B) {
+function drawFuzzyEllipse (myDc, swidth, sheight, xc, yc, A as Lang.float, B as Lang.float) {
         //var r = (A * B) / Math.sqrt((B * Math.cos(thetaRad))^2 + (A * Math.sin(thetaRad))^2);
         if (A> swidth && B > sheight) { return;}
          //var fact = A/(myDc.getHeight()).toFloat() * 30.0;
          //var fact = A/20000.0;
 
-      var step =  A/2.0;   
+      var step =  A/2.0f;   
       var start = 0;
       //if (type == :low) {step = (Math.rand()%150)/100.0 + 0.5; start = (Math.rand()%314).toFloat(); }
       //if (step<25 && A > 3  && type == :high) { step = 25; }
