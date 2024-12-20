@@ -285,6 +285,8 @@ class sunRiseSet{
         var Decl=Math.atan2(zequat, Math.sqrt(xequat*xequat +yequat*yequat));
         //Decl=Math.toDegrees(Decl); //can't transform to degrees yet...
         //RA2=RA/15;
+
+        System.println("Ioannis RA (rad) " + normalize(Math.toDegrees(RA)) + " DECL " + normalize(Math.toDegrees(Decl)));
         
         var gmsto=L/15.0 + 12.0;
         

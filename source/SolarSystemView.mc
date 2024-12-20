@@ -866,7 +866,12 @@ class SolarSystemBaseView extends WatchUi.View {
 
          sunrise_events = sunrise_cache.fetch($.now_info.year, $.now_info.month, $.now_info.day, $.now.timeZoneOffset/3600, $.now.dst, time_add_hrs, lastLoc[0], lastLoc[1]);
 
-        //System.println("Sunrise_set: " + sunrise_events);
+        System.println("Sunrise_set: " + sunrise_events);
+
+        var sunrise_events2 = getRiseSetfromDate_hr($.now_info, $.now.timeZoneOffset, $.now.dst, time_add_hrs,lastLoc[0], lastLoc[1]);
+
+        System.println("Sunrise_set2: " + sunrise_events2);
+
         //System.println("Sunrise_set: " + sunrise_set);
         //sunrise_set = [sunrise_set[0]*15, sunrise_set[1]*15]; //hrs to degrees
 

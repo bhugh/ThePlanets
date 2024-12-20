@@ -139,9 +139,10 @@ function fetch (now_info, timeZoneOffset_sec, dst, timeAdd_hrs, type) {
         var ret = {};
         //var vhh = $.planetsOption_values[planetsOption_value];
         var vhh = makePlanetsOpt(planetsOption_value);
+        if (type != :helio_xyz) { vhh =makePlanetsOpt(1);}
         if (req_array != null) {vhh = req_array;}
 
-        if (type != :helio_xyz) { vhh =makePlanetsOpt(1);}
+        
 
         //deBug("VSOP1: ", vhh);
         //deBug("VSOP2: ", req_array);

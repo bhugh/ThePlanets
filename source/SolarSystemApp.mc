@@ -95,6 +95,8 @@ class SolarSystemBaseApp extends Application.AppBase {
         view_mode=0;
         $.changeModes(null); //inits speeds_index properly
 
+        exampleMeeus();
+
 
         //System.println("ARR" + toArray("HI|THERE FRED|M<SYUEIJFJ |FIEJKDF:LKJF|SKDJFF|SDLKJSDFLKJ|THIESNEK|FJIEKJF","|",0));
         
