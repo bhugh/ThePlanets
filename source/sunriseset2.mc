@@ -130,6 +130,10 @@ var sevent_names = {
     :HORIZON => "Horizon",
     :GOLDEN_HOUR => "Golden Hour",
     :NOON => "Noon",
+    "Ecliptic0" => "Spring Equinox",
+    "Ecliptic90" => "Summer Solstice",
+    "Ecliptic180" => "Fall Equinox",
+    "Ecliptic270" => "Winter Solstice",
 };
 
 
@@ -244,11 +248,11 @@ function constrain(v){
         //return is: [Math.toDegrees(l), Math.toDegrees(t2), r];//lat, lon, r
         
         
-        if (pp_sun == null) {
-            sun_RD = planetCoord (now_info, timeZoneOffset_sec, dst, time_add_hrs, :ecliptic_latlon, ["Sun"]);
+        if (pp_sun == null ) {
+            var sun_radec = planetCoord (now_info, timeZoneOffset_sec, dst, time_add_hrs, :ecliptic_latlon, ["Sun"]);
 
             //System.println("sun_radec(I): " + (pp_sun[0]) + " " + (pp_sun[1]));
-            //sun_RD = pp_sun;
+            sun_RD = sun_radec["Sun"];
         }
         System.println("sun_radec: " + (sun_RD));
 
@@ -275,10 +279,41 @@ function constrain(v){
         deBug("NOON,tz: ", [constrain(transit_GMT_DAY + tz_add/24.0) * 24.0, tz_add]);
 
 
+                //Get info for all four points of the ecliptic 
+                //for this date & time
+            for (var rra = 0; rra<360;rra += 90) {
+                var ddecl = 0;
+                if (rra == 90) { ddecl = 23.5;}
+                if (rra == 270) { ddecl = -23.5;}
 
-        var first = true;
+                    //winter solstic RA 0 DECL 0
+                //winter solstic RA 0 DECL 0
+                //var trans_ecliptic_DAY = normalize(rra + lon_deg - gmst_mid_deg)/360.0;
+                var sun_info = getRiseSet_hr(jd,
+                    sunEventData[:HORIZON], Math.toRadians(lat_deg), 
+                    Math.toRadians(lon_deg),
+                    Math.toRadians(rra),
+                    Math.toRadians(ddecl),
+                    //trans_ecliptic_DAY); 
+                    0.5);
+            
+
+                var s1 = sun_info[0];
+                var s2 = sun_info[1];
+
+                if (sun_info[1] != null) { //if one is null both are
+                    s1 = mod ((s1) , 24);
+                    s2 = mod ( (s2), 24);
+                }     
+
+                ret.put ("Ecliptic"+rra, [s1, s2]);
+                deBug("Ecliptic" + rra + ": ", [s1, s2]);
+
+        }
+
+
         
-
+        //Now all the sun events for today
         for (var i = 0; i<sunEventData.size();i++) {
 
             
@@ -299,9 +334,6 @@ function constrain(v){
                 Math.toRadians(sun_RD[1]),
                 transit_GMT_DAY); 
 
-            //correct for time zone & dst
-
-            
 
             //System.println("sunrise/sets " + tz_add + timeZoneOffset_sec + " " + dst);
             var s1 = sun_info[0];
@@ -316,11 +348,11 @@ function constrain(v){
             deBug(sevent_names[ky] + ": ", [s1, s2]);
 
 
-            System.println("sunrise/sets " + sun_info + " " + ky) ;
+            //System.println("sunrise/sets " + sun_info + " " + ky) ;
             if (ky == :HORIZON) { System.println("sunrise/sets HORIZON: " + sun_info + " " + ky) ;}
             
         }
-        System.println("sunrise/sets " + ret);
+        //System.println("sunrise/sets " + ret);
 
         for (var i = 0; i<sunEventData.size();i++) {
 
@@ -478,3 +510,30 @@ function gregorianDateToJulianDate(year, month, day, hour, min, sec){
 	jd+=sec/24.0/60.0/60.0;
 	return jd;
 }	
+
+
+/*
+
+function sunPosition(jd)	{
+    const torad=Math.PI/180.0;
+    const n=jd-2451545.0;
+    let L=(280.460+0.9856474*n)%360;
+    let g=((375.528+.9856003*n)%360)*torad;
+    if(L<0){L+=360;}
+    if(g<0){g+=Math.PI*2.0;}
+
+    const lamba=(L+1.915*Math.sin(g)+0.020*Math.sin(2*g))*torad;
+    const beta=0.0;
+    const eps=(23.439-0.0000004*n)*torad;
+    let ra=Math.atan2(Math.cos(eps)*Math.sin(lamba),Math.cos(lamba));
+    const dec=Math.asin(Math.sin(eps)*Math.sin(lamba));
+    if(ra<0){ra+=Math.PI*2;}
+    return [ra/torad/15.0,dec/torad];
+}
+RA = 0h, Dec = 0° is the vernal equinox point
+RA = 6h, Dec = +23.5° is the summer solstice
+RA = 12h, Dec = 0° is the autumnal equinox
+RA = 18h, Dec = -23.5° is the winter solstice
+
+
+*/

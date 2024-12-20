@@ -413,6 +413,12 @@ class SolarSystemBaseView extends WatchUi.View {
         
 
         $.now = System.getClockTime(); //for testing
+        /*
+        for (var i = 0; i< 0.4; i+=0.03) {
+            //System.println("i: " + i + " " + Math.sin(i));
+            drawHorizon2(dc, 23, i, xc, yc, xc, true);
+        } 
+        */  
 
 
         //If stopping, we need to run ONCE with the updates to text/titles, then hold there.  Tricky
@@ -1106,7 +1112,11 @@ class SolarSystemBaseView extends WatchUi.View {
         //Draws horizon & meridian, per time of day
         //drawHorizon(dc, sunrise_events2[:HORIZON][1], noon_adj_deg, hour_adj_deg - noon_adj_deg, xc, yc, r, false);
 
-        drawHorizon(dc, sunrise_events2[:HORIZON][1], noon_adj_deg, hour_adj_deg + noon_adj_deg, xc, yc, r, false);
+        //drawHorizon(dc, sunrise_events2[:HORIZON][1], noon_adj_deg, hour_adj_deg + noon_adj_deg, xc, yc, r, false);
+        
+        drawHorizon3(dc, sunrise_events2[:HORIZON][1], noon_adj_deg, sunrise_events2["Ecliptic270"][1], pp["Sun"][0], xc, yc, r, false);
+
+        //drawHorizon3(dc, horizon_pm as Lang.float, noon_adj_dg as Lang.float, win_sol_eve_hr as Lang.float, xct as Lang.float, yct as Lang.float, radius as Lang.float, drawCircle)
 
         //System.println( sunrise_events[:SUNRISE][0] + " " +sunrise_events[:HORIZON_AM][0] + " " + sunrise_events[:NOON][0] + " " + sunrise_events[:SUNSET][0]+ " " +  sunrise_events[:HORIZON_PM][0] + " " + sunrise_events[:DUSK][0] + " " + sunrise_events[:DAWN][0] );
 
@@ -2700,7 +2710,7 @@ class SolarSystemBaseView extends WatchUi.View {
 
     public function drawHorizon(dc, horizon_pm as Lang.float, noon_adj_dg as Lang.float, final_adj as Lang.float, xct as Lang.float, yct as Lang.float, radius as Lang.float, drawCircle){
 
-        deBug("drawHorizon: ", [ dc, horizon_pm, noon_adj_dg, final_adj, xct, yct, radius, drawCircle]);
+        //deBug("drawHorizon: ", [ dc, horizon_pm, noon_adj_dg, final_adj, xct, yct, radius, drawCircle]);
 
         var eve_hor_start_deg = normalize  ( 270 - (horizon_pm)*15  - noon_adj_dg);
         //var eve_hor_start_deg = normalize  ( 270 - (horizon_pm)*15);
@@ -2742,8 +2752,108 @@ class SolarSystemBaseView extends WatchUi.View {
             var y_hor1 = radius* Math.sin(hor_ang_rad) + yct;
             var x_hor1a = .6*radius* Math.cos(hor_ang_rad) + xct;
             var y_hor1a = .6*radius* Math.sin(hor_ang_rad) + yct;
-            var x_hor2 = -r* Math.cos(hor_ang_rad) + xct;
-            var y_hor2 = -r* Math.sin(hor_ang_rad) + yct;
+            var x_hor2 = -radius* Math.cos(hor_ang_rad) + xct;
+            var y_hor2 = -radius* Math.sin(hor_ang_rad) + yct;
+            var x_hor2a = -.6*radius* Math.cos(hor_ang_rad) + xct;
+            var y_hor2a = -.6*radius* Math.sin(hor_ang_rad) + yct;
+            dc.drawLine (x_hor1,y_hor1,x_hor1a,y_hor1a);
+            dc.drawLine (x_hor2,y_hor2,x_hor2a,y_hor2a);
+            
+            dc.setPenWidth(2);
+            //MERIDIAN
+            var x_mer = radius* Math.cos(hor_ang_rad - Math.PI/2) + xct;
+            var y_mer = radius* Math.sin(hor_ang_rad- Math.PI/2) + yct;
+            var x_mera = .85*radius* Math.cos(hor_ang_rad- Math.PI/2) + xct;
+            var y_mera = .85*radius* Math.sin(hor_ang_rad- Math.PI/2) + yct;            
+            dc.drawLine (x_mer,y_mer,x_mera,y_mera);
+
+        //drawARC (dc, sunrise_events[:NOON][0]-0.05+ noon_adj_hrs +  12, sunrise_events[:NOON][0]+0.05+ noon_adj_hrs  + 12, xc, yc, r, 10, Graphics.COLOR_WHITE);
+    }
+
+    public function drawHorizon3(dc, horizon_pm as Lang.float, noon_adj_dg as Lang.float, win_sol_eve_hr as Lang.float, sun_RA_deg as Lang.float, xct as Lang.float, yct as Lang.float, radius as Lang.float, drawCircle){
+
+        //deBug("drawHorizon: ", [ dc, horizon_pm, noon_adj_dg, final_adj, xct, yct, radius, drawCircle]);
+
+        var eve_hor_start_deg = normalize  ( 270 - (horizon_pm)*15  - noon_adj_dg);
+        //var eve_hor_start_deg = normalize  ( 270 - (horizon_pm)*15);
+        var eve_hor_end_deg =normalize (- eve_hor_start_deg);
+        var morn_hor_end_deg = normalize (eve_hor_end_deg + 180);'
+        //var morn_hor_start_deg = normalize (eve_hor_start_deg + 180);'
+        var hor_ang_deg = 0;
+
+        //20.34 = max angle of the horizon in degrees for winter solstice @ this latitude
+        var max_angle_deg = - (270 - win_sol_eve_hr * 15.0f).abs();
+        System.println("max_angle_deg: " + max_angle_deg + " win solstic eve sunset hr" + win_sol_eve_hr);
+
+        
+        var final_a2 = normalize(270 - final_adj);
+        //System.println("fainal: " + final_a2 + " evestart " + eve_hor_start_deg);
+        //var sun_ang_deg =  -pp["Sun"][0] - final_a2;
+
+        var fact_day=0; //goes from 0 to 1 from sunrise to sunset
+        var fact_night=0; //goes from 0 to 1 from sunset to sunrise
+
+        if (normalize(eve_hor_start_deg - final_a2) < normalize(eve_hor_start_deg-morn_hor_end_deg))
+            { //night time
+                if (eve_hor_start_deg < morn_hor_end_deg) {eve_hor_start_deg += 360;}
+                if (final_a2 < morn_hor_end_deg) {final_a2 += 360;}
+                
+                fact_night = (eve_hor_start_deg - final_a2 ) / (eve_hor_start_deg - morn_hor_end_deg );
+                System.println("fainal: " + final_a2 + " evestart " + eve_hor_start_deg + " " + morn_hor_end_deg + " " + fact_night);
+                //hor_ang_deg =  (fact) * normalize180(eve_hor_start_deg - eve_hor_end_deg) + eve_hor_end_deg;
+                
+
+            }else { //daytime
+                if (eve_hor_start_deg > morn_hor_end_deg) {eve_hor_start_deg -= 360;}
+                if (final_a2 > morn_hor_end_deg) {final_a2 -= 360;}
+                fact_day = 0;
+                if (morn_hor_end_deg - eve_hor_start_deg != 0 ) {
+                  fact_day = (morn_hor_end_deg - final_a2) / (morn_hor_end_deg - eve_hor_start_deg);
+                }
+                System.println("fainal2: " + final_a2 + " evestart " + eve_hor_start_deg + " " + morn_hor_end_deg + " " + fact_day);
+                //hor_ang_deg =  (1-fact) *normalize180(eve_hor_start_deg - eve_hor_end_deg) + eve_hor_end_deg;
+
+            }
+
+            var fact = fact_day/2.0f + 0.5;
+            if (fact_day == 0) {fact = fact_night/2.0f;}
+            System.println("fact: " + fact);
+
+            //var day_of_solar_year = 
+            var sun_RA_pct = constrain((sun_RA_deg -  270.0f)/360.0f);//this tells us how far along we are in the yr.... RA=0 is spring equinox. We want angle after winter solstic, RA=270.:__version
+            //fact is the same for the DAY. 
+            //We put them together & we have the "location" of the sun in the sky
+            //for the year & date
+
+            drawHorizon2(dc, max_angle_deg, fact + sun_RA_pct, xct, yct, radius, drawCircle);
+
+
+        //drawARC (dc, sunrise_events[:NOON][0]-0.05+ noon_adj_hrs +  12, sunrise_events[:NOON][0]+0.05+ noon_adj_hrs  + 12, xc, yc, r, 10, Graphics.COLOR_WHITE);
+    }
+
+    //This will go from -max_angle at 0 to max_angle at 0.5 back to -max angle at 1.emb_x_0
+    //Will do mod 1 to repeat the same cycle every 1 unit
+    public function drawHorizon2(dc, max_angle_deg, percent, xct as Lang.float, yct as Lang.float, radius as Lang.float, drawCircle){
+
+        //deBug("drawHorizon: ", [ dc, horizon_pm, noon_adj_dg, final_adj, xct, yct, radius, drawCircle]);  
+        percent = constrain(percent); //keep it between 0-1
+        var fact;
+        
+        if (percent <0.5)  { fact = percent/0.5; }
+        else { fact = 1.0 - (percent-.5)/0.5; }
+        var hor_ang_deg = fact * max_angle_deg * 2 - max_angle_deg;
+
+            hor_ang_deg = normalize(hor_ang_deg);
+            System.println("hor_ang_deg: " + hor_ang_deg);
+            dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);
+            dc.setPenWidth(1);
+            var hor_ang_rad = Math.toRadians(hor_ang_deg);
+            var x_hor1 = radius* Math.cos(hor_ang_rad) + xct;
+            var y_hor1 = radius* Math.sin(hor_ang_rad) + yct;
+            var x_hor1a = .6*radius* Math.cos(hor_ang_rad) + xct;
+            var y_hor1a = .6*radius* Math.sin(hor_ang_rad) + yct;
+            var x_hor2 = -radius* Math.cos(hor_ang_rad) + xct;
+            var y_hor2 = -radius* Math.sin(hor_ang_rad) + yct;
             var x_hor2a = -.6*radius* Math.cos(hor_ang_rad) + xct;
             var y_hor2a = -.6*radius* Math.sin(hor_ang_rad) + yct;
             dc.drawLine (x_hor1,y_hor1,x_hor1a,y_hor1a);
