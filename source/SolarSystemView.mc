@@ -1114,7 +1114,7 @@ class SolarSystemBaseView extends WatchUi.View {
 
         //drawHorizon(dc, sunrise_events2[:HORIZON][1], noon_adj_deg, hour_adj_deg + noon_adj_deg, xc, yc, r, false);
         
-        drawHorizon3(dc, sunrise_events2[:HORIZON][1], noon_adj_deg, sunrise_events2["Ecliptic270"][1], pp["Sun"][0], xc, yc, r, false);
+        drawHorizon3(dc, sunrise_events2[:HORIZON][1], noon_adj_deg, hour_adj_deg + noon_adj_deg, sunrise_events2["Ecliptic270"][1], pp["Sun"][0], xc, yc, r, false);
 
         //drawHorizon3(dc, horizon_pm as Lang.float, noon_adj_dg as Lang.float, win_sol_eve_hr as Lang.float, xct as Lang.float, yct as Lang.float, radius as Lang.float, drawCircle)
 
@@ -2770,7 +2770,7 @@ class SolarSystemBaseView extends WatchUi.View {
         //drawARC (dc, sunrise_events[:NOON][0]-0.05+ noon_adj_hrs +  12, sunrise_events[:NOON][0]+0.05+ noon_adj_hrs  + 12, xc, yc, r, 10, Graphics.COLOR_WHITE);
     }
 
-    public function drawHorizon3(dc, horizon_pm as Lang.float, noon_adj_dg as Lang.float, win_sol_eve_hr as Lang.float, sun_RA_deg as Lang.float, xct as Lang.float, yct as Lang.float, radius as Lang.float, drawCircle){
+    public function drawHorizon3(dc, horizon_pm as Lang.float, noon_adj_dg as Lang.float, final_a2, win_sol_eve_hr as Lang.float, sun_RA_deg as Lang.float, xct as Lang.float, yct as Lang.float, radius as Lang.float, drawCircle){
 
         //deBug("drawHorizon: ", [ dc, horizon_pm, noon_adj_dg, final_adj, xct, yct, radius, drawCircle]);
 
@@ -2783,41 +2783,58 @@ class SolarSystemBaseView extends WatchUi.View {
 
         //20.34 = max angle of the horizon in degrees for winter solstice @ this latitude
         var max_angle_deg = - (270 - win_sol_eve_hr * 15.0f).abs();
-        System.println("max_angle_deg: " + max_angle_deg + " win solstic eve sunset hr" + win_sol_eve_hr);
+        System.println("max_angle_deg: " + max_angle_deg + " win solstic eve sunset hr" + win_sol_eve_hr + " today hor_end " + eve_hor_end_deg + " today hor_start " + eve_hor_start_deg);
 
         
-        var final_a2 = normalize(270 - final_adj);
+        final_a2 = normalize(270 - final_a2);
         //System.println("fainal: " + final_a2 + " evestart " + eve_hor_start_deg);
         //var sun_ang_deg =  -pp["Sun"][0] - final_a2;
 
         var fact_day=0; //goes from 0 to 1 from sunrise to sunset
         var fact_night=0; //goes from 0 to 1 from sunset to sunrise
 
-        if (normalize(eve_hor_start_deg - final_a2) < normalize(eve_hor_start_deg-morn_hor_end_deg))
+        eve_hor_start_deg = normalize180(eve_hor_start_deg) + 360.0;
+        morn_hor_end_deg = normalize(morn_hor_end_deg);
+        final_a2 = normalize(final_a2);
+        //if (final_a2 > morn_hor_end_deg) {final_a2 -= 360;}
+        if (final_a2 < 90) { final_a2 += 360;}
+
+        if (final_a2< eve_hor_start_deg && final_a2 > morn_hor_end_deg) 
+
+        //normalize(eve_hor_start_deg - final_a2) < normalize(eve_hor_start_deg-morn_hor_end_deg))
+
             { //night time
-                if (eve_hor_start_deg < morn_hor_end_deg) {eve_hor_start_deg += 360;}
-                if (final_a2 < morn_hor_end_deg) {final_a2 += 360;}
+                //if (eve_hor_start_deg < morn_hor_end_deg) {eve_hor_start_deg += 360;}
+
+                
+                
+
+                
+                //if (final_a2 < morn_hor_end_deg) {final_a2 += 360;}
                 
                 fact_night = (eve_hor_start_deg - final_a2 ) / (eve_hor_start_deg - morn_hor_end_deg );
-                System.println("fainal: " + final_a2 + " evestart " + eve_hor_start_deg + " " + morn_hor_end_deg + " " + fact_night);
+                System.println("fainal: " + final_a2 + " final_adj" + hour_adj_deg + noon_adj_deg + " evestart " + eve_hor_start_deg + " " + morn_hor_end_deg + " " + fact_night);
                 //hor_ang_deg =  (fact) * normalize180(eve_hor_start_deg - eve_hor_end_deg) + eve_hor_end_deg;
                 
 
             }else { //daytime
-                if (eve_hor_start_deg > morn_hor_end_deg) {eve_hor_start_deg -= 360;}
-                if (final_a2 > morn_hor_end_deg) {final_a2 -= 360;}
+                eve_hor_start_deg = normalize180(eve_hor_start_deg);
+                morn_hor_end_deg = normalize(morn_hor_end_deg);
+                final_a2 = normalize(final_a2);
+                if (final_a2 > 270) {final_a2 -= 360;}
                 fact_day = 0;
                 if (morn_hor_end_deg - eve_hor_start_deg != 0 ) {
                   fact_day = (morn_hor_end_deg - final_a2) / (morn_hor_end_deg - eve_hor_start_deg);
                 }
-                System.println("fainal2: " + final_a2 + " evestart " + eve_hor_start_deg + " " + morn_hor_end_deg + " " + fact_day);
+                System.println("fainal2: " + final_a2 + " final_adj" + hour_adj_deg + noon_adj_deg + " evestart " + eve_hor_start_deg + " " + morn_hor_end_deg + " " + fact_day);
                 //hor_ang_deg =  (1-fact) *normalize180(eve_hor_start_deg - eve_hor_end_deg) + eve_hor_end_deg;
 
             }
 
             var fact = fact_day/2.0f + 0.5;
             if (fact_day == 0) {fact = fact_night/2.0f;}
-            System.println("fact: " + fact);
+            fact += 0.5;
+            
 
             //var day_of_solar_year = 
             var sun_RA_pct = constrain((sun_RA_deg -  270.0f)/360.0f);//this tells us how far along we are in the yr.... RA=0 is spring equinox. We want angle after winter solstic, RA=270.:__version
@@ -2825,7 +2842,9 @@ class SolarSystemBaseView extends WatchUi.View {
             //We put them together & we have the "location" of the sun in the sky
             //for the year & date
 
-            drawHorizon2(dc, max_angle_deg, fact + sun_RA_pct, xct, yct, radius, drawCircle);
+            System.println("dayfact: " + fact + " sun_RA_pct: " + sun_RA_pct + " sun_RA_deg: " + sun_RA_deg);
+
+            drawHorizon2(dc, max_angle_deg, fact - sun_RA_pct, xct, yct, radius, drawCircle);
 
 
         //drawARC (dc, sunrise_events[:NOON][0]-0.05+ noon_adj_hrs +  12, sunrise_events[:NOON][0]+0.05+ noon_adj_hrs  + 12, xc, yc, r, 10, Graphics.COLOR_WHITE);

@@ -272,12 +272,13 @@ function changeModes(previousMode){
                 if ($.Options_Dict[helpBanners_enum]){solarSystemView_class.sendMessage(5, ["Manual Mode", "Use Up/Down", "", null]);}
                 break;*/
             case (0):    
+                $.view_mode = 1;
             case (1):
                 if (vsop_cache == null)  {vsop_cache = new VSOP87_cache();}
                 //time_add_inc=1;
                 //DON'T reset to present time here bec. we're usually coming from mode 0 or mode 2& can just continue seamlessly
                 //$.time_add_hrs = .5; //reset to present time
-                if (previousMode == null || previousMode!=1 ) {  //mode 5 often moves years into the future...
+                if (previousMode == null || (previousMode!=1 && previousMode !=2 ) ) {  //mode 5 often moves years into the future...
                     $.time_add_hrs = 0; //reset to present time
                 }
                 speeds_index = 41; //15 mins
