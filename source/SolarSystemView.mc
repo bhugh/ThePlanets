@@ -940,8 +940,12 @@ class SolarSystemBaseView extends WatchUi.View {
         //whh = whh0;
         //whh = allPlanets.slice(0,4).add(allPlanets[5].addAll(allPlanets.slice(9,14))
         //whh = allPlanets; //
-        whh = allPlanets.slice(0,3); ///so, array2 = array1 only passes a REFERENCE to the array, they are both still the same array with different names.  AARRGGgH!!
+        
+        whh=( allPlanets.slice(0,3)); ///so, array2 = array1 only passes a REFERENCE to the array, they are both still the same array with different names.  AARRGGgH!!
         whh.addAll([allPlanets[4],allPlanets[5],allPlanets[8],allPlanets[9]]);
+
+        whh.addAll(["Ecliptic0", "Ecliptic90", "Ecliptic180", "Ecliptic270"]); //we add these last so they show up on top of planets etc
+        
 
         //deBug ("www - whh0", whh);
         //vspo_rep = ["Sun", "Moon", "Mercury","Venus","Mars","Jupiter","Saturn", "Uranus","Neptune"];
@@ -1038,8 +1042,15 @@ class SolarSystemBaseView extends WatchUi.View {
         //System.println("Sun simple3: " + sun_info3);
         //System.println("pp: " + pp);
         //System.println("pp2: " + pp2);
+         for (var rra = 0; rra<360;rra += 90) {
+                var ddecl = 0;
+                if (rra == 90) { ddecl = 23.5;}
+                if (rra == 270) { ddecl = -23.5;}
+                //pp.put("Ecliptic"+rra, [normalize(pp["Sun"][0] + rra), ddecl]);
+                pp.put("Ecliptic"+rra, [rra, ddecl]);
+         }
 
-
+        deBug("pp: ", pp);
 
 
         kys = pp.keys();
@@ -2274,6 +2285,8 @@ class SolarSystemBaseView extends WatchUi.View {
         b_size = base_size/def_size*min_c;
         min_size = 2.0/def_size*min_c;
         size = b_size;
+
+        
         if (type == :orrery) { size = b_size/32.0;}
         if (key.equals("Sun")) {
             size = 8*b_size;
@@ -2443,6 +2456,14 @@ class SolarSystemBaseView extends WatchUi.View {
         //System.println("size2 " + key + " " + size + " " + min_size);
 
         size *= planetSizeFactor; //factor from settings
+
+        if (key.find("Ecliptic") != null) {
+            size /= 2.0;
+            if (key.equals("Ecliptic0") || key.equals("Ecliptic180") ) {
+                fillcol = Graphics.COLOR_DK_GRAY;
+                }
+        } //solstice & equinox points, small circles
+            
 
         //var pers = 1;
         
@@ -2778,7 +2799,7 @@ class SolarSystemBaseView extends WatchUi.View {
     public function drawHorizon3(dc, horizon_pm as Lang.float, noon_adj_dg as Lang.float, final_a2, win_sol_eve_hr as Lang.float, sun_RA_deg as Lang.float, xct as Lang.float, yct as Lang.float, radius as Lang.float){
 
         //deBug("drawHorizon: ", [ dc, horizon_pm, noon_adj_dg, final_adj, xct, yct, radius, drawCircle]);
-
+        var tz_add = ($.now.timeZoneOffset/3600.0f) + $.now.dst;
         var eve_hor_start_deg = normalize  ( 270 - (horizon_pm)*15  - noon_adj_dg);
         //var eve_hor_start_deg = normalize  ( 270 - (horizon_pm)*15);
         var eve_hor_end_deg =normalize (- eve_hor_start_deg);
@@ -2787,6 +2808,7 @@ class SolarSystemBaseView extends WatchUi.View {
         var hor_ang_deg = 0;
 
         //20.34 = max angle of the horizon in degrees for winter solstice @ this latitude
+        win_sol_eve_hr -= tz_add;  //we added this in as we do with planets, so it can be plotted but for this purpose we need to subtract it back out so we have the time relative to 12:00 noon.
         var max_angle_deg = - (270 - win_sol_eve_hr * 15.0f).abs();
         //System.println("max_angle_deg: " + max_angle_deg + " win solstic eve sunset hr" + win_sol_eve_hr + " today hor_end " + eve_hor_end_deg + " today hor_start " + eve_hor_start_deg);
 
@@ -2854,9 +2876,10 @@ class SolarSystemBaseView extends WatchUi.View {
             for (var rra = 0; rra<360;rra += 90) {
                 var si = sunrise_events2["Ecliptic"+rra];
                 var si2 = sunrise_events2["Ecliptic"+(normalize(rra+90))];
+                //kinda silly to add & subtract tz_add, but it keeps us from having to deal with mod 24issues... in subtracting, bec. all are relative to 12noon if tz_add is taken out
                 if ( sun_RA_deg >= rra && sun_RA_deg < rra+90 ) {
                     
-                    today_horizon_pm_pct = (horizon_pm - si[1]).abs()/ (si2[1] - si[1]).abs();
+                    today_horizon_pm_pct = (horizon_pm - si[1] - tz_add).abs()/ ((si2[1] - tz_add) - (si[1] -  - tz_add)).abs();
                     //(sun_RA_deg - rra)/90.0f;
                     //System.println("dayfact0 horizon_pm: " + horizon_pm + " si2: " + si2[1] + " si: " + si[1] + " today_horizon_pm_pct: " + today_horizon_pm_pct);
                     break;                    

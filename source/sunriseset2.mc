@@ -570,7 +570,7 @@ function angleBetweenEclipticAndHorizon_rad(lat_rad,sidereal_rad,obliquity_rad){
 
     //law of cosines (sin(latitude) because it is the  complement of the angle we are looking for, so cos(angle) = sin(complement of the angle))   
      var ret = Math.acos(Math.cos(obliquity_rad)*Math.sin(lat_rad) - Math.sin(obliquity_rad)*Math.cos(lat_rad)*Math.sin(sidereal_rad));
-    deBug("angleBetweenEclipticAndHorizon: ", [ret, obliquity_rad, lat_rad, sidereal_rad]);
+    deBug("angleBetweenEclipticAndHorizon: aOLS ", [Math.toDegrees(ret), Math.toDegrees(obliquity_rad), Math.toDegrees(lat_rad), Math.toDegrees(sidereal_rad)]);
      return ret;
 }
 
@@ -602,13 +602,37 @@ function intersectionPointsEclipticHorizon_rad (lat_rad, sidereal_rad, obliquity
 
     var eclEHint2_rad = 0; //alternate calculation, should be equal. O/horEHint
     if (Math.sin(aEH_rad) != 0) {
-        eclEHint2_rad = Math.asin( Math.sin(obliquity_rad)/ Math.sin(horEHint_rad)*Math.cos(lat_rad));
+        eclEHint2_rad = Math.asin( Math.sin(horEHint_rad)/Math.sin(obliquity_rad)*Math.cos(lat_rad));
     }
 
-    deBug("intersectionPointEclipticHorizon: ", [eclEHint_rad, eclEHint2_rad, horEHint_rad]);
+    //test_angleBetweenEclipticAndHorizon_rad();
+
+    deBug("intersectionPointEclipticHorizon: ", [Math.toDegrees(eclEHint_rad), Math.toDegrees(eclEHint2_rad), Math.toDegrees(horEHint_rad)]);
     return  [eclEHint_rad, horEHint_rad];
 
-
-
+    
 
 }
+
+/*
+//2024/12 - tested, it works
+function test_angleBetweenEclipticAndHorizon_rad(){
+    var r=Math.PI/180;
+    var eps=23.44*r;    
+    var lat=51*r;
+    var sidereal=75*r;
+
+    var d=angleBetweenEclipticAndHorizon_rad(lat,sidereal,eps)*180/Math.PI;
+    deBug("angleBetweenEclipticAndHorizon_rad TEST, Expected: "+62, []);
+    deBug("angleBetweenEclipticAndHorizon_rad TEST, Computed: ", [normalize(d)]);
+    
+    eps=23.44*r;
+    lat=38*r;
+    sidereal=112.5*r;
+
+    d=angleBetweenEclipticAndHorizon_rad(lat,sidereal,eps)*180/Math.PI;
+    deBug("angleBetweenEclipticAndHorizon_rad TEST, Expected: 74.0228155356797°", []);
+    deBug("angleBetweenEclipticAndHorizon_rad TEST, Computed: ", [normalize(d)]);
+    
+    } 
+    */
