@@ -84,25 +84,26 @@ import Toybox.Lang;
         return ((a/b - Math.floor(a/b + fc)) *b).toFloat();
     }
 
-    const J2000_0= 2451543.5f; // 2000 Jan 0.0 TDT, which is the same as 1999 Dec 31.0 TDT, i.e. precisely at midnight TDT  (Jan 0.0 is not the first day of January but rather the LAST day of December, so a full day before Jan 1.0)
+    const J2000_0= 2451543.5d; // 2000 Jan 0.0 TDT, which is the same as 1999 Dec 31.0 TDT, i.e. precisely at midnight TDT  (Jan 0.0 is not the first day of January but rather the LAST day of December, so a full day before Jan 1.0)
     //This is actually NOT the same as J2000, which is 1 Jan 2000 at noon, Julian Date 2451545, or 2000 Jan 1.5.
     //This MIGHT be a mistake by someone who was trying to use J2000 but missed by a little?  In obliquity of ecliptic calc below the difference will be negligible.
 
-    const J2000 = 2451545; //start of J2000 epoch
+    const J2000 = 2451545d; //start of J2000 epoch
 
 
-    function julianDate (year, month, day, hour, min, UT, dst) {
+    //Julians MUST be double or they have accuracy of only .25 day even in 2024 already.
+    function julianDate (year, month, day, hour, min, UT, dst) as Lang.double {
 
 
-        var pr=0;
-        if (dst==1) {pr=1/24.0;}
-        var JDN= ((367l*(year) - Math.floor(7*(year + Math.floor((month+9 )/12))/4)) + Math.floor(275*(month)/9) + (day + 1721013.5f - UT/24f ) );
-        var JD= (JDN + (hour)/24.0 + min/1440.0f - pr); //(hour)/24 + (min)/1440; in this case  noon (hr12, min0)
+        var pr=0d;
+        if (dst==1) {pr=1/24.0d;}
+        var JDN= ((367l*(year) - Math.floor(7*(year + Math.floor((month+9 )/12))/4)) + Math.floor(275*(month)/9) + (day + 1721013.5d - UT/24d ) );
+        var JD= (JDN + (hour)/24.0d + min/1440.0d - pr); //(hour)/24 + (min)/1440; in this case  noon (hr12, min0)
         return JD;
 
     }
 
-    function j2000_0Date (year, month, day, hour, min, UT, dst) {
+    function j2000_0Date  (year, month, day, hour, min, UT, dst) as Lang.double {
 
         var JD = julianDate(year, month, day, hour, min, UT, dst);
         
@@ -111,7 +112,7 @@ import Toybox.Lang;
 
     }
 
-    function j2000Date (year, month, day, hour, min, UT, dst) {
+    function j2000Date (year, month, day, hour, min, UT, dst) as Lang.double {
 
         var JD = julianDate(year, month, day, hour, min, UT, dst);
         

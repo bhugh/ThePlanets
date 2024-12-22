@@ -135,8 +135,8 @@ const ranmult = 1000;
 [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\draw-orbits.mc"; @line = 79; @position = 12; ]
 const ranadd = .93f;
 [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\draw-orbits.mc"; @line = 81; ]
-function drawFuzzyEllipse(myDc, swidth, sheight, xc, yc, A, B) {
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_81_63_107_0_start:
+function drawFuzzyEllipse(myDc, swidth, sheight, xc, yc, A as Lang.float, B as Lang.float) {
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_81_92_107_0_start:
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\draw-orbits.mc" 83 8 ]
 E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_83_8_83_47_if_stmt:
 E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_83_12_83_29_begin:
@@ -160,14 +160,14 @@ E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_dr
     goto @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_83_8_83_47_if_end;
 E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_83_8_83_47_if_end:
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\draw-orbits.mc" 87 6 ]
-    [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_81_63_107_0_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_81_63_107_0_stop" ]
+    [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_81_92_107_0_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_81_92_107_0_stop" ]
     %step.1 = local;
     %tmp.13 = lgetv %A;
-    %tmp.14 = 2.0;
+    %tmp.14 = 2.0f;
     %tmp.15 = div %tmp.13 %tmp.14;
     lputv %step.1 %tmp.15;
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\draw-orbits.mc" 88 6 ]
-    [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_81_63_107_0_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_81_63_107_0_stop" ]
+    [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_81_92_107_0_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_81_92_107_0_stop" ]
     %start.2 = local;
     %tmp.16 = 0;
     lputv %start.2 %tmp.16;
@@ -358,7 +358,7 @@ E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_dr
     lputv %theta.3 %tmp.149;
     goto @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_96_6_106_6_for_test;
 E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_96_6_106_6_for_end:
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_81_63_107_0_stop:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_81_92_107_0_stop:
 }
 [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\draw-orbits.mc"; @line = 1; ]
 <init> {

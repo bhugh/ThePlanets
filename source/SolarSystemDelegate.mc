@@ -72,7 +72,7 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
         if (!started || $.view_mode == 0) {
             var old_index = $.view_mode;
             $.view_mode = ($.view_mode - 1);        
-            if ($.view_mode < 0) {
+            if ($.view_mode < 1) {  //mode 1 is the first one now
                 return false;
             }
             started = true;
@@ -281,7 +281,7 @@ function changeModes(previousMode){
                 if (previousMode == null || (previousMode!=1 && previousMode !=2 ) ) {  //mode 5 often moves years into the future...
                     $.time_add_hrs = 0; //reset to present time
                 }
-                speeds_index = 41; //15 mins
+                speeds_index = 39; //10 mins
                 started = false;
                 if ($.Options_Dict[helpBanners_enum]){solarSystemView_class.sendMessage(5, ["Auto Mode (Slow)", "Use Up/Down/Start/Stop", "", null]);}
                 break;
