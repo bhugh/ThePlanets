@@ -1042,12 +1042,13 @@ class SolarSystemBaseView extends WatchUi.View {
         //System.println("Sun simple3: " + sun_info3);
         //System.println("pp: " + pp);
         //System.println("pp2: " + pp2);
-         for (var rra = 0; rra<360;rra += 90) {
+        var obliq_deg= obliquityEcliptic_deg ($.now_info.year, $.now_info.month, $.now_info.day + time_add_hrs, $.now_info.hour, $.now_info.min, $.now.timeZoneOffset/3600, $.now.dst);
+         for (var rra_deg = 0; rra_deg<360;rra_deg += 90) {
                 var ddecl = 0;
-                if (rra == 90) { ddecl = 23.5;}
-                if (rra == 270) { ddecl = -23.5;}
-                //pp.put("Ecliptic"+rra, [normalize(pp["Sun"][0] + rra), ddecl]);
-                pp.put("Ecliptic"+rra, [rra, ddecl]);
+                if (rra_deg == 90) { ddecl = obliq_deg;}
+                if (rra_deg == 270) { ddecl = obliq_deg;}
+                //pp.put("Ecliptic"+rra_deg, [normalize(pp["Sun"][0] + rra_deg), ddecl]);
+                pp.put("Ecliptic"+rra_deg, [rra_deg, ddecl]);
          }
 
         deBug("pp: ", pp);
@@ -2873,14 +2874,14 @@ class SolarSystemBaseView extends WatchUi.View {
             var sun_RA_pct = mod(sun_RA_deg, 90)/90.0f; //how far off we are from the last solstice or equinox
             //if (sun_RA_deg <90){ }
             var today_horizon_pm_pct = 0;
-            for (var rra = 0; rra<360;rra += 90) {
-                var si = sunrise_events2["Ecliptic"+rra];
-                var si2 = sunrise_events2["Ecliptic"+(normalize(rra+90))];
+            for (var rra_deg = 0; rra_deg<360;rra_deg += 90) {
+                var si = sunrise_events2["Ecliptic"+rra_deg];
+                var si2 = sunrise_events2["Ecliptic"+(normalize(rra_deg+90))];
                 //kinda silly to add & subtract tz_add, but it keeps us from having to deal with mod 24issues... in subtracting, bec. all are relative to 12noon if tz_add is taken out
-                if ( sun_RA_deg >= rra && sun_RA_deg < rra+90 ) {
+                if ( sun_RA_deg >= rra_deg && sun_RA_deg < rra_deg+90 ) {
                     
                     today_horizon_pm_pct = (horizon_pm - si[1] - tz_add).abs()/ ((si2[1] - tz_add) - (si[1] -  - tz_add)).abs();
-                    //(sun_RA_deg - rra)/90.0f;
+                    //(sun_RA_deg - rra_deg)/90.0f;
                     //System.println("dayfact0 horizon_pm: " + horizon_pm + " si2: " + si2[1] + " si: " + si[1] + " today_horizon_pm_pct: " + today_horizon_pm_pct);
                     break;                    
                 }
@@ -3149,6 +3150,11 @@ class SolarSystemBaseView extends WatchUi.View {
     //We call setInitPosition immeidately upon startup & then setPosition will fill in
     //later as correct data is available.
     function setInitPosition () {
+
+        //lastLoc = [59.00894, -94.44008]; //for testing
+        lastLoc = [0,0]; //for testing
+        return;
+
         if (lastLoc == null) {self.lastLoc = new Position.Location(            
                     { :latitude => 39.833333, :longitude => -98.583333, :format => :degrees }
                     ).toDegrees(); }
