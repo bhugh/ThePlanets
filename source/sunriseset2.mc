@@ -239,7 +239,12 @@ function constrain(v){
          
 
         //var jd = time_add_hrs /24.0f + gregorianDateToJulianDate(now_info.year, now_info.month, now_info.day, 0, 0, 0);
-        var jd = gregorianDateToJulianDate(now_info.year, now_info.month, now_info.day, now_info.hour+ time_add_hrs + dst, now_info.min, timeZoneOffset_sec);
+
+        //NOTE: UT/timezone offset must be SUBTRACTED from the time to get the correct time in GMT in this context.
+        //Instead we'll use the version in functions.mc, which has this correctly accounted for already.
+        //var jd = gregorianDateToJulianDate(now_info.year, now_info.month, now_info.day, now_info.hour+ time_add_hrs + dst, now_info.min, -timeZoneOffset_sec);
+        var jd = julianDate (now_info.year, now_info.month, now_info.day,now_info.hour + time_add_hrs, now_info.min, timeZoneOffset_sec/3600f, dst);
+
         deBug("JD: ", [jd, now_info.year, now_info.month, now_info.day,now_info.hour + time_add_hrs, now_info.min, timeZoneOffset_sec, dst, time_add_hrs]);
         var obliq_rad= obliquityEcliptic_rad (now_info.year, now_info.month, now_info.day + time_add_hrs, now_info.hour, now_info.min, timeZoneOffset_sec/3600.0, dst);
 
@@ -266,7 +271,10 @@ function constrain(v){
 
         var ret = {};
 
-        var jd_mid = gregorianDateToJulianDate(now_info.year, now_info.month, now_info.day, 0,0,0);
+
+        //var jd_mid = gregorianDateToJulianDate(now_info.year, now_info.month, now_info.day, 0,0,0);
+
+        var jd_mid = julianDate (now_info.year, now_info.month, now_info.day + Math.floor((time_add_hrs + now_info.hour)/24.0), 0,0,0,0);
 
         //Greenwhich mean sidereal time @ midnight of today
         var gmst_mid_deg=normalize(GMST_deg(Math.floor(jd_mid)+.5));
@@ -282,7 +290,7 @@ function constrain(v){
         var lmst_now_hr = normalize((gmst_now_deg - lon_deg)) / 15.0;
         ret.put(:GMST_NOW_HR, [gmst_now_deg/15.0]);
         ret.put(:LMST_NOW_HR, [lmst_now_hr]);
-        deBug("GNMST_NOW_HR, LMST_HR, JD: ", [gmst_now_deg/15.0, lmst_now_hr, jd]);
+        deBug("GNMST_MID_HR, GNMST_NOW_HR, LMST_HR, JD: ", [gmst_mid_deg/15.0, gmst_now_deg/15.0, lmst_now_hr, jd]);
 
         var tz_add = (timeZoneOffset_sec/3600.0f) + dst;
         ret.put (:NOON,  constrain(transit_GMT_DAY + tz_add/24.0) * 24.0);
@@ -452,10 +460,11 @@ function getRiseSet_hr(jd,h0, lat,lon,ra,dec,transit_GMT_DAY){
 function GMST_deg(jd){
 	var T=(jd-2451545.0d)/36525.0d;
 	var st=280.46061837d+360.98564736629d*(jd-2451545.0d)+0.000387933d*T*T - T*T*T/38710000.0d;
+    deBug("GMST1: ", [st, jd, T]);
 	//st=mod(st,360);
 	//if(st<0){st+=360;}
     st = normalize(st);
-    //deBug("GMST: ", [st, jd, T]);
+    deBug("GMST2: ", [st, jd, T]);
 
 	return st;
 	//return st*Math.PI/180.0;
@@ -520,6 +529,7 @@ function INT(d){
     return Math.floor(d)-1;
 }
 
+/*
 function gregorianDateToJulianDate(year, month, day, hour, min, sec)as Lang.double {
 
 	var isGregorian=true;
@@ -551,6 +561,7 @@ function gregorianDateToJulianDate(year, month, day, hour, min, sec)as Lang.doub
     deBug("JD3: jd: ", [jd, hour, min, sec]);
 	return jd;
 }
+*/
 
 /*
 function gregorianDateToJulianDate(year, month, day, hour, min, sec){

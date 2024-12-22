@@ -3152,8 +3152,8 @@ class SolarSystemBaseView extends WatchUi.View {
     function setInitPosition () {
 
         //lastLoc = [59.00894, -94.44008]; //for testing
-        lastLoc = [0,0]; //for testing
-        return;
+        //lastLoc = [0,0]; //for testing
+        //return;
 
         if (lastLoc == null) {self.lastLoc = new Position.Location(            
                     { :latitude => 39.833333, :longitude => -98.583333, :format => :degrees }

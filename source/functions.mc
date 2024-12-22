@@ -92,16 +92,51 @@ import Toybox.Lang;
 
 
     //Julians MUST be double or they have accuracy of only .25 day even in 2024 already.
-    function julianDate (year, month, day, hour, min, UT, dst) as Lang.double {
+    function julianDate (year as Lang.double, month as Lang.double, day as Lang.double, hour as Lang.double, min as Lang.double, UT as Lang.double, dst as Lang.double) as Lang.double {
 
 
         var pr=0d;
         if (dst==1) {pr=1/24.0d;}
-        var JDN= ((367l*(year) - Math.floor(7*(year + Math.floor((month+9 )/12))/4)) + Math.floor(275*(month)/9) + (day + 1721013.5d - UT/24d ) );
+        //note SUBTRACTION of UT which is correct for this direction of the conversion
+        var JDN= ((367l*(year) - Math.floor(7l*(year + Math.floor((month+9l )/12l))/4l)) + Math.floor(275l*(month)/9l) + (day + 1721013.5d - UT/24.0d ) );
         var JD= (JDN + (hour)/24.0d + min/1440.0d - pr); //(hour)/24 + (min)/1440; in this case  noon (hr12, min0)
         return JD;
 
     }
+
+/****************** note different version below which  accounts for date prior to 1582...
+/*
+    function gregorianDateToJulianDate(year, month, day, hour, min, sec)as Lang.double {
+
+	var isGregorian=true;
+	if(year<1582 || (year == 1582 && (month < 10 || (month==10 && day < 5)))){
+		isGregorian=false;
+	}
+
+	if (month < 3){
+		year = year - 1;
+		month = month + 12;
+	}
+
+	var b = 0;
+	if (isGregorian){
+	var a = INT(year / 100.0d);
+		b = 2 - a + INT(a / 4.0d);
+        deBug("JD: a,b: ", [a,b]);
+	}
+    var jd = 0.0d;    
+	jd=INT(365.25d * (year + 4716d)) + INT(30.6001d * (month + 1)) + day + b - 1524.5d;
+    deBug("JD: jd: ", [jd, 365.25d * (year + 4716d),INT(365.25d * (year + 4716d)), 30.6001d * (month + 1),INT(30.6001d * (month + 1)), day, b]);
+    jd = jd.toDouble();
+
+    deBug("JD2: jd: ", [jd]);
+
+	jd+=hour/24.0d;
+	jd+=min/24.0d/60.0d;
+	jd+=sec/24.0d/60.0d/60.0d;
+    deBug("JD3: jd: ", [jd, hour, min, sec]);
+	return jd;
+} */
 
     function j2000_0Date  (year, month, day, hour, min, UT, dst) as Lang.double {
 
