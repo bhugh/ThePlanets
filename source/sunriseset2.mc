@@ -239,8 +239,8 @@ function constrain(v){
          
 
         //var jd = time_add_hrs /24.0f + gregorianDateToJulianDate(now_info.year, now_info.month, now_info.day, 0, 0, 0);
-        var jd = gregorianDateToJulianDate(now_info.year, now_info.month, now_info.day, now_info.hour+ time_add_hrs + dst, now_info.min/60.0, timeZoneOffset_sec);
-        deBug("JD: ", [jd, now_info.year, now_info.month, now_info.day,now_info.hour+now_info.min/60 + time_add_hrs, time_add_hrs, timeZoneOffset_sec, dst]);
+        var jd = gregorianDateToJulianDate(now_info.year, now_info.month, now_info.day, now_info.hour+ time_add_hrs + dst, now_info.min, timeZoneOffset_sec);
+        deBug("JD: ", [jd, now_info.year, now_info.month, now_info.day,now_info.hour + time_add_hrs, now_info.min, timeZoneOffset_sec, dst, time_add_hrs]);
         var obliq_rad= obliquityEcliptic_rad (now_info.year, now_info.month, now_info.day + time_add_hrs, now_info.hour, now_info.min, timeZoneOffset_sec/3600.0, dst);
 
         deBug("long(MEEUS),UT,TZ,dst", [lon_deg, lat_deg, timeZoneOffset_sec/3600, dst, time_add_hrs, time_add_hrs/24.0f, jd]);
@@ -266,8 +266,10 @@ function constrain(v){
 
         var ret = {};
 
+        var jd_mid = gregorianDateToJulianDate(now_info.year, now_info.month, now_info.day, 0,0,0);
+
         //Greenwhich mean sidereal time @ midnight of today
-        var gmst_mid_deg=normalize(GMST_deg(Math.floor(jd)+.5));
+        var gmst_mid_deg=normalize(GMST_deg(Math.floor(jd_mid)+.5));
         //deBug("gmst: ", [gmst, jd, Math.floor(jd)+.5]);
         ret.put(:GMST_MID_HR, gmst_mid_deg/15.0);
         //deBug("gmst, jd : ", [gmst_mid_deg, jd]);
@@ -280,7 +282,7 @@ function constrain(v){
         var lmst_now_hr = normalize((gmst_now_deg - lon_deg)) / 15.0;
         ret.put(:GMST_NOW_HR, [gmst_now_deg/15.0]);
         ret.put(:LMST_NOW_HR, [lmst_now_hr]);
-        deBug("GNMST_NOW_HR, LMST, JD: ", [gmst_now_deg/15.0, lmst_now_hr, jd]);
+        deBug("GNMST_NOW_HR, LMST_HR, JD: ", [gmst_now_deg/15.0, lmst_now_hr, jd]);
 
         var tz_add = (timeZoneOffset_sec/3600.0f) + dst;
         ret.put (:NOON,  constrain(transit_GMT_DAY + tz_add/24.0) * 24.0);
