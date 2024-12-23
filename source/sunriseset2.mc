@@ -325,11 +325,11 @@ function constrain(v){
 
                 if (rra_deg==0) {
                     
-                    var abeH = angleBetweenEclipticAndHorizon_rad(Math.toRadians(lat_deg), Math.toRadians(lmst_now_hr*15), obliq_rad);
-                    var ipEH = intersectionPointsEclipticHorizon_rad(Math.toRadians(lat_deg), Math.toRadians(lmst_now_hr*15), obliq_rad);
-                    deBug("angleBetweenEclipticAndHorizon: ", [abeH, ipEH]);
-                    deBug("abeH, ipEH: ", [abeH, ipEH]);
-                    ret.put("ECLIP_HORIZON", [abeH, ipEH]); //add angle & intersection point to the return objec
+                    //var abeH = angleBetweenEclipticAndHorizon_rad(Math.toRadians(lat_deg), Math.toRadians(lmst_now_hr*15), obliq_rad);
+                    var intsectionEclipticHorizonPoints_rad = intersectionPointsEclipticHorizon_rad(Math.toRadians(lat_deg), Math.toRadians(normalize(lmst_now_hr*15)), obliq_rad);
+                    //deBug("angleBetweenEclipticAndHorizon: ", [abeH, ipEH]);
+                    //deBug("abeH, ipEH: ", [abeH, ipEH]);
+                    ret.put(:ECLIP_HORIZON, intsectionEclipticHorizonPoints_rad); //add angle & intersection point to the return objec
                 
                 }
 
@@ -615,23 +615,37 @@ RA = 18h, Dec = -23.5° is the winter solstice
 
 
 */
-
+/***************************************************************************
+//RETURNS ANGLE BETWEEN ECLIPTIC AND HORIZON AT CURRENT LATITUDE & TIME
+//
 //https://www.celestialprogramming.com/snippets/angleBetweenEclipticAndHorizon.html
 //Greg Miller (gmiller@gregmiller.net) 2022
 //Released as public domain
 //www.celestialprogramming.com
 
 //All angles are input and output in radians
+/***************************************************************************/
 function angleBetweenEclipticAndHorizon_rad(lat_rad,sidereal_rad,obliquity_rad){
     //Meeus 14.3
 
     //law of cosines (sin(latitude) because it is the  complement of the angle we are looking for, so cos(angle) = sin(complement of the angle))   
      var ret = Math.acos(Math.cos(obliquity_rad)*Math.sin(lat_rad) - Math.sin(obliquity_rad)*Math.cos(lat_rad)*Math.sin(sidereal_rad));
-    deBug("angleBetweenEclipticAndHorizon: aOLS ", [Math.toDegrees(ret), Math.toDegrees(obliquity_rad), Math.toDegrees(lat_rad), Math.toDegrees(sidereal_rad)]);
+    //deBug("angleBetweenEclipticAndHorizon: aOLS ", [Math.toDegrees(ret), Math.toDegrees(obliquity_rad), Math.toDegrees(lat_rad), Math.toDegrees(sidereal_rad)]);
      return ret;
 }
 
+/***************************************************************************
+//RETURNS CRITICAL POINTS & ANGLE BETWEEN ECLIPTIC AND HORIZON AT CURRENT LATITUDE & TIME
+//
+// aEH_rad = angle between ecliptic and horizon
+// horEHint_rad = horizon great circle distance from equator to ecliptic
+// eclEHint_rad = ecliptic great circle distance from vernal equinox to horizon
+// All angles input & output are RADIANS
+//
+/**************************************************************************/
+
 function intersectionPointsEclipticHorizon_rad (lat_rad, sidereal_rad, obliquity_rad) {
+    ///below is something the AI suggested but I'm not 100% clear on what it is supposed to be calculating.
     //Meeus 14.3
     /*var a = Math.cos(obliquity)*Math.sin(lat) - Math.sin(obliquity)*Math.cos(lat)*Math.sin(sidereal);
     var b = Math.cos(lat)*Math.cos(sidereal);
@@ -640,6 +654,8 @@ function intersectionPointsEclipticHorizon_rad (lat_rad, sidereal_rad, obliquity
     var e = Math.asin(c);
     deBug("intersectionPointEclipticHorizon: ", [a,b,c,d,e]);
     return [d,e];*/
+    ///END AI suggestion
+
     var aEH_rad = angleBetweenEclipticAndHorizon_rad(lat_rad,sidereal_rad,obliquity_rad);
 
     // horEH is the distance along the horizon great circle from the intersection with the equator great circle
@@ -648,29 +664,67 @@ function intersectionPointsEclipticHorizon_rad (lat_rad, sidereal_rad, obliquity
     //law of sines:
     if (Math.sin(aEH_rad) != 0) {
         //horEHint_rad = Math.asin( Math.sin(Math.PI/2.0)/ Math.sin(aEH_rad)*Math.sin(obliquity_rad));
-        horEHint_rad = Math.asin( Math.sin(sidereal_rad - Math.PI/2.0)/ Math.sin(aEH_rad)*Math.sin(obliquity_rad));
+        var intm = Math.sin(sidereal_rad - Math.PI/2.0)/ Math.sin(aEH_rad)*Math.sin(obliquity_rad);
+        if (intm>1 || intm<-1) {horEHint_rad = Math.PI/2.0;}
+        else {
+            horEHint_rad = Math.asin(intm);
+        }
     }
+    
+ 
+            // eclEH is the distance along the ecliptic great circle from the intersection with the equator great circle,  ie the vernal equinox, to the intersection with the horizon great circle.  It is measured in radians. (Because of symmetry it is also the angle from the fall equinox to the intersection point. But the Vernal Eq is 0,0 the origin point of the system.)
+            var eclEHint2_rad = 0; //alternate calculation, it's equal. O/horEHint
+            var horEHint_copy_rad = horEHint_rad;
+            if (Math.sin(aEH_rad) != 0) {
+                eclEHint2_rad = Math.asin( Math.sin(horEHint_rad)/Math.sin(obliquity_rad)*Math.cos(lat_rad));
+            }
+            
+
 
     // eclEH is the distance along the ecliptic great circle from the intersection with the equator great circle,  ie the vernal equinox, to the intersection with the horizon great circle.  It is measured in radians. (Because of symmetry it is also the angle from the fall equinox to the intersection point. But the Vernal Eq is 0,0 the origin point of the system.)
     var eclEHint_rad = 0; //similarly, 0 is probably the best choice here for  the case sin() = 0. That is the situation where the horizon & ecliptic coincide.
+   if (Math.sin(aEH_rad) != 0) {
+        var sid2 = sidereal_rad;
+        
+        /*if (sid2<=Math.PI && sid2 <= Math.toRadians(200)) {sid2 -= Math.PI;}
+        if (sid2<= Math.toRadians(330) && sid2 <= 2.0*Math.PI) {sid2 -= Math.PI;} */
 
-    if (Math.sin(aEH_rad) != 0) {
-        eclEHint_rad = 0; // Math.asin( Math.sin(Math.PI/2.0+sidereal_rad)/ Math.sin(aEH_rad)*Math.sin(obliquity_rad));
+        var hor_sid_rad = sidereal_rad - Math.PI/2.0;
+        var add180 = 0;
+
+        if (hor_sid_rad> -Math.PI/2.0 + Math.toRadians(20) && hor_sid_rad < Math.PI/2.0 + Math.toRadians(20)) {
+            hor_sid_rad += Math.PI;
+            add180 = Math.PI;}
+            else if (hor_sid_rad>= 3* Math.PI/2.0 && hor_sid_rad < 3.0*Math.PI/2.0 + Math.toRadians(20)) {
+                hor_sid_rad -= Math.PI;
+                add180 = Math.PI;
+            }else if (hor_sid_rad>= Math.PI/2.0 - Math.toRadians(20) && hor_sid_rad < Math.PI/2.0) {
+                hor_sid_rad -= Math.PI;
+                add180 = Math.PI;
+            }
+
+        var intm = Math.sin(hor_sid_rad)/ Math.sin(aEH_rad)*Math.cos(lat_rad);
+        deBug("intersectionPointEclipticHorizon MUP: ", [Math.sin(sidereal_rad - Math.PI/2.0), Math.sin(aEH_rad), Math.cos(lat_rad), intm, Math.toDegrees(sidereal_rad)]);
+        if (intm>1 || intm<-1) {eclEHint_rad = Math.PI/2.0;}
+        else {
+            
+            eclEHint_rad = Math.asin(intm) + add180;
+            //if (hor_sid_rad<0) {eclEHint_rad = Math.PI - eclEHint_rad;}
+        }
     }
 
-    var eclEHint2_rad = 0; //alternate calculation, should be equal. O/horEHint
-    if (Math.sin(aEH_rad) != 0) {
-        eclEHint2_rad = Math.asin( Math.sin(horEHint_rad)/Math.sin(obliquity_rad)*Math.cos(lat_rad));
-    }
-
+    //AI suggested using atan2 instead, but it doesn't work
+    //eclEHint_rad = Math.atan2(Math.sin(sidereal_rad - Math.PI/2.0) * Math.cos(lat_rad), Math.sin(aEH_rad));
     //test_angleBetweenEclipticAndHorizon_rad();
 
-    deBug("intersectionPointEclipticHorizon aoLs: ", [Math.toDegrees(eclEHint_rad), Math.toDegrees(eclEHint2_rad), Math.toDegrees(horEHint_rad)]);
-    return  [eclEHint_rad, horEHint_rad];
-
-    
+    deBug("intersectionPointEclipticHorizon aoLs: ", [Math.toDegrees(horEHint_rad), Math.toDegrees(eclEHint_rad), Math.toDegrees(eclEHint2_rad), aEH_rad]);
+    //return  [eclEHint_rad, horEHint_rad];
+    return [horEHint_rad, eclEHint_rad, aEH_rad];
 
 }
+
+
+    
 
 /*
 //2024/12 - tested, it works
