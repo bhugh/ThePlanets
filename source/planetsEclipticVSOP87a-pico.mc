@@ -21,8 +21,8 @@ class VSOP87_cache{
         g_cache = {};
         indexes = [];
     }
-function fetch (now_info, timeZoneOffset_sec, dst, timeAdd_hrs, type) {
-    return planetCoord(now_info, timeZoneOffset_sec, dst, timeAdd_hrs, type, null);
+function fetch (now_info, timeZoneOffset_sec, dst, timeAdd_hrs, type, req_array) {
+    return planetCoord(now_info, timeZoneOffset_sec, dst, timeAdd_hrs, type, req_array);
 }
 /*
     function fetch (now_info, timeZoneOffset_sec, dst, timeAdd_hrs, type) {

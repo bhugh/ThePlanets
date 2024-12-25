@@ -356,6 +356,38 @@ class SolarSystemBaseView extends WatchUi.View {
         }
     }
 
+    //Triangle pointing in the direction  dir_x, dir_y to x1,y1, pointing outwards from x1,y1
+    //coord = [dir_x, dir_y, x1, y1]
+    public function drawTrianglePointer (myDc, coord, length, base_width, line_width, color, outline, pointer_line) {
+                
+        myDc.setPenWidth(line_width);
+        if (color != null) {myDc.setColor(color, Graphics.COLOR_TRANSPARENT);}
+
+        var x_diff = coord[2] - coord[0];
+        var y_diff = coord[3] - coord[1];
+        var dir_length = Math.round(Math.sqrt(x_diff * x_diff + y_diff * y_diff));
+        var x2 = coord[2] + (x_diff * length / dir_length);
+        var y2 = coord[3] + (y_diff * length / dir_length);
+        var y3 = coord[3] + (x_diff * 0.5*base_width / dir_length) ;
+        var x3 = coord[2] + (y_diff * 0.5*base_width / dir_length);
+        var y4 = coord[3] - (x_diff * 0.5*base_width / dir_length);
+        var x4 = coord[2] - (y_diff * 0.5*base_width / dir_length);
+
+        if (pointer_line) {
+            myDc.drawLine(coord[2], coord[3], coord[0], coord[1]);
+        }
+        if (outline) {
+            myDc.drawLine(x4,y4,x3,y3);
+            myDc.drawLine(x3,y3, x2,y2);
+            myDc.drawLine(x2,y2,x4,y4);
+        } else {
+            myDc.fillPolygon(x4,y4,x3,y3,x2,y2,x4,y4);
+        }
+        
+        
+    }
+
+
     public function doUpdate(dc, move){
         switch($.view_mode){
             case (0): //manual ecliptic (& follows clock time)
@@ -1058,7 +1090,7 @@ class SolarSystemBaseView extends WatchUi.View {
         //vspo87a = new vsop87a_nano();
         //vspo87a = new vsop87a_pico();
         //pp = vspo87a.planetCoord($.now_info, $.now.timeZoneOffset, $.now.dst, :ecliptic_latlon);
-        pp = vsop_cache.fetch($.now_info, $.now.timeZoneOffset, $.now.dst, time_add_hrs, :ecliptic_latlon);   
+        pp = vsop_cache.fetch($.now_info, $.now.timeZoneOffset, $.now.dst, time_add_hrs, :ecliptic_latlon, whh);   
         
         //vspo87a = null;
 
@@ -1427,7 +1459,10 @@ class SolarSystemBaseView extends WatchUi.View {
         //deBug("RDSWC6: ", allPlanets);
         //We shouldn't use the CACHE here bec. we can't use the little trick of 
         //adding hours to rotate around by 360deg for the day anyway...
-        pp = planetCoord($.now_info, $.now.timeZoneOffset, $.now.dst, time_add_hrs, :helio_xyz, null);
+
+        zoom_whh = intersect_array(zoom_whh, whh); //only calculate the planets in this view AND selected in settings; keeping the others just makes it too slow
+        pp = planetCoord($.now_info, $.now.timeZoneOffset, $.now.dst, time_add_hrs, :helio_xyz, zoom_whh);
+        //calc_whh = null;
 
         //vspo87a = null;
 
@@ -1475,7 +1510,7 @@ class SolarSystemBaseView extends WatchUi.View {
 
         //deBug("RDSWC8: ", allPlanets);
 
-        if (whh.indexOf("Moon")>-1 && whh.indexOf("Earth")>-1) {
+        if (zoom_whh.indexOf("Moon")>-1 && zoom_whh.indexOf("Earth")>-1) {
             //simple_moon = new simpleMoon();
 
             //eclip lon/lat of moon, in degrees.  Relative to earth.
@@ -1619,7 +1654,7 @@ class SolarSystemBaseView extends WatchUi.View {
             //System.println("whhbefore: " + whh);
             //deBug("RDSWC11A: ", allPlanets);
             //deBug("RDSWC11Awhh: ", whh);
-            whh = insertionSort(whh, pp, 2);
+            zoom_whh = insertionSort(zoom_whh, pp, 2);
             //deBug("RDSWC11B: ", allPlanets);
             //deBug("RDSWC11Bwhh: ", whh);
             //System.println("whhafter: " + whh);
@@ -1639,10 +1674,10 @@ class SolarSystemBaseView extends WatchUi.View {
 
             if (_offscreenBuffer == null) {
                 //for SOME REASON just setting targetDc = dc DOESN"T WORK !!!!??!?!?!?!??!
-                drawOrbits3(dc, pp, scale, xc, yc, big_small, whh, Graphics.COLOR_WHITE); 
+                drawOrbits3(dc, pp, scale, xc, yc, big_small, zoom_whh, Graphics.COLOR_WHITE); 
             } else {      
                 targetDc = _offscreenBuffer.getDc();      
-                drawOrbits3(targetDc, pp, scale, xc, yc, big_small, whh, Graphics.COLOR_WHITE);
+                drawOrbits3(targetDc, pp, scale, xc, yc, big_small, zoom_whh, Graphics.COLOR_WHITE);
 
                 //DRAW THE ASTEROID BELT
                 if (!asteroidsRendered) {
@@ -1725,11 +1760,11 @@ class SolarSystemBaseView extends WatchUi.View {
         //sid = 5.5*15;
         init_findSpotRect();
         //System.println("kys whh " + kys + " \n" + whh);
-        for (var i = 0; i<whh.size(); i++) {
+        for (var i = 0; i<zoom_whh.size(); i++) {
         //for (var i = 0; i<kys.size(); i++) {
 
             //key1 = kys[i];
-            key = whh[i];
+            key = zoom_whh[i];
             //System.println ("kys: " + key + " " + key1);
             //if ( ["Ceres", "Uranus", "Neptune", "Pluto", "Eris", "Chiron"].indexOf(key)> -1) {continue;}
             if (key == null || pp[key] == null) {continue;} //not much else to do...
@@ -2526,10 +2561,21 @@ class SolarSystemBaseView extends WatchUi.View {
         size *= planetSizeFactor; //factor from settings
 
         if (key.find("Ecliptic") != null) {
-            size /= 2.0;
+            var trisize = min_c/15.0;
+            size = min_c/60.0;
+            var fill = false;
+            
             if (key.equals("Ecliptic0") || key.equals("Ecliptic180") ) {
-                fillcol = Graphics.COLOR_DK_GRAY;
-                }
+                //fillcol = Graphics.COLOR_DK_GRAY;
+                fill = true;
+                trisize = 1.5*trisize;
+                if (key.equals("Ecliptic0")) {trisize *= 1.5;}
+            }
+
+            
+            drawTrianglePointer (dc, [xc, yc, x, y,], trisize, trisize/4.0, 1, Graphics.COLOR_LT_GRAY, true, false);
+
+            
         } //solstice & equinox points, small circles
             
 
@@ -2542,14 +2588,18 @@ class SolarSystemBaseView extends WatchUi.View {
         if (pers> max_p) {pers = max_p; }
         if (pers < 0.05   ) {pers = 0.05;}
         */
-        if (z>1.5 * max_c) {return;} //this one is "behind" us, don't draw it
-        if (size > radius * .8 && !key.equals("Sun")) {return;} 
-        if (z>max_c) {z= max_c;}
-        var pers = 2*max_c / (2.0* max_c - z);
 
-        if (pers < 0.05   ) {pers = 0.05;}
+        //Handle perspective for orrery modes
+        if (type == :orrery) {
+            if (z>1.5 * max_c) {return;} //this one is "behind" us, don't draw it
+            if (size > radius * .8 && !key.equals("Sun")) {return;} 
+            if (z>max_c) {z= max_c;}
+            var pers = 2*max_c / (2.0* max_c - z);
 
-        size *= pers;
+            if (pers < 0.05   ) {pers = 0.05;}
+
+            size *= pers;
+        }
 
         var pen = Math.round(size/10.0).toNumber();
         if (pen<1) {pen=1;}
@@ -2737,7 +2787,7 @@ class SolarSystemBaseView extends WatchUi.View {
                     
                     //dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);                    
                     //length 0 doesn't SHOW UP on the INSTINCT for some reason, so sticking with size 1
-                    drawDashedLine(dc, 0,y - size, 2*xc, y - size, 0, 3, 1, Graphics.COLOR_LT_GRAY);
+                    drawDashedLine(dc, 0,y - size/5.0, 2*xc, y - size/5.0, 0, 3, 1, Graphics.COLOR_LT_GRAY);
                     //drawDashedLine(dc, 0,y - size, 2*xc, y - size, 0, 3, 1, Graphics.COLOR_WHITE);
                 }
                 break;            

@@ -39,8 +39,8 @@ E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_pl
 E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_planetsEclipticVSOP87a_pico_mc_16_27_23_4_stop:
     }
     [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\planetsEclipticVSOP87a-pico.mc"; @line = 24; ]
-    function fetch(now_info, timeZoneOffset_sec, dst, timeAdd_hrs, type) {
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_planetsEclipticVSOP87a_pico_mc_24_70_26_0_start:
+    function fetch(now_info, timeZoneOffset_sec, dst, timeAdd_hrs, type, req_array) {
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_planetsEclipticVSOP87a_pico_mc_24_81_26_0_start:
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\planetsEclipticVSOP87a-pico.mc" 25 4 ]
         %tmp.1 = self;
         %tmp.2 = getv function %tmp.1 :planetCoord;
@@ -49,10 +49,10 @@ E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_pl
         %tmp.8 = lgetv %dst;
         %tmp.10 = lgetv %timeAdd_hrs;
         %tmp.12 = lgetv %type;
-        %tmp.13 = null;
-        %tmp.14 = invoke %tmp.1 %tmp.2(%tmp.4, %tmp.6, %tmp.8, %tmp.10, %tmp.12, %tmp.13);
-        ret %tmp.14;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_planetsEclipticVSOP87a_pico_mc_24_70_26_0_stop:
+        %tmp.14 = lgetv %req_array;
+        %tmp.15 = invoke %tmp.1 %tmp.2(%tmp.4, %tmp.6, %tmp.8, %tmp.10, %tmp.12, %tmp.14);
+        ret %tmp.15;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_planetsEclipticVSOP87a_pico_mc_24_81_26_0_stop:
     }
 }
 [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\planetsEclipticVSOP87a-pico.mc"; @line = 118; @position = 8; ]

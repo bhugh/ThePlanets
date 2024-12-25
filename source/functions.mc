@@ -356,3 +356,14 @@ function deBug(label, ary) {
     }
     System.println("");
 }
+
+function intersect_array (a, b) {
+    var result = [];
+    for (var i = 0; i < a.size(); i++) {
+        if (b.indexOf(a[i]) != -1) {
+            result.add(a[i]);
+            }
+        }
+    return result;            
+
+}
