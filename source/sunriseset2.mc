@@ -245,11 +245,11 @@ function getRiseSetfromDate_hr(now_info, timeZoneOffset_sec, dst, time_add_hrs, 
 //var jd = gregorianDateToJulianDate(now_info.year, now_info.month, now_info.day, now_info.hour+ time_add_hrs + dst, now_info.min, -timeZoneOffset_sec);
 var jd = julianDate (now_info.year, now_info.month, now_info.day,now_info.hour + time_add_hrs, now_info.min, timeZoneOffset_sec/3600f, dst);
 
-deBug("JD: ", [jd, now_info.year, now_info.month, now_info.day,now_info.hour + time_add_hrs, now_info.min, timeZoneOffset_sec, dst, time_add_hrs]);
+//deBug("JD: ", [jd, now_info.year, now_info.month, now_info.day,now_info.hour + time_add_hrs, now_info.min, timeZoneOffset_sec, dst, time_add_hrs]);
 var obliq_rad= obliquityEcliptic_rad (now_info.year, now_info.month, now_info.day + time_add_hrs, now_info.hour, now_info.min, timeZoneOffset_sec/3600.0, dst);
 var obliq_deg = Math.toDegrees(obliq_rad);
 
-deBug("long(MEEUS),UT,TZ,dst", [lon_deg, lat_deg, timeZoneOffset_sec/3600, dst, time_add_hrs, time_add_hrs/24.0f, jd]);
+//deBug("long(MEEUS),UT,TZ,dst", [lon_deg, lat_deg, timeZoneOffset_sec/3600, dst, time_add_hrs, time_add_hrs/24.0f, jd]);
 
 //System.println ("JD: " + jd); 
 
@@ -270,7 +270,7 @@ if (pp_sun == null ) {
     //System.println("sun_radec(I): " + (pp_sun[0]) + " " + (pp_sun[1]));
     sun_RD = sun_radec["Sun"];
 }
-System.println("sun_radec: " + (sun_RD));
+//System.println("sun_radec: " + (sun_RD));
 
 var ret = {};
 
@@ -294,7 +294,7 @@ var gmst_now_deg = normalize(GMST_deg(jd));
 var lmst_now_hr = normalize((gmst_now_deg - lon_deg)) / 15.0;
 ret.put(:GMST_NOW_HR, [gmst_now_deg/15.0]);
 ret.put(:LMST_NOW_HR, [lmst_now_hr]);
-deBug("GNMST_MID_HR, GNMST_NOW_HR, LMST_HR, JD: ", [gmst_mid_deg/15.0, gmst_now_deg/15.0, lmst_now_hr, jd]);
+//deBug("GNMST_MID_HR, GNMST_NOW_HR, LMST_HR, JD: ", [gmst_mid_deg/15.0, gmst_now_deg/15.0, lmst_now_hr, jd]);
 
 var tz_add = (timeZoneOffset_sec/3600.0f) + dst;
 //ret.put (:NOON,  constrain(transit_GMT_toeclip_day + tz_add/24.0) * 24.0);
@@ -434,7 +434,7 @@ for (var i = 0; i<sunEventData.size();i++) {
 
 
     var ky = kys[i];
-    System.println("ret: " + ky + " " + ret[ky] + " " + sunEventData[ky]);
+    //System.println("ret: " + ky + " " + ret[ky] + " " + sunEventData[ky]);
 }
 
 
@@ -513,7 +513,7 @@ function getRiseSet_hr(jd,h0_deg, lat,lon,ra,dec,transit_GMT_DAY, obliq_rad){
     //var ret = [rise,set, ecl_rise_day, ecl_set_day];
     var ret = [rise,set];
 
-    System.println("transit (results/UTC): " + H0_deg + " " + ret);
+    //System.println("transit (results/UTC): " + H0_deg + " " + ret);
     return ret;
     //returns transit in DAYS....
     

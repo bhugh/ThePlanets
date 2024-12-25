@@ -330,6 +330,24 @@ class SolarSystemBaseView extends WatchUi.View {
         return true;
     }
 
+    public function drawDashedLine (dc,x1, y1, x2, y2, len_line, len_skip, width, color) {
+                
+        dc.setPenWidth(width);
+        if (color != null) {dc.setColor(color, Graphics.COLOR_TRANSPARENT);}
+
+        var x_diff = x2 - x1;
+        var y_diff = y2 - y1;
+        var length = Math.round(Math.sqrt(x_diff * x_diff + y_diff * y_diff));
+        
+        for (var i = 0; i < length; i += len_line + len_skip) {
+            var x = x1 + (x_diff * i / length);
+            var y = y1 + (y_diff * i / length);
+            var x_2 = x1 + (x_diff * (i + len_line) / length);
+            var y_2 = y1 + (y_diff * (i + len_line) / length);
+            dc.drawLine(x,y,x_2,y_2);
+        }
+    }
+
     public function doUpdate(dc, move){
         switch($.view_mode){
             case (0): //manual ecliptic (& follows clock time)
@@ -2709,8 +2727,8 @@ class SolarSystemBaseView extends WatchUi.View {
                 if (type == :orrery && LORR_show_horizon_line == true) 
                 {
                     
-                    dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);                    
-                    dc.drawLine(0,y+size, 2*xc, y + size);
+                    //dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);                    
+                    drawDashedLine(dc, 0,y - size, 2*xc, y - size, 2, 3, 1, Graphics.COLOR_LT_GRAY);
                 }
                 break;            
         }
