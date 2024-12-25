@@ -19,6 +19,7 @@ var now, time_now, now_info;
 var the_rad = 0; //angles to rotate, theta & gamma
 var ga_rad = 0 ;
 var LORR_orient_horizon = true;
+var LORR_show_horizon_line = true;
 var asteroidsRendered = false;
 
 var save_local_animation_count;
@@ -325,7 +326,7 @@ class SolarSystemBaseView extends WatchUi.View {
         dc.setPenWidth(width);
         if (color != null) {dc.setColor(color, Graphics.COLOR_TRANSPARENT);}
         dc.drawArc(xc, yc, r, Graphics.ARC_CLOCKWISE, 270.0 - hr1 * 15.0, 270.0 - hr2 *15.0);   
-        deBug("drawArc", [270.0 - hr1 * 15.0, 270.0 - hr2 *15.0, hr1, hr2]);
+        //deBug("drawArc", [270.0 - hr1 * 15.0, 270.0 - hr2 *15.0, hr1, hr2]);
         return true;
     }
 
@@ -1047,7 +1048,7 @@ class SolarSystemBaseView extends WatchUi.View {
 
          //flattenEclipticPP(obliq_deg);     
 
-        deBug("pp: ", pp);
+        //deBug("pp: ", pp);
 
         //System.println("Moon simple3: " + moon_info3 + " elp82: "+ moon_info4);
         //System.println("Moon simple2: " + moon_info2);
@@ -1159,7 +1160,7 @@ class SolarSystemBaseView extends WatchUi.View {
 
         //deBug("sunrise_events23T][1]+ noon_adj_hrs, 12-(sunrise_events2[:SUNRISE][0] + noon_adj_hrs), (sunrise_events2[:SUNRISE][1] + noon_adj_hrs) - 12] );
 
-        deBug ("sunrise_events2", [ noon_adj_hrs, sunrise_events2[:NOON][0] + noon_adj_hrs, sunrise_events2[:SUNRISE][0] + noon_adj_hrs, sunrise_events2[:SUNRISE][1] + noon_adj_hrs, sunrise_events2[:NOON][0]- sunrise_events2[:SUNRISE][0], sunrise_events2[:SUNRISE][1] - sunrise_events2[:NOON][0], sunrise_events2[:NOON][0]]);
+        //deBug ("sunrise_events2", [ noon_adj_hrs, sunrise_events2[:NOON][0] + noon_adj_hrs, sunrise_events2[:SUNRISE][0] + noon_adj_hrs, sunrise_events2[:SUNRISE][1] + noon_adj_hrs, sunrise_events2[:NOON][0]- sunrise_events2[:SUNRISE][0], sunrise_events2[:SUNRISE][1] - sunrise_events2[:NOON][0], sunrise_events2[:NOON][0]]);
 
 
         drawARC (dc, sunrise_events2[:SUNRISE][0] + noon_adj_hrs, sunrise_events2[:SUNRISE][1]+ noon_adj_hrs, xc, yc, r, 6, Graphics.COLOR_WHITE);
@@ -1238,7 +1239,7 @@ class SolarSystemBaseView extends WatchUi.View {
 
             var ang_rad2 = -Math.toRadians(pp[key][0]) - final_adj_rad;
 
-            System.println  ("key: " + key + " ang_rad: " + Math.toDegrees(ang_rad) + " " + mod(ang_rad/2.0/Math.PI*24,24.0) + " " +  Math.toDegrees(ang_rad2) + " " + mod(ang_rad2/2.0/Math.PI*24,24.0));
+            //System.println  ("key: " + key + " ang_rad: " + Math.toDegrees(ang_rad) + " " + mod(ang_rad/2.0/Math.PI*24,24.0) + " " +  Math.toDegrees(ang_rad2) + " " + mod(ang_rad2/2.0/Math.PI*24,24.0));
             
             x = r* Math.cos(ang_rad) + xc;
             y = r* Math.sin(ang_rad) + yc;
@@ -1489,7 +1490,7 @@ class SolarSystemBaseView extends WatchUi.View {
         //if ($.newModeOrZoom || showWithSpeedChange) {//gives signal to reset the dots 
         if ($.newModeOrZoom || $.speedWasChanged ) {//gives signal to reset the dots 
             //var oldscale = scale;
-                System.println("RDSWC - new scale & targetDc: "  + $.speedWasChanged + " " + $.newModeOrZoom );
+                //System.println("RDSWC - new scale & targetDc: "  + $.speedWasChanged + " " + $.newModeOrZoom );
             
                 scale = (min_c*0.85*eclipticSizeFactor)/Math.sqrt(max) * $.orrZoomOption_values[$.Options_Dict[orrZoomOption_enum]] ;  
                 asteroidsRendered = false;
@@ -1507,7 +1508,7 @@ class SolarSystemBaseView extends WatchUi.View {
 
                 } else {
                     targetDc = dc;
-                    System.println ("NOTTTTT Using offscreenBUFFER");
+                    //System.println ("NOTTTTT Using offscreenBUFFER");
                 }
             
             $.newModeOrZoom = false;
@@ -1731,7 +1732,7 @@ class SolarSystemBaseView extends WatchUi.View {
             //System.println("key12: " + key);
             if (
                   (    (radius > 0.11 * min_c && x < 1.1 * screenWidth && y < 1.1 * screenHeight && x> -0.1 * screenHeight && y > -0.1 * screenWidth) 
-                    || key.equals("Sun")
+                    || key.equals("Sun") || key.equals("Earth")
                   ) && (
                     !key.equals("AsteroidA")  && !key.equals("AsteroidB") 
                   ) 
@@ -2029,7 +2030,7 @@ class SolarSystemBaseView extends WatchUi.View {
         //System.println("time_now : " + $.time_now.value());
         if (msg[0] < $.time_now.value() ){ msgDisplayed = false; 
             message = null;
-            System.println("ShowMSG: Exiting current msg time expired");
+            //System.println("ShowMSG: Exiting current msg time expired");
             return 0;
         }
 
@@ -2373,7 +2374,7 @@ class SolarSystemBaseView extends WatchUi.View {
                 col = Graphics.COLOR_BLUE;
                 fillcol = Graphics.COLOR_GREEN;
                 break;
-             case "Earth":
+            case "Earth":
                 size =b_size *jup_size * 0.09113015119;
                 col = Graphics.COLOR_BLUE;
                 fillcol = Graphics.COLOR_BLUE;
@@ -2664,43 +2665,54 @@ class SolarSystemBaseView extends WatchUi.View {
                         dc.fillCircle(x, y, size);
                         break;
                 }  else {
-                if (moon_age_deg > 315 || moon_age_deg <= 45) { //NEW moon
+                    if (moon_age_deg > 315 || moon_age_deg <= 45) { //NEW moon
 
-                        dc.setColor(0x171f25, Graphics.COLOR_TRANSPARENT);                //0x171f25
-                        dc.fillCircle(x, y, size);
-                        dc.setColor(0xf0f9ff, Graphics.COLOR_TRANSPARENT);  
-                        dc.drawCircle(x, y, size);
-                }
+                            dc.setColor(0x171f25, Graphics.COLOR_TRANSPARENT);                //0x171f25
+                            dc.fillCircle(x, y, size);
+                            dc.setColor(0xf0f9ff, Graphics.COLOR_TRANSPARENT);  
+                            dc.drawCircle(x, y, size);
+                    }
 
-                else if (moon_age_deg > 45 && moon_age_deg <= 135) { //1st quarter
-                        dc.setColor(0xf0f9ff, Graphics.COLOR_TRANSPARENT);                
-                        dc.drawCircle(x, y, size);
-                        dc.setClip (x, y-size,size, size*2);                        
-                        dc.setColor(0xf0f9ff, Graphics.COLOR_TRANSPARENT);  
-                        dc.fillCircle(x, y, size);
-                        dc.clearClip();
+                    else if (moon_age_deg > 45 && moon_age_deg <= 135) { //1st quarter
+                            dc.setColor(0xf0f9ff, Graphics.COLOR_TRANSPARENT);                
+                            dc.drawCircle(x, y, size);
+                            dc.setClip (x, y-size,size, size*2);                        
+                            dc.setColor(0xf0f9ff, Graphics.COLOR_TRANSPARENT);  
+                            dc.fillCircle(x, y, size);
+                            dc.clearClip();
 
-                }
-                else if (moon_age_deg > 135 && moon_age_deg <= 225) { //FULL
-                        
-                        dc.setColor(0xf0f9ff, Graphics.COLOR_TRANSPARENT);  
-                        
-                        dc.drawCircle(x, y, size);              
-                        
-                        dc.fillCircle(x, y, size);
-                }
-                else if (moon_age_deg > 225 && moon_age_deg <= 315) { //Last quarter
-                        
-                        dc.setColor(0xf0f9ff, Graphics.COLOR_TRANSPARENT);  
-                        dc.drawCircle(x, y, size);
-                        
-                        dc.setClip (x-size, y-size,size, size*2);
-                        dc.setColor(0xf0f9ff, Graphics.COLOR_TRANSPARENT);  
-                        dc.fillCircle(x, y, size);
-                        dc.clearClip();
+                    }
+                    else if (moon_age_deg > 135 && moon_age_deg <= 225) { //FULL
+                            
+                            dc.setColor(0xf0f9ff, Graphics.COLOR_TRANSPARENT);  
+                            
+                            dc.drawCircle(x, y, size);              
+                            
+                            dc.fillCircle(x, y, size);
+                    }
+                    else if (moon_age_deg > 225 && moon_age_deg <= 315) { //Last quarter
+                            
+                            dc.setColor(0xf0f9ff, Graphics.COLOR_TRANSPARENT);  
+                            dc.drawCircle(x, y, size);
+                            
+                            dc.setClip (x-size, y-size,size, size*2);
+                            dc.setColor(0xf0f9ff, Graphics.COLOR_TRANSPARENT);  
+                            dc.fillCircle(x, y, size);
+                            dc.clearClip();
+                    }
+                    
                 }
                 break;
+            //"HORIZON" line in :orrery view
+            case "Earth" : 
+                
+                if (type == :orrery && LORR_show_horizon_line == true) 
+                {
+                    
+                    dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);                    
+                    dc.drawLine(0,y+size, 2*xc, y + size);
                 }
+                break;            
         }
 
         //If it might be behind the sun, draw the Sun on top...
@@ -3017,7 +3029,7 @@ class SolarSystemBaseView extends WatchUi.View {
 
              //y0 = (90 - temp)/90.0 * 23.4 * mcob + 50 * msob;
 
-            System.println("temp/hor_ang_rad: " + temp + " " + hor_ang_rad + " " + constrain(temp/360.0) * 24.0 + " " + (hor_ang_rad - Math.PI/2.0) + " " + constrain((hor_ang_rad - Math.PI/2.0)/2.0/Math.PI)*24.0 );
+            //System.println("temp/hor_ang_rad: " + temp + " " + hor_ang_rad + " " + constrain(temp/360.0) * 24.0 + " " + (hor_ang_rad - Math.PI/2.0) + " " + constrain((hor_ang_rad - Math.PI/2.0)/2.0/Math.PI)*24.0 );
             //hor_ang_rad *= sidereal_to_solar; //convert to solar system frame of reference
             //if (temp > max_hor_ang) {max_hor_ang = temp;}
             //if (temp < min_hor_ang) {min_hor_ang = temp;}
@@ -3397,7 +3409,7 @@ class SolarSystemBaseView extends WatchUi.View {
         
         for (var i = 0; i<kys.size(); i++) {
             key = kys[i];
-            deBug("flattenEclipticPP: ", [ key + " " + pp[key]]);
+            //deBug("flattenEclipticPP: ", [ key + " " + pp[key]]);
             
             z0 = pp[key][2] * mcob - pp[key][1] * msob;
             y0 = pp[key][1] * mcob + pp[key][2] * msob;

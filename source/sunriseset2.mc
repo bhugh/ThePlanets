@@ -526,11 +526,11 @@ function getRiseSet_hr(jd,h0_deg, lat,lon,ra,dec,transit_GMT_DAY, obliq_rad){
 function GMST_deg(jd){
 	var T=(jd-2451545.0d)/36525.0d;
 	var st=280.46061837d+360.98564736629d*(jd-2451545.0d)+0.000387933d*T*T - T*T*T/38710000.0d;
-    deBug("GMST1: ", [st, jd, T]);
+    //deBug("GMST1: ", [st, jd, T]);
 	//st=mod(st,360);
 	//if(st<0){st+=360;}
     st = normalize(st);
-    deBug("GMST2: ", [st, jd, T]);
+    //deBug("GMST2: ", [st, jd, T]);
 
 	return st;
 	//return st*Math.PI/180.0;
@@ -850,7 +850,7 @@ function equatorialLong2eclipticLong_rad (H0_rad, obliq_rad) {
     //var X = Math.atan2(math.sin(H0_rad), (Math.cos (H0_rad)*Math.cos (obliq_rad) + 0*Math.sin(obliq_rad)));
 
     var X = Math.atan2(Math.sin(H0_rad), (Math.cos (H0_rad)*Math.cos (obliq_rad)));
-    deBug("eclipSetfromEq: X", [Math.toDegrees(X)]);
+    //deBug("eclipSetfromEq: X", [Math.toDegrees(X)]);
     return X;
 
 }

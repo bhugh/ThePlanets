@@ -24,6 +24,7 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
 
         $.buttonPresses++;
         $.timeWasAdded=true;
+        $.LORR_show_horizon_line = false;
         if (buttonPresses == 1) {return;} //1st buttonpress just gets out of intro titles
 
         if (_mainview.animation_count == last_animation_count) {
@@ -66,6 +67,7 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
     public function onBack() as Boolean {
         $.buttonPresses++;
         $.timeWasAdded=true;
+        $.LORR_show_horizon_line = false;
         if (buttonPresses == 1) {return;} //1st buttonpress just gets out of intro titles
 
         //$.show_intvl = 0; //This makes screen clear of orbits, not good
@@ -81,6 +83,11 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
             //WatchUi.requestUpdate();
         } else {
             started = false;
+
+            //if we stop & forward step == 0 we set it to the lowest value
+            if (($.speeds[$.speeds_index]).abs() < 0.001) {
+                handleNextPrevious (:next); 
+            }
         }    
         
         //var view = _mainview;
@@ -100,6 +107,7 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
 
         //System.println("onNextPage..." + mult + " " + type);
         $.buttonPresses++;
+        $.LORR_show_horizon_line = false;
         
         $.run_oneTime = true; //in case we're stopped, it will run just once
         if (buttonPresses == 1) {return;} //1st buttonpress just gets out of intro titles
@@ -254,7 +262,8 @@ function changeModes(previousMode){
         $.timeWasAdded = true; //forces draw of screen in mode 0...
         $.animSinceModeChange = 0;
         $.show_intvl = 0; //used by showDate to decide when/how long to show (5 min) type labels
-        LORR_orient_horizon = true; //tells large_orrery to orient the graph so earth's horizon is horizontal & meridian is UP in the viewpoint.  which we do only the first time LORR is run.
+        $.LORR_orient_horizon = true; //tells large_orrery to orient the graph so earth's horizon is horizontal & meridian is UP in the viewpoint.  which we do only the first time LORR is run.
+        $.LORR_show_horizon_line = true;
         //$.time_add_hrs = .5; //reset to present time //NOW Do this, or not, individually per MODE below
         $.Options_Dict[orrZoomOption_enum] = orrZoomOption_default;
 
