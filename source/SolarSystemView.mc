@@ -135,7 +135,7 @@ class SolarSystemBaseView extends WatchUi.View {
 
            WatchUi.requestUpdate();
            
-                WatchUi.requestUpdate();
+            //WatchUi.requestUpdate();
             // } else if ($.view_modes[$.view_mode] == 0) { //view_mode==0, we always request the update & let it figure it out
              //   WatchUi.requestUpdate();
              //}
@@ -171,6 +171,8 @@ class SolarSystemBaseView extends WatchUi.View {
             }
 
         }
+
+        WatchUi.requestUpdate(); //sometimes screen doesn't show when returning from settings etc, trying to solve
 
         animationTimer= new Timer.Timer();
         
@@ -775,7 +777,7 @@ class SolarSystemBaseView extends WatchUi.View {
     var r, whh_sun, vspo_rep, font, srs, sunrise_events, sunrise_events2, pp, pp2, pp_sun, moon_info, moon_info2, moon_info3, moon_info4, elp82, sun_info3,keys, now, sid, x as Lang.float, y as Lang.float, y0 as Lang.float,  z0 as Lang.float, x2 as Lang.float, y2 as Lang.float, obliq_deg as Lang.float;
     var ang_deg as Lang.float, ang_rad as Lang.float, size as Lang.float, mult as Lang.float, sub, key, key1, textHeight, kys, add_duration as Lang.float, col;
     var sun_adj_deg as Lang.float, hour_adj_deg as Lang.float,final_adj_deg as Lang.float, final_adj_rad as Lang.float, noon_adj_hrs as Lang.float, noon_adj_deg as Lang.float, moon_age_deg as Lang.float;
-    var input;
+    var input, LORR_horizon_line_drawn as Lang.boolean;
 
 /*
     public function smallEcliptic(dc) {
@@ -1759,6 +1761,7 @@ class SolarSystemBaseView extends WatchUi.View {
 
         //sid = 5.5*15;
         init_findSpotRect();
+        LORR_horizon_line_drawn = false;
         //System.println("kys whh " + kys + " \n" + whh);
         for (var i = 0; i<zoom_whh.size(); i++) {
         //for (var i = 0; i<kys.size(); i++) {
@@ -1859,6 +1862,11 @@ class SolarSystemBaseView extends WatchUi.View {
             }
 
             */
+        }
+
+        if ( !LORR_horizon_line_drawn && LORR_show_horizon_line ) {
+                drawDashedLine(dc, 0, yc+1, 2*xc, yc+1, 0, 3, 1, Graphics.COLOR_LT_GRAY);
+                LORR_horizon_line_drawn = true;
         }
 
         if ($.show_intvl < 5 * $.hz ) { 
@@ -2062,26 +2070,27 @@ class SolarSystemBaseView extends WatchUi.View {
             //$.Options_Dict[ret]
             if (startTime == null) {startTime = $.time_now.value();}
             //System.println("showM " + $.time_now.value() + " " + $.time_now.value()/(3) + " " + mod(75,7) + " : " + $.time_now.value()/(3)%7 + " :: " + mod($.time_now.value()/(3),7.0).toNumber() );
+            var tp = "THE PLANETS";
             switch ((($.time_now.value()-startTime)/3)%7){
                 case 0:                
                 case 6:                
                 default:
-                    msg = [$.time_now.value() + 1,"THE","PLANETS", "", "Press *UP* or *SWIPE*"];
+                    msg = [$.time_now.value() + 1,tp.substring(0,3),tp.substring(4,null), "", "Press *UP* or *SWIPE*"];
                     break;                
                 case 1:                
-                    msg = [$.time_now.value() + 1,"UP/DOWN/SWIPE:","Time Forward", "/Back"];
+                    msg = [$.time_now.value() + 1, tp, "UP/DOWN/SWIPE:","Time Forward", "/Back"];
                     break;
                 case 2:                
-                    msg = [$.time_now.value() + 1,"UP/DOWN/SWIPE:","OR: Time Faster", "/Slower"];
+                    msg = [$.time_now.value() + 1,tp, "UP/DOWN/SWIPE:","OR: Time Faster", "/Slower"];
                     break;                    
                 case 3:
-                    msg = [$.time_now.value() + 1,"SELECT/TAP:","START Time if stopped", "OR: Next Mode"];   
+                    msg = [$.time_now.value() + 1,tp ,"SELECT/TAP:","START Time if stopped", "OR: Next Mode"];   
                     break;                 
                 case 4:                
-                    msg = [$.time_now.value() + 1,"BACK:","STOP Time if started", "OR: Prev Mode/Exit"];   
+                    msg = [$.time_now.value() + 1, tp,"BACK:","STOP Time if started", "OR: Prev Mode/Exit"];   
                     break;                     
                 case 5:                
-                    msg = [$.time_now.value() + 1,"MENU:","Change Options", "or Exit"];   
+                    msg = [$.time_now.value() + 1, tp,"MENU:","Change Options", "or Exit"];   
                     break;                         
             }
         }
@@ -2357,7 +2366,8 @@ class SolarSystemBaseView extends WatchUi.View {
                     intvl = "" + dv.format("%.1f") + " hr";
                 }
             }
-            dc.drawText(xcent2, ycent2, font, sep + intvl + sep, justify);
+            var modeInd = $.Options_Dict[:thetaOption_enum] == 0 ? "t" : "v" ;
+            dc.drawText(xcent2, ycent2, font, sep + intvl + sep + modeInd, justify);
             //$.show_intvl = false;
         }
         
@@ -2782,13 +2792,14 @@ class SolarSystemBaseView extends WatchUi.View {
             //"HORIZON" line in :orrery view
             case "Earth" : 
                 
-                if (type == :orrery && LORR_show_horizon_line == true) 
+                if (type == :orrery && LORR_show_horizon_line) 
                 {
                     
                     //dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);                    
                     //length 0 doesn't SHOW UP on the INSTINCT for some reason, so sticking with size 1
                     drawDashedLine(dc, 0,y - size/5.0, 2*xc, y - size/5.0, 0, 3, 1, Graphics.COLOR_LT_GRAY);
                     //drawDashedLine(dc, 0,y - size, 2*xc, y - size, 0, 3, 1, Graphics.COLOR_WHITE);
+                    LORR_horizon_line_drawn = true;
                 }
                 break;            
         }
