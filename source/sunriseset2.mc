@@ -229,183 +229,225 @@ function constrain(v){
         return v;
 }
 
-    //returns solar event times in HOURS
-    //function getRiseSetfromDate_hr(year, month, day, UT, dst, time_add_hrs, 
-    //             lat_deg, long_deg) {
-    function getRiseSetfromDate_hr(now_info, timeZoneOffset_sec, dst, time_add_hrs, lat_deg, lon_deg,pp_sun) {                    
+//returns solar event times in HOURS
+//function getRiseSetfromDate_hr(year, month, day, UT, dst, time_add_hrs, 
+//             lat_deg, long_deg) {
+function getRiseSetfromDate_hr(now_info, timeZoneOffset_sec, dst, time_add_hrs, lat_deg, lon_deg,pp_sun) {                    
 
-         lon_deg = -lon_deg; //Meeus uses West longitudes as positive - this is to correct for that
-         //deBug("long(MEEUS),UT,TZ,dst", [lon_deg.format("%.2f"), lat_deg.format("%.2f"), timeZoneOffset_sec/3600, dst]);
-         
+    lon_deg = -lon_deg; //Meeus uses West longitudes as positive - this is to correct for that
+    //deBug("long(MEEUS),UT,TZ,dst", [lon_deg.format("%.2f"), lat_deg.format("%.2f"), timeZoneOffset_sec/3600, dst]);
+    
 
-        //var jd = time_add_hrs /24.0f + gregorianDateToJulianDate(now_info.year, now_info.month, now_info.day, 0, 0, 0);
+//var jd = time_add_hrs /24.0f + gregorianDateToJulianDate(now_info.year, now_info.month, now_info.day, 0, 0, 0);
 
-        //NOTE: UT/timezone offset must be SUBTRACTED from the time to get the correct time in GMT in this context.
-        //Instead we'll use the version in functions.mc, which has this correctly accounted for already.
-        //var jd = gregorianDateToJulianDate(now_info.year, now_info.month, now_info.day, now_info.hour+ time_add_hrs + dst, now_info.min, -timeZoneOffset_sec);
-        var jd = julianDate (now_info.year, now_info.month, now_info.day,now_info.hour + time_add_hrs, now_info.min, timeZoneOffset_sec/3600f, dst);
+//NOTE: UT/timezone offset must be SUBTRACTED from the time to get the correct time in GMT in this context.
+//Instead we'll use the version in functions.mc, which has this correctly accounted for already.
+//var jd = gregorianDateToJulianDate(now_info.year, now_info.month, now_info.day, now_info.hour+ time_add_hrs + dst, now_info.min, -timeZoneOffset_sec);
+var jd = julianDate (now_info.year, now_info.month, now_info.day,now_info.hour + time_add_hrs, now_info.min, timeZoneOffset_sec/3600f, dst);
 
-        deBug("JD: ", [jd, now_info.year, now_info.month, now_info.day,now_info.hour + time_add_hrs, now_info.min, timeZoneOffset_sec, dst, time_add_hrs]);
-        var obliq_rad= obliquityEcliptic_rad (now_info.year, now_info.month, now_info.day + time_add_hrs, now_info.hour, now_info.min, timeZoneOffset_sec/3600.0, dst);
+deBug("JD: ", [jd, now_info.year, now_info.month, now_info.day,now_info.hour + time_add_hrs, now_info.min, timeZoneOffset_sec, dst, time_add_hrs]);
+var obliq_rad= obliquityEcliptic_rad (now_info.year, now_info.month, now_info.day + time_add_hrs, now_info.hour, now_info.min, timeZoneOffset_sec/3600.0, dst);
 
-        deBug("long(MEEUS),UT,TZ,dst", [lon_deg, lat_deg, timeZoneOffset_sec/3600, dst, time_add_hrs, time_add_hrs/24.0f, jd]);
+deBug("long(MEEUS),UT,TZ,dst", [lon_deg, lat_deg, timeZoneOffset_sec/3600, dst, time_add_hrs, time_add_hrs/24.0f, jd]);
 
-        //System.println ("JD: " + jd); 
+//System.println ("JD: " + jd); 
 
-        //get ra & dec for sun from VSOP87a
-        //var ra = 0;
-        //var dec = 0;
+//get ra & dec for sun from VSOP87a
+//var ra = 0;
+//var dec = 0;
 
-        var sun_RD = pp_sun;//radec = sunPosition(jd);
+var sun_RD = pp_sun;//radec = sunPosition(jd);
 
-        //return is: [Math.toDegrees(l), Math.toDegrees(t2), r];//lat, lon, r
+//return is: [Math.toDegrees(l), Math.toDegrees(t2), r];//lat, lon, r
+
+
+if (pp_sun == null ) {
+    var sun_radec = planetCoord (now_info, timeZoneOffset_sec, dst, time_add_hrs, :ecliptic_latlon, ["Sun"]);
+
+    //System.println("sun_radec(I): " + (pp_sun[0]) + " " + (pp_sun[1]));
+    sun_RD = sun_radec["Sun"];
+}
+System.println("sun_radec: " + (sun_RD));
+
+var ret = {};
+
+
+//var jd_mid = gregorianDateToJulianDate(now_info.year, now_info.month, now_info.day, 0,0,0);
+
+var jd_mid = julianDate (now_info.year, now_info.month, now_info.day + Math.floor((time_add_hrs + now_info.hour)/24.0), 0,0,0,0);
+
+//Greenwhich mean sidereal time @ midnight of today
+var gmst_mid_deg=normalize(GMST_deg(Math.floor(jd_mid)+.5));
+//deBug("gmst: ", [gmst, jd, Math.floor(jd)+.5]);
+ret.put(:GMST_MID_HR, gmst_mid_deg/15.0);
+//deBug("gmst, jd : ", [gmst_mid_deg, jd]);
+//today's solar transit time in GMT
+var transit_GMT_DAY=normalize(sun_RD[0] + lon_deg - gmst_mid_deg)/360.0;
+ret.put(:TRANSIT_GMT_HR, transit_GMT_DAY*24.0);
+var transit_GMT_toeclip_day = equatorialLong2eclipticLong_rad(transit_GMT_DAY*Math.PI*2.0, obliq_rad)/ Math.PI/2.0;
+//deBug("transit: ", [transit_GMT_DAY*24.0]);
+
+var gmst_now_deg = normalize(GMST_deg(jd));
+var lmst_now_hr = normalize((gmst_now_deg - lon_deg)) / 15.0;
+ret.put(:GMST_NOW_HR, [gmst_now_deg/15.0]);
+ret.put(:LMST_NOW_HR, [lmst_now_hr]);
+deBug("GNMST_MID_HR, GNMST_NOW_HR, LMST_HR, JD: ", [gmst_mid_deg/15.0, gmst_now_deg/15.0, lmst_now_hr, jd]);
+
+var tz_add = (timeZoneOffset_sec/3600.0f) + dst;
+//ret.put (:NOON,  constrain(transit_GMT_toeclip_day + tz_add/24.0) * 24.0);
+
+
+//[0] = equatorial longitude of the Sun at noon local time
+//[1] = ecliptical long of Sun @ noon local time
+ret.put (:NOON,  [
+    constrain(transit_GMT_DAY + tz_add/24.0) * 24.0,
+    constrain(transit_GMT_toeclip_day + tz_add/24.0) * 24.0,
+    ]);
+
+//deBug("NOON,tz: ", [constrain(transit_GMT_DAY + tz_add/24.0) * 24.0, tz_add]);
+
+
+    //Get info for all four points of the ecliptic 
+    //for this date & time
+
+    //THIS WORKS but we are not using it for now
         
-        
-        if (pp_sun == null ) {
-            var sun_radec = planetCoord (now_info, timeZoneOffset_sec, dst, time_add_hrs, :ecliptic_latlon, ["Sun"]);
+    
+    //for (var rra_deg = 0; rra_deg<360;rra_deg += 90) {
+    for (var rra_deg = 0; rra_deg<90;rra_deg += 90) { //only need  the 0,0/ORIGIN point for now, not all 4 ecliptic points
+        var ddecl_rad = 0;
+        if (rra_deg == 90) { ddecl_rad = obliq_rad;}
+        if (rra_deg == 270) { ddecl_rad = obliq_rad;}
+            //winter solstic RA 0 DECL 0
+        //winter solstic RA 0 DECL 0
+        //var trans_ecliptic_DAY = normalize(rra_deg + lon_deg - gmst_mid_deg)/360.0;
+        var sun_info = getRiseSet_hr(jd,
+            sunEventData[:HORIZON], Math.toRadians(lat_deg), 
+            Math.toRadians(lon_deg),
+            Math.toRadians(rra_deg),
+            ddecl_rad,
+            //trans_ecliptic_DAY); 
+            0.5, obliq_rad);//Note that ECLIPTIC ONLY just set the time to 12:00 GMT, we are interested in the "straddle" not the specific time of rise for each of these.
+    
 
-            //System.println("sun_radec(I): " + (pp_sun[0]) + " " + (pp_sun[1]));
-            sun_RD = sun_radec["Sun"];
+        var s1_hr = sun_info[0]; //equatorial/RA/Decl
+        var s2_hr = sun_info[1];
+        //var s1_hr = sun_info[4]; //ecliptic...
+        //var s2_hr = sun_info[5];
+
+        if (sun_info[1] != null) { //if one is null both are
+            s1_hr = mod ((s1_hr + tz_add) , 24);
+            s2_hr = mod ( (s2_hr + tz_add), 24);
+        }     
+
+        if (rra_deg==0) {
+            
+            //var abeH = angleBetweenEclipticAndHorizon_rad(Math.toRadians(lat_deg), Math.toRadians(lmst_now_hr*15), obliq_rad);
+            var intsectionEclipticHorizonPoints_rad = intersectionPointsEclipticHorizon_rad(Math.toRadians(lat_deg), Math.toRadians(normalize(lmst_now_hr*15)), obliq_rad);
+            //deBug("angleBetweenEclipticAndHorizon: ", [abeH, ipEH]);
+            //deBug("abeH, ipEH: ", [abeH, ipEH]);
+            ret.put(:ECLIP_HORIZON, intsectionEclipticHorizonPoints_rad); //add angle & intersection point to the return objec
+        
         }
-        System.println("sun_radec: " + (sun_RD));
 
-        var ret = {};
-
-
-        //var jd_mid = gregorianDateToJulianDate(now_info.year, now_info.month, now_info.day, 0,0,0);
-
-        var jd_mid = julianDate (now_info.year, now_info.month, now_info.day + Math.floor((time_add_hrs + now_info.hour)/24.0), 0,0,0,0);
-
-        //Greenwhich mean sidereal time @ midnight of today
-        var gmst_mid_deg=normalize(GMST_deg(Math.floor(jd_mid)+.5));
-        //deBug("gmst: ", [gmst, jd, Math.floor(jd)+.5]);
-        ret.put(:GMST_MID_HR, gmst_mid_deg/15.0);
-        //deBug("gmst, jd : ", [gmst_mid_deg, jd]);
-        //today's solar transit time in GMT
-	    var transit_GMT_DAY=normalize(sun_RD[0] + lon_deg - gmst_mid_deg)/360.0;
-        ret.put(:TRANSIT_GMT_HR, transit_GMT_DAY*24.0);
-        //deBug("transit: ", [transit_GMT_DAY*24.0]);
-
-        var gmst_now_deg = normalize(GMST_deg(jd));
-        var lmst_now_hr = normalize((gmst_now_deg - lon_deg)) / 15.0;
-        ret.put(:GMST_NOW_HR, [gmst_now_deg/15.0]);
-        ret.put(:LMST_NOW_HR, [lmst_now_hr]);
-        deBug("GNMST_MID_HR, GNMST_NOW_HR, LMST_HR, JD: ", [gmst_mid_deg/15.0, gmst_now_deg/15.0, lmst_now_hr, jd]);
-
-        var tz_add = (timeZoneOffset_sec/3600.0f) + dst;
-        ret.put (:NOON,  constrain(transit_GMT_DAY + tz_add/24.0) * 24.0);
-        //deBug("NOON,tz: ", [constrain(transit_GMT_DAY + tz_add/24.0) * 24.0, tz_add]);
-
-
-                //Get info for all four points of the ecliptic 
-                //for this date & time
-            for (var rra_deg = 0; rra_deg<360;rra_deg += 90) {
-                var ddecl_rad = 0;
-                if (rra_deg == 90) { ddecl_rad = obliq_rad;}
-                if (rra_deg == 270) { ddecl_rad = obliq_rad;}
-                    //winter solstic RA 0 DECL 0
-                //winter solstic RA 0 DECL 0
-                //var trans_ecliptic_DAY = normalize(rra_deg + lon_deg - gmst_mid_deg)/360.0;
-                var sun_info = getRiseSet_hr(jd,
-                    sunEventData[:HORIZON], Math.toRadians(lat_deg), 
-                    Math.toRadians(lon_deg),
-                    Math.toRadians(rra_deg),
-                    ddecl_rad,
-                    //trans_ecliptic_DAY); 
-                    0.5);//Note that ECLIPTIC ONLY just set the time to 12:00 GMT, we are interested in the "straddle" not the specific time of rise for each of these.
-            
-
-                var s1_hr = sun_info[0];
-                var s2_hr = sun_info[1];
-
-                if (sun_info[1] != null) { //if one is null both are
-                    s1_hr = mod ((s1_hr + tz_add) , 24);
-                    s2_hr = mod ( (s2_hr + tz_add), 24);
-                }     
-
-                if (rra_deg==0) {
-                    
-                    //var abeH = angleBetweenEclipticAndHorizon_rad(Math.toRadians(lat_deg), Math.toRadians(lmst_now_hr*15), obliq_rad);
-                    var intsectionEclipticHorizonPoints_rad = intersectionPointsEclipticHorizon_rad(Math.toRadians(lat_deg), Math.toRadians(normalize(lmst_now_hr*15)), obliq_rad);
-                    //deBug("angleBetweenEclipticAndHorizon: ", [abeH, ipEH]);
-                    //deBug("abeH, ipEH: ", [abeH, ipEH]);
-                    ret.put(:ECLIP_HORIZON, intsectionEclipticHorizonPoints_rad); //add angle & intersection point to the return objec
-                
-                }
-
-                ret.put ("Ecliptic"+rra_deg, [s1_hr, s2_hr]);
-                //deBug("Ecliptic" + rra_deg + ": ", [s1_hr, s2_hr]);
-
-        }
-
-
-        
-        //Now all the sun events for today
-        for (var i = 0; i<sunEventData.size();i++) {
-
-            
-            var kys = sunEventData.keys();        
-
-        
-            var ky = kys[i];
-
-            //if (ky == :NOON ) { continue;}
-            if (ret.hasKey(ky) ) { continue;}
-
-            //result in hrs GMT
-            //rise & set - in hours GMT
-            var sun_info = getRiseSet_hr(jd,
-                sunEventData[ky], Math.toRadians(lat_deg), 
-                Math.toRadians(lon_deg),
-                Math.toRadians(sun_RD[0]),
-                Math.toRadians(sun_RD[1]),
-                transit_GMT_DAY); 
-
-
-            //System.println("sunrise/sets " + tz_add + timeZoneOffset_sec + " " + dst);
-            var s1_hr = sun_info[0];
-            var s2_hr = sun_info[1];
-
-            if (sun_info[1] != null) { //if one is null both are
-                s1_hr = mod ((s1_hr + tz_add) , 24);
-                s2_hr = mod ( (s2_hr + tz_add), 24);
-            } 
-            
-            ret.put (ky, [s1_hr, s2_hr]);
-            //deBug(sevent_names[ky] + ": ", [s1_hr, s2_hr]);
-
-
-            //System.println("sunrise/sets " + sun_info + " " + ky) ;
-            // if (ky == :HORIZON) { System.println("sunrise/sets HORIZON: " + sun_info + " " + ky) ;}
-            
-        }
-        //System.println("sunrise/sets " + ret);
-
-        /*
-        for (var i = 0; i<sunEventData.size();i++) {
-
-            
-            var kys = sunEventData.keys();        
-
-        
-            var ky = kys[i];
-            //System.println("ret: " + ky + " " + ret[ky] + " " + sunEventData[ky]);
-        }
-        */
-
-        return ret;
-
+        ret.put ("Ecliptic"+rra_deg, [s1_hr, s2_hr]);
+        //deBug("Ecliptic" + rra_deg + ": ", [s1_hr, s2_hr]);
 
     }
+
+    
+
+
+
+//Now all the sun events for today
+for (var i = 0; i<sunEventData.size();i++) {
+
+    
+    var kys = sunEventData.keys();        
+
+
+    var ky = kys[i];
+
+    //if (ky == :NOON ) { continue;}
+    if (ret.hasKey(ky) ) { continue;}
+
+    //result in hrs GMT
+    //rise & set - in hours GMT
+    var sun_info = getRiseSet_hr(jd,
+        sunEventData[ky], Math.toRadians(lat_deg), 
+        Math.toRadians(lon_deg),
+        Math.toRadians(sun_RD[0]),
+        Math.toRadians(sun_RD[1]),
+        transit_GMT_DAY, obliq_rad); 
+
+
+    //System.println("sunrise/sets " + tz_add + timeZoneOffset_sec + " " + dst);
+    /*var s1_hr = sun_info[0]; //equatorial times
+    var s2_hr = sun_info[1];
+    var s3_hr = sun_info[4]; //ecliptic times...
+    var s4_hr = sun_info[5];*/
+    //var s = {};
+    if (sun_info[1] != null) { //if one is null all are
+        //s1_hr = mod ((s1_hr + tz_add) , 24);
+        //s2_hr = mod ( (s2_hr + tz_add), 24);
+        for (var j =  0; j<4; j++) {
+            sun_info[j] = mod ((sun_info[j] + tz_add) , 24);
+        }
+    } 
+    
+    ret.put (ky, sun_info);
+
+    /*
+    var jd_rise = jd_mid + (s1_hr + tz_add);
+    var  jd_set = jd_mid + (s2_hr + tz_add);
+    var lmst_rise_deg = normalize( GMST_deg(jd_rise) - lon_deg );
+    var lmst_set_deg = normalize( GMST_deg(jd_set) - lon_deg );
+    var riseIntEclipticHorizonPoints_rad = intersectionPointsEclipticHorizon_rad(Math.toRadians(lat_deg), Math.toRadians(lmst_rise_deg), obliq_rad);
+    var setIntEclipticHorizonPoints_rad = intersectionPointsEclipticHorizon_rad(Math.toRadians(lat_deg), Math.toRadians(lmst_set_deg), obliq_rad);
+
+
+    //[0,1] equatorial rise/set times
+    //[2,3] ecliptic rise/set times
+    ret.put (ky, [s1_hr, s2_hr, 
+        (270 - Math.toDegrees(riseIntEclipticHorizonPoints_rad[1]))/15.0,
+        (270 - Math.toDegrees(setIntEclipticHorizonPoints_rad[1]))/15.0,
+    ]);
+    //deBug(sevent_names[ky] + ": ", [s1_hr, s2_hr]);
+    */
+
+
+
+    //System.println("sunrise/sets " + sun_info + " " + ky) ;
+    // if (ky == :HORIZON) { System.println("sunrise/sets HORIZON: " + sun_info + " " + ky) ;}
+    
+}
+//System.println("sunrise/sets " + ret);
+
+
+for (var i = 0; i<sunEventData.size();i++) {
+
+    
+    var kys = sunEventData.keys();        
+
+
+    var ky = kys[i];
+    System.println("ret: " + ky + " " + ret[ky] + " " + sunEventData[ky]);
+}
+
+
+return ret;
+
+
+}
 
 //All angles must be in radians
 //Remember Meeus considers West longitudes as positive, the opposite of how everyone else does.
 //Outputs are times in hours GMT (not accounting for daylight saving time)
 //From Meeus Page 101
-function getRiseSet_hr(jd,h0, lat,lon,ra,dec,transit_GMT_DAY){
-	//var h0=-0.8333f; //For Sun
-	//var h0=-0.5667; //For stars and planets
-	//const h0=0.125   //For Moon; positive value to allow for parallax  from different viewing points around the earth
+function getRiseSet_hr(jd,h0_deg, lat,lon,ra,dec,transit_GMT_DAY, obliq_rad){
+	//var h0_deg=-0.8333f; //For Sun
+	//var h0_deg=-0.5667; //For stars and planets
+	//const h0_deg=0.125   //For Moon; positive value to allow for parallax  from different viewing points around the earth
 
     ////TEST :
     /*
@@ -425,29 +467,49 @@ function getRiseSet_hr(jd,h0, lat,lon,ra,dec,transit_GMT_DAY){
     */
 
 
-    //deBug("getRiseSet_hr: ", [jd,h0, lat,lon,ra,dec]);
-    //deBug("getRiseSet_hr: ", [jd,h0, Math.toDegrees(lat),Math.toDegrees(lon),Math.toDegrees(ra),Math.toDegrees(dec)]);
+    //deBug("getRiseSet_hr: ", [jd,h0_deg, lat,lon,ra,dec]);
+    //deBug("getRiseSet_hr: ", [jd,h0_deg, Math.toDegrees(lat),Math.toDegrees(lon),Math.toDegrees(ra),Math.toDegrees(dec)]);
 
    
 
     if (lat == 0) {lat = 0.0000001;} //to avoid divide by zero
     if (dec == 0) {dec = 0.0000001;} //to avoid divide by zero
-	var cosH=(Math.sin(h0*Math.PI/180.0)-Math.sin(lat)*Math.sin(dec)) / (Math.cos(lat)*Math.cos(dec));
+	var cosH=(Math.sin(h0_deg*Math.PI/180.0)-Math.sin(lat)*Math.sin(dec)) / (Math.cos(lat)*Math.cos(dec));
     if (cosH>1 || cosH<-1) {return null;}
-	var H0=Math.acos(cosH)*180.0/Math.PI;
+	var H0_deg=Math.acos(cosH)*180.0/Math.PI;
+
+
 
 
     //deBug("transit: ", [transit, Math.toDegrees(ra), Math.toDegrees(lon), gmst]);
-	var rise=transit_GMT_DAY-(H0/360.0);
-	var set=transit_GMT_DAY+(H0/360.0);
+	var rise=constrain(transit_GMT_DAY-(H0_deg/360.0)) * 24.0;
+	var set=constrain(transit_GMT_DAY+(H0_deg/360.0)) * 24.0;
 
     //System.println("transit (result/UTC): " + constrain(transit));
 
 	//var ret = [constrain(transit_GMT_DAY)*24.0,constrain(rise)*24.0,constrain(set)*24.0];
 
-    var ret = [constrain(rise)*24.0,constrain(set)*24.0];
+    /*var eclip_long_rad = Math.atan2(Math.tan (H0_deg), Math.cos(obliq_rad));
+    var eclip_long_deg = Math.toDegrees(eclip_long_rad);
 
-    //System.println("transit (results/UTC): " + ret);
+    var ecl_rise_day=transit_GMT_DAY-(eclip_long_deg/360.0);
+	var ecl_set_day=transit_GMT_DAY+(eclip_long_deg/360.0);
+
+    var rise_eclip_hr = constrain(Math.atan2(Math.tan (rise/24.0*2*Math.PI), Math.cos(obliq_rad))/2.0/Math.PI) * 24.0;
+    if ((rise-rise_eclip_hr).abs() > 6.0) { rise_eclip_hr += 12.0;}
+
+    var set_eclip_hr = constrain(Math.atan2(Math.tan (set/24.0*2*Math.PI), Math.cos(obliq_rad))/2.0/Math.PI) * 24.0;
+    deBug("setchr", set_eclip_hr);
+    if ((set - set_eclip_hr).abs() > 6.0) {set_eclip_hr += 12.0;}
+    deBug("setchr2", set_eclip_hr);
+    */
+    //rise & set times converted to distances from the origin along the ecliptic (rather than along the celestial equator)
+    var ecl_rise_day = ( constrain(transit_GMT_DAY + equatorialLong2eclipticLong_rad (Math.toRadians(-H0_deg), obliq_rad)/2.0/Math.PI) ) * 24.0;
+    var ecl_set_day = (constrain( transit_GMT_DAY + equatorialLong2eclipticLong_rad (Math.toRadians(H0_deg), obliq_rad)/2.0/Math.PI) ) * 24.0;
+
+    var ret = [rise,set, ecl_rise_day, ecl_set_day];
+
+    System.println("transit (results/UTC): " + H0_deg + " " + ret);
     return ret;
     //returns transit in DAYS....
     
@@ -629,7 +691,7 @@ function angleBetweenEclipticAndHorizon_rad(lat_rad,sidereal_rad,obliquity_rad){
     //Meeus 14.3
 
     //law of cosines (sin(latitude) because it is the  complement of the angle we are looking for, so cos(angle) = sin(complement of the angle))   
-     var ret = Math.acos(Math.cos(obliquity_rad)*Math.sin(lat_rad) - Math.sin(obliquity_rad)*Math.cos(lat_rad)*Math.sin(sidereal_rad));
+     var ret = Math.acos(Math.cos(obliquity_rad.toDouble())*Math.sin(lat_rad.toDouble()) - Math.sin(obliquity_rad.toDouble())*Math.cos(lat_rad.toDouble())*Math.sin(sidereal_rad.toDouble()));
     //deBug("angleBetweenEclipticAndHorizon: aOLS ", [Math.toDegrees(ret), Math.toDegrees(obliquity_rad), Math.toDegrees(lat_rad), Math.toDegrees(sidereal_rad)]);
      return ret;
 }
@@ -660,11 +722,11 @@ function intersectionPointsEclipticHorizon_rad (lat_rad, sidereal_rad, obliquity
 
     // horEH is the distance along the horizon great circle from the intersection with the equator great circle
     // to the intersection with the ecliptic great circle.  It is measured in radians.
-    var horEHint_rad  = 0;  //not sure what to return here,  Inf or null maybe.  This should represent the case where the angle is zero or 180 deg and thus  the two circles are coincident.  So 0 probably works best.:__version
+    var horEHint_rad  = 0d;  //not sure what to return here,  Inf or null maybe.  This should represent the case where the angle is zero or 180 deg and thus  the two circles are coincident.  So 0 probably works best.:__version
     //law of sines:
     if (Math.sin(aEH_rad) != 0) {
         //horEHint_rad = Math.asin( Math.sin(Math.PI/2.0)/ Math.sin(aEH_rad)*Math.sin(obliquity_rad));
-        var intm = Math.sin(sidereal_rad - Math.PI/2.0)/ Math.sin(aEH_rad)*Math.sin(obliquity_rad);
+        var intm = Math.sin(sidereal_rad.toDouble() - Math.PI/2.0)/ Math.sin(aEH_rad.toDouble())*Math.sin(obliquity_rad.toDouble());
         if (intm>1 || intm<-1) {horEHint_rad = Math.PI/2.0;}
         else {
             horEHint_rad = Math.asin(intm);
@@ -682,12 +744,14 @@ function intersectionPointsEclipticHorizon_rad (lat_rad, sidereal_rad, obliquity
 
 
     // eclEH is the distance along the ecliptic great circle from the intersection with the equator great circle,  ie the vernal equinox, to the intersection with the horizon great circle.  It is measured in radians. (Because of symmetry it is also the angle from the fall equinox to the intersection point. But the Vernal Eq is 0,0 the origin point of the system.)
+
+    /*
     var eclEHint_rad = 0; //similarly, 0 is probably the best choice here for  the case sin() = 0. That is the situation where the horizon & ecliptic coincide.
    if (Math.sin(aEH_rad) != 0) {
         var sid2 = sidereal_rad;
         
-        /*if (sid2<=Math.PI && sid2 <= Math.toRadians(200)) {sid2 -= Math.PI;}
-        if (sid2<= Math.toRadians(330) && sid2 <= 2.0*Math.PI) {sid2 -= Math.PI;} */
+        //if (sid2<=Math.PI && sid2 <= Math.toRadians(200)) {sid2 -= Math.PI;}
+        //if (sid2<= Math.toRadians(330) && sid2 <= 2.0*Math.PI) {sid2 -= Math.PI;} 
 
         var hor_sid_rad = sidereal_rad - Math.PI/2.0;
         var add180 = 0;
@@ -713,14 +777,82 @@ function intersectionPointsEclipticHorizon_rad (lat_rad, sidereal_rad, obliquity
         }
     }
 
+    */
+
+
+    //the law of sines approach gives the correct answer but then somehow chooses the wrong branch starting at 90 + angle of obliquity and other such random angles.  So it's hard to work with.
+    /*
+    var eclEHint_rad = 0; //similarly, 0 is probably the best choice here for  the case sin() = 0. That is the situation where the horizon & ecliptic coincide.
+    var eclEHint3_rad = 0;
+    if (Math.sin(aEH_rad) != 0) {
+        var sid2 = sidereal_rad;
+        var adder = 0;
+        if (sid2<=Math.PI + obliquity_rad || sid2 >= Math.PI * 2.0 - obliquity_rad) {sid2 -= Math.PI; adder = Math.PI;}
+
+        var hor_sid_rad = sid2 - Math.PI/2.0;
+
+        var intm = Math.sin(hor_sid_rad)/ Math.sin(aEH_rad)*Math.cos(lat_rad);
+        deBug("intersectionPointEclipticHorizon MUP: ", [Math.sin(sidereal_rad - Math.PI/2.0), Math.sin(aEH_rad), Math.cos(lat_rad), intm, Math.toDegrees(sidereal_rad)]);
+        if (intm>1 || intm<-1) {eclEHint_rad = Math.PI/2.0;}
+        else {
+            
+            eclEHint_rad = Math.asin(intm) + adder;
+            //if (hor_sid_rad<0) {eclEHint_rad = Math.PI - eclEHint_rad;}
+        }
+
+        var y = Math.sin(hor_sid_rad) * Math.cos(lat_rad);
+        var x = Math.sin(aEH_rad);
+        eclEHint3_rad =Math.atan2(y,  x);
+
+        deBug("IntersectionTAN: ", [Math.toDegrees(eclEHint_rad), Math.toDegrees(eclEHint3_rad), Math.toDegrees(hor_sid_rad), x, y]);
+        
+    }
+    */
+
+    //The law of cosines approach seems to work better than the law of sines approach just because it is more sensible in the areas where it gives the right result vs the negative or complement of the angle result. It works for -90 to 90 degrees and for 90 to 270 you just need to flip the sign of the result. (it would probably work to subtract 180 degrees, as well.) 
+    var eclEHint4_rad = 0d;
+    var intm = Math.cos(sidereal_rad.toDouble() - Math.PI/2.0d) * Math.cos(horEHint_rad.toDouble()) + Math.sin(sidereal_rad.toDouble() - Math.PI/2.0d) * Math.sin(horEHint_rad.toDouble()) * Math.sin(lat_rad.toDouble());
+    if (intm>1 || intm<-1) {eclEHint4_rad = Math.PI - sidereal_rad;} //In case >1 or <-1 that is the situation where there is not a solution; this shouldn't happen as great circles always intersect at two points OR all points.
+    else {
+        eclEHint4_rad = Math.acos(intm);
+        if (sidereal_rad < 3*Math.PI/2.0d && sidereal_rad > Math.PI/2.0d) {eclEHint4_rad = -eclEHint4_rad;} // the cosine formula returns the negative of the angle when the origin  Rad/Dec=0,0 is below the horizon, so we just flip signs.
+        //eclEHint4_rad += Math.PI;
+    }
+    
+
+
+
     //AI suggested using atan2 instead, but it doesn't work
     //eclEHint_rad = Math.atan2(Math.sin(sidereal_rad - Math.PI/2.0) * Math.cos(lat_rad), Math.sin(aEH_rad));
     //test_angleBetweenEclipticAndHorizon_rad();
 
-    deBug("intersectionPointEclipticHorizon aoLs: ", [Math.toDegrees(horEHint_rad), Math.toDegrees(eclEHint_rad), Math.toDegrees(eclEHint2_rad), aEH_rad]);
+    //deBug("intersectionPointEclipticHorizon aoLs: ", [Math.toDegrees(horEHint_rad), Math.toDegrees(eclEHint_rad), Math.toDegrees(eclEHint4_rad), Math.toDegrees(eclEHint2_rad), Math.toDegrees(aEH_rad), Math.toDegrees(sidereal_rad),]);
     //return  [eclEHint_rad, horEHint_rad];
-    return [horEHint_rad, eclEHint_rad, aEH_rad];
+    return [horEHint_rad.toFloat(), eclEHint4_rad.toFloat(), aEH_rad.toFloat()];
 
+}
+
+function equatorialLong2eclipticLong_rad (H0_rad, obliq_rad) {
+
+    //spherical Law of Tangents, bAcB case:
+    //   (CT3) cosc * cosA =  cotb * sinc − cotB * sinA (bAcB)
+    //X is the distance along the ecliptic from the origin to the setting point of the object (sun)
+    //We know H0, which is the distance along the equator from the origin to the point where the object sets.
+    // obliq_rad is the angle between the ecliptic and the equator.
+    //The other angle of the triangle is a right angle (from say 5:45 RA on the equator to the point where that intersects both the horizon & the ecliptic at the moment this object is setting)'
+    //cot(X) = (Math.cos (H0_rad)*Math.cos (obliq_rad) + Math.atan(90deg)*Math.sin(obliq_rad)) / math.sin(H0_rad)
+    //atan(90 degrees) = 1;
+    //var X = acot(intmd);
+    //var X = Math.atan2(math.sin(H0_rad), (Math.cos (H0_rad)*Math.cos (obliq_rad) + 0*Math.sin(obliq_rad)));
+
+    var X = Math.atan2(Math.sin(H0_rad), (Math.cos (H0_rad)*Math.cos (obliq_rad)));
+    deBug("eclipSetfromEq: X", [Math.toDegrees(X)]);
+    return X;
+
+}
+
+function equatorialLong2eclipticLong_deg (H0_deg, obliq_deg) {
+    return Math.toDegrees(equatorialLong2eclipticLong_rad(Math.toRadians(H0_deg), Math.toRadians(obliq_deg)));
 }
 
 

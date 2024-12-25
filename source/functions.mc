@@ -16,6 +16,8 @@ import Toybox.Lang;
 
 //module SSFunc {
 
+    const sidereal_to_solar = 1.00273790935; //sidereal to solar time ratio 86400/86164.0905
+
     var fc = 0.0000001; //correction for Math.floor to avoid like 49.999999999
 
     function normalize(degrees) {  

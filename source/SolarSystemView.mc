@@ -1,8 +1,3 @@
-//!
-//! Copyright 2015-2021 by Garmin Ltd. or its subsidiaries.
-//! Subject to Garmin SDK License Agreement and Wearables
-//! Application Developer Agreement.
-//!
 
 import Toybox.Graphics;
 import Toybox.Lang;
@@ -329,7 +324,8 @@ class SolarSystemBaseView extends WatchUi.View {
         if (hr1 == null || hr2 == null) {return false;}
         dc.setPenWidth(width);
         if (color != null) {dc.setColor(color, Graphics.COLOR_TRANSPARENT);}
-        dc.drawArc(xc, yc, r, Graphics.ARC_CLOCKWISE, 270 - hr1 * 15, 270 - hr2 *15);   
+        dc.drawArc(xc, yc, r, Graphics.ARC_CLOCKWISE, 270.0 - hr1 * 15.0, 270.0 - hr2 *15.0);   
+        deBug("drawArc", [270.0 - hr1 * 15.0, 270.0 - hr2 *15.0, hr1, hr2]);
         return true;
     }
 
@@ -717,9 +713,9 @@ class SolarSystemBaseView extends WatchUi.View {
         */
     }
 
-    var r, whh_sun, vspo_rep, font, srs, sunrise_events, sunrise_events2, pp, pp2, pp_sun, moon_info, moon_info2, moon_info3, moon_info4, elp82, sun_info3,keys, now, sid, x as Lang.float, y as Lang.float, y0 as Lang.float,  z0 as Lang.float, x2 as Lang.float, y2 as Lang.float;
+    var r, whh_sun, vspo_rep, font, srs, sunrise_events, sunrise_events2, pp, pp2, pp_sun, moon_info, moon_info2, moon_info3, moon_info4, elp82, sun_info3,keys, now, sid, x as Lang.float, y as Lang.float, y0 as Lang.float,  z0 as Lang.float, x2 as Lang.float, y2 as Lang.float, obliq_deg as Lang.float;
     var ang_deg as Lang.float, ang_rad as Lang.float, size as Lang.float, mult as Lang.float, sub, key, key1, textHeight, kys, add_duration as Lang.float, col;
-    var sun_adj as Lang.float, hour_adj_deg as Lang.float,final_adj_deg as Lang.float, noon_adj_hrs as Lang.float, noon_adj_deg as Lang.float, moon_age_deg as Lang.float;
+    var sun_adj_deg as Lang.float, hour_adj_deg as Lang.float,final_adj_deg as Lang.float, final_adj_rad as Lang.float, noon_adj_hrs as Lang.float, noon_adj_deg as Lang.float, moon_age_deg as Lang.float;
     var input;
 
 /*
@@ -891,17 +887,25 @@ class SolarSystemBaseView extends WatchUi.View {
         //TODO: We could put in a correction for EXACT LONGITUDE instead of just depending on 
         //$.now_info.hour=0 being the actual local midnight.
         //pp/ecliptic degrees start at midnight (bottom of circle) & proceed COUNTERclockwise.
-        sun_adj = 270 - pp["Sun"][0];
-        hour_adj_deg = normalize($.now_info.hour*15 + time_add_hrs*15.0 + $.now_info.min*15/60);
+        //sun_adj_deg = (270 - pp["Sun"][0]);// 
+
+        //&&&&&&&&&&&&&&&&&&&&&&&&
+        sun_adj_deg = (270 - equatorialLong2eclipticLong_deg(pp["Sun"][0], obliq_deg));// 
+
+        //sun_adj_deg = 270 - pp["Sun"][0];// 
+        
+        //hour_adj_deg = normalize($.now_info.hour*15 + time_add_hrs*15.0 + $.now_info.min*15/60)* sidereal_to_solar;
+        hour_adj_deg = equatorialLong2eclipticLong_deg(normalize($.now_info.hour*15 + time_add_hrs*15.0 + $.now_info.min*15/60), obliq_deg);
         //We align everything so that NOON is directly up (SOLAR noon, NOT 12:00pm)
 
         //System.println("Sunrise_set2B: " + sunrise_events2);
         //System.println("Sunrise_set2C: " + sunrise_events2[:NOON]);
 
-        noon_adj_hrs = 12 - sunrise_events2[:NOON];
+        noon_adj_hrs = 12 - equatorialLong2eclipticLong_deg(sunrise_events2[:NOON][1], obliq_deg); //[0] is long in equatorial coords, [1] is long along the ecliptic.  
         //noon_adj_hrs = sunrise_events2[:NOON] - 12.0f;
         noon_adj_deg = 15 * noon_adj_hrs;
-        final_adj_deg = (sun_adj - hour_adj_deg - noon_adj_deg).toFloat();
+        final_adj_deg = (sun_adj_deg - hour_adj_deg - noon_adj_deg).toFloat();
+        final_adj_rad = Math.toRadians(final_adj_deg);
     }
 
     //big_small = 0 for small (selectio nof visible planets) & 1 for big (all planets)
@@ -917,6 +921,8 @@ class SolarSystemBaseView extends WatchUi.View {
         //setPosition(Position.getInfo());
         //xc = dc.getWidth() / 2;
         //yc = dc.getHeight() / 2;
+
+        obliq_deg= obliquityEcliptic_deg ($.now_info.year, $.now_info.month, $.now_info.day + time_add_hrs, $.now_info.hour, $.now_info.min, $.now.timeZoneOffset/3600, $.now.dst);
    
         r = (xc < yc) ? xc : yc;
         r = .85 * r * eclipticSizeFactor; //was .9 but edge of screen a bit crowded???
@@ -1025,16 +1031,34 @@ class SolarSystemBaseView extends WatchUi.View {
         //vspo87a = new vsop87a_nano();
         //vspo87a = new vsop87a_pico();
         //pp = vspo87a.planetCoord($.now_info, $.now.timeZoneOffset, $.now.dst, :ecliptic_latlon);
-        pp = vsop_cache.fetch($.now_info, $.now.timeZoneOffset, $.now.dst, time_add_hrs, :ecliptic_latlon);        
+        pp = vsop_cache.fetch($.now_info, $.now.timeZoneOffset, $.now.dst, time_add_hrs, :ecliptic_latlon);   
+        
         //vspo87a = null;
+
+        
+        //Add 4 ecliptic points to the planets
+        for (var rra_deg = 0; rra_deg<360;rra_deg += 90) {
+                var ddecl = 0;
+                if (rra_deg == 90) { ddecl = obliq_deg;}
+                if (rra_deg == 270) { ddecl = obliq_deg;}
+                //pp.put("Ecliptic"+rra_deg, [normalize(pp["Sun"][0] + rra_deg), ddecl]);
+                pp.put("Ecliptic"+rra_deg, [rra_deg, ddecl, 50]);
+         }
+
+         //flattenEclipticPP(obliq_deg);     
+
+        deBug("pp: ", pp);
 
         //System.println("Moon simple3: " + moon_info3 + " elp82: "+ moon_info4);
         //System.println("Moon simple2: " + moon_info2);
         //System.println("Moon ecl pos: " + moon_info);
         //pp.put("Moon", [pp["Sun"][0] + moon_info[0]]);
         //deBug("moon, ", [moon_info3[0]]);
+
+        //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
         pp.put("Moon", [moon_info3[0]]);
-        moon_age_deg = normalize (pp["Moon"][0] - pp["Sun"][0]); //0-360 with 0 being new moon, 90 1st q, 180 full, 270 last q
+        //moon_age_deg = normalize (equatorialLong2eclipticLong_deg(pp["Moon"][0], obliq_deg) - equatorialLong2eclipticLong_deg(pp["Sun"][0], obliq_deg)); //0-360 with 0 being new moon, 90 1st q, 180 full, 270 last q
+        moon_age_deg = normalize ((pp["Moon"][0]) - (pp["Sun"][0])); //0-360 with 0 being new moon, 90 1st q, 180 full, 270 last q
         //pp["Sun"] = [sun_info3[:lat], sun_info3[:lon], sun_info3[:r]];
         //System.println("Sun info3: " + sun_info3);
         //System.println("Moon info: " + moon_info);
@@ -1042,16 +1066,6 @@ class SolarSystemBaseView extends WatchUi.View {
         //System.println("Sun simple3: " + sun_info3);
         //System.println("pp: " + pp);
         //System.println("pp2: " + pp2);
-        var obliq_deg= obliquityEcliptic_deg ($.now_info.year, $.now_info.month, $.now_info.day + time_add_hrs, $.now_info.hour, $.now_info.min, $.now.timeZoneOffset/3600, $.now.dst);
-         for (var rra_deg = 0; rra_deg<360;rra_deg += 90) {
-                var ddecl = 0;
-                if (rra_deg == 90) { ddecl = obliq_deg;}
-                if (rra_deg == 270) { ddecl = obliq_deg;}
-                //pp.put("Ecliptic"+rra_deg, [normalize(pp["Sun"][0] + rra_deg), ddecl]);
-                pp.put("Ecliptic"+rra_deg, [rra_deg, ddecl]);
-         }
-
-        deBug("pp: ", pp);
 
 
         kys = pp.keys();
@@ -1085,18 +1099,18 @@ class SolarSystemBaseView extends WatchUi.View {
         //TODO: We could put in a correction for EXACT LONGITUDE instead of just depending on 
         //$.now_info.hour=0 being the actual local midnight.
         //pp/ecliptic degrees start at midnight (bottom of circle) & proceed COUNTERclockwise.
-        sun_adj = 270 - pp["Sun"][0];
+        sun_adj_deg = 270 - pp["Sun"][0];
         hour_adj_deg = normalize($.now_info.hour*15 + time_add_hrs*15.0 + $.now_info.min*15/60);
         //We align everything so that NOON is directly up (SOLAR noon, NOT 12:00pm)
         noon_adj_hrs = 12 - sunrise_events[:NOON][0];
         noon_adj_deg = 15 * noon_adj_hrs;
-        final_adj_deg = sun_adj - hour_adj_deg - noon_adj_deg;
+        final_adj_deg = sun_adj_deg - hour_adj_deg - noon_adj_deg;
         */
 
         sunriseHelper();
 
         //System.println("pp_sun:" + pp_sun);
-        //System.println("sun_a:" + sun_adj + " hour_ad " + hour_adj_deg + "final_a " + final_adj_deg);        
+        //System.println("sun_a:" + sun_adj_deg + " hour_ad " + hour_adj_deg + "final_a " + final_adj_deg);        
 
         //dc.setPenWidth(1);
         //dc.drawArc(xc, yc, r,Graphics.ARC_CLOCKWISE, 0,360);
@@ -1127,7 +1141,11 @@ class SolarSystemBaseView extends WatchUi.View {
 
         //drawHorizon(dc, sunrise_events2[:HORIZON][1], noon_adj_deg, hour_adj_deg + noon_adj_deg, xc, yc, r, false);
         
-        drawHorizon3(dc, sunrise_events2[:HORIZON][1], noon_adj_deg, hour_adj_deg + noon_adj_deg, sunrise_events2["Ecliptic270"][1], pp["Sun"][0], xc, yc, r);
+        //drawHorizon3(dc, sunrise_events2[:HORIZON][1], noon_adj_deg, hour_adj_deg + noon_adj_deg, sunrise_events2["Ecliptic270"][1], pp["Sun"][0], xc, yc, r);
+
+        //drawHorizon3(dc, sunrise_events2[:HORIZON][1], noon_adj_deg, hour_adj_deg + noon_adj_deg, sunrise_events2["Ecliptic270"][1], pp["Sun"][0], xc, yc, r);
+
+        drawHorizon4(dc, xc, yc, r);
 
         /*
         drawHorizon4(dc, now_info,  $.now.timeZoneOffset, $.now.dst, time_add_hrs, xc, yc, r, false); */
@@ -1141,17 +1159,31 @@ class SolarSystemBaseView extends WatchUi.View {
 
         //deBug("sunrise_events23T][1]+ noon_adj_hrs, 12-(sunrise_events2[:SUNRISE][0] + noon_adj_hrs), (sunrise_events2[:SUNRISE][1] + noon_adj_hrs) - 12] );
 
+        deBug ("sunrise_events2", [ noon_adj_hrs, sunrise_events2[:NOON][0] + noon_adj_hrs, sunrise_events2[:SUNRISE][0] + noon_adj_hrs, sunrise_events2[:SUNRISE][1] + noon_adj_hrs, sunrise_events2[:NOON][0]- sunrise_events2[:SUNRISE][0], sunrise_events2[:SUNRISE][1] - sunrise_events2[:NOON][0], sunrise_events2[:NOON][1]]);
 
-        drawARC (dc, sunrise_events2[:SUNRISE][0] + noon_adj_hrs, sunrise_events2[:SUNRISE][1]+ noon_adj_hrs, xc, yc, r, 6, Graphics.COLOR_WHITE);
+
+        drawARC (dc, sunrise_events2[:SUNRISE][2] + noon_adj_hrs, sunrise_events2[:SUNRISE][3]+ noon_adj_hrs, xc, yc, r, 6, Graphics.COLOR_WHITE);
         //NOON mark
-        drawARC (dc, sunrise_events2[:NOON]-0.1+ noon_adj_hrs, sunrise_events2[:NOON]+0.1+ noon_adj_hrs, xc, yc, r, 10, Graphics.COLOR_WHITE);
+        drawARC (dc, sunrise_events2[:NOON][1]-0.1+ noon_adj_hrs, sunrise_events2[:NOON][1]+0.1+ noon_adj_hrs, xc, yc, r, 10, Graphics.COLOR_WHITE);
         //MIDNIGHT mark
-        drawARC (dc, sunrise_events2[:NOON]-0.05+ noon_adj_hrs +  12, sunrise_events2[:NOON]+0.05+ noon_adj_hrs  + 12, xc, yc, r, 10, Graphics.COLOR_WHITE);
-        drawARC (dc, sunrise_events2[:DAWN][0]+ noon_adj_hrs, sunrise_events2[:SUNRISE][0]+ noon_adj_hrs, xc, yc, r, 4,Graphics.COLOR_LT_GRAY);
-        drawARC (dc, sunrise_events2[:SUNRISE][1]+ noon_adj_hrs, sunrise_events2[:DAWN][1]+ noon_adj_hrs, xc, yc, r, 4,Graphics.COLOR_LT_GRAY);
-        drawARC (dc, sunrise_events2[:ASTRO_DAWN][0]+ noon_adj_hrs, sunrise_events2[:DAWN][0]+ noon_adj_hrs, xc, yc, r, 2,Graphics.COLOR_DK_GRAY);
-        drawARC (dc, sunrise_events2[:DAWN][1]+ noon_adj_hrs, sunrise_events2[:ASTRO_DAWN][1]+ noon_adj_hrs, xc, yc, r, 2,Graphics.COLOR_DK_GRAY);
+        drawARC (dc, sunrise_events2[:NOON][1]-0.05+ noon_adj_hrs +  12, sunrise_events2[:NOON][1]+0.05+ noon_adj_hrs  + 12, xc, yc, r, 10, Graphics.COLOR_WHITE);
+        drawARC (dc, sunrise_events2[:DAWN][2]+ noon_adj_hrs, sunrise_events2[:SUNRISE][2]+ noon_adj_hrs, xc, yc, r, 4,Graphics.COLOR_LT_GRAY);
+        drawARC (dc, sunrise_events2[:SUNRISE][3]+ noon_adj_hrs, sunrise_events2[:DAWN][3]+ noon_adj_hrs, xc, yc, r, 4,Graphics.COLOR_LT_GRAY);
+        drawARC (dc, sunrise_events2[:ASTRO_DAWN][2]+ noon_adj_hrs, sunrise_events2[:DAWN][2]+ noon_adj_hrs, xc, yc, r, 2,Graphics.COLOR_DK_GRAY);
+        drawARC (dc, sunrise_events2[:DAWN][3]+ noon_adj_hrs, sunrise_events2[:ASTRO_DAWN][3]+ noon_adj_hrs, xc, yc, r, 2,Graphics.COLOR_DK_GRAY);
         dc.setPenWidth(1);
+
+        //sun_adj_deg = (270 - pp["Sun"][0]);// 
+        /*
+        var rise_hour_adj_deg = normalize( 15.0 * sunrise_events2[:SUNRISE][0])* sidereal_to_solar;
+        var re = mod (sunrise_events2[:SUNRISE][2] - sun_adj_deg/15.0 + rise_hour_adj_deg/15.0 - noon_adj_deg/15.0,24.0);
+        var set_hour_adj_deg = normalize( 15.0 * sunrise_events2[:SUNRISE][1])* sidereal_to_solar;
+        var se = mod (sunrise_events2[:SUNRISE][3] - sun_adj_deg/15.0 + set_hour_adj_deg/15.0 - noon_adj_deg/15.0,24.0);
+
+        deBug("RESE: ", [re,se]);
+
+        drawARC (dc, re , se, xc, yc, r, 6, Graphics.COLOR_WHITE);
+        */
 
 /*
         drawARC (dc, sunrise_events2[:SUNRISE][0] - noon_adj_hrs, sunrise_events2[:SUNRISE][1] - noon_adj_hrs, xc, yc, r, 6, Graphics.COLOR_WHITE);
@@ -1198,8 +1230,14 @@ class SolarSystemBaseView extends WatchUi.View {
             //System.println ("kys: " + key + " " + key1);
             //if ( ["Ceres", "Uranus", "Neptune", "Pluto", "Eris", "Chiron"].indexOf(key)> -1) {continue;}
             if (pp[key] == null) {continue;}
-            ang_deg =  -pp[key][0] - final_adj_deg;
-            ang_rad = Math.toRadians(ang_deg);
+
+            //&&&&&&&&&&&&&&&&&&&&&&&&
+            //ang_deg =  -pp[key][0] - final_adj_deg;
+            //ang_rad = Math.toRadians(ang_deg);
+            ang_rad =  -equatorialLong2eclipticLong_rad(Math.toRadians(pp[key][0]) , Math.toRadians(obliq_deg)) - final_adj_rad;
+
+            System.println  ("key: " + key + " ang_rad: " + Math.toDegrees(ang_rad) + " " + mod(ang_rad/2.0/Math.PI*24,24.0));
+            
             x = r* Math.cos(ang_rad) + xc;
             y = r* Math.sin(ang_rad) + yc;
                     //array is:  [x,y,z, radius (of orbit)]
@@ -1214,7 +1252,7 @@ class SolarSystemBaseView extends WatchUi.View {
             showDate(dc, $.now_info, $.time_now, time_add_hrs, xc, yc, true, false, :ecliptic_latlon);
         }
 
-        pp=null;
+        //pp=null;
         pp_sun = null;
         kys =  null;
         keys = null;
@@ -1247,10 +1285,10 @@ class SolarSystemBaseView extends WatchUi.View {
             
 
             sunriseHelper();  //gets the orientation/angle toward sun @ local noon, then adds in the current hr of the day so we can use it to orient the entire graph so that UP is the direction of the local curren meridian when they first look at it.
-            ga_rad = Math.toRadians(sun_adj-hour_adj_deg) ;
+            ga_rad = Math.toRadians(sun_adj_deg-hour_adj_deg) ;
             //ga_rad = 0;
 
-            //System.println("sun_adj" + sun_adj + " hor" + hour_adj_deg + " ga " + ga_rad + " pp " + pp["Sun"]) ;
+            //System.println("sun_adj_deg" + sun_adj_deg + " hor" + hour_adj_deg + " ga " + ga_rad + " pp " + pp["Sun"]) ;
 
             
         
@@ -1382,12 +1420,12 @@ class SolarSystemBaseView extends WatchUi.View {
         //pp_sun = g.position();
 
         //This puts our midnight sun @ the bottom of the graph; everything else relative to it
-        //sun_adj = 270 - pp_sun["Sun"][0];
+        //sun_adj_deg = 270 - pp_sun["Sun"][0];
         //hour_adj_deg = $.now_info.hour*15 + $.now_info.min*15/60;
-        //final_adj_deg = sun_adj - hour_adj_deg;
+        //final_adj_deg = sun_adj_deg - hour_adj_deg;
 
         //System.println("pp_sun:" + pp_sun);
-        //System.println("sun_a:" + sun_adj + " hour_ad " + hour_adj_deg + "final_a " + final_adj_deg);
+        //System.println("sun_a:" + sun_adj_deg + " hour_ad " + hour_adj_deg + "final_a " + final_adj_deg);
 
 
         //*********** SET SCALE/ZOOM LEVEL****************
@@ -2700,7 +2738,7 @@ class SolarSystemBaseView extends WatchUi.View {
             if ((textDisplay_count * mlt2) % (mlt*hez).toNumber() < hez || drawThis) {
             
                 if (type == :ecliptic) {
-                    if (!key.equals("Sun"))  {
+                    if (!key.equals("Sun") && key.find("Eclipt")==null)  {
                         sub = findSpot(-pp[key][0]+sid);
                         mult = 0.8 - (.23 * sub);
                         x2 = mult*r* Math.cos(ang_rad) + xc;
@@ -2796,7 +2834,7 @@ class SolarSystemBaseView extends WatchUi.View {
         //drawARC (dc, sunrise_events[:NOON][0]-0.05+ noon_adj_hrs +  12, sunrise_events[:NOON][0]+0.05+ noon_adj_hrs  + 12, xc, yc, r, 10, Graphics.COLOR_WHITE);
     }
     */
-
+    /*
     public function drawHorizon3(dc, horizon_pm as Lang.float, noon_adj_dg as Lang.float, final_a2, win_sol_eve_hr as Lang.float, sun_RA_deg as Lang.float, xct as Lang.float, yct as Lang.float, radius as Lang.float){
 
         //deBug("drawHorizon: ", [ dc, horizon_pm, noon_adj_dg, final_adj_deg, xct, yct, radius, drawCircle]);
@@ -2900,10 +2938,14 @@ class SolarSystemBaseView extends WatchUi.View {
 
         //drawARC (dc, sunrise_events[:NOON][0]-0.05+ noon_adj_hrs +  12, sunrise_events[:NOON][0]+0.05+ noon_adj_hrs  + 12, xc, yc, r, 10, Graphics.COLOR_WHITE);
     }
+    */
 
+    var max_hor_ang = -1000000.0;
+    var min_hor_ang = 1000000.0;
+    /*
     //This will go from -max_angle at 0 to max_angle at 0.5 back to -max angle at 1.emb_x_0
     //Will do mod 1 to repeat the same cycle every 1 unit
-    public function drawHorizon2(dc, max_angle_deg, percent, xct as Lang.float, yct as Lang.float, radius as Lang.float){
+    public function drawHorizon2(dc, max_angle_deg, percent, xct as Lang.float, yct as Lang.float, radius as Lang.float){    
 
         //deBug("drawHorizon: ", [ dc, horizon_pm, noon_adj_dg, final_adj_deg, xct, yct, radius, drawCircle]);  
         percent = constrain(percent); //keep it between 0-1
@@ -2922,10 +2964,20 @@ class SolarSystemBaseView extends WatchUi.View {
 
             //Vernal equinox position 0,0 is just at 0 RA, 0 Decl, so to plot it's position
             //we only need to add the time factor, which is final adj.
-            var hor_ang_rad = -Math.toRadians(final_adj_deg) + sunrise_events2[:ECLIP_HORIZON][1] + Math.PI;
+            var hor_ang_rad = -Math.toRadians(sun_adj_deg - hour_adj_deg - noon_adj_deg) + sunrise_events2[:ECLIP_HORIZON][1];
+            var temp = normalize180(Math.toDegrees(hor_ang_rad));
+
+             //y0 = (90 - temp)/90.0 * 23.4 * mcob + 50 * msob;
+
+            System.println("temp/hor_ang_rad: " + temp + " " + hor_ang_rad);
+            //hor_ang_rad *= sidereal_to_solar; //convert to solar system frame of reference
+            if (temp > max_hor_ang) {max_hor_ang = temp;}
+            if (temp < min_hor_ang) {min_hor_ang = temp;}
+            //if (hor_ang_deg > 1000) {deBug("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!hor_ang" + [hor_ang_deg, sunrise_events2[:ECLIP_HORIZON][1]]); }
+            //if (hor_ang_deg <-1000) {deBug("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!hor_ang" + [hor_ang_deg, sunrise_events2[:ECLIP_HORIZON][1]]); }
 
 
-            deBug("hor_ang_rad: ", [Math.toDegrees(hor_ang_rad), final_adj_deg, sunrise_events2[:ECLIP_HORIZON][1]]);
+            deBug("hor_ang_rad, final_adj, ECLIP_HOR, EH*sid, max_hor, min_hor, norm180: ", [Math.toDegrees(hor_ang_rad), final_adj_deg, Math.toDegrees(sunrise_events2[:ECLIP_HORIZON][1]),  Math.toDegrees(sunrise_events2[:ECLIP_HORIZON][1] * sidereal_to_solar), (max_hor_ang), (min_hor_ang), temp, temp]);
 
             //System.println("hor_ang_deg: " + hor_ang_deg);
             dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);
@@ -2952,6 +3004,60 @@ class SolarSystemBaseView extends WatchUi.View {
 
         //drawARC (dc, sunrise_events[:NOON][0]-0.05+ noon_adj_hrs +  12, sunrise_events[:NOON][0]+0.05+ noon_adj_hrs  + 12, xc, yc, r, 10, Graphics.COLOR_WHITE);
     }
+    */
+
+
+    public function drawHorizon4(dc, xct as Lang.float, yct as Lang.float, radius as Lang.float){
+
+  
+            var hor_ang_rad = -Math.toRadians(sun_adj_deg - hour_adj_deg - noon_adj_deg) + sunrise_events2[:ECLIP_HORIZON][1];
+            var temp = normalize180(Math.toDegrees(hor_ang_rad));
+
+             //y0 = (90 - temp)/90.0 * 23.4 * mcob + 50 * msob;
+
+            System.println("temp/hor_ang_rad: " + temp + " " + hor_ang_rad + " " + constrain(temp/360.0) * 24.0);
+            //hor_ang_rad *= sidereal_to_solar; //convert to solar system frame of reference
+            //if (temp > max_hor_ang) {max_hor_ang = temp;}
+            //if (temp < min_hor_ang) {min_hor_ang = temp;}
+            //if (hor_ang_deg > 1000) {deBug("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!hor_ang" + [hor_ang_deg, sunrise_events2[:ECLIP_HORIZON][1]]); }
+            //if (hor_ang_deg <-1000) {deBug("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!hor_ang" + [hor_ang_deg, sunrise_events2[:ECLIP_HORIZON][1]]); }
+
+
+            //deBug("hor_ang_rad, final_adj, ECLIP_HOR, EH*sid, max_hor, min_hor, norm180: ", [Math.toDegrees(hor_ang_rad), final_adj_deg, Math.toDegrees(sunrise_events2[:ECLIP_HORIZON][1]),  Math.toDegrees(sunrise_events2[:ECLIP_HORIZON][1] * sidereal_to_solar), (max_hor_ang), (min_hor_ang), temp, temp]);
+            var refract_add = - Math.toRadians(sunEventData[:HORIZON]);//The horizon is set to -0.5667 degrees to account for refraction.  
+            //So that is NOT accounted for in  sunrise_events2[:ECLIP_HORIZON][1] . . . but IS in the drawn ARC sun events.
+            //Also, below is all in the garmin native graphics, 0,0 in top left corner, so 0 degree is 3 o'clock position but then positive degrees
+            //is CW (downwards) from there, so the reverse direction of standard.
+
+            var arb_add = Math.toRadians(1.15);
+
+            //System.println("hor_ang_deg: " + hor_ang_deg);
+            dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);
+            dc.setPenWidth(1);
+            //var hor_ang_rad = Math.toRadians(hor_ang_deg);
+            var x_hor1 = radius* Math.cos(hor_ang_rad + refract_add + arb_add) + xct;
+            var y_hor1 = radius* Math.sin(hor_ang_rad + refract_add + arb_add) + yct;
+            var x_hor1a = .6*radius* Math.cos(hor_ang_rad + refract_add + arb_add) + xct;
+            var y_hor1a = .6*radius* Math.sin(hor_ang_rad + refract_add + arb_add) + yct;
+            var x_hor2 = -radius* Math.cos(hor_ang_rad - refract_add + arb_add) + xct;
+            var y_hor2 = -radius* Math.sin(hor_ang_rad - refract_add + arb_add) + yct;
+            var x_hor2a = -.6*radius* Math.cos(hor_ang_rad - refract_add + arb_add) + xct;
+            var y_hor2a = -.6*radius* Math.sin(hor_ang_rad - refract_add + arb_add) + yct;
+            dc.drawLine (x_hor1,y_hor1,x_hor1a,y_hor1a);
+            dc.drawLine (x_hor2,y_hor2,x_hor2a,y_hor2a);
+            
+            dc.setPenWidth(2);
+            //MERIDIAN
+            var x_mer = radius* Math.cos(hor_ang_rad - Math.PI/2 + arb_add) + xct;
+            var y_mer = radius* Math.sin(hor_ang_rad - Math.PI/2 + arb_add) + yct;
+            var x_mera = .85*radius* Math.cos(hor_ang_rad  - Math.PI/2 + arb_add) + xct;
+            var y_mera = .85*radius* Math.sin(hor_ang_rad  - Math.PI/2 + arb_add) + yct;            
+            dc.drawLine (x_mer,y_mer,x_mera,y_mera);
+
+        //drawARC (dc, sunrise_events[:NOON][0]-0.05+ noon_adj_hrs +  12, sunrise_events[:NOON][0]+0.05+ noon_adj_hrs  + 12, xc, yc, r, 10, Graphics.COLOR_WHITE);
+    }
+
+
     //An S-shaped curve
     function sigmoid(x) {
         //return 1.0f / (1.0f + Math.pow(2.71828f,-10*(x-.5))); //too steep/flat
@@ -3163,10 +3269,11 @@ class SolarSystemBaseView extends WatchUi.View {
 
         //lastLoc = [59.00894, -94.44008]; //for testing
         //lastLoc = [0,0]; //for testing
-        //return;
+        lastLoc = [51.5, 0]; //for testing - Greenwich
+        return;
 
         if (lastLoc == null) {self.lastLoc = new Position.Location(            
-                    { :latitude => 39.833333, :longitude => -98.583333, :format => :degrees }
+                    { :latitude => 39.833333, :longitude => -94.583333, :format => :degrees }
                     ).toDegrees(); }
         if ($.Options_Dict.hasKey(lastLoc_enum)) {lastLoc = $.Options_Dict[lastLoc_enum];}
         
@@ -3181,6 +3288,10 @@ class SolarSystemBaseView extends WatchUi.View {
     //several fallbacks
     function setPosition () {
         System.println ("setPosition getting position...");
+
+        //lastLoc = [0,0]; //for testing
+        lastLoc = [51.5, 0]; //for testing - Greenwich
+        return;
 
         var pinfo = Position.getInfo();
         //System.println ("sc1: Null? " + (pinfo==null));
@@ -3272,6 +3383,27 @@ class SolarSystemBaseView extends WatchUi.View {
             Storage.setValue(lastLoc_enum, lastLoc);
         }
         System.println("setPosition (final) at " + animation_count + " to: "  + lastLoc);
+    }
+
+    //Not sure if this is really necessary for display of  ecliptic planets.  But it does very slightly alter proportions, and makes the 4 ecliptic points fit in as they should.
+    private function flattenEclipticPP(obliq_deg){
+        var obleq_rad = obliq_deg * Math.PI / 180;
+        var mcob = Math.cos(obleq_rad);
+        var msob = Math.sin(obleq_rad);
+        var kys = pp.keys();
+        
+        for (var i = 0; i<kys.size(); i++) {
+            key = kys[i];
+            deBug("flattenEclipticPP: ", [ key + " " + pp[key]]);
+            
+            z0 = pp[key][2] * mcob - pp[key][1] * msob;
+            y0 = pp[key][1] * mcob + pp[key][2] * msob;
+
+                         
+            pp[key][1] = y0;// * pers_fact; // * pers_fact;
+            pp[key][2] = z0;  
+        }
+
     }
 
     
