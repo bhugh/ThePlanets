@@ -167,6 +167,7 @@ class SolarSystemSettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
                 $.started=false;
                 $.reset_date_stop = true;
                 $.run_oneTime = true;
+                $.LORR_show_horizon_line = true;
                 WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
                 
             } 

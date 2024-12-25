@@ -106,8 +106,7 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
         var mult = (type == :next) ? -1 : 1; //forward OR back dep on button
 
         //System.println("onNextPage..." + mult + " " + type);
-        $.buttonPresses++;
-        $.LORR_show_horizon_line = false;
+        $.buttonPresses++;    
         
         $.run_oneTime = true; //in case we're stopped, it will run just once
         if (buttonPresses == 1) {return;} //1st buttonpress just gets out of intro titles
@@ -122,12 +121,14 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
             $.timeWasAdded=true;
             //WatchUi.requestUpdate();
         } else if (in == 1 || in ==2 || (in > 2 && od ==0)){
+            $.LORR_show_horizon_line = false;
+            deBug("HI MOM!", []);
             if (started)  {
                 $.speeds_index +=  mult;
                 if ($.speeds_index>= $.speeds.size()) {$.speeds_index = $.speeds.size()-1;}
                 if ($.speeds_index<0)  {$.speeds_index=0; }
 
-                //For "Big" time movement screens, skipp over all the 
+                //For "Big" time movement screens, skip over all the 
                 //time steps from like -24 to 24 hours, except for Zero
                 if ([2,5,6,7,8].indexOf($.view_mode) > -1) {
                     if ($.speeds_index <47 && $.speeds_index >34) {
@@ -151,9 +152,14 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
         if (in>2 && od ==2 ) { the_rad += mult * Math.PI/18.0;}
         */
 
+        //Handle the ROTATE VIEW modes
         if (in>2 && od ==1 ) {
             if (type == :next) { the_rad += mult * Math.PI/18.0;}
-            else { ga_rad += mult * Math.PI/18.0;}
+            else { 
+                ga_rad += mult * Math.PI/18.0;
+                $.LORR_show_horizon_line = false; //we have to reset the horizon line here bec the view has been rotated
+                deBug("HI MOM2!", []);
+            }
             $.speedWasChanged = true;
            
         }

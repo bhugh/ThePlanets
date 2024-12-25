@@ -330,21 +330,29 @@ class SolarSystemBaseView extends WatchUi.View {
         return true;
     }
 
-    public function drawDashedLine (dc,x1, y1, x2, y2, len_line, len_skip, width, color) {
+
+    //dashed line 
+    //Note len_line can be ZERO - in that case it just draws a single pixel/dot for each "dash"
+    public function drawDashedLine (myDc,x1, y1, x2, y2, len_line, len_skip, width, color) {
                 
-        dc.setPenWidth(width);
-        if (color != null) {dc.setColor(color, Graphics.COLOR_TRANSPARENT);}
+        myDc.setPenWidth(width);
+        if (color != null) {myDc.setColor(color, Graphics.COLOR_TRANSPARENT);}
 
         var x_diff = x2 - x1;
         var y_diff = y2 - y1;
         var length = Math.round(Math.sqrt(x_diff * x_diff + y_diff * y_diff));
+        if (length==0) {length = 1;}
         
         for (var i = 0; i < length; i += len_line + len_skip) {
             var x = x1 + (x_diff * i / length);
             var y = y1 + (y_diff * i / length);
-            var x_2 = x1 + (x_diff * (i + len_line) / length);
-            var y_2 = y1 + (y_diff * (i + len_line) / length);
-            dc.drawLine(x,y,x_2,y_2);
+            if (len_line < 1) {
+                myDc.drawPoint(x,y);
+            } else {                
+                var x_2 = x1 + (x_diff * (i + len_line) / length);
+                var y_2 = y1 + (y_diff * (i + len_line) / length);
+                myDc.drawLine(x,y,x_2,y_2);
+            }
         }
     }
 
@@ -1273,13 +1281,13 @@ class SolarSystemBaseView extends WatchUi.View {
             showDate(dc, $.now_info, $.time_now, time_add_hrs, xc, yc, true, false, :ecliptic_latlon);
         }
 
-        //pp=null;
+        pp=null;
         pp_sun = null;
         kys =  null;
         keys = null;
         srs = null;
         sunrise_events  = null;
-        //sunrise_events2 = null;
+        sunrise_events2 = null;
         whh = null;
         whh_sun = null;
         spots = null;
@@ -2728,7 +2736,9 @@ class SolarSystemBaseView extends WatchUi.View {
                 {
                     
                     //dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);                    
-                    drawDashedLine(dc, 0,y - size, 2*xc, y - size, 2, 3, 1, Graphics.COLOR_LT_GRAY);
+                    //length 0 doesn't SHOW UP on the INSTINCT for some reason, so sticking with size 1
+                    drawDashedLine(dc, 0,y - size, 2*xc, y - size, 0, 3, 1, Graphics.COLOR_LT_GRAY);
+                    //drawDashedLine(dc, 0,y - size, 2*xc, y - size, 0, 3, 1, Graphics.COLOR_WHITE);
                 }
                 break;            
         }
