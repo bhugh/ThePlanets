@@ -247,6 +247,7 @@ var jd = julianDate (now_info.year, now_info.month, now_info.day,now_info.hour +
 
 deBug("JD: ", [jd, now_info.year, now_info.month, now_info.day,now_info.hour + time_add_hrs, now_info.min, timeZoneOffset_sec, dst, time_add_hrs]);
 var obliq_rad= obliquityEcliptic_rad (now_info.year, now_info.month, now_info.day + time_add_hrs, now_info.hour, now_info.min, timeZoneOffset_sec/3600.0, dst);
+var obliq_deg = Math.toDegrees(obliq_rad);
 
 deBug("long(MEEUS),UT,TZ,dst", [lon_deg, lat_deg, timeZoneOffset_sec/3600, dst, time_add_hrs, time_add_hrs/24.0f, jd]);
 
@@ -257,6 +258,8 @@ deBug("long(MEEUS),UT,TZ,dst", [lon_deg, lat_deg, timeZoneOffset_sec/3600, dst, 
 //var dec = 0;
 
 var sun_RD = pp_sun;//radec = sunPosition(jd);
+
+sun_RD[0] = equatorialLong2eclipticLong_deg(sun_RD[0], obliq_deg);
 
 //return is: [Math.toDegrees(l), Math.toDegrees(t2), r];//lat, lon, r
 
@@ -284,7 +287,7 @@ ret.put(:GMST_MID_HR, gmst_mid_deg/15.0);
 //today's solar transit time in GMT
 var transit_GMT_DAY=normalize(sun_RD[0] + lon_deg - gmst_mid_deg)/360.0;
 ret.put(:TRANSIT_GMT_HR, transit_GMT_DAY*24.0);
-var transit_GMT_toeclip_day = equatorialLong2eclipticLong_rad(transit_GMT_DAY*Math.PI*2.0, obliq_rad)/ Math.PI/2.0;
+//var transit_GMT_toeclip_day = transit_GMT_DAY*Math.PI*2.0;
 //deBug("transit: ", [transit_GMT_DAY*24.0]);
 
 var gmst_now_deg = normalize(GMST_deg(jd));
@@ -301,7 +304,7 @@ var tz_add = (timeZoneOffset_sec/3600.0f) + dst;
 //[1] = ecliptical long of Sun @ noon local time
 ret.put (:NOON,  [
     constrain(transit_GMT_DAY + tz_add/24.0) * 24.0,
-    constrain(transit_GMT_toeclip_day + tz_add/24.0) * 24.0,
+    //constrain(transit_GMT_toeclip_day + tz_add/24.0) * 24.0,
     ]);
 
 //deBug("NOON,tz: ", [constrain(transit_GMT_DAY + tz_add/24.0) * 24.0, tz_add]);
@@ -390,7 +393,7 @@ for (var i = 0; i<sunEventData.size();i++) {
     if (sun_info[1] != null) { //if one is null all are
         //s1_hr = mod ((s1_hr + tz_add) , 24);
         //s2_hr = mod ( (s2_hr + tz_add), 24);
-        for (var j =  0; j<4; j++) {
+        for (var j =  0; j<2; j++) {
             sun_info[j] = mod ((sun_info[j] + tz_add) , 24);
         }
     } 
@@ -504,10 +507,11 @@ function getRiseSet_hr(jd,h0_deg, lat,lon,ra,dec,transit_GMT_DAY, obliq_rad){
     deBug("setchr2", set_eclip_hr);
     */
     //rise & set times converted to distances from the origin along the ecliptic (rather than along the celestial equator)
-    var ecl_rise_day = ( constrain(transit_GMT_DAY + equatorialLong2eclipticLong_rad (Math.toRadians(-H0_deg), obliq_rad)/2.0/Math.PI) ) * 24.0;
-    var ecl_set_day = (constrain( transit_GMT_DAY + equatorialLong2eclipticLong_rad (Math.toRadians(H0_deg), obliq_rad)/2.0/Math.PI) ) * 24.0;
+    //var ecl_rise_day = ( constrain(transit_GMT_DAY + equatorialLong2eclipticLong_rad (Math.toRadians(-H0_deg), obliq_rad)/2.0/Math.PI) ) * 24.0;
+    //var ecl_set_day = (constrain( transit_GMT_DAY + equatorialLong2eclipticLong_rad (Math.toRadians(H0_deg), obliq_rad)/2.0/Math.PI) ) * 24.0;
 
-    var ret = [rise,set, ecl_rise_day, ecl_set_day];
+    //var ret = [rise,set, ecl_rise_day, ecl_set_day];
+    var ret = [rise,set];
 
     System.println("transit (results/UTC): " + H0_deg + " " + ret);
     return ret;
