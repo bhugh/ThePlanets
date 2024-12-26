@@ -192,12 +192,12 @@ class SolarSystemSettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
         }
 
         if(id.equals(thetaOption_enum)) {
-        $.Options_Dict[id]=($.Options_Dict[id]+1)%thetaOption_size;
-        menuItem.setSubLabel($.thetaOption[$.Options_Dict[id]]);
+            $.Options_Dict[id]=($.Options_Dict[id]+1)%thetaOption_size;
+            menuItem.setSubLabel($.thetaOption[$.Options_Dict[id]]);
 
-        Storage.setValue(id as String, $.Options_Dict[id]);    
+            Storage.setValue(id as String, $.Options_Dict[id]);    
 
-        $.newModeOrZoom = true; //makes the scale in orrery re-set, and re-display the time interval & re-start dots
+            //$.newModeOrZoom = true; //makes the scale in orrery re-set, and re-display the time interval & re-start dots
         
         }
 

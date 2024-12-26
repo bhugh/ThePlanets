@@ -371,9 +371,9 @@ class SolarSystemBaseView extends WatchUi.View {
         var x2 = coord[2] + (x_diff * length / dir_length);
         var y2 = coord[3] + (y_diff * length / dir_length);
         var y3 = coord[3] + (x_diff * 0.5*base_width / dir_length) ;
-        var x3 = coord[2] + (y_diff * 0.5*base_width / dir_length);
+        var x3 = coord[2] - (y_diff * 0.5*base_width / dir_length);
         var y4 = coord[3] - (x_diff * 0.5*base_width / dir_length);
-        var x4 = coord[2] - (y_diff * 0.5*base_width / dir_length);
+        var x4 = coord[2] + (y_diff * 0.5*base_width / dir_length);
 
         if (pointer_line) {
             myDc.drawLine(coord[2], coord[3], coord[0], coord[1]);
@@ -383,7 +383,7 @@ class SolarSystemBaseView extends WatchUi.View {
             myDc.drawLine(x3,y3, x2,y2);
             myDc.drawLine(x2,y2,x4,y4);
         } else {
-            myDc.fillPolygon(x4,y4,x3,y3,x2,y2,x4,y4);
+            myDc.fillPolygon([[x4,y4],[x3,y3],[x2,y2],[x4,y4]]);
         }
         
         
@@ -1008,10 +1008,11 @@ class SolarSystemBaseView extends WatchUi.View {
         //whh = allPlanets.slice(0,4).add(allPlanets[5].addAll(allPlanets.slice(9,14))
         //whh = allPlanets; //
         
-        whh=( allPlanets.slice(0,3)); ///so, array2 = array1 only passes a REFERENCE to the array, they are both still the same array with different names.  AARRGGgH!!
+        whh = ["Ecliptic0", "Ecliptic90", "Ecliptic180", "Ecliptic270"]; //put first so they are UNDER the planets
+        whh.addAll( allPlanets.slice(0,3)); ///so, array2 = array1 only passes a REFERENCE to the array, they are both still the same array with different names.  AARRGGgH!!
         whh.addAll([allPlanets[4],allPlanets[5],allPlanets[8],allPlanets[9]]);
 
-        whh.addAll(["Ecliptic0", "Ecliptic90", "Ecliptic180", "Ecliptic270"]); //we add these last so they show up on top of planets etc
+         //we add these last so they show up on top of planets etc
         
 
         //deBug ("www - whh0", whh);
@@ -1367,8 +1368,8 @@ class SolarSystemBaseView extends WatchUi.View {
         sunrise_cache.empty();
         pp= null;
 
-        dc.setColor(Graphics.COLOR_TRANSPARENT, Graphics.COLOR_BLACK);
-        dc.clear();
+        //dc.setColor(Graphics.COLOR_TRANSPARENT, Graphics.COLOR_BLACK);
+        //dc.clear();
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
         //getMessage();
 
@@ -1614,6 +1615,10 @@ class SolarSystemBaseView extends WatchUi.View {
             var mctr = Math.cos(the_rad);
             var mstr = Math.sin(the_rad);
 
+            //var min_z = 10000000.0f;
+            //var max_z = -10000000.0f;
+            //var sorter = new [1001];
+
             for (var i = 0; i<kys.size(); i++) {
                 key = kys[i];
 
@@ -1650,13 +1655,37 @@ class SolarSystemBaseView extends WatchUi.View {
                 pp[key][0] = x1;// *pers_fact;
                 pp[key][1] = y2;// * pers_fact; // * pers_fact;
                 pp[key][2] = z2;  
+                //var z_sort = (Math.floor(z2 * 50).toNumber()) + 500;
+                //if (z_sort>1000) {z_sort=1000;}
+                //if (z_sort<0) {z_sort=0;}
+                
+                //if (sorter[z_sort] == null) {sorter[z_sort] = [key];}
+                //else {sorter[z_sort].add(key);}
+                //if (z2<min_z) {min_z = z2;}
+                //if (z2> max_z) {max_z = z2;}
                 
                 //System.println("XYZ' PERS: " + x2 + " " + y1 + " " );
             }
             //System.println("whhbefore: " + whh);
             //deBug("RDSWC11A: ", allPlanets);
             //deBug("RDSWC11Awhh: ", whh);
-            zoom_whh = insertionSort(zoom_whh, pp, 2);
+
+            //We need to sort by Z values but if the_rad is close to 0 deg or 180 deg we can skip it
+            var trmpi = mod(the_rad, Math.PI);
+            if (trmpi > Math.PI/4.0 && trmpi < 3* Math.PI/4.0) {
+                //zoom_whh = insertionSort(zoom_whh, pp, 2);
+                zoom_whh = quickSort(zoom_whh, pp, 2); //was slower than insertion sort.  But on a second try, faster.  Both are probably about the same, sometimes one is better, sometimes the other.
+                
+                /*zoom_whh = [];
+                for (var j = 0; j < sorter.size(); j++) {
+                    if (sorter[j]!= null) {
+                        zoom_whh.addAll(sorter[j]);
+                    }
+                }*/
+            }
+            
+            //zoom_whh = countingSort(zoom_whh, pp, 3, Math.floor(min_z * 10).toNumber(), Math.floor(max_z * 10).toNumber()); //didnt' really work out
+            
             //deBug("RDSWC11B: ", allPlanets);
             //deBug("RDSWC11Bwhh: ", whh);
             //System.println("whhafter: " + whh);
@@ -2225,7 +2254,7 @@ class SolarSystemBaseView extends WatchUi.View {
         if (type ==:orrery) {
             ycent1 = 0.1*textHeight;  //date & time top center
             ycent3 = ycent1 + textHeight; //time below date
-            ycent2 = 2* ycent - textHeight; //speed or stopped lower center
+            ycent2 = 2* ycent - textHeight*1.3; //speed or stopped lower center
             
             if (screenShape == System.SCREEN_SHAPE_RECTANGLE)
             {
@@ -2275,6 +2304,9 @@ class SolarSystemBaseView extends WatchUi.View {
         //y -= (_lines.size() * textHeight) / 2;
         //var addStop = "";
         //if (!started) {addStop = "s";}
+
+        var modeInd = "";
+        if (type ==:orrery) {modeInd = $.Options_Dict[thetaOption_enum] == 0 ? " [T]" : " [V]" ;}
 
         if (addTime_hrs < 700000 && addTime_hrs > -500000)// && type != :orrery) {
             {
@@ -2365,9 +2397,9 @@ class SolarSystemBaseView extends WatchUi.View {
                 }else{
                     intvl = "" + dv.format("%.1f") + " hr";
                 }
-            }
-            var modeInd = $.Options_Dict[:thetaOption_enum] == 0 ? "t" : "v" ;
-            dc.drawText(xcent2, ycent2, font, sep + intvl + sep + modeInd, justify);
+            }            
+            
+            dc.drawText(xcent2, ycent2, font, sep + intvl + sep + modeInd , justify);
             //$.show_intvl = false;
         }
         
@@ -2571,19 +2603,20 @@ class SolarSystemBaseView extends WatchUi.View {
         size *= planetSizeFactor; //factor from settings
 
         if (key.find("Ecliptic") != null) {
-            var trisize = min_c/15.0;
+            var trisize = min_c/15.0*2.25;
+            var tribase = trisize/3/2.25;
             size = min_c/60.0;
             var fill = false;
             
             if (key.equals("Ecliptic0") || key.equals("Ecliptic180") ) {
                 //fillcol = Graphics.COLOR_DK_GRAY;
                 fill = true;
-                trisize = 1.5*trisize;
-                if (key.equals("Ecliptic0")) {trisize *= 1.5;}
+                tribase = 1.5*tribase;
+                if (key.equals("Ecliptic0")) {tribase *= 1.5; trisize *= 1.15;}
             }
 
             
-            drawTrianglePointer (dc, [xc, yc, x, y,], trisize, trisize/4.0, 1, Graphics.COLOR_LT_GRAY, true, false);
+            drawTrianglePointer (dc, [xc, yc, x, y,], trisize, tribase, 1, Graphics.COLOR_WHITE, false, false);
 
             
         } //solstice & equinox points, small circles

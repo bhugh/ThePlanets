@@ -378,7 +378,7 @@ function changeModes(previousMode){
                 $.time_add_hrs = 0; //reset to present time
                 $.newModeOrZoom = true; //gives signal to reset the dots
                 //speeds_index = 46; //15 days = OLD , too slow on real watch
-                speeds_index = 63; //1 SOLAR year
+                speeds_index = 65; //400 days 
                 if ($.Options_Dict[helpBanners_enum]){solarSystemView_class.sendMessage(3, ["Outer Solar", "System-Side View", UUDSS, ""]);}
                 else {
                     solarSystemView_class.sendMessage(2, [null, "Outer(Side)","", null, null]);
@@ -400,7 +400,7 @@ function changeModes(previousMode){
                 $.time_add_hrs = 0; //reset to present time
                 $.newModeOrZoom = true; //gives signal to reset the dots
                 //speeds_index = 48; //61 days, too slow on real watch
-                speeds_index = 66; //4 yrs
+                speeds_index = 69; //4 yrs
                 if ($.Options_Dict[helpBanners_enum]){solarSystemView_class.sendMessage(3, ["Far Outer", "Solar System-Top",UUDSS, ""]);}
                 else {
                     solarSystemView_class.sendMessage(2, [null, "Far(Top)","", null, null]);
@@ -417,7 +417,7 @@ function changeModes(previousMode){
                 $.time_add_hrs = 0; //reset to present time
                 $.newModeOrZoom = true; //gives signal to reset the dots
                 //speeds_index = 48; //61 days, too slow on real watch
-                speeds_index = 67; //500 days
+                speeds_index = 69; //4 years
                 if ($.Options_Dict[helpBanners_enum]){solarSystemView_class.sendMessage(3, ["Far Outer", "Solar System-Side",UUDSS, ""]);}
                 else {
                     solarSystemView_class.sendMessage(2, [null, "Far(Side)","", null, null]);

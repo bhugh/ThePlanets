@@ -270,6 +270,8 @@ import Toybox.Lang;
     }
 //}
 
+/*
+////insertionSort works fine but we're not using it right now. Quicksort is (maybe) a tad quickers.
 //given a dict with keys =kyss & values an array [1,2,3,4,5...]
 //and separate send the keys kys (or perhaps they are a separate array...)
 //will return an array with the keys sorted ascending on the nth value of the array
@@ -293,7 +295,100 @@ function insertionSort(kys, dict, n) {
 
     return kys;
 }
+*/
 
+/*
+// Given a dict with keys = kys & values an array [1,2,3,4,5...]
+// and separate send the keys kys (or perhaps they are a separate array...)
+// will return an array with the keys sorted ascending on the nth value of the array
+function countingSort(kys, dict, n, min_z, max_z) {
+    // Calculate the range of the Z values
+    var range = max_z - min_z + 1;
+    
+    // Create a count array to store the count of each Z value
+    var count = [];
+    for (var i = 0; i < range; i++) {
+        count.add(0); // Initialize count array
+    }
+
+    // Create an output array to store the sorted keys
+    var output = [];
+    output.addAll(count);
+
+    // Count occurrences of each Z value
+    for (var i = 0; i < kys.size(); i++) {
+        var kkey = kys[i];
+        var zValue = dict[kkey][n];
+        count[zValue - min_z]++; // Increment the count for the corresponding Z value
+    }
+
+    // Change count[i] so that it contains the actual position of this Z value in output
+    for (var i = 1; i < range; i++) {
+        count[i] += count[i - 1];
+    }
+
+    // Build the output array
+    for (var i = kys.size() - 1; i >= 0; i--) {
+        var kkey = kys[i];
+        var zValue = dict[kkey][n];
+        output[count[zValue - min_z] - 1] = kkey; // Place the key in the output array
+        count[zValue - min_z] = count[zValue - min_z] -1; // Decrease the count for this Z value
+    }
+
+    return output; // Return the sorted keys
+}
+*/
+
+// Given a dict with keys = kys & values an array [1,2,3,4,5...]
+// and separate send the keys kys (or perhaps they are a separate array...)
+// will return an array with the keys sorted ascending on the nth value of the array
+var dict_qs, kys_qs;
+
+    // Helper function to perform the partitioning
+    function partition(low, high, n) {
+        var pivotKey = kys_qs[high]; // Choose the last element as the pivot
+        var pivotValue = dict_qs[pivotKey][n];
+        var i = low - 1; // Pointer for the smaller element
+
+        for (var j = low; j < high; j++) {
+            // If the current element is less than or equal to the pivot
+            if (dict_qs[kys_qs[j]][n] <= pivotValue) {
+                i++; // Increment the pointer for the smaller element
+                // Swap the elements
+                var temp = kys_qs[i];
+                kys_qs[i] = kys_qs[j];
+                kys_qs[j] = temp;
+            }
+        }
+        // Swap the pivot element with the element at i + 1
+        var temp = kys_qs[i + 1];
+        kys_qs[i + 1] = kys_qs[high];
+        kys_qs[high] = temp;
+
+        return i + 1; // Return the partitioning index
+    }
+
+    // Recursive quicksort function
+    function quickSortRecursive(low, high,n) {
+        if (low < high) {
+            // Partition the array and get the pivot index
+            var pivotIndex = partition(low, high,n);
+            // Recursively sort elements before and after partition
+            quickSortRecursive(low, pivotIndex - 1,n);
+            quickSortRecursive(pivotIndex + 1, high,n);
+        }
+    }
+function quickSort(kys, dict, n) {
+    // Start the quicksort process
+    kys_qs = kys;
+    dict_qs = dict;
+    
+    quickSortRecursive(0, kys.size() - 1, n);
+    dict_qs = null;
+    return kys_qs; // Return the sorted keys
+    //kys_qs = null;
+    
+}
 
 //isNumber: 0 string, 1 Number, 2 Float
 function toArray(text, delimiter, isNumber)

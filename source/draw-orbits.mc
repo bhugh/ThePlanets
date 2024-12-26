@@ -84,7 +84,8 @@ function drawFuzzyEllipse (myDc, swidth, sheight, xc, yc, A as Lang.float, B as 
          //var fact = A/(myDc.getHeight()).toFloat() * 30.0;
          //var fact = A/20000.0;
 
-      var step =  A/2.0f;   
+      var step =  A/2.0f;  
+      if ((step == 0)) {step = 1;} //avoid div by zero issues 
       var start = 0;
       //if (type == :low) {step = (Math.rand()%150)/100.0 + 0.5; start = (Math.rand()%314).toFloat(); }
       //if (step<25 && A > 3  && type == :high) { step = 25; }
