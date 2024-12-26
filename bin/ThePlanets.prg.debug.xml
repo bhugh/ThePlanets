@@ -3413,18 +3413,18 @@
 </annotations>
 <dataEntryOffsetMappings>
 <dataEntry label="globals" offset="49" parentId="" symbolId="globals" type="module"/>
-<dataEntry label="globals/sunRiseSet_cache2" offset="2736" parentId="globals" symbolId="sunRiseSet_cache2" type="class"/>
-<dataEntry label="globals/SolarSystemBaseApp" offset="2825" parentId="globals" symbolId="SolarSystemBaseApp" type="class"/>
-<dataEntry label="globals/Rez" offset="2941" parentId="globals" symbolId="Rez" type="module"/>
-<dataEntry label="globals/SolarSystemSettingsDelegate" offset="2985" parentId="globals" symbolId="SolarSystemSettingsDelegate" type="class"/>
-<dataEntry label="globals/SolarSystemSettingsMenuDelegate" offset="3038" parentId="globals" symbolId="SolarSystemSettingsMenuDelegate" type="class"/>
-<dataEntry label="globals/SolarSystemSettingsView" offset="3109" parentId="globals" symbolId="SolarSystemSettingsView" type="class"/>
-<dataEntry label="globals/SolarSystemSettingsMenu" offset="3180" parentId="globals" symbolId="SolarSystemSettingsMenu" type="class"/>
-<dataEntry label="globals/SolarSystemBaseDelegate" offset="3224" parentId="globals" symbolId="SolarSystemBaseDelegate" type="class"/>
-<dataEntry label="globals/SolarSystemBaseView" offset="3358" parentId="globals" symbolId="SolarSystemBaseView" type="class"/>
-<dataEntry label="globals/VSOP87_cache" offset="4518" parentId="globals" symbolId="VSOP87_cache" type="class"/>
-<dataEntry label="globals/Rez/Drawables" offset="4616" parentId="Rez" symbolId="Drawables" type="module"/>
-<dataEntry label="globals/Rez/Strings" offset="4660" parentId="Rez" symbolId="Strings" type="module"/>
+<dataEntry label="globals/sunRiseSet_cache2" offset="2740" parentId="globals" symbolId="sunRiseSet_cache2" type="class"/>
+<dataEntry label="globals/SolarSystemBaseApp" offset="2829" parentId="globals" symbolId="SolarSystemBaseApp" type="class"/>
+<dataEntry label="globals/Rez" offset="2945" parentId="globals" symbolId="Rez" type="module"/>
+<dataEntry label="globals/SolarSystemSettingsDelegate" offset="2989" parentId="globals" symbolId="SolarSystemSettingsDelegate" type="class"/>
+<dataEntry label="globals/SolarSystemSettingsMenuDelegate" offset="3042" parentId="globals" symbolId="SolarSystemSettingsMenuDelegate" type="class"/>
+<dataEntry label="globals/SolarSystemSettingsView" offset="3113" parentId="globals" symbolId="SolarSystemSettingsView" type="class"/>
+<dataEntry label="globals/SolarSystemSettingsMenu" offset="3184" parentId="globals" symbolId="SolarSystemSettingsMenu" type="class"/>
+<dataEntry label="globals/SolarSystemBaseDelegate" offset="3228" parentId="globals" symbolId="SolarSystemBaseDelegate" type="class"/>
+<dataEntry label="globals/SolarSystemBaseView" offset="3362" parentId="globals" symbolId="SolarSystemBaseView" type="class"/>
+<dataEntry label="globals/VSOP87_cache" offset="4522" parentId="globals" symbolId="VSOP87_cache" type="class"/>
+<dataEntry label="globals/Rez/Drawables" offset="4620" parentId="Rez" symbolId="Drawables" type="module"/>
+<dataEntry label="globals/Rez/Strings" offset="4664" parentId="Rez" symbolId="Strings" type="module"/>
 </dataEntryOffsetMappings>
 <functions>
 <functionEntry accessMode="public" endPc="268435676" name="isUnSafeFloat" startPc="268435640">

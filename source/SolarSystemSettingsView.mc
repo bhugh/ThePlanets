@@ -143,8 +143,8 @@ var screen0MoveOption_default = 6;
 */
 
 var thetaOption =[
-    "Time Step",
-    "Viewpoint",   //1 min
+    "[T]ime Step",
+    "[V]iewpoint",   //1 min
     //"View Altitude",
     //"Both" 
 ];
