@@ -424,6 +424,7 @@ function toArray(text, delimiter, isNumber)
     return arr; // Return the array of values
 }
 
+/*
 const FLT_MAX = 3.4028235e38f;
 
 function isnan(x as Float) as Boolean {
@@ -438,18 +439,30 @@ function isUnSafeFloat(x as Float) as Boolean {
     return isnan (x) || isinf(x);
 }
 
+*/
+
+/*
+
+//this seems to work better than the above two funcs
+public function isSafeValue(x as Number or Long or Float or Double) as Boolean {
+  return !x.equals(NaN) && !x.equals(Math.acos(45));
+}
+
+*/
+
+
 function deBug(label, ary) {
-    System.print (label + ": ");
+    System.println (label + ": " + ary);
     //if (ary == null) {System.println(" NULL!"); return;}
 
-    if (ary instanceof Lang.Array) {
+    /*if (ary instanceof Lang.Array) {
         for (var i = 0; i< ary.size(); i++) {
         System.print(ary[i] + " : ");
         } 
     }else {
         System.print(ary);
     }
-    System.println("");
+    System.println("");*/
 }
 
 function intersect_array (a, b) {

@@ -6,118 +6,116 @@ import Toybox.Graphics;
 import Toybox.Lang;
 [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 10; ]
 import Toybox.WatchUi;
-[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 12; @position = 4; ]
-var orrZoomOption;
-[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 27; @position = 4; ]
+[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 26; @position = 4; ]
 var orrZoomOption_values;
-[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 43; @position = 4; ]
+[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 42; @position = 4; ]
 var orrZoomOption_size = 10;
-[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 44; @position = 4; ]
+[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 43; @position = 4; ]
 var orrZoomOption_default = 2;
-[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 46; @position = 4; ]
+[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 45; @position = 4; ]
 var planetsOption;
-[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 53; @position = 4; ]
+[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 52; @position = 4; ]
 var allPlanets;
-[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 63; @position = 4; ]
+[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 62; @position = 4; ]
 var planetsOption_size = 3;
-[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 64; @position = 4; ]
+[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 63; @position = 4; ]
 var planetsOption_default = 1;
-[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 65; @position = 4; ]
+[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 64; @position = 4; ]
 var planetsOption_value;
-[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 70; @position = 4; ]
+[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 69; @position = 4; ]
 var Options_Dict;
-[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 71; @position = 4; ]
+[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 70; @position = 4; ]
 var labelDisplayOption;
-[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 72; @position = 4; ]
+[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 71; @position = 4; ]
 var labelDisplayOption_size = 5;
-[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 73; @position = 4; ]
+[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 72; @position = 4; ]
 var labelDisplayOption_default = 2;
-[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 75; @position = 4; ]
+[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 74; @position = 4; ]
 var refreshOption;
-[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 89; @position = 4; ]
+[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 88; @position = 4; ]
 var refreshOption_values;
-[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 102; @position = 4; ]
+[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 101; @position = 4; ]
 var refreshOption_size = 5;
-[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 103; @position = 4; ]
+[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 102; @position = 4; ]
 var refreshOption_default = 2;
-[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 145; @position = 4; ]
+[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 144; @position = 4; ]
 var thetaOption;
-[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 151; @position = 4; ]
+[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 150; @position = 4; ]
 var thetaOption_size = 2;
-[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 152; @position = 4; ]
+[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 151; @position = 4; ]
 var thetaOption_default = 0;
-[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 154; @position = 4; ]
+[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 153; @position = 4; ]
 var planetSizeOption;
-[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 164; @position = 4; ]
+[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 163; @position = 4; ]
 var planetSizeOption_values;
-[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 174; @position = 4; ]
+[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 173; @position = 4; ]
 var planetSizeOption_size = 7;
-[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 175; @position = 4; ]
+[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 174; @position = 4; ]
 var planetSizeOption_default = 3;
-[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 176; @position = 4; ]
+[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 175; @position = 4; ]
 var planetSizeFactor = 1.0;
-[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 206; @position = 4; ]
+[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 205; @position = 4; ]
 var eclipticSizeFactor = 1.0;
-[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 261; ]
+[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 260; ]
 class SolarSystemSettingsView extends WatchUi.View{
-    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 261; ]
+    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 260; ]
     <init> {
     }
-    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 261; ]
+    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 260; ]
     static
     <init> {
     }
-    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 263; @position = 15; ]
+    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 262; @position = 15; ]
     protected
     var firstShow;
     //! Constructor
-    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 266; ]
+    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 265; ]
     public
     function initialize() as Void {
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemSettingsView_mc_266_33_273_4_start:
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc" 267 8 ]
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemSettingsView_mc_265_33_272_4_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc" 266 8 ]
         %tmp.2 = getv ? :View;
         %tmp.3 = getv function %tmp.2 :initialize;
         invoke %tmp.2 %tmp.3();
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc" 268 8 ]
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc" 267 8 ]
         %tmp.4 = true;
         putv self :firstShow %tmp.4;
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc" 270 8 ]
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc" 269 8 ]
         %tmp.6 = getv ? :System;
         %tmp.7 = getv function %tmp.6 :println;
         %tmp.8 = "SolarSystemSettingsView initialize...";
         invoke %tmp.6 %tmp.7(%tmp.8);
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemSettingsView_mc_266_33_273_4_stop:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemSettingsView_mc_265_33_272_4_stop:
     }
     //! Handle the update event
     //! @param dc Device context
-    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 277; ]
+    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 276; ]
     public
     function onShow() as Void {
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemSettingsView_mc_277_37_312_4_start:
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc" 291 8 ]
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemSettingsView_mc_291_8_293_8_if_stmt:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemSettingsView_mc_276_37_311_4_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc" 290 8 ]
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemSettingsView_mc_290_8_292_8_if_stmt:
         %tmp.2 = getm $.Toybox.WatchUi;
         %tmp.4 = const :Menu2;
         %tmp.5 = canhazplz %tmp.2 %tmp.4;
         %tmp.6 = not %tmp.5;
-        bf %tmp.6 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemSettingsView_mc_291_8_293_8_if_end;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemSettingsView_mc_291_8_293_8_if_true:
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemSettingsView_mc_291_35_293_8_start:
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc" 292 12 ]
+        bf %tmp.6 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemSettingsView_mc_290_8_292_8_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemSettingsView_mc_290_8_292_8_if_true:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemSettingsView_mc_290_35_292_8_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc" 291 12 ]
         %tmp.8 = getv ? :System;
         %tmp.9 = getv function %tmp.8 :exit;
         invoke %tmp.8 %tmp.9();
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemSettingsView_mc_291_35_293_8_stop:
-        goto @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemSettingsView_mc_291_8_293_8_if_end;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemSettingsView_mc_291_8_293_8_if_end:
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc" 297 8 ]
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemSettingsView_mc_297_8_311_8_if_stmt:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemSettingsView_mc_290_35_292_8_stop:
+        goto @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemSettingsView_mc_290_8_292_8_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemSettingsView_mc_290_8_292_8_if_end:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc" 296 8 ]
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemSettingsView_mc_296_8_310_8_if_stmt:
         %tmp.11 = getv ? :firstShow;
-        bf %tmp.11 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemSettingsView_mc_297_8_311_8_if_false;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemSettingsView_mc_297_8_311_8_if_true:
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemSettingsView_mc_297_23_303_8_start:
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc" 300 12 ]
+        bf %tmp.11 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemSettingsView_mc_296_8_310_8_if_false;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemSettingsView_mc_296_8_310_8_if_true:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemSettingsView_mc_296_23_302_8_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc" 299 12 ]
         %tmp.12 = getm $.Toybox.WatchUi;
         %tmp.13 = getv function %tmp.12 :pushView;
         %tmp.17 = getm $;
@@ -129,34 +127,34 @@ E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_So
         %tmp.24 = getm $.Toybox.WatchUi;
         %tmp.25 = getv %tmp.24 :SLIDE_IMMEDIATE;
         invoke %tmp.12 %tmp.13(%tmp.14, %tmp.19, %tmp.25);
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc" 302 12 ]
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc" 301 12 ]
         %tmp.26 = false;
         putv self :firstShow %tmp.26;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemSettingsView_mc_297_23_303_8_stop:
-        goto @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemSettingsView_mc_297_8_311_8_if_end;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemSettingsView_mc_297_8_311_8_if_false:
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemSettingsView_mc_308_13_311_8_start:
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc" 310 12 ]
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemSettingsView_mc_296_23_302_8_stop:
+        goto @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemSettingsView_mc_296_8_310_8_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemSettingsView_mc_296_8_310_8_if_false:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemSettingsView_mc_307_13_310_8_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc" 309 12 ]
         %tmp.27 = getm $.Toybox.WatchUi;
         %tmp.28 = getv function %tmp.27 :popView;
         %tmp.29 = getm $.Toybox.WatchUi;
         %tmp.30 = getv %tmp.29 :SLIDE_IMMEDIATE;
         invoke %tmp.27 %tmp.28(%tmp.30);
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemSettingsView_mc_308_13_311_8_stop:
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemSettingsView_mc_297_8_311_8_if_end:
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemSettingsView_mc_277_37_312_4_stop:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemSettingsView_mc_307_13_310_8_stop:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemSettingsView_mc_296_8_310_8_if_end:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemSettingsView_mc_276_37_311_4_stop:
     }
     //! Handle the update event
     //! @param dc Device context
-    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 316; ]
+    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 315; ]
     public
     function onUpdate(dc as Dc) as Void {
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemSettingsView_mc_316_47_346_4_start:
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc" 319 8 ]
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemSettingsView_mc_315_47_345_4_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc" 318 8 ]
         %tmp.1 = lgetv %dc;
         %tmp.2 = getv function %tmp.1 :clearClip;
         invoke %tmp.1 %tmp.2();
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc" 320 8 ]
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc" 319 8 ]
         %tmp.3 = lgetv %dc;
         %tmp.4 = getv function %tmp.3 :setColor;
         %tmp.5 = getm $.Toybox.Graphics;
@@ -164,47 +162,47 @@ E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_So
         %tmp.7 = getm $.Toybox.Graphics;
         %tmp.8 = getv %tmp.7 :COLOR_BLACK;
         invoke %tmp.3 %tmp.4(%tmp.6, %tmp.8);
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc" 321 8 ]
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc" 320 8 ]
         %tmp.9 = lgetv %dc;
         %tmp.10 = getv function %tmp.9 :clear;
         invoke %tmp.9 %tmp.10();
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemSettingsView_mc_316_47_346_4_stop:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemSettingsView_mc_315_47_345_4_stop:
     }
 }
-[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 350; ]
+[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 349; ]
 class SolarSystemSettingsDelegate extends WatchUi.BehaviorDelegate{
-    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 350; ]
+    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 349; ]
     <init> {
     }
-    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 350; ]
+    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 349; ]
     static
     <init> {
     }
     //! Constructor
-    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 353; ]
+    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 352; ]
     public
     function initialize() as Void {
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemSettingsView_mc_353_33_355_4_start:
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc" 354 8 ]
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemSettingsView_mc_352_33_354_4_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc" 353 8 ]
         %tmp.2 = getv ? :BehaviorDelegate;
         %tmp.3 = getv function %tmp.2 :initialize;
         invoke %tmp.2 %tmp.3();
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemSettingsView_mc_353_33_355_4_stop:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemSettingsView_mc_352_33_354_4_stop:
     }
     //! Handle the menu event
     //! @return true if handled, false otherwise
-    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 359; ]
+    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 358; ]
     public
     function onMenu() as Boolean {
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemSettingsView_mc_359_40_367_4_start:
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc" 363 8 ]
-        [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemSettingsView_mc_359_40_367_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemSettingsView_mc_359_40_367_4_stop" ]
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemSettingsView_mc_358_40_366_4_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc" 362 8 ]
+        [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemSettingsView_mc_358_40_366_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemSettingsView_mc_358_40_366_4_stop" ]
         %menu.1 = local;
         %tmp.4 = getm $;
         %tmp.5 = getv %tmp.4 :SolarSystemSettingsMenu;
         %tmp.1 = newc %tmp.5 ();
         lputv %menu.1 %tmp.1;
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc" 365 8 ]
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc" 364 8 ]
         %tmp.6 = getm $.Toybox.WatchUi;
         %tmp.7 = getv function %tmp.6 :pushView;
         %tmp.9 = lgetv %menu.1;
@@ -214,18 +212,18 @@ E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_So
         %tmp.15 = getm $.Toybox.WatchUi;
         %tmp.16 = getv %tmp.15 :SLIDE_IMMEDIATE;
         invoke %tmp.6 %tmp.7(%tmp.9, %tmp.10, %tmp.16);
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc" 366 8 ]
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc" 365 8 ]
         %tmp.17 = true;
         ret %tmp.17;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemSettingsView_mc_359_40_367_4_stop:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemSettingsView_mc_358_40_366_4_stop:
     }
 }
 [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc"; @line = 7; ]
 <init> {
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc" 27 4 ]
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc" 26 4 ]
     %tmp.18 = newa 0;
     putv self :orrZoomOption_values %tmp.18;
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc" 46 4 ]
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc" 45 4 ]
     %tmp.19 = newa 3;
     %tmp.20 = "All objects";
     %tmp.21 = dup %tmp.19;
@@ -237,16 +235,16 @@ E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_So
     %tmp.27 = dup %tmp.25;
     %tmp.28 = aputv %tmp.27 2 %tmp.26;
     putv self :planetsOption %tmp.28;
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc" 53 4 ]
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc" 52 4 ]
     %tmp.29 = newa 0;
     putv self :allPlanets %tmp.29;
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc" 65 4 ]
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc" 64 4 ]
     %tmp.31 = getv ? :planetsOption_default;
     putv self :planetsOption_value %tmp.31;
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc" 70 4 ]
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc" 69 4 ]
     %tmp.32 = newd 0;
     putv self :Options_Dict %tmp.32;
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc" 71 4 ]
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc" 70 4 ]
     %tmp.33 = newa 5;
     %tmp.34 = "Always On";
     %tmp.35 = dup %tmp.33;
@@ -264,7 +262,7 @@ E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_So
     %tmp.47 = dup %tmp.45;
     %tmp.48 = aputv %tmp.47 4 %tmp.46;
     putv self :labelDisplayOption %tmp.48;
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc" 75 4 ]
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc" 74 4 ]
     %tmp.49 = newa 5;
     %tmp.50 = "10 per sec.";
     %tmp.51 = dup %tmp.49;
@@ -282,7 +280,7 @@ E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_So
     %tmp.63 = dup %tmp.61;
     %tmp.64 = aputv %tmp.63 4 %tmp.62;
     putv self :refreshOption %tmp.64;
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc" 89 4 ]
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc" 88 4 ]
     %tmp.65 = newa 5;
     %tmp.66 = 10.0;
     %tmp.67 = dup %tmp.65;
@@ -300,16 +298,16 @@ E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_So
     %tmp.79 = dup %tmp.77;
     %tmp.80 = aputv %tmp.79 4 %tmp.78;
     putv self :refreshOption_values %tmp.80;
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc" 145 4 ]
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc" 144 4 ]
     %tmp.81 = newa 2;
-    %tmp.82 = "Time Step";
+    %tmp.82 = "[T]ime Step";
     %tmp.83 = dup %tmp.81;
     %tmp.84 = aputv %tmp.83 0 %tmp.82;
-    %tmp.85 = "Viewpoint";
+    %tmp.85 = "[V]iewpoint";
     %tmp.86 = dup %tmp.84;
     %tmp.87 = aputv %tmp.86 1 %tmp.85;
     putv self :thetaOption %tmp.87;
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc" 154 4 ]
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc" 153 4 ]
     %tmp.88 = newa 7;
     %tmp.89 = "XX Small";
     %tmp.90 = dup %tmp.88;
@@ -333,7 +331,7 @@ E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_So
     %tmp.108 = dup %tmp.106;
     %tmp.109 = aputv %tmp.108 6 %tmp.107;
     putv self :planetSizeOption %tmp.109;
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc" 164 4 ]
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemSettingsView.mc" 163 4 ]
     %tmp.110 = newa 7;
     %tmp.111 = 0.5;
     %tmp.112 = dup %tmp.110;

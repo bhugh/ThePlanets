@@ -86,11 +86,12 @@ function drawFuzzyEllipse (myDc, swidth, sheight, xc, yc, A as Lang.float, B as 
 
       var step =  A/2.0f;  
       if ((step == 0)) {step = 1;} //avoid div by zero issues 
+      
       var start = 0;
       //if (type == :low) {step = (Math.rand()%150)/100.0 + 0.5; start = (Math.rand()%314).toFloat(); }
       //if (step<25 && A > 3  && type == :high) { step = 25; }
 
-      if (step<25 && A > 3) { step = 25; }
+      if (step<25 && A > 3) { step = 25; } //as A gets small sometimes it doesn't drawn enough  asteroids to be convincing
       System.println("FuzzyEllipse Step: " + step + " start" + start + "A:" + A + " B:" + B);
       //if (step>200) {step=200;}
 
@@ -101,8 +102,10 @@ function drawFuzzyEllipse (myDc, swidth, sheight, xc, yc, A as Lang.float, B as 
          var addme =ranadd + (ran*ran)/randiv;
          var x = xc + (A*addme) * Math.cos(theta);
          var y = yc + (B*addme) * Math.sin(theta);
-         if (x<0|| y<0 || x>swidth || y>sheight || isUnSafeFloat(x) || isUnSafeFloat(y) ) {continue;}
+         //deBug("[theta, Math.cos(theta), Math.sin(theta) x, y, step, A, B]", [theta, Math.cos(theta), Math.sin(theta), x, y, step, A, B]);
+         //if (x<0|| y<0 || x>swidth || y>sheight || !isSafeValue(x) || !isSafeValue(y) ) {continue;}
          //System.println("Aster: " + x + ":" + y);
          myDc.drawPoint(x,y);
+         //System.println("Got here...");
       }
 }

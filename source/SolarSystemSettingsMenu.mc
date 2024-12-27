@@ -56,30 +56,58 @@ var helpOption = [
      "Ch Chiron (ringed dwarf planet)", 
 ];*/
 
+//var changeModeOption_nextMode=1;
+//var changeModeOption_size;
+//var changeModeOption;
+var orrZoomOption;
 
+function cleanUpSettingsOpt(){
+    //changeModeOption = null;
+    orrZoomOption = null;
+
+}
 
 //! The app settings menu
 class SolarSystemSettingsMenu extends WatchUi.Menu2 {
+
+    
+    
+    
+
+    
+    
+    function loadSettingsOpt(){
+        //changeModeOption = toArray(WatchUi.loadResource($.Rez.Strings.changeModeOption) as String,  "|", 0);
+        //changeModeOption_size = changeModeOption.size();
+        orrZoomOption = toArray(WatchUi.loadResource($.Rez.Strings.orrzoom) as String,  "|", 0);
+
+    }
 
     //! Constructor
     public function initialize() {
         //sssMenu_class = self;    
 
-        orrZoomOption = toArray(WatchUi.loadResource($.Rez.Strings.orrzoom) as String,  "|", 0);
+        
+        loadSettingsOpt();
 
         //loadPlanetsOpt();
 
         //var boolean;
         Menu2.initialize({:title=>"Settings"});
             
-        Menu2.addItem(new WatchUi.ToggleMenuItem("Exit App", null, exitApp_enum, false, null));
+        //Menu2.addItem(new WatchUi.ToggleMenuItem("Exit App", null, changeMode_enum, false, null));
+        /*changeModeOption_nextMode = $.view_mode;
+        Menu2.addItem(new WatchUi.MenuItem("Change mode:",
+        changeModeOption[$.view_mode],changeMode_enum,{}));  
+        */ 
 
         Menu2.addItem(new WatchUi.ToggleMenuItem("Reset to Current Time", null, resetDate_enum, false, null));
+        
     
 
         if ($.Options_Dict[orrZoomOption_enum] == null) { $.Options_Dict[orrZoomOption_enum] = $.orrZoomOption_default; }
         Menu2.addItem(new WatchUi.MenuItem("Solar System Zoom?",
-        $.orrZoomOption[$.Options_Dict[orrZoomOption_enum]],orrZoomOption_enum,{}));   
+        orrZoomOption[$.Options_Dict[orrZoomOption_enum]],orrZoomOption_enum,{}));   
 
         if ($.Options_Dict[thetaOption_enum] == null) { $.Options_Dict[thetaOption_enum] = $.thetaOption_default; }
         Menu2.addItem(new WatchUi.MenuItem("UP/DOWN/Swipe controls:",
@@ -156,11 +184,14 @@ class SolarSystemSettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
             //$.Options_Dict[menuItem.getId() as String] = menuItem.isEnabled();
             var ret = menuItem.getId() as String;
                 //System.println("Menu item toggled...." + ret);
-            if (ret != null && ret.equals(exitApp_enum)) {
+            
+            /*    
+            if (ret != null && ret.equals(changeMode_enum)) {
                 //System.println("Settings/exit");
                 WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
                 System.exit();
             } else 
+            */
            
             if (ret != null && ret.equals(resetDate_enum)) {
                 $.time_add_hrs = 0;
@@ -180,10 +211,19 @@ class SolarSystemSettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
         }
         
         var id=menuItem.getId();
+        /*
+        if ( id.equals(changeMode_enum)) {
+                //System.println("Settings/exit");
+                /*WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
+                System.exit();*/
+        /*        changeModeOption_nextMode = (changeModeOption_nextMode+1)%changeModeOption_size;
+                menuItem.setSubLabel(changeModeOption[changeModeOption_nextMode]);
+            } else
+        */
 
         if(id.equals(orrZoomOption_enum)) {
         $.Options_Dict[id]=($.Options_Dict[id]+1)%orrZoomOption_size;
-        menuItem.setSubLabel($.orrZoomOption[$.Options_Dict[id]]);
+        menuItem.setSubLabel(orrZoomOption[$.Options_Dict[id]]);
 
         Storage.setValue(id as String, $.Options_Dict[id]);    
 
@@ -337,11 +377,29 @@ class SolarSystemSettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
     }
     */
     function onBack() {
-        orrZoomOption = null;
+
+        //cleanUpSettingsOpt(); //don't need this as the class is just destroyed on exit
         //cleanUpPlanetsOpt();
 
+        $.cleanUpSettingsOpt();
+        
+        /*
+        if (changeModeOption_nextMode == 0) {
+            WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
+            System.exit();
+        }
+        else if (changeModeOption_nextMode != -1 && changeModeOption_nextMode != $.view_mode){
+            var previousMode = $.view_mode;
+            $.view_mode = changeModeOption_nextMode;
+            $.changeModes(previousMode);
+            $.save_started = false; //always STOP when changing modes
+            WatchUi.requestUpdate();
+        }
+        */
 
+        
         WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
+        WatchUi.requestUpdate();
         //return false;
     }
 }
@@ -357,10 +415,13 @@ function loadPlanetsOpt(){
     //var po2 = toArray(WatchUi.loadResource($.Rez.Strings.planets_Options2) as String,  "|", 0);
     //var po3 = toArray(WatchUi.loadResource($.Rez.Strings.planets_Options3) as String,  "|", 0);
     //planetsOption_values=[po1, po2, po3];
-    deBug("lpo before: ", allPlanets);
+    //deBug("lpo before: ", allPlanets);
     allPlanets = toArray(WatchUi.loadResource($.Rez.Strings.planets_Options1) as String,  "|", 0);
-    deBug("lpo after: ", allPlanets);
+    //deBug("lpo after: ", allPlanets);
+
 }
+
+
 
 var planetAbbreviation_index = 0;
 // Function to generate planet abbreviation and name

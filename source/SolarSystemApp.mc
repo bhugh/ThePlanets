@@ -65,7 +65,7 @@ var solarSystemView_class; //saved instance of main class
 
 //enum {EXIT_APP, RESET_DATE, ORR_ZOOM, THETA, LABEL_DISPLAY, REFRESH, PLANET_SIZE, PLANETS, HELP, HELP_BANNERS}
 
-enum {exitApp_enum, resetDate_enum, orrZoomOption_enum, thetaOption_enum, labelDisplayOption_enum, refreshOption_enum, planetSizeOption_enum, planetsOption_enum, helpOption_enum, helpBanners_enum, lastLoc_enum} //screen0MoveOption_enum, 
+enum {changeMode_enum, resetDate_enum, orrZoomOption_enum, thetaOption_enum, labelDisplayOption_enum, refreshOption_enum, planetSizeOption_enum, planetsOption_enum, helpOption_enum, helpBanners_enum, lastLoc_enum} //screen0MoveOption_enum, 
 
 
 class SolarSystemBaseApp extends Application.AppBase {

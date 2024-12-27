@@ -14,6 +14,8 @@ module Rez {
         (:initialized) var planets_Options1 as ResourceId;
         (:initialized) var orrzoom as ResourceId;
         (:initialized) var orrzoom_values as ResourceId;
+        (:initialized) var changeModeOption as ResourceId;
+        (:initialized) var changeModeOption_short as ResourceId;
         (:initialized) var AppName as ResourceId;
     } // Strings
 

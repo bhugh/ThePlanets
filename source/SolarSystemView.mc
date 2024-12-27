@@ -2104,7 +2104,8 @@ class SolarSystemBaseView extends WatchUi.View {
                 case 0:                
                 case 6:                
                 default:
-                    msg = [$.time_now.value() + 1,tp.substring(0,3),tp.substring(4,null), "", "Press *UP* or *SWIPE*"];
+                    deBug("msg", tp);
+                    msg = [$.time_now.value() + 1,tp.substring(0,3),tp.substring(4,tp.length()), "", "Press *UP* or *SWIPE*"];
                     break;                
                 case 1:                
                     msg = [$.time_now.value() + 1, tp, "UP/DOWN/SWIPE:","Time Forward", "/Back"];

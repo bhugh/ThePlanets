@@ -9,7 +9,6 @@ import Toybox.Graphics;
 import Toybox.Lang;
 import Toybox.WatchUi;
 
-var orrZoomOption;
 
 /*var orrZoomOption=[
      "4X out" , 

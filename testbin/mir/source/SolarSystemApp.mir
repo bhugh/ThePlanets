@@ -63,26 +63,26 @@ var solarSystemView_class;
 [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemApp.mc"; @line = 68; ]
 enum {
     [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemApp.mc"; @line = 68; @position = 6; ]
-    exitApp_enum,
-    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemApp.mc"; @line = 68; @position = 20; ]
+    changeMode_enum,
+    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemApp.mc"; @line = 68; @position = 23; ]
     resetDate_enum,
-    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemApp.mc"; @line = 68; @position = 36; ]
+    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemApp.mc"; @line = 68; @position = 39; ]
     orrZoomOption_enum,
-    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemApp.mc"; @line = 68; @position = 56; ]
+    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemApp.mc"; @line = 68; @position = 59; ]
     thetaOption_enum,
-    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemApp.mc"; @line = 68; @position = 74; ]
+    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemApp.mc"; @line = 68; @position = 77; ]
     labelDisplayOption_enum,
-    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemApp.mc"; @line = 68; @position = 99; ]
+    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemApp.mc"; @line = 68; @position = 102; ]
     refreshOption_enum,
-    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemApp.mc"; @line = 68; @position = 119; ]
+    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemApp.mc"; @line = 68; @position = 122; ]
     planetSizeOption_enum,
-    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemApp.mc"; @line = 68; @position = 142; ]
+    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemApp.mc"; @line = 68; @position = 145; ]
     planetsOption_enum,
-    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemApp.mc"; @line = 68; @position = 162; ]
+    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemApp.mc"; @line = 68; @position = 165; ]
     helpOption_enum,
-    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemApp.mc"; @line = 68; @position = 179; ]
+    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemApp.mc"; @line = 68; @position = 182; ]
     helpBanners_enum,
-    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemApp.mc"; @line = 68; @position = 197; ]
+    [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemApp.mc"; @line = 68; @position = 200; ]
     lastLoc_enum
 }
 [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemApp.mc"; @line = 71; ]
