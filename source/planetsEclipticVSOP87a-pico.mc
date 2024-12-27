@@ -216,7 +216,7 @@ function fetch (now_info, timeZoneOffset_sec, dst, timeAdd_hrs, type, req_array)
       tz = (y * 0.397776982902f + z * 0.917482137087f);
     }
 
-    if (type == :helio_xyz) {return [tx,ty,tz];}
+    if (type == :helio_xyz) {return [tx.toFloat(),ty.toFloat(),tz.toFloat()];}
 
     //System.println("XYZ: " + tx + " " + ty + " " + tz);
     //Convert from Cartesian to polar coordinates 
@@ -236,7 +236,7 @@ function fetch (now_info, timeZoneOffset_sec, dst, timeAdd_hrs, type, req_array)
     //return {ra: l*180/Math.PI/15, dec: t2*180/Math.PI, r: r};
     //return {ra: l, dec: t2, r: r};
     //return {:lat=> Math.toDegrees(l), :lon => Math.toDegrees(t2), :r => r};
-    return [Math.toDegrees(l), Math.toDegrees(t2), r];//lat, lon, r
+    return [Math.toDegrees(l).toFloat(), Math.toDegrees(t2).toFloat(), r.toFloat()];//lat, lon, r
     }
 
     

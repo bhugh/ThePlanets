@@ -1235,6 +1235,8 @@ class SolarSystemBaseView extends WatchUi.View {
         drawARC (dc, sunrise_events2[:DAWN][1]+ noon_adj_hrs, sunrise_events2[:ASTRO_DAWN][1]+ noon_adj_hrs, xc, yc, r, 2,Graphics.COLOR_DK_GRAY);
         dc.setPenWidth(1);
 
+        sunrise_events2=null;
+
         //sun_adj_deg = (270 - pp["Sun"][0]);// 
         /*
         var rise_hour_adj_deg = normalize( 15.0 * sunrise_events2[:SUNRISE][0])* sidereal_to_solar;
@@ -1350,6 +1352,7 @@ class SolarSystemBaseView extends WatchUi.View {
 
             sunriseHelper();  //gets the orientation/angle toward sun @ local noon, then adds in the current hr of the day so we can use it to orient the entire graph so that UP is the direction of the local curren meridian when they first look at it.
             ga_rad = Math.toRadians(sun_adj_deg-hour_adj_deg) ;
+            sunrise_events2=null;
             //ga_rad = 0;
 
             //System.println("sun_adj_deg" + sun_adj_deg + " hor" + hour_adj_deg + " ga " + ga_rad + " pp " + pp["Sun"]) ;
@@ -2450,8 +2453,10 @@ class SolarSystemBaseView extends WatchUi.View {
                 break;
             case "Venus":
                 size =b_size*jup_size * 0.08655290298;
+                //col = 0xffff88;
+                //fillcol = 0x838370;
                 col = 0xffff88;
-                fillcol = 0x838370;
+                fillcol = 0xeeee88;
                 break;
 
             case "Mars":
@@ -2680,7 +2685,7 @@ class SolarSystemBaseView extends WatchUi.View {
                 //dc.fillCircle(x, y, size);
                 //dc.setColor(0x737348, Graphics.COLOR_TRANSPARENT);        
                 //drawARC (dc, 17, 7, x, y - size/2.5,size/2.3, 1, null);
-                dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT); 
+                dc.setColor(Graphics.COLOR_DK_GRAY, Graphics.COLOR_TRANSPARENT); 
                 drawARC (dc, 0, 24, x, y - size/5.0,size/2.0, pen, null);
                 dc.drawLine (x, y - size/5.0 + size/2.0, x, y+4.0*size/5.0);
 

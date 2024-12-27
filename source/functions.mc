@@ -385,7 +385,9 @@ function quickSort(kys, dict, n) {
     
     quickSortRecursive(0, kys.size() - 1, n);
     dict_qs = null;
-    return kys_qs; // Return the sorted keys
+    var ret = kys_qs;
+    kys_qs = null;
+    return ret; // Return the sorted keys
     //kys_qs = null;
     
 }

@@ -208,108 +208,89 @@ E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_dr
 E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_94_28_94_41_stop:
     goto @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_94_6_94_41_if_end;
 E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_94_6_94_41_if_end:
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\draw-orbits.mc" 95 6 ]
-    %tmp.32 = getm $.Toybox.System;
-    %tmp.33 = getv function %tmp.32 :println;
-    %tmp.34 = "FuzzyEllipse Step: ";
-    %tmp.36 = lgetv %step.1;
-    %tmp.37 = add %tmp.34 %tmp.36;
-    %tmp.38 = " start";
-    %tmp.39 = add %tmp.37 %tmp.38;
-    %tmp.41 = lgetv %start.2;
-    %tmp.42 = add %tmp.39 %tmp.41;
-    %tmp.43 = "A:";
-    %tmp.44 = add %tmp.42 %tmp.43;
-    %tmp.46 = lgetv %A;
-    %tmp.47 = add %tmp.44 %tmp.46;
-    %tmp.48 = " B:";
-    %tmp.49 = add %tmp.47 %tmp.48;
-    %tmp.51 = lgetv %B;
-    %tmp.52 = add %tmp.49 %tmp.51;
-    invoke %tmp.32 %tmp.33(%tmp.52);
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\draw-orbits.mc" 98 6 ]
     for @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_98_6_110_6_for_test @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_98_6_110_6_for_incr @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_98_6_110_6_for_end;
 E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_98_6_110_6_for_init:
     [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_98_6_110_6_for_begin" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_98_6_110_6_for_end" ]
     %theta.3 = local;
-    %tmp.54 = lgetv %start.2;
-    lputv %theta.3 %tmp.54;
+    %tmp.33 = lgetv %start.2;
+    lputv %theta.3 %tmp.33;
 E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_98_6_110_6_for_test:
-    %tmp.56 = lgetv %theta.3;
-    %tmp.57 = 2;
-    %tmp.58 = getm $.Toybox.Math;
-    %tmp.59 = getv %tmp.58 :PI;
-    %tmp.60 = mul %tmp.57 %tmp.59;
-    %tmp.61 = lt %tmp.56 %tmp.60;
-    bf %tmp.61 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_98_6_110_6_for_end;
+    %tmp.35 = lgetv %theta.3;
+    %tmp.36 = 2;
+    %tmp.37 = getm $.Toybox.Math;
+    %tmp.38 = getv %tmp.37 :PI;
+    %tmp.39 = mul %tmp.36 %tmp.38;
+    %tmp.40 = lt %tmp.35 %tmp.39;
+    bf %tmp.40 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_98_6_110_6_for_end;
 E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_98_6_110_6_for_begin:
 E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_98_81_110_6_start:
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\draw-orbits.mc" 101 9 ]
     [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_98_81_110_6_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_98_81_110_6_stop" ]
     %ran.4 = local;
-    %tmp.62 = getm $.Toybox.Math;
-    %tmp.63 = getv function %tmp.62 :rand;
-    %tmp.64 = invoke %tmp.62 %tmp.63();
-    %tmp.66 = getv ? :ranmult;
-    %tmp.67 = mod %tmp.64 %tmp.66;
-    lputv %ran.4 %tmp.67;
+    %tmp.41 = getm $.Toybox.Math;
+    %tmp.42 = getv function %tmp.41 :rand;
+    %tmp.43 = invoke %tmp.41 %tmp.42();
+    %tmp.45 = getv ? :ranmult;
+    %tmp.46 = mod %tmp.43 %tmp.45;
+    lputv %ran.4 %tmp.46;
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\draw-orbits.mc" 102 9 ]
     [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_98_81_110_6_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_98_81_110_6_stop" ]
     %addme.5 = local;
-    %tmp.69 = getv ? :ranadd;
-    %tmp.71 = lgetv %ran.4;
-    %tmp.73 = lgetv %ran.4;
-    %tmp.74 = mul %tmp.71 %tmp.73;
-    %tmp.76 = getv ? :randiv;
-    %tmp.77 = div %tmp.74 %tmp.76;
-    %tmp.78 = add %tmp.69 %tmp.77;
-    lputv %addme.5 %tmp.78;
+    %tmp.48 = getv ? :ranadd;
+    %tmp.50 = lgetv %ran.4;
+    %tmp.52 = lgetv %ran.4;
+    %tmp.53 = mul %tmp.50 %tmp.52;
+    %tmp.55 = getv ? :randiv;
+    %tmp.56 = div %tmp.53 %tmp.55;
+    %tmp.57 = add %tmp.48 %tmp.56;
+    lputv %addme.5 %tmp.57;
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\draw-orbits.mc" 103 9 ]
     [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_98_81_110_6_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_98_81_110_6_stop" ]
     %x.6 = local;
-    %tmp.80 = lgetv %xc;
-    %tmp.82 = lgetv %A;
-    %tmp.84 = lgetv %addme.5;
-    %tmp.85 = mul %tmp.82 %tmp.84;
-    %tmp.86 = getm $.Toybox.Math;
-    %tmp.87 = getv function %tmp.86 :cos;
-    %tmp.89 = lgetv %theta.3;
-    %tmp.90 = invoke %tmp.86 %tmp.87(%tmp.89);
-    %tmp.91 = mul %tmp.85 %tmp.90;
-    %tmp.92 = add %tmp.80 %tmp.91;
-    lputv %x.6 %tmp.92;
+    %tmp.59 = lgetv %xc;
+    %tmp.61 = lgetv %A;
+    %tmp.63 = lgetv %addme.5;
+    %tmp.64 = mul %tmp.61 %tmp.63;
+    %tmp.65 = getm $.Toybox.Math;
+    %tmp.66 = getv function %tmp.65 :cos;
+    %tmp.68 = lgetv %theta.3;
+    %tmp.69 = invoke %tmp.65 %tmp.66(%tmp.68);
+    %tmp.70 = mul %tmp.64 %tmp.69;
+    %tmp.71 = add %tmp.59 %tmp.70;
+    lputv %x.6 %tmp.71;
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\draw-orbits.mc" 104 9 ]
     [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_98_81_110_6_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_98_81_110_6_stop" ]
     %y.7 = local;
-    %tmp.94 = lgetv %yc;
-    %tmp.96 = lgetv %B;
-    %tmp.98 = lgetv %addme.5;
-    %tmp.99 = mul %tmp.96 %tmp.98;
-    %tmp.100 = getm $.Toybox.Math;
-    %tmp.101 = getv function %tmp.100 :sin;
-    %tmp.103 = lgetv %theta.3;
-    %tmp.104 = invoke %tmp.100 %tmp.101(%tmp.103);
-    %tmp.105 = mul %tmp.99 %tmp.104;
-    %tmp.106 = add %tmp.94 %tmp.105;
-    lputv %y.7 %tmp.106;
+    %tmp.73 = lgetv %yc;
+    %tmp.75 = lgetv %B;
+    %tmp.77 = lgetv %addme.5;
+    %tmp.78 = mul %tmp.75 %tmp.77;
+    %tmp.79 = getm $.Toybox.Math;
+    %tmp.80 = getv function %tmp.79 :sin;
+    %tmp.82 = lgetv %theta.3;
+    %tmp.83 = invoke %tmp.79 %tmp.80(%tmp.82);
+    %tmp.84 = mul %tmp.78 %tmp.83;
+    %tmp.85 = add %tmp.73 %tmp.84;
+    lputv %y.7 %tmp.85;
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\draw-orbits.mc" 108 9 ]
-    %tmp.107 = lgetv %myDc;
-    %tmp.108 = getv function %tmp.107 :drawPoint;
-    %tmp.110 = lgetv %x.6;
-    %tmp.112 = lgetv %y.7;
-    invoke %tmp.107 %tmp.108(%tmp.110, %tmp.112);
+    %tmp.86 = lgetv %myDc;
+    %tmp.87 = getv function %tmp.86 :drawPoint;
+    %tmp.89 = lgetv %x.6;
+    %tmp.91 = lgetv %y.7;
+    invoke %tmp.86 %tmp.87(%tmp.89, %tmp.91);
 E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_98_81_110_6_stop:
 E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_98_6_110_6_for_incr:
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\draw-orbits.mc" 98 ]
-    %tmp.113 = lgetv %theta.3;
-    %tmp.114 = getm $.Toybox.Math;
-    %tmp.115 = getv %tmp.114 :PI;
-    %tmp.116 = 2.0;
-    %tmp.117 = mul %tmp.115 %tmp.116;
-    %tmp.119 = lgetv %step.1;
-    %tmp.120 = div %tmp.117 %tmp.119;
-    %tmp.121 = add %tmp.113 %tmp.120;
-    lputv %theta.3 %tmp.121;
+    %tmp.92 = lgetv %theta.3;
+    %tmp.93 = getm $.Toybox.Math;
+    %tmp.94 = getv %tmp.93 :PI;
+    %tmp.95 = 2.0;
+    %tmp.96 = mul %tmp.94 %tmp.95;
+    %tmp.98 = lgetv %step.1;
+    %tmp.99 = div %tmp.96 %tmp.98;
+    %tmp.100 = add %tmp.92 %tmp.99;
+    lputv %theta.3 %tmp.100;
     goto @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_98_6_110_6_for_test;
 E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_98_6_110_6_for_end:
 E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_draw_orbits_mc_81_92_111_0_stop:
@@ -317,6 +298,6 @@ E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_dr
 [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\draw-orbits.mc"; @line = 1; ]
 <init> {
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\draw-orbits.mc" 7 4 ]
-    %tmp.122 = newd 0;
-    putv self :save_points %tmp.122;
+    %tmp.101 = newd 0;
+    putv self :save_points %tmp.101;
 }

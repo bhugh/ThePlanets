@@ -19,5 +19,11 @@
 <string id="orrzoom_values">0.25|0.5|1|2|4|8|16|32|64|128]</string>
 <string id="changeModeOption">Exit App|Curr. Sky, by hr|Curr. Sky, by day|Inner Solar-Top|Inner Solar-Side|Outer Solar-Top|Outer Solar-Side|Far Solar-Top|Far Solar-Side</string>
 <string id="changeModeOption_short">Exit|Sky(hr)|Sky(day)|InnerSS(top)|InnerSS(side)|OuterSS(top)|OuterSS(side)|FarSS(top)|FarSS(side)</string>
+<!-- var labelDisplayOption=[ "Always On", "Always Off", "Frequent Flash", "Infrequent Flash", "Random Flash"]; -->
+<string id="labelDisplayOption">Always On|Always Off|Frequent Flash|Infrequent Flash|Random Flash</string>
+<string id="refreshOption">10 per sec.|5 per sec.|4 per sec.| 3 per sec.|2 per sec.</string>
+<string id="thetaOption">[T]ime Step|[V]iewpoint</string>
+<string id="planetSizeOption">XX Small|Very Small|Small|Normal|Large|Very Large|XXLarge</string>
+<string id="planetsOption">All objects|Only trad. planets|Only Dwarf Planets/Asteroids</string>
 
 </resources>

@@ -207,7 +207,8 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
             , "BACK: Exit", "", ""]);
 
             //$.exiting_back_button_firstpress=false;
-            //$.change_mode_select_button_firstpress = false;   
+            //$.change_mode_select_button_firstpress = false;  
+            changeModeOption = null; 
             return; 
         }
 
@@ -552,6 +553,8 @@ function changeModes(previousMode){
 
 
         }
+
+        changeModeOption_short = null;
         
 
 }

@@ -59,11 +59,16 @@ var helpOption = [
 //var changeModeOption_nextMode=1;
 //var changeModeOption_size;
 //var changeModeOption;
-var orrZoomOption;
+var orrZoomOption,labelDisplayOption,planetsOption,planetSizeOption,thetaOption,refreshOption;
 
 function cleanUpSettingsOpt(){
     //changeModeOption = null;
     orrZoomOption = null;
+    labelDisplayOption = null;
+    planetsOption = null;
+    planetSizeOption = null;
+    thetaOption = null;
+    refreshOption = null;
 
 }
 
@@ -80,6 +85,9 @@ class SolarSystemSettingsMenu extends WatchUi.Menu2 {
         //changeModeOption = toArray(WatchUi.loadResource($.Rez.Strings.changeModeOption) as String,  "|", 0);
         //changeModeOption_size = changeModeOption.size();
         orrZoomOption = toArray(WatchUi.loadResource($.Rez.Strings.orrzoom) as String,  "|", 0);
+        labelDisplayOption = toArray(WatchUi.loadResource($.Rez.Strings.labelDisplayOption) as String,  "|", 0);
+        refreshOption = toArray(WatchUi.loadResource($.Rez.Strings.refreshOption) as String,  "|", 0);
+        thetaOption = toArray(WatchUi.loadResource($.Rez.Strings.thetaOption) as String,  "|", 0);planetSizeOption = toArray(WatchUi.loadResource($.Rez.Strings.planetSizeOption) as String,  "|", 0);planetsOption = toArray(WatchUi.loadResource($.Rez.Strings.planetsOption) as String,  "|", 0);
 
     }
 

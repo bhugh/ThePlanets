@@ -42,12 +42,12 @@ var orrZoomOption_values=[];
 var orrZoomOption_size = 10;
 var orrZoomOption_default = 2;
 
-var planetsOption=[
+/*var planetsOption=[
      "All objects" , 
      "Only trad. planets" , 
      "Only Dwarf Planets/Asteroids" , 
      
-];
+];*/
 
 var allPlanets = [];
 /*
@@ -67,11 +67,11 @@ var planetsOption_value = planetsOption_default; //use the NUMBER not the VALUES
 
 //TODO: User could tweak size of PLANETS & also radius of circle/overall scale
 var Options_Dict = {  };
-var labelDisplayOption=[ "Always On", "Always Off", "Frequent Flash", "Infrequent Flash", "Random Flash"];
+/*var labelDisplayOption=[ "Always On", "Always Off", "Frequent Flash", "Infrequent Flash", "Random Flash"]; */
 var labelDisplayOption_size = 5;
 var labelDisplayOption_default = 2;
 
-var refreshOption=[ 
+/*var refreshOption=[ 
     "10 per sec.",
     "5 per sec." ,
     "4 per sec.",
@@ -84,7 +84,8 @@ var refreshOption=[
     "1 per 3 sec.",
     "1 per min.",
     "1 per 5 min.", */
-    ];
+    /*]; */
+
 var refreshOption_values=[  //in HZ
         10.0,
         5.0,
@@ -141,16 +142,17 @@ var screen0MoveOption_size = 15;
 var screen0MoveOption_default = 6;
 */
 
-var thetaOption =[
+/*var thetaOption =[
     "[T]ime Step",
     "[V]iewpoint",   //1 min
     //"View Altitude",
     //"Both" 
-];
+];*/
+
 var thetaOption_size = 2;
 var thetaOption_default = 0;
 
-var planetSizeOption=[
+/*var planetSizeOption=[
      "XX Small" , 
      "Very Small" , 
      "Small" , 
@@ -158,7 +160,7 @@ var planetSizeOption=[
      "Large",      
      "Very Large",      
      "XXLarge",      
-];
+];*/
 
 var planetSizeOption_values=[
     0.5, 

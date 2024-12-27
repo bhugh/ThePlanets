@@ -796,124 +796,136 @@ E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_pl
     goto @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_planetsEclipticVSOP87a_pico_mc_212_4_217_4_if_end;
 E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_planetsEclipticVSOP87a_pico_mc_212_4_217_4_if_end:
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\planetsEclipticVSOP87a-pico.mc" 219 4 ]
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_planetsEclipticVSOP87a_pico_mc_219_4_219_47_if_stmt:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_planetsEclipticVSOP87a_pico_mc_219_4_219_77_if_stmt:
     %tmp.89 = lgetv %type;
     %tmp.91 = const :helio_xyz;
     %tmp.92 = eq %tmp.89 %tmp.91;
-    bf %tmp.92 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_planetsEclipticVSOP87a_pico_mc_219_4_219_47_if_end;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_planetsEclipticVSOP87a_pico_mc_219_4_219_47_if_true:
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_planetsEclipticVSOP87a_pico_mc_219_28_219_47_start:
+    bf %tmp.92 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_planetsEclipticVSOP87a_pico_mc_219_4_219_77_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_planetsEclipticVSOP87a_pico_mc_219_4_219_77_if_true:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_planetsEclipticVSOP87a_pico_mc_219_28_219_77_start:
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\planetsEclipticVSOP87a-pico.mc" 219 29 ]
     %tmp.93 = newa 3;
-    %tmp.95 = lgetv %tx.4;
-    %tmp.96 = dup %tmp.93;
-    %tmp.97 = aputv %tmp.96 0 %tmp.95;
+    %tmp.94 = lgetv %tx.4;
+    %tmp.95 = getv function %tmp.94 :toFloat;
+    %tmp.96 = invoke %tmp.94 %tmp.95();
+    %tmp.97 = dup %tmp.93;
+    %tmp.98 = aputv %tmp.97 0 %tmp.96;
     %tmp.99 = lgetv %ty.5;
-    %tmp.100 = dup %tmp.97;
-    %tmp.101 = aputv %tmp.100 1 %tmp.99;
-    %tmp.103 = lgetv %tz.6;
-    %tmp.104 = dup %tmp.101;
-    %tmp.105 = aputv %tmp.104 2 %tmp.103;
-    ret %tmp.105;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_planetsEclipticVSOP87a_pico_mc_219_28_219_47_stop:
-    goto @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_planetsEclipticVSOP87a_pico_mc_219_4_219_47_if_end;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_planetsEclipticVSOP87a_pico_mc_219_4_219_47_if_end:
+    %tmp.100 = getv function %tmp.99 :toFloat;
+    %tmp.101 = invoke %tmp.99 %tmp.100();
+    %tmp.102 = dup %tmp.98;
+    %tmp.103 = aputv %tmp.102 1 %tmp.101;
+    %tmp.104 = lgetv %tz.6;
+    %tmp.105 = getv function %tmp.104 :toFloat;
+    %tmp.106 = invoke %tmp.104 %tmp.105();
+    %tmp.107 = dup %tmp.103;
+    %tmp.108 = aputv %tmp.107 2 %tmp.106;
+    ret %tmp.108;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_planetsEclipticVSOP87a_pico_mc_219_28_219_77_stop:
+    goto @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_planetsEclipticVSOP87a_pico_mc_219_4_219_77_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_planetsEclipticVSOP87a_pico_mc_219_4_219_77_if_end:
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\planetsEclipticVSOP87a-pico.mc" 223 4 ]
     [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_planetsEclipticVSOP87a_pico_mc_197_59_240_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_planetsEclipticVSOP87a_pico_mc_197_59_240_4_stop" ]
     %r.7 = local;
-    %tmp.106 = getm $.Toybox.Math;
-    %tmp.107 = getv function %tmp.106 :sqrt;
-    %tmp.109 = lgetv %tx.4;
-    %tmp.111 = lgetv %tx.4;
-    %tmp.112 = mul %tmp.109 %tmp.111;
-    %tmp.114 = lgetv %ty.5;
-    %tmp.116 = lgetv %ty.5;
-    %tmp.117 = mul %tmp.114 %tmp.116;
-    %tmp.118 = add %tmp.112 %tmp.117;
-    %tmp.120 = lgetv %tz.6;
-    %tmp.122 = lgetv %tz.6;
-    %tmp.123 = mul %tmp.120 %tmp.122;
-    %tmp.124 = add %tmp.118 %tmp.123;
-    %tmp.125 = invoke %tmp.106 %tmp.107(%tmp.124);
-    lputv %r.7 %tmp.125;
+    %tmp.109 = getm $.Toybox.Math;
+    %tmp.110 = getv function %tmp.109 :sqrt;
+    %tmp.112 = lgetv %tx.4;
+    %tmp.114 = lgetv %tx.4;
+    %tmp.115 = mul %tmp.112 %tmp.114;
+    %tmp.117 = lgetv %ty.5;
+    %tmp.119 = lgetv %ty.5;
+    %tmp.120 = mul %tmp.117 %tmp.119;
+    %tmp.121 = add %tmp.115 %tmp.120;
+    %tmp.123 = lgetv %tz.6;
+    %tmp.125 = lgetv %tz.6;
+    %tmp.126 = mul %tmp.123 %tmp.125;
+    %tmp.127 = add %tmp.121 %tmp.126;
+    %tmp.128 = invoke %tmp.109 %tmp.110(%tmp.127);
+    lputv %r.7 %tmp.128;
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\planetsEclipticVSOP87a-pico.mc" 224 4 ]
     [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_planetsEclipticVSOP87a_pico_mc_197_59_240_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_planetsEclipticVSOP87a_pico_mc_197_59_240_4_stop" ]
     %l.8 = local;
-    %tmp.126 = getm $.Toybox.Math;
-    %tmp.127 = getv function %tmp.126 :atan2;
-    %tmp.129 = lgetv %ty.5;
-    %tmp.131 = lgetv %tx.4;
-    %tmp.132 = invoke %tmp.126 %tmp.127(%tmp.129, %tmp.131);
-    lputv %l.8 %tmp.132;
+    %tmp.129 = getm $.Toybox.Math;
+    %tmp.130 = getv function %tmp.129 :atan2;
+    %tmp.132 = lgetv %ty.5;
+    %tmp.134 = lgetv %tx.4;
+    %tmp.135 = invoke %tmp.129 %tmp.130(%tmp.132, %tmp.134);
+    lputv %l.8 %tmp.135;
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\planetsEclipticVSOP87a-pico.mc" 225 4 ]
     [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_planetsEclipticVSOP87a_pico_mc_197_59_240_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_planetsEclipticVSOP87a_pico_mc_197_59_240_4_stop" ]
     %t2.9 = local;
-    %tmp.133 = 0;
-    lputv %t2.9 %tmp.133;
+    %tmp.136 = 0;
+    lputv %t2.9 %tmp.136;
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\planetsEclipticVSOP87a-pico.mc" 226 4 ]
 E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_planetsEclipticVSOP87a_pico_mc_226_4_226_43_if_stmt:
-    %tmp.135 = lgetv %r.7;
-    %tmp.136 = 0;
-    %tmp.137 = ne %tmp.135 %tmp.136;
-    bf %tmp.137 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_planetsEclipticVSOP87a_pico_mc_226_4_226_43_if_end;
+    %tmp.138 = lgetv %r.7;
+    %tmp.139 = 0;
+    %tmp.140 = ne %tmp.138 %tmp.139;
+    bf %tmp.140 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_planetsEclipticVSOP87a_pico_mc_226_4_226_43_if_end;
 E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_planetsEclipticVSOP87a_pico_mc_226_4_226_43_if_true:
 E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_planetsEclipticVSOP87a_pico_mc_226_17_226_43_start:
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\planetsEclipticVSOP87a-pico.mc" 226 19 ]
-    %tmp.138 = getm $.Toybox.Math;
-    %tmp.139 = getv function %tmp.138 :acos;
-    %tmp.141 = lgetv %tz.6;
-    %tmp.143 = lgetv %r.7;
-    %tmp.144 = div %tmp.141 %tmp.143;
-    %tmp.145 = invoke %tmp.138 %tmp.139(%tmp.144);
-    lputv %t2.9 %tmp.145;
+    %tmp.141 = getm $.Toybox.Math;
+    %tmp.142 = getv function %tmp.141 :acos;
+    %tmp.144 = lgetv %tz.6;
+    %tmp.146 = lgetv %r.7;
+    %tmp.147 = div %tmp.144 %tmp.146;
+    %tmp.148 = invoke %tmp.141 %tmp.142(%tmp.147);
+    lputv %t2.9 %tmp.148;
 E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_planetsEclipticVSOP87a_pico_mc_226_17_226_43_stop:
     goto @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_planetsEclipticVSOP87a_pico_mc_226_4_226_43_if_end;
 E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_planetsEclipticVSOP87a_pico_mc_226_4_226_43_if_end:
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\planetsEclipticVSOP87a-pico.mc" 232 4 ]
 E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_planetsEclipticVSOP87a_pico_mc_232_4_232_35_if_stmt:
-    %tmp.147 = lgetv %l.8;
-    %tmp.148 = 0;
-    %tmp.149 = lt %tmp.147 %tmp.148;
-    bf %tmp.149 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_planetsEclipticVSOP87a_pico_mc_232_4_232_35_if_end;
+    %tmp.150 = lgetv %l.8;
+    %tmp.151 = 0;
+    %tmp.152 = lt %tmp.150 %tmp.151;
+    bf %tmp.152 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_planetsEclipticVSOP87a_pico_mc_232_4_232_35_if_end;
 E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_planetsEclipticVSOP87a_pico_mc_232_4_232_35_if_true:
 E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_planetsEclipticVSOP87a_pico_mc_232_15_232_35_start:
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\planetsEclipticVSOP87a-pico.mc" 232 17 ]
-    %tmp.150 = lgetv %l.8;
-    %tmp.151 = 2;
-    %tmp.152 = getm $.Toybox.Math;
-    %tmp.153 = getv %tmp.152 :PI;
-    %tmp.154 = mul %tmp.151 %tmp.153;
-    %tmp.155 = add %tmp.150 %tmp.154;
-    lputv %l.8 %tmp.155;
+    %tmp.153 = lgetv %l.8;
+    %tmp.154 = 2;
+    %tmp.155 = getm $.Toybox.Math;
+    %tmp.156 = getv %tmp.155 :PI;
+    %tmp.157 = mul %tmp.154 %tmp.156;
+    %tmp.158 = add %tmp.153 %tmp.157;
+    lputv %l.8 %tmp.158;
 E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_planetsEclipticVSOP87a_pico_mc_232_15_232_35_stop:
     goto @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_planetsEclipticVSOP87a_pico_mc_232_4_232_35_if_end;
 E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_planetsEclipticVSOP87a_pico_mc_232_4_232_35_if_end:
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\planetsEclipticVSOP87a-pico.mc" 233 4 ]
-    %tmp.156 = .5;
-    %tmp.157 = getm $.Toybox.Math;
-    %tmp.158 = getv %tmp.157 :PI;
-    %tmp.159 = mul %tmp.156 %tmp.158;
-    %tmp.161 = lgetv %t2.9;
-    %tmp.162 = sub %tmp.159 %tmp.161;
-    lputv %t2.9 %tmp.162;
+    %tmp.159 = .5;
+    %tmp.160 = getm $.Toybox.Math;
+    %tmp.161 = getv %tmp.160 :PI;
+    %tmp.162 = mul %tmp.159 %tmp.161;
+    %tmp.164 = lgetv %t2.9;
+    %tmp.165 = sub %tmp.162 %tmp.164;
+    lputv %t2.9 %tmp.165;
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\planetsEclipticVSOP87a-pico.mc" 239 4 ]
-    %tmp.163 = newa 3;
-    %tmp.164 = getm $.Toybox.Math;
-    %tmp.165 = getv function %tmp.164 :toDegrees;
-    %tmp.167 = lgetv %l.8;
-    %tmp.168 = invoke %tmp.164 %tmp.165(%tmp.167);
-    %tmp.169 = dup %tmp.163;
-    %tmp.170 = aputv %tmp.169 0 %tmp.168;
-    %tmp.171 = getm $.Toybox.Math;
-    %tmp.172 = getv function %tmp.171 :toDegrees;
-    %tmp.174 = lgetv %t2.9;
-    %tmp.175 = invoke %tmp.171 %tmp.172(%tmp.174);
-    %tmp.176 = dup %tmp.170;
-    %tmp.177 = aputv %tmp.176 1 %tmp.175;
-    %tmp.179 = lgetv %r.7;
-    %tmp.180 = dup %tmp.177;
-    %tmp.181 = aputv %tmp.180 2 %tmp.179;
-    ret %tmp.181;
+    %tmp.166 = newa 3;
+    %tmp.167 = getm $.Toybox.Math;
+    %tmp.168 = getv function %tmp.167 :toDegrees;
+    %tmp.170 = lgetv %l.8;
+    %tmp.171 = invoke %tmp.167 %tmp.168(%tmp.170);
+    %tmp.172 = getv function %tmp.171 :toFloat;
+    %tmp.173 = invoke %tmp.171 %tmp.172();
+    %tmp.174 = dup %tmp.166;
+    %tmp.175 = aputv %tmp.174 0 %tmp.173;
+    %tmp.176 = getm $.Toybox.Math;
+    %tmp.177 = getv function %tmp.176 :toDegrees;
+    %tmp.179 = lgetv %t2.9;
+    %tmp.180 = invoke %tmp.176 %tmp.177(%tmp.179);
+    %tmp.181 = getv function %tmp.180 :toFloat;
+    %tmp.182 = invoke %tmp.180 %tmp.181();
+    %tmp.183 = dup %tmp.175;
+    %tmp.184 = aputv %tmp.183 1 %tmp.182;
+    %tmp.185 = lgetv %r.7;
+    %tmp.186 = getv function %tmp.185 :toFloat;
+    %tmp.187 = invoke %tmp.185 %tmp.186();
+    %tmp.188 = dup %tmp.184;
+    %tmp.189 = aputv %tmp.188 2 %tmp.187;
+    ret %tmp.189;
 E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_planetsEclipticVSOP87a_pico_mc_197_59_240_4_stop:
 }
 [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\planetsEclipticVSOP87a-pico.mc"; @line = 243; ]

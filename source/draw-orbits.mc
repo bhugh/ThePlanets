@@ -92,7 +92,7 @@ function drawFuzzyEllipse (myDc, swidth, sheight, xc, yc, A as Lang.float, B as 
       //if (step<25 && A > 3  && type == :high) { step = 25; }
 
       if (step<25 && A > 3) { step = 25; } //as A gets small sometimes it doesn't drawn enough  asteroids to be convincing
-      System.println("FuzzyEllipse Step: " + step + " start" + start + "A:" + A + " B:" + B);
+      //System.println("FuzzyEllipse Step: " + step + " start" + start + "A:" + A + " B:" + B);
       //if (step>200) {step=200;}
 
       for (var theta = start; theta < 2 * Math.PI;theta += Math.PI * 2.0 / step) {
