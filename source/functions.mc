@@ -20,6 +20,9 @@ import Toybox.Lang;
 
     var fc = 0.0000001; //correction for Math.floor to avoid like 49.999999999
 
+    var FN_obliq_deg as Lang.float = 23.4392911;
+    var FN_obliq_save_time_add_hrs = null;
+
     function normalize(degrees) {  
         /*
         set degrees always between 0 - 360
@@ -172,6 +175,38 @@ import Toybox.Lang;
         
     }
 
+    //CACHED versions of the obliquity, that only change every 500 yrs.  Bec Obliquity changes so slowly
+    function calc_obliq_deg(nw_info, nw)  as Lang.float {
+
+            return calc_obliq1_deg(nw_info, time_add_hrs, nw.timeZoneOffset, nw.dst);
+
+            /*var ret_deg as Lang.float = 23.4392911;
+            if (FN_obliq_deg == null || FN_obliq_save_time_add_hrs == null || FN_obliq_deg == 0 || (FN_obliq_save_time_add_hrs - time_add_hrs).abs() > 4380000 ) // = 500 yrs, the value of obliq barely changes year per year
+                { ret_deg= obliquityEcliptic_deg (nw_info.year, nw_info.month, nw_info.day + time_add_hrs, nw_info.hour, nw_info.min, nw.timeZoneOffset/3600.0, nw.dst);
+            else {
+                ret_deg = curr_val_deg;
+            }
+            FN_obliq_deg = ret_deg;
+            FN_obliq_save_time_add_hrs = time_add_hrs;
+            return ret_deg;
+            */
+
+    }
+
+    function calc_obliq1_deg(nw_info, ta_hrs, tZO_sec, dst)  as Lang.float {
+
+            var ret_deg= 23.439291;
+            if (FN_obliq_deg == null || FN_obliq_save_time_add_hrs == null || FN_obliq_deg == 0 || (FN_obliq_save_time_add_hrs - ta_hrs).abs() > 4380000 ) // = 500 yrs, the value of obliq barely changes year per year
+                { ret_deg= obliquityEcliptic_deg (nw_info.year, nw_info.month, nw_info.day + time_add_hrs, nw_info.hour, nw_info.min, tZO_sec/3600.0, dst);
+            } else {
+                ret_deg = FN_obliq_deg;
+            }
+            FN_obliq_deg = ret_deg;
+            FN_obliq_save_time_add_hrs = time_add_hrs;
+            return ret_deg;
+
+    }
+
      function rectangular2spherical(x, y, z) {
         /*Transform rectangular to spherical projection.
         
@@ -268,6 +303,8 @@ import Toybox.Lang;
         //    t = ecliptic2equatorial(x_geoc, y_geoc, z_geoc, 23.4);
         //    return rectangular2spherical(t[0],t[1],t[2]);
     }
+
+
 //}
 
 /*

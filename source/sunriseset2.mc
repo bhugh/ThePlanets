@@ -246,8 +246,11 @@ function getRiseSetfromDate_hr(now_info, timeZoneOffset_sec, dst, time_add_hrs, 
 var jd = julianDate (now_info.year, now_info.month, now_info.day,now_info.hour + time_add_hrs, now_info.min, timeZoneOffset_sec/3600f, dst);
 
 //deBug("JD: ", [jd, now_info.year, now_info.month, now_info.day,now_info.hour + time_add_hrs, now_info.min, timeZoneOffset_sec, dst, time_add_hrs]);
-var obliq_rad= obliquityEcliptic_rad (now_info.year, now_info.month, now_info.day + time_add_hrs, now_info.hour, now_info.min, timeZoneOffset_sec/3600.0, dst);
-var obliq_deg = Math.toDegrees(obliq_rad);
+//var obliq_rad= obliquityEcliptic_rad (now_info.year, now_info.month, now_info.day + time_add_hrs, now_info.hour, now_info.min, timeZoneOffset_sec/3600.0, dst);
+//var obliq_deg = Math.toDegrees(obliq_rad);
+
+var obliq_deg = calc_obliq1_deg (now_info, time_add_hrs, timeZoneOffset_sec, dst);
+var obliq_rad = Math.toRadians(obliq_deg);
 
 //deBug("long(MEEUS),UT,TZ,dst", [lon_deg, lat_deg, timeZoneOffset_sec/3600, dst, time_add_hrs, time_add_hrs/24.0f, jd]);
 

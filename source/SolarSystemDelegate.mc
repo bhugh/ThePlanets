@@ -28,6 +28,7 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
         $.buttonPresses++;
         $.timeWasAdded=true;
         $.LORR_show_horizon_line = false;
+        $.last_button_time_sec = $.time_now.value();
         //$.exiting_back_button_firstpress=false;
         if (buttonPresses == 1) {return true;} //1st buttonpress just gets out of intro titles
 
@@ -119,6 +120,7 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
         $.buttonPresses++;
         $.timeWasAdded=true;
         $.LORR_show_horizon_line = false;
+        $.last_button_time_sec = $.time_now.value();
         $.change_mode_select_button_firstpress = false;
         if (buttonPresses == 1) {return true;} //1st buttonpress just gets out of intro titles
 
@@ -142,7 +144,7 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
 
             }
             solarSystemView_class.sendMessage(1000000, ["==THE PLANETS==", "SELECT: Next mode"
-            , "BACK: Exit", "", ""]);
+            , "BACK: Exit", "or: UP/DOWN", ""]);
 
             $.EBBF_next_mode = ($.view_mode + 1) % $.num_view_modes; 
             if ($.EBBF_next_mode ==0) {
@@ -181,6 +183,7 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
 
         //System.println("onNextPage..." + mult + " " + type);
         $.buttonPresses++; 
+        $.last_button_time_sec = $.time_now.value();
 
         if ($.exiting_back_button_firstpress) {
 
@@ -199,12 +202,12 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
             if ($.EBBF_next_mode > changeModeOption_size) {$.EBBF_next_mode = changeModeOption_size;}
 
             var nm = changeModeOption[$.EBBF_next_mode];
-            if ($.EBBF_next_mode == view_mode) {nm = "Current mode";}
-            if ($.EBBF_next_mode == view_mode + 1) {nm = "Next (" + nm + ")";}
+            if ($.EBBF_next_mode == view_mode) {nm = "Current (" + nm.substring(0,6) + "...)";}
+            if ($.EBBF_next_mode == view_mode + 1) {nm = "Next (" + nm.substring(0,6) + "...)";}
 
 
             solarSystemView_class.sendMessage(1000000, ["==THE PLANETS==", "SEL: " + nm
-            , "BACK: Exit", "", ""]);
+            , "BACK: Exit", "or: UP/DOWN", ""]);
 
             //$.exiting_back_button_firstpress=false;
             //$.change_mode_select_button_firstpress = false;  
@@ -353,6 +356,7 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
         if (keyvent == 7) {
 
             $.buttonPresses++;
+            $.last_button_time_sec = $.time_now.value();
             $.exiting_back_button_firstpress=false;
             $.change_mode_select_button_firstpress = false;
             settings_view = new $.SolarSystemSettingsView();
@@ -383,8 +387,8 @@ function changeModes(previousMode){
         $.Options_Dict[orrZoomOption_enum] = orrZoomOption_default;
         //var UUD = "Use Up/Down/";
         //var SS="Start/Stop";
-        var UUD = "(Up/Down/";
-        var SS="Start)";
+        var UUD = "(Use Up/";
+        var SS = "Down/Start)";
 
         var changeModeOption_short = toArray(WatchUi.loadResource($.Rez.Strings.changeModeOption_short) as String,  "|", 0);
 

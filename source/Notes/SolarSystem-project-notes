@@ -2,7 +2,14 @@ NEW TODO:
 
  - Screen doesn't refresh on BACK button
  - |STOP| short msg when back==stop
- - 
+ - X Stop running after X calculations or seconds
+ - X Update intro msgs to reflect new navigation
+ - Stop showing intro msgs & big screen titles after X starts of the program
+ - Keep horizon line if time step is by exactly 24 hr until it isn't
+ - 1st button press doesn't do anything, even if the initial banners are gone
+ - mode 3 & 4 ? doesn't show orbits for some reason
+ - Add option to 'flip' angle up or down instead of just down
+
 
 
 Remove:

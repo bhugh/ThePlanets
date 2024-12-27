@@ -20,6 +20,9 @@ var the_rad = 0; //angles to rotate, theta & gamma
 var ga_rad = 0 ;
 var LORR_orient_horizon = true;
 var LORR_show_horizon_line = true;
+var LORR_oh_save_time_add_hrs = 0.158348;
+var LORR_oh_save_ga_rad = 25.158348;
+var obliq_deg;
 var asteroidsRendered = false;
 
 var save_local_animation_count;
@@ -55,7 +58,7 @@ class SolarSystemBaseView extends WatchUi.View {
 
         //speeds_index = 19; //inited in app.mc where the var is located
         view_mode = 0;
-        Math.srand(952310);
+        Math.srand(start_time_sec);
         
 
         
@@ -471,6 +474,7 @@ class SolarSystemBaseView extends WatchUi.View {
         
 
         $.now = System.getClockTime(); //for testing
+
         /*
         for (var i = 0; i< 0.4; i+=0.03) {
             //System.println("i: " + i + " " + Math.sin(i));
@@ -546,6 +550,14 @@ class SolarSystemBaseView extends WatchUi.View {
 
         $.run_oneTime = false;
         $.time_now = Time.now();
+        
+        //In case a button hasn't been pressed in X seconds, stop.  So as to preserve battery.
+        if ($.time_now.value() > $.last_button_time_sec + 300 ) {
+        //if ($.time_now.value() > $.last_button_time_sec + 30 ) {  //for testing
+            $.started = false;
+            $.run_oneTime = true;
+        }
+
         //$.time_now = now; //for testing
         $.now_info = Time.Gregorian.info($.time_now, Time.FORMAT_SHORT);
    
@@ -774,7 +786,7 @@ class SolarSystemBaseView extends WatchUi.View {
         */
     }
 
-    var r, whh_sun, vspo_rep, font, srs, sunrise_events, sunrise_events2, pp, pp2, pp_sun, moon_info, moon_info2, moon_info3, moon_info4, elp82, sun_info3,keys, now, sid, x as Lang.float, y as Lang.float, y0 as Lang.float,  z0 as Lang.float, x2 as Lang.float, y2 as Lang.float, obliq_deg as Lang.float;
+    var r, whh_sun, vspo_rep, font, srs, sunrise_events, sunrise_events2, pp, pp2, pp_sun, moon_info, moon_info2, moon_info3, moon_info4, elp82, sun_info3,keys, now, sid, x as Lang.float, y as Lang.float, y0 as Lang.float,  z0 as Lang.float, x2 as Lang.float, y2 as Lang.float;
     var ang_deg as Lang.float, ang_rad as Lang.float, size as Lang.float, mult as Lang.float, sub, key, key1, textHeight, kys, add_duration as Lang.float, col;
     var sun_adj_deg as Lang.float, hour_adj_deg as Lang.float,final_adj_deg as Lang.float, final_adj_rad as Lang.float, noon_adj_hrs as Lang.float, noon_adj_deg as Lang.float, moon_age_deg as Lang.float;
     var input, LORR_horizon_line_drawn as Lang.boolean;
@@ -982,8 +994,11 @@ class SolarSystemBaseView extends WatchUi.View {
         //setPosition(Position.getInfo());
         //xc = dc.getWidth() / 2;
         //yc = dc.getHeight() / 2;
+        //if (obliq_deg == 0 || (obliq_calc_time_hr - time_add_hrs).abs() > 4380000 ) {
 
-        obliq_deg= obliquityEcliptic_deg ($.now_info.year, $.now_info.month, $.now_info.day + time_add_hrs, $.now_info.hour, $.now_info.min, $.now.timeZoneOffset/3600, $.now.dst);
+        //obliq_deg= obliquityEcliptic_deg ($.now_info.year, $.now_info.month, $.now_info.day + time_add_hrs, $.now_info.hour, $.now_info.min, $.now.timeZoneOffset/3600, $.now.dst);
+
+        obliq_deg= calc_obliq_deg ($.now_info, $.now);
    
         r = (xc < yc) ? xc : yc;
         r = .85 * r * eclipticSizeFactor; //was .9 but edge of screen a bit crowded???
@@ -1344,22 +1359,36 @@ class SolarSystemBaseView extends WatchUi.View {
 
 
         
-        if (LORR_orient_horizon) {//tells large_orrery to orient the graph so earth's horizon is horizontal & meridian is UP in the viewpoint.  which we do only the first time LORR is run.
+        /*if (LORR_orient_horizon || 
+            ((LORR_oh_save_time_add_hrs - time_add_hrs).toNumber()%24 == 0 ) 
+              && LORR_oh_save_ga_rad == ga_rad) {*/
+
+        if (LORR_orient_horizon)
+        {
+            //tells large_orrery to orient the graph so earth's horizon is horizontal & meridian is UP in the viewpoint.  which we do only the first time LORR is run.
 
             pp = planetCoord ($.now_info, $.now.timeZoneOffset, $.now.dst, 0, :ecliptic_latlon, ["Sun"]);
+            //LORR_oh_save_time_add_hrs = time_add_hrs;
 
             
 
             sunriseHelper();  //gets the orientation/angle toward sun @ local noon, then adds in the current hr of the day so we can use it to orient the entire graph so that UP is the direction of the local curren meridian when they first look at it.
             ga_rad = Math.toRadians(sun_adj_deg-hour_adj_deg) ;
             sunrise_events2=null;
+            //LORR_oh_save_ga_rad = ga_rad;
             //ga_rad = 0;
 
             //System.println("sun_adj_deg" + sun_adj_deg + " hor" + hour_adj_deg + " ga " + ga_rad + " pp " + pp["Sun"]) ;
 
+            sunrise_cache.empty();
+
             
-        
+         
         }
+        // else {
+        //    LORR_oh_save_time_add_hrs = 0.158348;// some random #
+        //    LORR_oh_save_ga_rad = 25.158348;
+        //}
         LORR_orient_horizon = false;
 
          //th += Math.PI/240;
@@ -1368,7 +1397,7 @@ class SolarSystemBaseView extends WatchUi.View {
         //don't need these caches in the Orrery view & we are having out of memory
         //errors at times here....
         //geo_cache.empty();
-        sunrise_cache.empty();
+        
         pp= null;
 
         //dc.setColor(Graphics.COLOR_TRANSPARENT, Graphics.COLOR_BLACK);
@@ -1419,8 +1448,8 @@ class SolarSystemBaseView extends WatchUi.View {
              //zoom_whh = ["Sun","Mercury","Venus","Earth", "Mars", "AsteroidA", "AsteroidB", "Ceres","Jupiter","Saturn","Uranus","Neptune"]; 
              //zoom_whh = zoomy_whh;
              zoom_whh = (aP.slice(0,4));
-             zoom_whh.addAll(aP.slice(5,12)) ;
-             zoom_whh.add (aP[13]);
+             zoom_whh.addAll(aP.slice(5,14)) ;
+             //zoom_whh.add (aP[13]);
              //deBug ("www - zoomy_whh", zoom_whh);
              //deBug("www - zoom_whh slice 0-4, 5-12, 13 - source copy", aP);
              //deBug("www - zoom_whh slice 0-8 source", allPlanets);
@@ -1456,7 +1485,9 @@ class SolarSystemBaseView extends WatchUi.View {
 
         //System.println( "NOw: " + $.now_info + " " +$.now.timeZoneOffset + " " +$.now.dst + " " +time_add_hrs);
 
-        var oblecl=  obliquityEcliptic_rad ($.now_info.year, $.now_info.month, $.now_info.day, $.now_info.hour + time_add_hrs, 0, 0, 0);
+     
+
+        
 
         //pp=g.planets();
         //vspo87a = new vsop87a_pico();
@@ -1611,6 +1642,11 @@ class SolarSystemBaseView extends WatchUi.View {
         //System.println(" ga th " + ga_rad + " " + the_rad);
         
         if (ga_rad.abs()>.001 || the_rad.abs() > 0.001) {
+
+            //var oblecl=  obliquityEcliptic_rad ($.now_info.year, $.now_info.month, $.now_info.day, $.now_info.hour + time_add_hrs, 0, 0, 0);
+
+            var oblecl = Math.toRadians(calc_obliq_deg ($.now_info, $.now));
+            
             var mcob = Math.cos(oblecl);
             var msob = Math.sin(oblecl);
             var mcgr = Math.cos(ga_rad);
@@ -2096,35 +2132,51 @@ class SolarSystemBaseView extends WatchUi.View {
     //shows msg & returns 0 = nothing displayed, 1 = normal msg displayed , 2 = special introductory msg displayed
     function showMessage(dc, jstify) {
         var msg = message;
-        if ($.buttonPresses < 1 && $.Options_Dict[helpBanners_enum]) {
-            //making all timings 1/2 the rate because it is so much
-            //slower on real watch vs simulator.  But needs a better solution involving actual clock time probably
-            //$.Options_Dict[ret]
-            if (startTime == null) {startTime = $.time_now.value();}
-            //System.println("showM " + $.time_now.value() + " " + $.time_now.value()/(3) + " " + mod(75,7) + " : " + $.time_now.value()/(3)%7 + " :: " + mod($.time_now.value()/(3),7.0).toNumber() );
-            var tp = "THE PLANETS";
-            switch ((($.time_now.value()-startTime)/3)%7){
-                case 0:                
-                case 6:                
-                default:
-                    deBug("msg", tp);
-                    msg = [$.time_now.value() + 1,tp.substring(0,3),tp.substring(4,tp.length()), "", "Press *UP* or *SWIPE*"];
-                    break;                
-                case 1:                
-                    msg = [$.time_now.value() + 1, tp, "UP/DOWN/SWIPE:","Time Forward", "/Back"];
-                    break;
-                case 2:                
-                    msg = [$.time_now.value() + 1,tp, "UP/DOWN/SWIPE:","OR: Time Faster", "/Slower"];
-                    break;                    
-                case 3:
-                    msg = [$.time_now.value() + 1,tp ,"SELECT/TAP:","START Time if stopped", "OR: Next Mode"];   
-                    break;                 
-                case 4:                
-                    msg = [$.time_now.value() + 1, tp,"BACK:","STOP Time if started", "OR: Prev Mode/Exit"];   
-                    break;                     
-                case 5:                
-                    msg = [$.time_now.value() + 1, tp,"MENU:","Change Options", "or Exit"];   
-                    break;                         
+        if ($.buttonPresses < 1) {
+            var intro_msg = toArray(WatchUi.loadResource($.Rez.Strings.introMessages) as String,  "|", 0);
+            var tp = intro_msg[0];
+            if ($.Options_Dict[helpBanners_enum]) {
+                //making all timings 1/2 the rate because it is so much
+                //slower on real watch vs simulator.  But needs a better solution involving actual clock time probably
+                //$.Options_Dict[ret]
+                if (startTime == null) {startTime = $.time_now.value();}
+                //System.println("showM " + $.time_now.value() + " " + $.time_now.value()/(3) + " " + mod(75,7) + " : " + $.time_now.value()/(3)%7 + " :: " + mod($.time_now.value()/(3),7.0).toNumber() );
+
+                //DISPLAY ALL THE INTRO MSGS - which are in strings.xml resource introMessages
+                
+                var switcher = ((($.time_now.value()-startTime)/3)%7);
+                if (switcher == 6 || switcher == 0) {msg = [$.time_now.value() + 1," ", tp.substring(0,3),tp.substring(4,tp.length()), " ", " "];} 
+                else {
+                    msg = [$.time_now.value() + 1, tp," ", intro_msg[(switcher - 1) *3  +1 ],intro_msg[(switcher - 1) *3 +2], intro_msg[(switcher - 1) *3 +3]];
+                }
+                
+                /*
+                switch ((($.time_now.value()-startTime)/3)%7){
+                    case 0:                
+                    case 6:                
+                    default:
+                        deBug("msg", tp);
+                        msg = [$.time_now.value() + 1,tp.substring(0,3),tp.substring(4,tp.length()), "", ""];
+                        break;                
+                    case 1:                
+                        msg = [$.time_now.value() + 1, tp, intro_msg[1],intro_msg[2], intro_msg[3]];
+                        break;
+                    case 2:                
+                        msg = [$.time_now.value() + 1,tp, "UP/DOWN/SWIPE:","OR: Time Faster", "/Slower"];
+                        break;                    
+                    case 3:
+                        msg = [$.time_now.value() + 1,tp ,"SELECT/TAP:","START Time if stopped", "OR: Next Mode"];   
+                        break;                 
+                    case 4:                
+                        msg = [$.time_now.value() + 1, tp,"BACK:","STOP Time if started", "OR: Prev Mode/Exit"];   
+                        break;                     
+                    case 5:                
+                        msg = [$.time_now.value() + 1, tp,"MENU:","Change Options", "or Exit"];   
+                        break;                         
+                }
+                */
+            } else if ( ($.time_now.value() - $.start_time_sec) < 3 ) {
+                msg = [$.time_now.value() + 1," ", tp.substring(0,3),tp.substring(4,tp.length()), " ", " "];    
             }
         }
 
@@ -2199,15 +2251,25 @@ class SolarSystemBaseView extends WatchUi.View {
                 dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);
 
                 dc.drawText(xstart, ystart + i*textHeight, font, msg[i+1], jstify);
-
-                if (msg[i+1].equals("PLANETS") || msg[i+1].equals("or Exit")) {
+                //deBug("drawing0", [i, msg,[i], msg[i+1]]);
+                if (i>0 && msg[i]!=null && ( msg[i].equals("PLANETS") || msg[i].equals("THE PLANETS"))) {
                     if (_planetIcon != null) {
-                        dc.setClip (0, ystart+2,  2*xc,  2* textHeight -2  );
+                        //deBug("drawing", [msg[i], msg[i+1], msg[i-1]]);
+                        
                         var hgt = _planetIcon.getHeight();
+                        var wdt = _planetIcon.getWidth();
                         //System.println("Hgt " + hgt);
-                        var ht = (2*textHeight-2 - hgt)/2.0;//40=height of icon
+                        //var ht = (2*textHeight-2 - hgt)/2.0;//40=height of icon
+                        var ht =i*textHeight;//40=height of icon
+                        //var xtart = xc;
+                        /*if (msg[i].equals("THE PLANETS")) {
+                            ht = 0;
+                            //xtart = 0.2*xc;
+                        }*/
                         if (ht<0) {ht=0;}
-                        dc.drawBitmap(5, ht + ystart +2, _planetIcon);
+                        dc.setClip (0, ystart+2 + i*textHeight,  2*xc,  2* textHeight -2  );
+                        dc.drawBitmap(xstart - wdt/2.0, ht + ystart +2, _planetIcon);
+                        //deBug("drawing", [xstart - wdt/2.0, ht + ystart + 2]);
                         dc.clearClip();
                     }
                 }
@@ -2258,7 +2320,7 @@ class SolarSystemBaseView extends WatchUi.View {
         if (type ==:orrery) {
             ycent1 = 0.1*textHeight;  //date & time top center
             ycent3 = ycent1 + textHeight; //time below date
-            ycent2 = 2* ycent - textHeight*1.3; //speed or stopped lower center
+            ycent2 = 2* ycent - textHeight*1.5; //speed or stopped lower center
             
             if (screenShape == System.SCREEN_SHAPE_RECTANGLE)
             {

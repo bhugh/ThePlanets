@@ -44,6 +44,8 @@ var speeds_index; //the currently used speed that will be added to TIME @ each u
 //var screen0Move_index = 33;
 
 var started = false; //whether to move forward on an update, ie STOPPED or STARTED moving
+var start_time_sec = 0;
+var last_button_time_sec = 0;
 var save_started = null;
 var reset_date_stop = false; //set TRUE when reset date is called, which STOPS time.
 var hz = 5.0; //updates per second (Requested from OS)
@@ -89,6 +91,7 @@ class SolarSystemBaseApp extends Application.AppBase {
         $.now = System.getClockTime();
         $.time_now = Time.now();
         $.now_info = Time.Gregorian.info($.time_now, Time.FORMAT_SHORT);
+        $.start_time_sec = $.time_now.value(); //start time of app in unix seconds
 
         sunrise_cache = new sunRiseSet_cache2();        
         System.println("inited...");
