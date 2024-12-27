@@ -232,6 +232,7 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
             //deBug("HI MOM!", []);
             if (started)  {
                 $.speeds_index +=  mult;
+                //$.speedWasChanged = true; //skipping reset on speed change, for now
                 if ($.speeds_index>= $.speeds.size()) {$.speeds_index = $.speeds.size()-1;}
                 if ($.speeds_index<0)  {$.speeds_index=0; }
 
@@ -241,10 +242,8 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
                     if ($.speeds_index <47 && $.speeds_index >34) {
                         $.speeds_index = type == :next ? 34 : 47;}        
                     else if ($.speeds_index <34 && $.speeds_index >21) {
-                        $.speeds_index = type == :next ? 21 : 34;}    
-                $.speedWasChanged = true;
-                                               
-            }
+                        $.speeds_index = type == :next ? 21 : 34;}                                                                     
+                }
             } else {
                 $.time_add_hrs += mult *$.speeds[$.speeds_index];
                 $.timeWasAdded=true;

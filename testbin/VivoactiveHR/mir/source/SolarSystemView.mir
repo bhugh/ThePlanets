@@ -4126,7 +4126,7 @@ E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_So
     function init_findSpot() {
 E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemView_mc_1929_28_1932_4_start:
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemView.mc" 1931 8 ]
-        %tmp.1 = newba 16;
+        %tmp.1 = newa 16;
         %tmp.2 = 0;
         %tmp.3 = dup %tmp.1;
         %tmp.4 = aputv %tmp.3 0 %tmp.2;
@@ -4295,7 +4295,7 @@ E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_So
         [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemView_mc_1955_37_1969_8_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemView_mc_1955_37_1969_8_stop" ]
         %tmp.2 = local;
         %tmp.17 = getv ? :sr_y;
-        %tmp.15 = newba %tmp.17;
+        %tmp.15 = newa %tmp.17;
         lputv %tmp.2 %tmp.15;
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemView.mc" 1958 12 ]
         for @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemView_mc_1958_12_1967_12_for_test @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemView_mc_1958_12_1967_12_for_incr @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemView_mc_1958_12_1967_12_for_end;
