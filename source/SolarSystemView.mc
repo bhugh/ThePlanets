@@ -3587,6 +3587,7 @@ class SolarSystemBaseView extends WatchUi.View {
         //return;
 
         //in case MANUAL POSITION set in settings
+        deBug("SIP 1", null);
         
         if ( setPositionFromManual() ) {return;}        
 
@@ -3670,7 +3671,7 @@ class SolarSystemBaseView extends WatchUi.View {
         }
         
 
-        //System.println ("sc1a:");
+        System.println ("sc1a:");
         //In case position info not available, we'll use either the previously obtained value OR the geog center of 48 US states as default.
         //|| info.accuracy == Pos.QUALITY_NOT_AVAILABLE 
 
