@@ -61,13 +61,13 @@ var time_add_hrs = 0.0; //cumulation of all time to be added to time.NOW when a 
 
 var show_intvl = 0; //whether or not to show current SPEED on display
 var animSinceModeChange = 0; //used to tell when to blank screen etc.
-var solarSystemView_class; //saved instance of main class 
+var solarSystemView_class as SolarSystemBaseView?; //saved instance of main class 
 
 //enum {exitApp, resetDate, orrZoomOption, thetaOption, labelDisplayOption, refreshOption, screen0MoveOption, planetSizeOption, planetsOption, helpOption, helpBanners}
 
 //enum {EXIT_APP, RESET_DATE, ORR_ZOOM, THETA, LABEL_DISPLAY, REFRESH, PLANET_SIZE, PLANETS, HELP, HELP_BANNERS}
 
-enum {changeMode_enum, resetDate_enum, orrZoomOption_enum, thetaOption_enum, labelDisplayOption_enum, refreshOption_enum, latOption_enum, lonOption_enum, planetSizeOption_enum, planetsOption_enum, helpOption_enum, helpBanners_enum, lastLoc_enum} //screen0MoveOption_enum, 
+enum {changeMode_enum, resetDate_enum, orrZoomOption_enum, thetaOption_enum, labelDisplayOption_enum, refreshOption_enum, gpsOption_enum, latOption_enum, lonOption_enum, planetSizeOption_enum, planetsOption_enum, helpOption_enum, helpBanners_enum, lastLoc_enum} //screen0MoveOption_enum, 
 
 
 class SolarSystemBaseApp extends Application.AppBase {
@@ -76,16 +76,16 @@ class SolarSystemBaseApp extends Application.AppBase {
     //var view_mode = [ECLIPTIC_STATIC, ECLIPTIC_MOVE, SMALL_ORRERY, MED_ORRERY, LARGE_ORRERY];
 
 
-    private var _positionView as SolarSystemBaseView;
-    private var _positionDelegate as SolarSystemBaseDelegate;
+    private var _solarSystemView as SolarSystemBaseView;
+    private var _solarSystemDelegate as SolarSystemBaseDelegate;
 
     //! Constructor
     public function initialize() {
         AppBase.initialize();
         System.println("init starting...");
-        _positionView = new $.SolarSystemBaseView();
-        solarSystemView_class = _positionView;
-        _positionDelegate = new $.SolarSystemBaseDelegate(_positionView);
+        _solarSystemView = new $.SolarSystemBaseView();
+        solarSystemView_class = _solarSystemView;
+        _solarSystemDelegate = new $.SolarSystemBaseDelegate(_solarSystemView);
         //geo_cache = new Geocentric_cache();
         readStorageValues();
         $.now = System.getClockTime();
@@ -122,7 +122,7 @@ class SolarSystemBaseApp extends Application.AppBase {
             +  $.now.hour.format("%02d") + ":" +
             $.now.min.format("%02d") + ":" +
             $.now.sec.format("%02d") + " " + now_info.year + "-" + now_info.month + "-" + now_info.day);
-        _positionView.startAnimationTimer($.hz);
+        _solarSystemView.startAnimationTimer($.hz);
         
 
         //readStorageValues();
@@ -136,11 +136,11 @@ class SolarSystemBaseApp extends Application.AppBase {
             +  $.now.hour.format("%02d") + ":" +
             $.now.min.format("%02d") + ":" +
             $.now.sec.format("%02d"));
-        _positionView.stopAnimationTimer();
+        _solarSystemView.stopAnimationTimer();
         started = false;
         Position.enableLocationEvents(Position.LOCATION_DISABLE, method(:onPosition));
-        _positionView = null;
-        _positionDelegate = null;
+        _solarSystemView = null;
+        _solarSystemDelegate = null;
         settings_view = null;
         settings_delegate = null;
 
@@ -150,10 +150,7 @@ class SolarSystemBaseApp extends Application.AppBase {
     //! @param info Position information
     public function onPosition(info as Info) as Void {
         System.println("onPosition... count: " + $.count);
-        _positionView.setPosition();
-
-        //We only need this ONCE, not continuously, so . . . 
-        Position.enableLocationEvents(Position.LOCATION_DISABLE, method(:onPosition));
+        _solarSystemView.setPosition(info);
 
     }
 
@@ -164,9 +161,9 @@ class SolarSystemBaseApp extends Application.AppBase {
             +  now.hour.format("%02d") + ":" +
             now.min.format("%02d") + ":" +
             now.sec.format("%02d"));
-        return [_positionView, _positionDelegate];
-        _positionDelegate = null;
-        _positionView = null;
+        return [_solarSystemView, _solarSystemDelegate];
+        _solarSystemDelegate = null;
+        _solarSystemView = null;
 
     }
     /*
@@ -225,9 +222,15 @@ class SolarSystemBaseApp extends Application.AppBase {
 
         readAStorageValue(planetsOption_enum, planetsOption_default, planetsOption_size );        
 
+        //if you scramble up the order of the enums it will change which enum gets which value
+        //so, best not to change the order, or come up with some scheme to check it or whatever
         var temp = Storage.getValue(helpBanners_enum);
-        $.Options_Dict[helpBanners_enum] = temp != null ? temp : true;
+        $.Options_Dict[helpBanners_enum] = temp != null ? (temp == true) : true;
         Storage.setValue(helpBanners_enum,$.Options_Dict[helpBanners_enum]); 
+
+        temp = Storage.getValue(gpsOption_enum);
+        $.Options_Dict[gpsOption_enum] = temp != null ? (temp == true) : true;
+        Storage.setValue(gpsOption_enum,$.Options_Dict[gpsOption_enum]); 
 
        
 
@@ -243,7 +246,7 @@ class SolarSystemBaseApp extends Application.AppBase {
 
         //###### REFRESH RATE
         $.hz = refreshOption_values[$.Options_Dict[refreshOption_enum]];                
-        _positionView.startAnimationTimer($.hz);           
+        _solarSystemView.startAnimationTimer($.hz);           
 
 
         

@@ -8,6 +8,7 @@ import Toybox.Application.Storage;
 import Toybox.Lang;
 import Toybox.WatchUi;
 import Toybox.Application.Storage;
+import Toybox.Position;
 
 //var sssMenu_class; //to save the SolarSystemSettingsMenu class for access
 
@@ -82,13 +83,14 @@ class SolarSystemSettingsMenu extends WatchUi.Menu2 {
     
     
     function loadSettingsOpt(){
+        deBug("loadSettingsOpt",[]);
         //changeModeOption = toArray(WatchUi.loadResource($.Rez.Strings.changeModeOption) as String,  "|", 0);
         //changeModeOption_size = changeModeOption.size();
         orrZoomOption = toArray(WatchUi.loadResource($.Rez.Strings.orrzoom) as String,  "|", 0);
         labelDisplayOption = toArray(WatchUi.loadResource($.Rez.Strings.labelDisplayOption) as String,  "|", 0);
         refreshOption = toArray(WatchUi.loadResource($.Rez.Strings.refreshOption) as String,  "|", 0);
         thetaOption = toArray(WatchUi.loadResource($.Rez.Strings.thetaOption) as String,  "|", 0);planetSizeOption = toArray(WatchUi.loadResource($.Rez.Strings.planetSizeOption) as String,  "|", 0);planetsOption = toArray(WatchUi.loadResource($.Rez.Strings.planetsOption) as String,  "|", 0);
-
+        deBug("loadSettingsOpt finished",[]);
     }
 
     //! Constructor
@@ -111,7 +113,7 @@ class SolarSystemSettingsMenu extends WatchUi.Menu2 {
 
         Menu2.addItem(new WatchUi.ToggleMenuItem("Reset to Current Time", null, resetDate_enum, false, null));
         
-    
+        deBug("1", []);
 
         if ($.Options_Dict[orrZoomOption_enum] == null) { $.Options_Dict[orrZoomOption_enum] = $.orrZoomOption_default; }
         Menu2.addItem(new WatchUi.MenuItem("Solar System Zoom?",
@@ -120,6 +122,8 @@ class SolarSystemSettingsMenu extends WatchUi.Menu2 {
         if ($.Options_Dict[thetaOption_enum] == null) { $.Options_Dict[thetaOption_enum] = $.thetaOption_default; }
         Menu2.addItem(new WatchUi.MenuItem("UP/DOWN/Swipe controls:",
         ($.thetaOption[$.Options_Dict[thetaOption_enum]]),thetaOption_enum,{}));
+
+        deBug("2", []);
 
         if ($.Options_Dict[planetsOption_enum] == null) { $.Options_Dict[planetsOption_enum] = $.planetsOption_default; }
         Menu2.addItem(new WatchUi.MenuItem("Objects to show in Solar System?",
@@ -159,18 +163,28 @@ class SolarSystemSettingsMenu extends WatchUi.Menu2 {
 
         Menu2.addItem(new WatchUi.ToggleMenuItem("Help Banners: Off-On", null, helpBanners_enum, $.Options_Dict[helpBanners_enum], null));   
 
-        
-        if ($.Options_Dict[latOption_enum] == null) { $.Options_Dict[latOption_enum] = $.latOption_default; }
-        var val = $.Options_Dict[latOption_enum] - 90;
-        if (val > 90) { val = "GPS"; }        
-        Menu2.addItem(new WatchUi.MenuItem("Manual Set Latitude?", val,latOption_enum,{})); 
+        //deBug("3", [gpsOption_enum, Options_Dict[gpsOption_enum], Options_Dict]);
 
-        
-        if ($.Options_Dict[lonOption_enum] == null) { $.Options_Dict[lonOption_enum] = $.lonOption_default; }
-        val = $.Options_Dict[lonOption_enum] - 180;
-        if (val > 180) { val = "GPS"; }
-        Menu2.addItem(new WatchUi.MenuItem("Manual Set Longitude?",
-        val,lonOption_enum,{})); 
+        Menu2.addItem(new WatchUi.ToggleMenuItem("Use manual/auto GPS Position?", null, gpsOption_enum, $.Options_Dict[gpsOption_enum], null));
+
+        if ($.Options_Dict[gpsOption_enum] != null && !$.Options_Dict[gpsOption_enum] ) { 
+                
+            if ($.Options_Dict[latOption_enum] == null) { $.Options_Dict[latOption_enum] = $.latOption_default; }
+            //deBug("3a", []);
+            var val = ($.Options_Dict[latOption_enum] - 90);
+            //deBug("3b", [val]);
+            if (val > 90) { val = "GPS"; }        
+            //deBug("3c", [val]);
+            Menu2.addItem(new WatchUi.MenuItem("Manual Latitude:", val.toString(),latOption_enum,{})); 
+            //deBug("3d", [val]);
+            
+            if ($.Options_Dict[lonOption_enum] == null) { $.Options_Dict[lonOption_enum] = $.lonOption_default; }
+            val = $.Options_Dict[lonOption_enum] - 180;
+            if (val > 180) { val = "GPS"; }
+            Menu2.addItem(new WatchUi.MenuItem("Manual Longitude:",val.toString(),lonOption_enum,{})); 
+        }
+
+        //deBug("4", []);
 
         if ($.Options_Dict[refreshOption_enum] == null) { $.Options_Dict[refreshOption_enum] = $.refreshOption_default; }
         Menu2.addItem(new WatchUi.MenuItem("Screen Refresh Rate?",
@@ -183,6 +197,8 @@ class SolarSystemSettingsMenu extends WatchUi.Menu2 {
         /*if ($.Options_Dict["helpOption"] == null) { $.Options_Dict["helpOption"] = helpOption_default; }
         Menu2.addItem(new WatchUi.MenuItem("Help - Abbreviations",
         helpOption[$.Options_Dict["helpOption"]],"helpOption",{}));       */
+
+        deBug("5", []);
 
     }
 }
@@ -213,6 +229,8 @@ class SolarSystemSettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
                 System.exit();
             } else 
             */
+
+            //deBug("retmenu:", [ret]);
            
             if (ret != null && ret.equals(resetDate_enum)) {
                 $.time_add_hrs = 0;
@@ -221,6 +239,28 @@ class SolarSystemSettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
                 $.run_oneTime = true;
                 $.LORR_show_horizon_line = true;
                 WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
+                
+            } 
+            else if (ret != null && ret.equals(gpsOption_enum)) {
+                
+                /* 
+                $.time_add_hrs = 0;
+                $.started=false;
+                $.reset_date_stop = true;
+                $.run_oneTime = true;
+                $.LORR_show_horizon_line = true;
+                */
+                Storage.setValue(ret, menuItem.isEnabled());
+                $.Options_Dict[ret] = menuItem.isEnabled();
+                $.solarSystemView_class.setInitPosition();
+                WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
+
+                Position.enableLocationEvents(Position.LOCATION_ONE_SHOT, method(:onPosition));
+
+                var settings_view = new $.SolarSystemSettingsView();
+                var settings_delegate = new $.SolarSystemSettingsDelegate();
+        
+                pushView(settings_view, settings_delegate, WatchUi.SLIDE_IMMEDIATE);
                 
             } 
             
@@ -303,9 +343,9 @@ class SolarSystemSettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
         }
 
         if(id.equals(latOption_enum)) {
-            $.Options_Dict[id]=($.Options_Dict[id]+1)%latOption_size;
-            if (id < latOption_size-1) {menuItem.setSubLabel($.Options_Dict[id]-90);}
-            else {menuItem.setSubLabel("GPS");}
+            $.Options_Dict[id]=($.Options_Dict[id]+5)%latOption_size;
+            menuItem.setSubLabel(($.Options_Dict[id]-90).toString());
+            //else {menuItem.setSubLabel("GPS");}
 
             Storage.setValue(id as String, $.Options_Dict[id]); 
             //[ "5hz", "4hz", "3hz", "2hz", "1hz", "2/3hz", "1/2hz"];
@@ -313,9 +353,9 @@ class SolarSystemSettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
         }
 
         if(id.equals(lonOption_enum)) {
-            $.Options_Dict[id]=($.Options_Dict[id]+1)%lonOption_size;
-            if (id < lonOption_size-1) {menuItem.setSubLabel($.Options_Dict[id]-180);}
-            else {menuItem.setSubLabel("GPS");}
+            $.Options_Dict[id]=($.Options_Dict[id]+5)%lonOption_size;
+            menuItem.setSubLabel(($.Options_Dict[id]-180).toString());
+            //else {menuItem.setSubLabel("GPS");}
 
             Storage.setValue(id as String, $.Options_Dict[id]); 
             //[ "5hz", "4hz", "3hz", "2hz", "1hz", "2/3hz", "1/2hz"];
@@ -443,6 +483,16 @@ class SolarSystemSettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
         WatchUi.requestUpdate();
         //return false;
     }
+
+    //! Update the current position
+    //! @param info Position information
+    public function onPosition(info as Info) as Void {
+        System.println("onPosition... count: " + $.count);
+        solarSystemView_class.setPosition(info);
+
+    }
+
+
 }
 /*function cleanUpPlanetsOpt(){
         return;

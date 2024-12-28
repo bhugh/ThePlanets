@@ -3563,18 +3563,32 @@ class SolarSystemBaseView extends WatchUi.View {
         WatchUi.requestUpdate();
     }
     */
+
+    function setPositionFromManual() as Boolean {
+        if ($.Options_Dict[gpsOption_enum]) { return false;}
+        if ($.latlonOption_value[0] < 0) {$.latlonOption_value[0] = 0;}
+        if ($.latlonOption_value[0] > 180) {$.latlonOption_value[0] = 180;}
+        if ($.latlonOption_value[1] < 0) {$.latlonOption_value[1] = 0;}
+        if ($.latlonOption_value[1] > 360) {$.latlonOption_value[1] = 360;}
+        lastLoc= $>latlonOption_value;
+        return true;       
+    }
     //Until setPosition gets a callback we will use SOME value for lastLoc
     //We call setInitPosition immeidately upon startup & then setPosition will fill in
     //later as correct data is available.
     function setInitPosition () {        
-        lastLoc = [-70.00894, -179.44008]; //for testing
+        //lastLoc = [-70.00894, -179.44008]; //for testing
         //lastLoc = [-60.00894, 179.44008]; //for testing
         //lastLoc = [39.00894, -94.44008]; //for testing
         //lastLoc = [59.00894, -94.44008]; //for testing
         //lastLoc = [0,0]; //for testing
         //lastLoc = [51.5, 0]; //for testing - Greenwich
-        deBug("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!TESTINGTESTINGTESTING LAT/LONG!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", lastLoc);
-        return;
+        //deBug("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!TESTINGTESTINGTESTING LAT/LONG!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", lastLoc);
+        //return;
+
+        //in case MANUAL POSITION set in settings
+        
+        if ( setPositionFromManual() ) {return;}        
 
         if (lastLoc == null) {self.lastLoc = new Position.Location(            
                     { :latitude => 39.833333, :longitude => -94.583333, :format => :degrees }
@@ -3590,23 +3604,31 @@ class SolarSystemBaseView extends WatchUi.View {
 
     //fills in the variable lastLoc with current location and/or
     //several fallbacks
-    function setPosition () {
+    function setPosition (pinfo as Info) {
         System.println ("setPosition getting position...");
+
+        //We only need this ONCE, not continuously, so . . . 
+        Position.enableLocationEvents(Position.LOCATION_DISABLE, method(:onPosition));
 
         //lastLoc = [0,0]; //for testing
         //lastLoc = [51.5, 0]; //for testing - Greenwich
         //lastLoc = [39.00894, -94.44008]; //for testing
         //lastLoc = [-60.00894, 179.44008]; //for testing
-        lastLoc = [-70.00894, -179.44008]; //for testing
-        deBug("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!TESTINGTESTINGTESTING LAT/LONG!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", lastLoc);        
-        return;
+        //lastLoc = [-70.00894, -179.44008]; //for testing
+        //deBug("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!TESTINGTESTINGTESTING LAT/LONG!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", lastLoc);        
+        //return;
 
-        var pinfo = Position.getInfo();
+        //in case MANUAL POSITION set in settings
+        var man_set = setPositionFromManual(); //will be TRUE if the position is set manually
+        //We still go ahead & try to determine the actual GPS position & save it in options_dict & storage
+        //for future use
+
+        //if (info == null || info.position == null) { pinfo = Position.getInfo(); }
         //System.println ("sc1: Null? " + (pinfo==null));
         //if (pinfo != null ) {System.println ("sc1: pinfo " + pinfo.position.toDegrees());}
 
         var curr_pos = null;
-        if (pinfo.position != null) { curr_pos = pinfo.position; }
+        if (pinfo!= null && pinfo.position != null) { curr_pos = pinfo.position; }
         
         var temp = curr_pos.toDegrees()[0];
         if ( (temp - 180).abs() < 0.1 || temp.abs() < 0.1 ) {curr_pos = null;} //bad data
@@ -3651,15 +3673,19 @@ class SolarSystemBaseView extends WatchUi.View {
         //System.println ("sc1a:");
         //In case position info not available, we'll use either the previously obtained value OR the geog center of 48 US states as default.
         //|| info.accuracy == Pos.QUALITY_NOT_AVAILABLE 
+
+        var new_lastLoc = null;
+        if ($.Options_Dict.hasKey(lastLoc_enum)) {new_lastLoc = $.Options_Dict[lastLoc_enum];}
+
         if (curr_pos == null ){
-           if (self.lastLoc == null) { 
+           if (new_lastLoc == null) { 
                 var long = -98.583333; 
 
                 //approximate longitude from time zone offset if no other option
                 $.now = System.getClockTime();
                 if ($.now != null && $.now.timeZoneOffset != null) { long = $.now.timeZoneOffset/3600*15;}
 
-                self.lastLoc = new Position.Location(            
+                new_lastLoc = new Position.Location(            
                     { :latitude => 39.833333, :longitude => long, :format => :degrees }
                     ).toDegrees();
                     //System.println ("sc1b: " + self.lastLoc);
@@ -3667,7 +3693,7 @@ class SolarSystemBaseView extends WatchUi.View {
         } else {
 
             var loc = curr_pos.toDegrees();
-            self.lastLoc = loc;
+            new_lastLoc = loc;
             //System.println ("sc1c:"+ curr_pos.toDegrees());
             //System.println ("sc1c");
         }        
@@ -3686,11 +3712,14 @@ class SolarSystemBaseView extends WatchUi.View {
         */
         //System.println ("lastLoc: " + lastLoc );
 
-        if (lastLoc != null) {
-            $.Options_Dict.put(lastLoc_enum, lastLoc);
-            Storage.setValue(lastLoc_enum, lastLoc);
+        if (new_lastLoc != null) {
+            $.Options_Dict.put(lastLoc_enum, new_lastLoc);
+            Storage.setValue(lastLoc_enum, new_lastLoc);
         }
-        System.println("setPosition (final) at " + animation_count + " to: "  + lastLoc);
+        
+        if (!man_set) {self.lastLoc = new_lastLoc;} //if man_set is true, then we don't want to update self.lastLoc with the new value, we want to keep the value that was set by the user.
+
+        System.println("setPosition (from GPS, final) at " + animation_count + " to: "  + new_lastLoc + " manual GPS mode?" + man_set + " final SET pos: " + self.lastLoc);
     }
 
     //Not sure if this is really necessary for display of  ecliptic planets.  But it does very slightly alter proportions, and makes the 4 ecliptic points fit in as they should.
