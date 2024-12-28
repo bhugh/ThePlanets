@@ -165,7 +165,7 @@ var sevent_names = {
 
 
     public var sunEventData = {
-        :ASTRO_DAWN => -18,  //each one has  a twin @ - it's number, so we'll just combine the two & you can figure it out. Dawn/Dusk -18/+18, etc.
+         :ASTRO_DAWN => -18,  //each one has  a twin @ - it's number, so we'll just combine the two & you can figure it out. Dawn/Dusk -18/+18, etc.
         :NAUTIC_DAWN => -12,
         :DAWN => -6 ,
         :BLUE_HOUR => -4,
@@ -429,16 +429,18 @@ for (var i = 0; i<sunEventData.size();i++) {
 }
 //System.println("sunrise/sets " + ret);
 
+    /*
+    //DEBUG PRINT ALL VALUES
+    for (var i = 0; i<sunEventData.size();i++) {
 
-for (var i = 0; i<sunEventData.size();i++) {
-
-    
-    var kys = sunEventData.keys();        
+        
+        var kys = sunEventData.keys();        
 
 
-    var ky = kys[i];
-    //System.println("ret: " + ky + " " + ret[ky] + " " + sunEventData[ky]);
-}
+        var ky = kys[i];
+        System.println("ret: " + ky + " " + ret[ky] + " " + sunEventData[ky]);
+    }
+    */
 
 
 return ret;
@@ -742,11 +744,13 @@ function intersectionPointsEclipticHorizon_rad (lat_rad, sidereal_rad, obliquity
     
  
             // eclEH is the distance along the ecliptic great circle from the intersection with the equator great circle,  ie the vernal equinox, to the intersection with the horizon great circle.  It is measured in radians. (Because of symmetry it is also the angle from the fall equinox to the intersection point. But the Vernal Eq is 0,0 the origin point of the system.)
+            /*
             var eclEHint2_rad = 0; //alternate calculation, it's equal. O/horEHint
             var horEHint_copy_rad = horEHint_rad;
             if (Math.sin(aEH_rad) != 0) {
                 eclEHint2_rad = Math.asin( Math.sin(horEHint_rad)/Math.sin(obliquity_rad)*Math.cos(lat_rad));
             }
+            */
             
 
 

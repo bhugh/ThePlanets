@@ -7,7 +7,7 @@ NEW TODO:
  - Stop showing intro msgs & big screen titles after X starts of the program
  - Keep horizon line if time step is by exactly 24 hr until it isn't
  - 1st button press doesn't do anything, even if the initial banners are gone
- - mode 3 & 4 ? doesn't show orbits for some reason
+ - mode 3 & 4 ? doesn't show orbits for some reason (XX seems to happen only in sim??!?)
  - Add option to 'flip' angle up or down instead of just down
 
 

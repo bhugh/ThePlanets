@@ -1,1 +1,8 @@
 project.manifest = manifest.xml
+
+# By default, we include Lang.ByteArray (ie, exclude the parts built for 'no bytearray'))
+base.excludeAnnotations = noByteArray
+# exclude the bytearray code from these 2.4.0 API devices
+vivoactive_hr.excludeAnnotations = hasByteArray
+fr735xt.excludeAnnotations = hasByteArray
+approachs60.excludeAnnotations = hasByteArray

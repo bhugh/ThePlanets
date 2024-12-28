@@ -1315,7 +1315,7 @@ class SolarSystemBaseView extends WatchUi.View {
             //ang_rad = Math.toRadians(ang_deg);
             ang_rad =  -equatorialLong2eclipticLong_rad(Math.toRadians(pp[key][0]) , Math.toRadians(obliq_deg)) - final_adj_rad;
 
-            var ang_rad2 = -Math.toRadians(pp[key][0]) - final_adj_rad;
+            //var ang_rad2 = -Math.toRadians(pp[key][0]) - final_adj_rad;
 
             //System.println  ("key: " + key + " ang_rad: " + Math.toDegrees(ang_rad) + " " + mod(ang_rad/2.0/Math.PI*24,24.0) + " " +  Math.toDegrees(ang_rad2) + " " + mod(ang_rad2/2.0/Math.PI*24,24.0));
             
@@ -1961,11 +1961,25 @@ class SolarSystemBaseView extends WatchUi.View {
 
 
     }
-    var spots;
+
+    var spots;    
+    
+    //VivoactiveHR and maybe some others don't have Lang.ByteArray
+    (:hasByteArray)
+    function init_findSpot(){
+        //spots = [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1];            
+            spots = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]b;
+            deBug("Byte spots", [spots]);
+
+    }
+
+    (:noByteArray)
     function init_findSpot(){
         //spots = [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1];
-        spots = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]b;
+        spots = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
     }
+
+
     function findSpot (angle) {
         angle = normalize (angle);
         if (angle == 360) {angle =0;}
@@ -1985,11 +1999,12 @@ class SolarSystemBaseView extends WatchUi.View {
     var sr_minc = 4f;
     var diffy, diffx, sr_minc2;
     
+    (:hasByteArray)
     function init_findSpotRect(){
         sr_minc2=sr_minc*sr_minc;
         spots_rect=new [sr_x];
         for (var i = 0; i<sr_x; i++) {
-            var tmp = new [sr_y]b;
+             var tmp = new [sr_y]b;        
             //spots_rect.add(tmp);
             for (var j = 0; j<sr_y; j++) {
                 //spots_rect[i].add(0);
@@ -2004,6 +2019,30 @@ class SolarSystemBaseView extends WatchUi.View {
             spots_rect[i] = tmp;
         }
     }
+
+    (:noByteArray)
+    function init_findSpotRect(){
+        sr_minc2=sr_minc*sr_minc;
+        spots_rect=new [sr_x];
+        for (var i = 0; i<sr_x; i++) {
+             var tmp = new [sr_y];        
+            //spots_rect.add(tmp);
+            for (var j = 0; j<sr_y; j++) {
+                //spots_rect[i].add(0);
+                var add=0;
+                diffx = i-sr_xc;
+                diffy = j-sr_yc;
+                if ( diffx*diffx + diffy*diffy > sr_minc2){
+                    add = 1; //occupied/don't write in corners of our circular display...
+                }
+                tmp[j]=(add);
+            }
+            spots_rect[i] = tmp;
+        }
+    }
+
+
+
     function fillSpotRect (x,y){
         var x2 = Math.round(x/sr_x).toNumber();
         var y2 = Math.round(y/sr_y).toNumber();
@@ -2177,6 +2216,8 @@ class SolarSystemBaseView extends WatchUi.View {
                 */
             } else if ( ($.time_now.value() - $.start_time_sec) < 3 ) {
                 msg = [$.time_now.value() + 1," ", tp.substring(0,3),tp.substring(4,tp.length()), " ", " "];    
+            } else {
+                $.buttonPresses ++; //if we are in "no help banners" mode & the banner disappears, then we no longer want to trap that very first buttonpress
             }
         }
 
@@ -2252,22 +2293,22 @@ class SolarSystemBaseView extends WatchUi.View {
 
                 dc.drawText(xstart, ystart + i*textHeight, font, msg[i+1], jstify);
                 //deBug("drawing0", [i, msg,[i], msg[i+1]]);
-                if (i>0 && msg[i]!=null && ( msg[i].equals("PLANETS") || msg[i].equals("THE PLANETS"))) {
+                if (i>1 && msg[i-1]!=null &&  msg[i-1].find("NET") != null) { //"THE PLANETS" or "PLANETS"
                     if (_planetIcon != null) {
                         //deBug("drawing", [msg[i], msg[i+1], msg[i-1]]);
                         
-                        var hgt = _planetIcon.getHeight();
+                        //var hgt = _planetIcon.getHeight();
                         var wdt = _planetIcon.getWidth();
                         //System.println("Hgt " + hgt);
                         //var ht = (2*textHeight-2 - hgt)/2.0;//40=height of icon
-                        var ht =i*textHeight;//40=height of icon
+                        var ht =(i-1)*textHeight;//40=height of icon
                         //var xtart = xc;
-                        /*if (msg[i].equals("THE PLANETS")) {
-                            ht = 0;
+                        if (msg[i].length()>8) { //"THE PLANETS"
+                            ht = (i-1.25)*textHeight;
                             //xtart = 0.2*xc;
-                        }*/
+                        }
                         if (ht<0) {ht=0;}
-                        dc.setClip (0, ystart+2 + i*textHeight,  2*xc,  2* textHeight -2  );
+                        dc.setClip (0, ystart+2 + (i-1)*textHeight,  2*xc,  (i+3)* textHeight -2  );
                         dc.drawBitmap(xstart - wdt/2.0, ht + ystart +2, _planetIcon);
                         //deBug("drawing", [xstart - wdt/2.0, ht + ystart + 2]);
                         dc.clearClip();
@@ -2331,7 +2372,7 @@ class SolarSystemBaseView extends WatchUi.View {
                 xcent3 = 1.4* xcent;
 
                 ycent2= 2* ycent - textHeight;//speed or stopped bottom right
-                xcent2=1.4*xcent;
+                xcent2=1.35*xcent;
             }
             if( screenShape== System.SCREEN_SHAPE_SEMI_OCTAGON) {
                 ycent1 = 0.26*ycent; //DATE in small circle upper right
@@ -2347,7 +2388,7 @@ class SolarSystemBaseView extends WatchUi.View {
         
         //System.println("DATE!!!!!: " + new_date.value() + " OR... " + targTime_sec + " yr: "+ new_date_info.year + "add_hjrs "+ addTime_hrs);
 
-        var stop = !$.started && $.view_mode!=0;
+        //var stop = !$.started && $.view_mode!=0;
 
         if (incl_years == null) { incl_years = false; }
         
@@ -2674,11 +2715,11 @@ class SolarSystemBaseView extends WatchUi.View {
             var trisize = min_c/15.0*2.25;
             var tribase = trisize/3/2.25;
             size = min_c/60.0;
-            var fill = false;
+            //var fill = false;
             
             if (key.equals("Ecliptic0") || key.equals("Ecliptic180") ) {
                 //fillcol = Graphics.COLOR_DK_GRAY;
-                fill = true;
+                //fill = true;
                 tribase = 1.5*tribase;
                 if (key.equals("Ecliptic0")) {tribase *= 1.8; trisize *= 1.15;}
             }
@@ -2748,8 +2789,8 @@ class SolarSystemBaseView extends WatchUi.View {
                 //dc.setColor(0x737348, Graphics.COLOR_TRANSPARENT);        
                 //drawARC (dc, 17, 7, x, y - size/2.5,size/2.3, 1, null);
                 dc.setColor(Graphics.COLOR_DK_GRAY, Graphics.COLOR_TRANSPARENT); 
-                drawARC (dc, 0, 24, x, y - size/5.0,size/2.0, pen, null);
-                dc.drawLine (x, y - size/5.0 + size/2.0, x, y+4.0*size/5.0);
+                drawARC (dc, 0, 24, x, y - size/5.0,size/2.2, pen, null);
+                dc.drawLine (x, y - size/5.0 + size/2.2, x, y+3.8*size/5.0);
 
                 dc.drawLine (x-size/5.0, y + size/2.0, x+size/5.0, y + size/2.0);
 
@@ -3215,7 +3256,7 @@ class SolarSystemBaseView extends WatchUi.View {
 
   
             var hor_ang_rad = -Math.toRadians(sun_adj_deg - hour_adj_deg - noon_adj_deg) + sunrise_events2[:ECLIP_HORIZON][1];
-            var temp = normalize180(Math.toDegrees(hor_ang_rad));
+            //var temp = normalize180(Math.toDegrees(hor_ang_rad));
 
              //y0 = (90 - temp)/90.0 * 23.4 * mcob + 50 * msob;
 
