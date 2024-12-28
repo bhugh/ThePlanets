@@ -2268,6 +2268,13 @@ class SolarSystemBaseView extends WatchUi.View {
         msgDisplayed = true; 
         
         font = Graphics.FONT_TINY;
+
+        var lineHeight = textHeight;
+
+        var hgt = _planetIcon == null ? lineHeight : _planetIcon.getHeight();
+
+        if (hgt>lineHeight) {lineHeight = (lineHeight + hgt)/2.0 ;}
+
         
         var ct_i = 0;      
         var lined = false;          
@@ -2279,19 +2286,19 @@ class SolarSystemBaseView extends WatchUi.View {
                 if (msg[i+1].length()==0){
                     //a blank line =""
                     dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-                    dc.drawLine(0, ystart + (i)*textHeight, dc.getWidth(), ystart + i*textHeight);
+                    dc.drawLine(0, ystart + (i)*lineHeight, dc.getWidth(), ystart + i*lineHeight);
                     lined = false;
                     continue;
                 }
                 
                 dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
-                dc.fillRectangle(0, ystart + i*textHeight, dc.getWidth(), textHeight);
+                dc.fillRectangle(0, ystart + i*lineHeight -1 , dc.getWidth(), lineHeight +1);
                 
                 
                 
                 dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);
 
-                dc.drawText(xstart, ystart + i*textHeight, font, msg[i+1], jstify);
+                dc.drawText(xstart, ystart + i*lineHeight, font, msg[i+1], jstify);
                 
                 if (i>2 && msg[i-2]!=null &&  msg[i-2].find("THE") != null) { //"THE PLANETS" or "PLANETS"
                     deBug("drawing0", [i, msg,[i-2], msg[i-1], msg[i]]);
@@ -2301,15 +2308,18 @@ class SolarSystemBaseView extends WatchUi.View {
                         //var hgt = _planetIcon.getHeight();
                         var wdt = _planetIcon.getWidth();
                         //System.println("Hgt " + hgt);
-                        //var ht = (2*textHeight-2 - hgt)/2.0;//40=height of icon
-                        var ht =(i-1)*textHeight;//40=height of icon  "THE"
+                        //var ht = (2*lineHeight-2 - hgt)/2.0;//40=height of icon
+                        var ht =(i-1)*lineHeight;//40=height of icon  "THE"
                         //var xtart = xc;
                         if (msg[i-2].length()>8) { //"THE PLANETS"
-                            ht = (i-2.2)*textHeight;
+                            ht = (i-1.9) * lineHeight;
+                            if (hgt>=textHeight) {
+                                ht = (i-2.2)*lineHeight;
+                            }
                             //xtart = 0.2*xc;
                         }
                         if (ht<0) {ht=0;}
-                        //dc.setClip (0, ystart+2 + (i-1)*textHeight,  2*xc,  (i+3)* textHeight -2  );
+                        //dc.setClip (0, ystart+2 + (i-1)*lineHeight,  2*xc,  (i+3)* lineHeight -2  );
                         dc.drawBitmap(xstart - wdt/2.0, ht + ystart +2, _planetIcon);
                         //deBug("drawing", [xstart - wdt/2.0, ht + ystart + 2]);
                         dc.clearClip();
@@ -2323,13 +2333,13 @@ class SolarSystemBaseView extends WatchUi.View {
                     else {
                             dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);
                         }
-                    dc.drawLine(0, i*textHeight + ystart , dc.getWidth(), i*textHeight + ystart);
+                    dc.drawLine(0, i*lineHeight + ystart , dc.getWidth(), i*lineHeight + ystart);
                     lined = true;
                 }
             }
         }
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-        dc.drawLine(0, ystart + (ct_i)*textHeight, dc.getWidth(), ystart + ct_i*textHeight);
+        dc.drawLine(0, ystart + (ct_i)*lineHeight, dc.getWidth(), ystart + ct_i*lineHeight);
 
         if ($.buttonPresses < 1) { return 2;}
         return 1;
