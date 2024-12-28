@@ -1380,7 +1380,7 @@ class SolarSystemBaseView extends WatchUi.View {
 
             //System.println("sun_adj_deg" + sun_adj_deg + " hor" + hour_adj_deg + " ga " + ga_rad + " pp " + pp["Sun"]) ;
 
-            sunrise_cache.empty();
+            //sunrise_cache.empty();  //this works good but not using it now
 
             
          
@@ -2184,7 +2184,7 @@ class SolarSystemBaseView extends WatchUi.View {
                 //DISPLAY ALL THE INTRO MSGS - which are in strings.xml resource introMessages
                 
                 var switcher = ((($.time_now.value()-startTime)/3)%7);
-                if (switcher == 6 || switcher == 0) {msg = [$.time_now.value() + 1," ", tp.substring(0,3),tp.substring(4,tp.length()), " ", " "];} 
+                if (switcher == 6 || switcher == 0) {msg = [$.time_now.value() + 1," ", tp.substring(0,3),tp.substring(4,tp.length()), " ", " "];}  //"THE" "PLANETS" + jupiter image
                 else {
                     msg = [$.time_now.value() + 1, tp," ", intro_msg[(switcher - 1) *3  +1 ],intro_msg[(switcher - 1) *3 +2], intro_msg[(switcher - 1) *3 +3]];
                 }
@@ -2292,8 +2292,9 @@ class SolarSystemBaseView extends WatchUi.View {
                 dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);
 
                 dc.drawText(xstart, ystart + i*textHeight, font, msg[i+1], jstify);
-                //deBug("drawing0", [i, msg,[i], msg[i+1]]);
-                if (i>1 && msg[i-1]!=null &&  msg[i-1].find("NET") != null) { //"THE PLANETS" or "PLANETS"
+                
+                if (i>2 && msg[i-2]!=null &&  msg[i-2].find("THE") != null) { //"THE PLANETS" or "PLANETS"
+                    deBug("drawing0", [i, msg,[i-2], msg[i-1], msg[i]]);
                     if (_planetIcon != null) {
                         //deBug("drawing", [msg[i], msg[i+1], msg[i-1]]);
                         
@@ -2301,14 +2302,14 @@ class SolarSystemBaseView extends WatchUi.View {
                         var wdt = _planetIcon.getWidth();
                         //System.println("Hgt " + hgt);
                         //var ht = (2*textHeight-2 - hgt)/2.0;//40=height of icon
-                        var ht =(i-1)*textHeight;//40=height of icon
+                        var ht =(i-1)*textHeight;//40=height of icon  "THE"
                         //var xtart = xc;
-                        if (msg[i].length()>8) { //"THE PLANETS"
-                            ht = (i-1.25)*textHeight;
+                        if (msg[i-2].length()>8) { //"THE PLANETS"
+                            ht = (i-2.2)*textHeight;
                             //xtart = 0.2*xc;
                         }
                         if (ht<0) {ht=0;}
-                        dc.setClip (0, ystart+2 + (i-1)*textHeight,  2*xc,  (i+3)* textHeight -2  );
+                        //dc.setClip (0, ystart+2 + (i-1)*textHeight,  2*xc,  (i+3)* textHeight -2  );
                         dc.drawBitmap(xstart - wdt/2.0, ht + ystart +2, _planetIcon);
                         //deBug("drawing", [xstart - wdt/2.0, ht + ystart + 2]);
                         dc.clearClip();
@@ -2893,6 +2894,19 @@ class SolarSystemBaseView extends WatchUi.View {
                         dc.fillCircle(x, y, size);
                         break;
                 }  else {
+
+                    if (moon_age_deg >= 94 && moon_age_deg < 175) {
+                         dc.setColor(0xf0f9ff, Graphics.COLOR_TRANSPARENT);                //0x171f25
+                         dc.fillEllipse(x, y, size * Math.sqrt(moon_age_deg - 90 )/9.48683, size);
+                         //dc.fillEllipse(x, y, size * (moon_age_deg - 90 )/90.0, size);
+                    }
+
+                    if (moon_age_deg >= 185 && moon_age_deg < 266) {
+                         dc.setColor(0xf0f9ff, Graphics.COLOR_TRANSPARENT);                //0x171f25
+                         dc.fillEllipse(x, y, size * Math.sqrt(270-moon_age_deg)/9.48683, size);
+                         //dc.fillEllipse(x, y, size * (270-moon_age_deg)/90.0, size);
+                    }
+
                     if (moon_age_deg >= 358 || moon_age_deg <= 2) { //NEW moon
 
                             dc.setColor(0x171f25, Graphics.COLOR_TRANSPARENT);                //0x171f25
@@ -2904,7 +2918,7 @@ class SolarSystemBaseView extends WatchUi.View {
                     else if (moon_age_deg > 2 && moon_age_deg <= 175) { //1st quarter
                             //dc.setColor(0xf0f9ff, Graphics.COLOR_TRANSPARENT);                
                             //dc.drawCircle(x, y, size);
-                            dc.setClip (x, y-size,size, size*2);                        
+                            dc.setClip (x, y-size,size+1, size*2);                        
                             dc.setColor(0xf0f9ff, Graphics.COLOR_TRANSPARENT);  
                             dc.fillCircle(x, y, size);
                             dc.clearClip();
@@ -2924,7 +2938,7 @@ class SolarSystemBaseView extends WatchUi.View {
                             //dc.setColor(0xf0f9ff, Graphics.COLOR_TRANSPARENT);  
                             //dc.drawCircle(x, y, size);
                             
-                            dc.setClip (x-size, y-size,size, size*2);
+                            dc.setClip (x-size, y-size,size, size*2+2);
                             dc.setColor(0xf0f9ff, Graphics.COLOR_TRANSPARENT);  
                             dc.fillCircle(x, y, size);
                             dc.clearClip();
@@ -2932,31 +2946,23 @@ class SolarSystemBaseView extends WatchUi.View {
                     //black OR white ellipse to blank out or add some/all of the half moon to show
                     //phases in between quarters
                     //This can be refined more to show exact lit percentages, if desireds.
-                    if (moon_age_deg > 0 && moon_age_deg < 88){
+                    if (moon_age_deg > 0 && moon_age_deg < 86){
                          dc.setColor(0x171f25, Graphics.COLOR_TRANSPARENT);                //0x171f25
-                         dc.fillEllipse(x, y, size * (90-moon_age_deg)*(90-moon_age_deg)/8100.0, size);
+                         dc.fillEllipse(x, y, size * Math.sqrt(90-moon_age_deg)/9.48683, size);
                     }
 
-                    else if (moon_age_deg > 275 && moon_age_deg < 360){
+                    else if (moon_age_deg > 274 && moon_age_deg < 360){
                          dc.setColor(0x171f25, Graphics.COLOR_TRANSPARENT);                //0x171f25
-                         dc.fillEllipse(x, y, size * (moon_age_deg-270)*(moon_age_deg-270)/8100.0, size);
+                         dc.fillEllipse(x, y, size * Math.sqrt(moon_age_deg-270)/9.48683, size);
                     }
 
                     //white ellipse to add to the half moon after 1st quarter
 
-                    else if (moon_age_deg >= 95 && moon_age_deg < 175) {
-                         dc.setColor(0xf0f9ff, Graphics.COLOR_TRANSPARENT);                //0x171f25
-                         dc.fillEllipse(x, y, size * (moon_age_deg - 90 )*(moon_age_deg - 90 )/8100.0, size);
-                    }
-
-                    if (moon_age_deg >= 185 && moon_age_deg < 265) {
-                         dc.setColor(0xf0f9ff, Graphics.COLOR_TRANSPARENT);                //0x171f25
-                         dc.fillEllipse(x, y, size * (270-moon_age_deg)*(270-moon_age_deg)/8100.00, size);
-                    }
+                    
                     //draw the full circle last so it always looks like a full round circle w/ phases
                     dc.setColor(0xf0f9ff, Graphics.COLOR_TRANSPARENT);  
                     dc.drawCircle(x, y, size);
-                    deBug("Moon!", moon_age_deg);
+                    //deBug("Moon!", moon_age_deg);
                     
                 }
                 break;

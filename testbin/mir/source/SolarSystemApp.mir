@@ -16,8 +16,6 @@ import Toybox.Math;
 var page = 0;
 [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemApp.mc"; @line = 16; @position = 4; ]
 var pages_total = 25;
-[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemApp.mc"; @line = 18; @position = 4; ]
-var sunrise_cache;
 [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemApp.mc"; @line = 21; @position = 4; ]
 var vspo87a;
 [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemApp.mc"; @line = 22; @position = 4; ]
@@ -166,23 +164,19 @@ E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_So
         %tmp.46 = getv function %tmp.45 :value;
         %tmp.47 = invoke %tmp.45 %tmp.46();
         putv %tmp.43 :start_time_sec %tmp.47;
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemApp.mc" 96 8 ]
-        %tmp.51 = getv ? :sunRiseSet_cache2;
-        %tmp.48 = newc %tmp.51 ();
-        putv self :sunrise_cache %tmp.48;
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemApp.mc" 97 8 ]
-        %tmp.52 = getm $.Toybox.System;
-        %tmp.53 = getv function %tmp.52 :println;
-        %tmp.54 = "inited...";
-        invoke %tmp.52 %tmp.53(%tmp.54);
+        %tmp.48 = getm $.Toybox.System;
+        %tmp.49 = getv function %tmp.48 :println;
+        %tmp.50 = "inited...";
+        invoke %tmp.48 %tmp.49(%tmp.50);
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemApp.mc" 98 8 ]
-        %tmp.55 = 0;
-        putv self :view_mode %tmp.55;
+        %tmp.51 = 0;
+        putv self :view_mode %tmp.51;
 [ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\SolarSystemApp.mc" 99 8 ]
-        %tmp.56 = getm $;
-        %tmp.57 = getv function %tmp.56 :changeModes;
-        %tmp.58 = null;
-        invoke %tmp.56 %tmp.57(%tmp.58);
+        %tmp.52 = getm $;
+        %tmp.53 = getv function %tmp.52 :changeModes;
+        %tmp.54 = null;
+        invoke %tmp.52 %tmp.53(%tmp.54);
 E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_SolarSystemApp_mc_83_33_106_4_stop:
     }
     //! Handle app startup

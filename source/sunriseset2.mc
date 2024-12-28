@@ -18,6 +18,8 @@ import Toybox.Lang;
 
 //from .functions import normalize
 
+///This works just great but were not using it now due to memory issues
+/*
 class sunRiseSet_cache2{
 
     var g_cache;
@@ -97,6 +99,8 @@ class sunRiseSet_cache2{
     }
     
 }
+
+*/
 
 
 enum {

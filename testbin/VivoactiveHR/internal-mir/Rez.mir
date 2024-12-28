@@ -43,12 +43,14 @@ module Rez {
         [ @file = "e:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\testbin\VivoactiveHR\gen\006-B2337-00\source\Rez.mcgen"; @line = 20; @position = 27; initialized = true; ]
         var changeModeOption as ResourceId;
         [ @file = "e:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\testbin\VivoactiveHR\gen\006-B2337-00\source\Rez.mcgen"; @line = 21; @position = 27; initialized = true; ]
-        var changeModeOption_short as ResourceId;
+        var introMessages as ResourceId;
         [ @file = "e:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\testbin\VivoactiveHR\gen\006-B2337-00\source\Rez.mcgen"; @line = 22; @position = 27; initialized = true; ]
-        var AppName as ResourceId;
+        var changeModeOption_short as ResourceId;
         [ @file = "e:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\testbin\VivoactiveHR\gen\006-B2337-00\source\Rez.mcgen"; @line = 23; @position = 27; initialized = true; ]
-        var labelDisplayOption as ResourceId;
+        var AppName as ResourceId;
         [ @file = "e:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\testbin\VivoactiveHR\gen\006-B2337-00\source\Rez.mcgen"; @line = 24; @position = 27; initialized = true; ]
+        var labelDisplayOption as ResourceId;
+        [ @file = "e:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\testbin\VivoactiveHR\gen\006-B2337-00\source\Rez.mcgen"; @line = 25; @position = 27; initialized = true; ]
         var planetsOption as ResourceId;
     }
 }

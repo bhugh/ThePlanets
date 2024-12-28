@@ -15,7 +15,7 @@ import Toybox.Math;
 var page = 0;
 var pages_total = 25;
 //var geo_cache;
-var sunrise_cache;
+//var sunrise_cache;
 //var moon;
 
 var vspo87a;
@@ -93,7 +93,7 @@ class SolarSystemBaseApp extends Application.AppBase {
         $.now_info = Time.Gregorian.info($.time_now, Time.FORMAT_SHORT);
         $.start_time_sec = $.time_now.value(); //start time of app in unix seconds
 
-        sunrise_cache = new sunRiseSet_cache2();        
+        //sunrise_cache = new sunRiseSet_cache2();        //works fine but not using it now..
         System.println("inited...");
         view_mode=0;
         $.changeModes(null); //inits speeds_index properly        

@@ -18,6 +18,7 @@ module Rez {
         (:initialized) var thetaOption as ResourceId;
         (:initialized) var planetSizeOption as ResourceId;
         (:initialized) var changeModeOption as ResourceId;
+        (:initialized) var introMessages as ResourceId;
         (:initialized) var changeModeOption_short as ResourceId;
         (:initialized) var AppName as ResourceId;
         (:initialized) var labelDisplayOption as ResourceId;
