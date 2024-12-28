@@ -6,3 +6,4 @@ base.excludeAnnotations = noByteArray
 vivoactive_hr.excludeAnnotations = hasByteArray
 fr735xt.excludeAnnotations = hasByteArray
 approachs60.excludeAnnotations = hasByteArray
+d2charlie.excludeAnnotations = hasByteArray
