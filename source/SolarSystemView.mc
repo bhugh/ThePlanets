@@ -3565,12 +3565,15 @@ class SolarSystemBaseView extends WatchUi.View {
     */
 
     function setPositionFromManual() as Boolean {
+        deBug("SIP 2", null);
         if ($.Options_Dict[gpsOption_enum]) { return false;}
         if ($.latlonOption_value[0] < 0) {$.latlonOption_value[0] = 0;}
         if ($.latlonOption_value[0] > 180) {$.latlonOption_value[0] = 180;}
         if ($.latlonOption_value[1] < 0) {$.latlonOption_value[1] = 0;}
         if ($.latlonOption_value[1] > 360) {$.latlonOption_value[1] = 360;}
-        lastLoc= $>latlonOption_value;
+        deBug("SIP 3", null);
+        lastLoc= $.latlonOption_value;
+        deBug("SIP 4", null);
         return true;       
     }
     //Until setPosition gets a callback we will use SOME value for lastLoc

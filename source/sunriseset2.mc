@@ -339,9 +339,13 @@ function getRiseSetfromDate_hr(now_info, timeZoneOffset_sec, dst, time_add_hrs, 
             //trans_ecliptic_DAY); 
             0.5, obliq_rad);//Note that ECLIPTIC ONLY just set the time to 12:00 GMT, we are interested in the "straddle" not the specific time of rise for each of these.
     
-
-        var s1_hr = sun_info[0]; //equatorial/RA/Decl
-        var s2_hr = sun_info[1];
+        var s1_hr =0.001; //equatorial/RA/Decl
+        var s2_hr = 23.99;
+        deBug("sun_riseECP", sun_info);
+        if (sun_info != null) {
+            s1_hr = sun_info[0]; //equatorial/RA/Decl
+            s2_hr = sun_info[1];
+        }
         //var s1_hr = sun_info[4]; //ecliptic...
         //var s2_hr = sun_info[5];
 
