@@ -100,7 +100,15 @@ var refreshOption_values=[  //in HZ
         1/60.0*5,*/
     ];    
 var refreshOption_size = 5;
-var refreshOption_default = 2;
+var refreshOption_default = 1;
+
+var latOption_size = 182;  //ranges 0 to 181; lat is either value-90 OR if 181, auto
+var latOption_default = 181;
+
+var lonOption_size = 362;  //ranges 0 to 361; lat is either value-180 OR if 361, auto
+var lonOption_default = 361;
+
+var latlonOption_value= [181,361];                
 
 /*
 var screen0MoveOption=[

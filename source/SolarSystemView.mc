@@ -974,6 +974,8 @@ class SolarSystemBaseView extends WatchUi.View {
         //System.println("Sunrise_set2B: " + sunrise_events2);
         //System.println("Sunrise_set2C: " + sunrise_events2[:NOON]);
 
+        //What happens in arctic when noon is never above horizon?  
+        //We should still have "noon" in the sense of highest DECL reached by the sun; we'll see...
         noon_adj_hrs = 12 - sunrise_events2[:NOON][0]; //[0] is long in equatorial coords, [1] is long along the ecliptic.  
         //noon_adj_hrs = sunrise_events2[:NOON] - 12.0f;
         noon_adj_deg = 15 * noon_adj_hrs;
@@ -1237,18 +1239,27 @@ class SolarSystemBaseView extends WatchUi.View {
         //deBug("sunrise_events23T][1]+ noon_adj_hrs, 12-(sunrise_events2[:SUNRISE][0] + noon_adj_hrs), (sunrise_events2[:SUNRISE][1] + noon_adj_hrs) - 12] );
 
         //deBug ("sunrise_events2", [ noon_adj_hrs, sunrise_events2[:NOON][0] + noon_adj_hrs, sunrise_events2[:SUNRISE][0] + noon_adj_hrs, sunrise_events2[:SUNRISE][1] + noon_adj_hrs, sunrise_events2[:NOON][0]- sunrise_events2[:SUNRISE][0], sunrise_events2[:SUNRISE][1] - sunrise_events2[:NOON][0], sunrise_events2[:NOON][0]]);
+        deBug("sr2:", sunrise_events2);
 
+        if (sunrise_events2 != null ) {
 
-        drawARC (dc, sunrise_events2[:SUNRISE][0] + noon_adj_hrs, sunrise_events2[:SUNRISE][1]+ noon_adj_hrs, xc, yc, r, 6, Graphics.COLOR_WHITE);
-        //NOON mark
-        drawARC (dc, sunrise_events2[:NOON][0]-0.1+ noon_adj_hrs, sunrise_events2[:NOON][0]+0.1+ noon_adj_hrs, xc, yc, r, 10, Graphics.COLOR_WHITE);
-        //MIDNIGHT mark
-        drawARC (dc, sunrise_events2[:NOON][0]-0.05+ noon_adj_hrs +  12, sunrise_events2[:NOON][0]+0.05+ noon_adj_hrs  + 12, xc, yc, r, 10, Graphics.COLOR_WHITE);
-        drawARC (dc, sunrise_events2[:DAWN][0]+ noon_adj_hrs, sunrise_events2[:SUNRISE][0]+ noon_adj_hrs, xc, yc, r, 4,Graphics.COLOR_LT_GRAY);
-        drawARC (dc, sunrise_events2[:SUNRISE][1]+ noon_adj_hrs, sunrise_events2[:DAWN][1]+ noon_adj_hrs, xc, yc, r, 4,Graphics.COLOR_LT_GRAY);
-        drawARC (dc, sunrise_events2[:ASTRO_DAWN][0]+ noon_adj_hrs, sunrise_events2[:DAWN][0]+ noon_adj_hrs, xc, yc, r, 2,Graphics.COLOR_DK_GRAY);
-        drawARC (dc, sunrise_events2[:DAWN][1]+ noon_adj_hrs, sunrise_events2[:ASTRO_DAWN][1]+ noon_adj_hrs, xc, yc, r, 2,Graphics.COLOR_DK_GRAY);
-        dc.setPenWidth(1);
+            if (sunrise_events2[:SUNRISE] != null) {drawARC (dc, sunrise_events2[:SUNRISE][0] + noon_adj_hrs, sunrise_events2[:SUNRISE][1]+ noon_adj_hrs, xc, yc, r, 6, Graphics.COLOR_WHITE); }
+
+            //NOON mark
+            if (sunrise_events2[:NOON] != null) {drawARC (dc, sunrise_events2[:NOON][0]-0.1+ noon_adj_hrs, sunrise_events2[:NOON][0]+0.1+ noon_adj_hrs, xc, yc, r, 10, Graphics.COLOR_WHITE); }
+            
+            //MIDNIGHT mark
+            if (sunrise_events2[:NOON] != null) {drawARC (dc, sunrise_events2[:NOON][0]-0.05+ noon_adj_hrs +  12, sunrise_events2[:NOON][0]+0.05+ noon_adj_hrs  + 12, xc, yc, r, 10, Graphics.COLOR_WHITE); }
+
+            if (sunrise_events2[:SUNRISE] != null && sunrise_events2[:DAWN] != null) {drawARC (dc, sunrise_events2[:DAWN][0]+ noon_adj_hrs, sunrise_events2[:SUNRISE][0]+ noon_adj_hrs, xc, yc, r, 4,Graphics.COLOR_LT_GRAY); }
+
+            if (sunrise_events2[:SUNRISE] != null && sunrise_events2[:DAWN] != null) {drawARC (dc, sunrise_events2[:SUNRISE][1]+ noon_adj_hrs, sunrise_events2[:DAWN][1]+ noon_adj_hrs, xc, yc, r, 4,Graphics.COLOR_LT_GRAY); }
+
+            if (sunrise_events2[:ASTRO_DAWN] != null && sunrise_events2[:DAWN] != null) {drawARC (dc, sunrise_events2[:ASTRO_DAWN][0]+ noon_adj_hrs, sunrise_events2[:DAWN][0]+ noon_adj_hrs, xc, yc, r, 2,Graphics.COLOR_DK_GRAY); }
+            
+            if (sunrise_events2[:ASTRO_DAWN] != null && sunrise_events2[:DAWN] != null) {drawARC (dc, sunrise_events2[:DAWN][1]+ noon_adj_hrs, sunrise_events2[:ASTRO_DAWN][1]+ noon_adj_hrs, xc, yc, r, 2,Graphics.COLOR_DK_GRAY); }
+            dc.setPenWidth(1);
+        }
 
         sunrise_events2=null;
 
@@ -2301,7 +2312,7 @@ class SolarSystemBaseView extends WatchUi.View {
                 dc.drawText(xstart, ystart + i*lineHeight, font, msg[i+1], jstify);
                 
                 if (i>2 && msg[i-2]!=null &&  msg[i-2].find("THE") != null) { //"THE PLANETS" or "PLANETS"
-                    deBug("drawing0", [i, msg,[i-2], msg[i-1], msg[i]]);
+                    //deBug("drawing0", [i, msg,[i-2], msg[i-1], msg[i]]);
                     if (_planetIcon != null) {
                         //deBug("drawing", [msg[i], msg[i+1], msg[i-1]]);
                         
@@ -3555,11 +3566,14 @@ class SolarSystemBaseView extends WatchUi.View {
     //Until setPosition gets a callback we will use SOME value for lastLoc
     //We call setInitPosition immeidately upon startup & then setPosition will fill in
     //later as correct data is available.
-    function setInitPosition () {
-        lastLoc = [39.00894, -94.44008]; //for testing
+    function setInitPosition () {        
+        lastLoc = [-70.00894, -179.44008]; //for testing
+        //lastLoc = [-60.00894, 179.44008]; //for testing
+        //lastLoc = [39.00894, -94.44008]; //for testing
         //lastLoc = [59.00894, -94.44008]; //for testing
         //lastLoc = [0,0]; //for testing
         //lastLoc = [51.5, 0]; //for testing - Greenwich
+        deBug("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!TESTINGTESTINGTESTING LAT/LONG!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", lastLoc);
         return;
 
         if (lastLoc == null) {self.lastLoc = new Position.Location(            
@@ -3581,7 +3595,10 @@ class SolarSystemBaseView extends WatchUi.View {
 
         //lastLoc = [0,0]; //for testing
         //lastLoc = [51.5, 0]; //for testing - Greenwich
-        lastLoc = [39.00894, -94.44008]; //for testing
+        //lastLoc = [39.00894, -94.44008]; //for testing
+        //lastLoc = [-60.00894, 179.44008]; //for testing
+        lastLoc = [-70.00894, -179.44008]; //for testing
+        deBug("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!TESTINGTESTINGTESTING LAT/LONG!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", lastLoc);        
         return;
 
         var pinfo = Position.getInfo();

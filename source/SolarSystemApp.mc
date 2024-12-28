@@ -67,7 +67,7 @@ var solarSystemView_class; //saved instance of main class
 
 //enum {EXIT_APP, RESET_DATE, ORR_ZOOM, THETA, LABEL_DISPLAY, REFRESH, PLANET_SIZE, PLANETS, HELP, HELP_BANNERS}
 
-enum {changeMode_enum, resetDate_enum, orrZoomOption_enum, thetaOption_enum, labelDisplayOption_enum, refreshOption_enum, planetSizeOption_enum, planetsOption_enum, helpOption_enum, helpBanners_enum, lastLoc_enum} //screen0MoveOption_enum, 
+enum {changeMode_enum, resetDate_enum, orrZoomOption_enum, thetaOption_enum, labelDisplayOption_enum, refreshOption_enum, latOption_enum, lonOption_enum, planetSizeOption_enum, planetsOption_enum, helpOption_enum, helpBanners_enum, lastLoc_enum} //screen0MoveOption_enum, 
 
 
 class SolarSystemBaseApp extends Application.AppBase {
@@ -207,6 +207,10 @@ class SolarSystemBaseApp extends Application.AppBase {
         readAStorageValue(labelDisplayOption_enum,labelDisplayOption_default, labelDisplayOption_size );
 
         readAStorageValue(refreshOption_enum,refreshOption_default, refreshOption_size );
+        readAStorageValue(latOption_enum,latOption_default, latOption_size );
+
+        readAStorageValue(refreshOption_enum,refreshOption_default, refreshOption_size );
+        readAStorageValue(lonOption_enum,lonOption_default, lonOption_size );
 
         //readAStorageValue("Screen0 Move Option",screen0MoveOption_default, screen0MoveOption_size );
 
@@ -240,7 +244,18 @@ class SolarSystemBaseApp extends Application.AppBase {
         //###### REFRESH RATE
         $.hz = refreshOption_values[$.Options_Dict[refreshOption_enum]];                
         _positionView.startAnimationTimer($.hz);           
+
+
         
+        //###### MANUAL LATITUDE    
+        //lat ranges 0 - 181 and lat is either val-90 or if ==181,  auto
+        //lon ranges 0 - 361 and lon is either val-180 or if ==361,  auto
+        //$.latlonOption_value=[];
+        $.latlonOption_value= [$.Options_Dict[latOption_enum], $.Options_Dict[lonOption_enum]];                
+            
+        //$.hz = lonOption_values[$.Options_Dict[lonOption_enum]];                    
+        
+
         //##### PLANET SIZE
         planetSizeFactor = planetSizeOption_values[$.Options_Dict[planetSizeOption_enum]];
 

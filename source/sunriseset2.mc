@@ -242,79 +242,79 @@ function getRiseSetfromDate_hr(now_info, timeZoneOffset_sec, dst, time_add_hrs, 
     //deBug("long(MEEUS),UT,TZ,dst", [lon_deg.format("%.2f"), lat_deg.format("%.2f"), timeZoneOffset_sec/3600, dst]);
     
 
-//var jd = time_add_hrs /24.0f + gregorianDateToJulianDate(now_info.year, now_info.month, now_info.day, 0, 0, 0);
+    //var jd = time_add_hrs /24.0f + gregorianDateToJulianDate(now_info.year, now_info.month, now_info.day, 0, 0, 0);
 
-//NOTE: UT/timezone offset must be SUBTRACTED from the time to get the correct time in GMT in this context.
-//Instead we'll use the version in functions.mc, which has this correctly accounted for already.
-//var jd = gregorianDateToJulianDate(now_info.year, now_info.month, now_info.day, now_info.hour+ time_add_hrs + dst, now_info.min, -timeZoneOffset_sec);
-var jd = julianDate (now_info.year, now_info.month, now_info.day,now_info.hour + time_add_hrs, now_info.min, timeZoneOffset_sec/3600f, dst);
+    //NOTE: UT/timezone offset must be SUBTRACTED from the time to get the correct time in GMT in this context.
+    //Instead we'll use the version in functions.mc, which has this correctly accounted for already.
+    //var jd = gregorianDateToJulianDate(now_info.year, now_info.month, now_info.day, now_info.hour+ time_add_hrs + dst, now_info.min, -timeZoneOffset_sec);
+    var jd = julianDate (now_info.year, now_info.month, now_info.day,now_info.hour + time_add_hrs, now_info.min, timeZoneOffset_sec/3600f, dst);
 
-//deBug("JD: ", [jd, now_info.year, now_info.month, now_info.day,now_info.hour + time_add_hrs, now_info.min, timeZoneOffset_sec, dst, time_add_hrs]);
-//var obliq_rad= obliquityEcliptic_rad (now_info.year, now_info.month, now_info.day + time_add_hrs, now_info.hour, now_info.min, timeZoneOffset_sec/3600.0, dst);
-//var obliq_deg = Math.toDegrees(obliq_rad);
+    //deBug("JD: ", [jd, now_info.year, now_info.month, now_info.day,now_info.hour + time_add_hrs, now_info.min, timeZoneOffset_sec, dst, time_add_hrs]);
+    //var obliq_rad= obliquityEcliptic_rad (now_info.year, now_info.month, now_info.day + time_add_hrs, now_info.hour, now_info.min, timeZoneOffset_sec/3600.0, dst);
+    //var obliq_deg = Math.toDegrees(obliq_rad);
 
-var obliq_deg = calc_obliq1_deg (now_info, time_add_hrs, timeZoneOffset_sec, dst);
-var obliq_rad = Math.toRadians(obliq_deg);
+    var obliq_deg = calc_obliq1_deg (now_info, time_add_hrs, timeZoneOffset_sec, dst);
+    var obliq_rad = Math.toRadians(obliq_deg);
 
-//deBug("long(MEEUS),UT,TZ,dst", [lon_deg, lat_deg, timeZoneOffset_sec/3600, dst, time_add_hrs, time_add_hrs/24.0f, jd]);
+    //deBug("long(MEEUS),UT,TZ,dst", [lon_deg, lat_deg, timeZoneOffset_sec/3600, dst, time_add_hrs, time_add_hrs/24.0f, jd]);
 
-//System.println ("JD: " + jd); 
+    //System.println ("JD: " + jd); 
 
-//get ra & dec for sun from VSOP87a
-//var ra = 0;
-//var dec = 0;
+    //get ra & dec for sun from VSOP87a
+    //var ra = 0;
+    //var dec = 0;
 
-var sun_RD = pp_sun;//radec = sunPosition(jd);
+    var sun_RD = pp_sun;//radec = sunPosition(jd);
 
-sun_RD[0] = equatorialLong2eclipticLong_deg(sun_RD[0], obliq_deg);
+    sun_RD[0] = equatorialLong2eclipticLong_deg(sun_RD[0], obliq_deg);
 
-//return is: [Math.toDegrees(l), Math.toDegrees(t2), r];//lat, lon, r
-
-
-if (pp_sun == null ) {
-    var sun_radec = planetCoord (now_info, timeZoneOffset_sec, dst, time_add_hrs, :ecliptic_latlon, ["Sun"]);
-
-    //System.println("sun_radec(I): " + (pp_sun[0]) + " " + (pp_sun[1]));
-    sun_RD = sun_radec["Sun"];
-}
-//System.println("sun_radec: " + (sun_RD));
-
-var ret = {};
+    //return is: [Math.toDegrees(l), Math.toDegrees(t2), r];//lat, lon, r
 
 
-//var jd_mid = gregorianDateToJulianDate(now_info.year, now_info.month, now_info.day, 0,0,0);
+    if (pp_sun == null ) {
+        var sun_radec = planetCoord (now_info, timeZoneOffset_sec, dst, time_add_hrs, :ecliptic_latlon, ["Sun"]);
 
-var jd_mid = julianDate (now_info.year, now_info.month, now_info.day + Math.floor((time_add_hrs + now_info.hour)/24.0), 0,0,0,0);
+        //System.println("sun_radec(I): " + (pp_sun[0]) + " " + (pp_sun[1]));
+        sun_RD = sun_radec["Sun"];
+    }
+    //System.println("sun_radec: " + (sun_RD));
 
-//Greenwhich mean sidereal time @ midnight of today
-var gmst_mid_deg=normalize(GMST_deg(Math.floor(jd_mid)+.5));
-//deBug("gmst: ", [gmst, jd, Math.floor(jd)+.5]);
-ret.put(:GMST_MID_HR, gmst_mid_deg/15.0);
-//deBug("gmst, jd : ", [gmst_mid_deg, jd]);
-//today's solar transit time in GMT
-var transit_GMT_DAY=normalize(sun_RD[0] + lon_deg - gmst_mid_deg)/360.0;
-ret.put(:TRANSIT_GMT_HR, transit_GMT_DAY*24.0);
-//var transit_GMT_toeclip_day = transit_GMT_DAY*Math.PI*2.0;
-//deBug("transit: ", [transit_GMT_DAY*24.0]);
-
-var gmst_now_deg = normalize(GMST_deg(jd));
-var lmst_now_hr = normalize((gmst_now_deg - lon_deg)) / 15.0;
-ret.put(:GMST_NOW_HR, [gmst_now_deg/15.0]);
-ret.put(:LMST_NOW_HR, [lmst_now_hr]);
-//deBug("GNMST_MID_HR, GNMST_NOW_HR, LMST_HR, JD: ", [gmst_mid_deg/15.0, gmst_now_deg/15.0, lmst_now_hr, jd]);
-
-var tz_add = (timeZoneOffset_sec/3600.0f) + dst;
-//ret.put (:NOON,  constrain(transit_GMT_toeclip_day + tz_add/24.0) * 24.0);
+    var ret = {};
 
 
-//[0] = equatorial longitude of the Sun at noon local time
-//[1] = ecliptical long of Sun @ noon local time
-ret.put (:NOON,  [
-    constrain(transit_GMT_DAY + tz_add/24.0) * 24.0,
-    //constrain(transit_GMT_toeclip_day + tz_add/24.0) * 24.0,
-    ]);
+    //var jd_mid = gregorianDateToJulianDate(now_info.year, now_info.month, now_info.day, 0,0,0);
 
-//deBug("NOON,tz: ", [constrain(transit_GMT_DAY + tz_add/24.0) * 24.0, tz_add]);
+    var jd_mid = julianDate (now_info.year, now_info.month, now_info.day + Math.floor((time_add_hrs + now_info.hour)/24.0), 0,0,0,0);
+
+    //Greenwhich mean sidereal time @ midnight of today
+    var gmst_mid_deg=normalize(GMST_deg(Math.floor(jd_mid)+.5));
+    //deBug("gmst: ", [gmst, jd, Math.floor(jd)+.5]);
+    ret.put(:GMST_MID_HR, gmst_mid_deg/15.0);
+    //deBug("gmst, jd : ", [gmst_mid_deg, jd]);
+    //today's solar transit time in GMT
+    var transit_GMT_DAY=normalize(sun_RD[0] + lon_deg - gmst_mid_deg)/360.0;
+    ret.put(:TRANSIT_GMT_HR, transit_GMT_DAY*24.0);
+    //var transit_GMT_toeclip_day = transit_GMT_DAY*Math.PI*2.0;
+    //deBug("transit: ", [transit_GMT_DAY*24.0]);
+
+    var gmst_now_deg = normalize(GMST_deg(jd));
+    var lmst_now_hr = normalize((gmst_now_deg - lon_deg)) / 15.0;
+    ret.put(:GMST_NOW_HR, [gmst_now_deg/15.0]);
+    ret.put(:LMST_NOW_HR, [lmst_now_hr]);
+    //deBug("GNMST_MID_HR, GNMST_NOW_HR, LMST_HR, JD: ", [gmst_mid_deg/15.0, gmst_now_deg/15.0, lmst_now_hr, jd]);
+
+    var tz_add = (timeZoneOffset_sec/3600.0f) + dst;
+    //ret.put (:NOON,  constrain(transit_GMT_toeclip_day + tz_add/24.0) * 24.0);
+
+
+    //[0] = equatorial longitude of the Sun at noon local time
+    //[1] = ecliptical long of Sun @ noon local time
+    ret.put (:NOON,  [
+        constrain(transit_GMT_DAY + tz_add/24.0) * 24.0,
+        //constrain(transit_GMT_toeclip_day + tz_add/24.0) * 24.0,
+        ]);
+
+    //deBug("NOON,tz: ", [constrain(transit_GMT_DAY + tz_add/24.0) * 24.0, tz_add]);
 
 
     //Get info for all four points of the ecliptic 
@@ -345,7 +345,7 @@ ret.put (:NOON,  [
         //var s1_hr = sun_info[4]; //ecliptic...
         //var s2_hr = sun_info[5];
 
-        if (sun_info[1] != null) { //if one is null both are
+        if (sun_info!=null && sun_info[1] != null) { //if one is null both are
             s1_hr = mod ((s1_hr + tz_add) , 24);
             s2_hr = mod ( (s2_hr + tz_add), 24);
         }     
@@ -369,72 +369,7 @@ ret.put (:NOON,  [
 
 
 
-//Now all the sun events for today
-for (var i = 0; i<sunEventData.size();i++) {
-
-    
-    var kys = sunEventData.keys();        
-
-
-    var ky = kys[i];
-
-    //if (ky == :NOON ) { continue;}
-    if (ret.hasKey(ky) ) { continue;}
-
-    //result in hrs GMT
-    //rise & set - in hours GMT
-    var sun_info = getRiseSet_hr(jd,
-        sunEventData[ky], Math.toRadians(lat_deg), 
-        Math.toRadians(lon_deg),
-        Math.toRadians(sun_RD[0]),
-        Math.toRadians(sun_RD[1]),
-        transit_GMT_DAY, obliq_rad); 
-
-
-    //System.println("sunrise/sets " + tz_add + timeZoneOffset_sec + " " + dst);
-    /*var s1_hr = sun_info[0]; //equatorial times
-    var s2_hr = sun_info[1];
-    var s3_hr = sun_info[4]; //ecliptic times...
-    var s4_hr = sun_info[5];*/
-    //var s = {};
-    if (sun_info[1] != null) { //if one is null all are
-        //s1_hr = mod ((s1_hr + tz_add) , 24);
-        //s2_hr = mod ( (s2_hr + tz_add), 24);
-        for (var j =  0; j<2; j++) {
-            sun_info[j] = mod ((sun_info[j] + tz_add) , 24);
-        }
-    } 
-    
-    ret.put (ky, sun_info);
-
-    /*
-    var jd_rise = jd_mid + (s1_hr + tz_add);
-    var  jd_set = jd_mid + (s2_hr + tz_add);
-    var lmst_rise_deg = normalize( GMST_deg(jd_rise) - lon_deg );
-    var lmst_set_deg = normalize( GMST_deg(jd_set) - lon_deg );
-    var riseIntEclipticHorizonPoints_rad = intersectionPointsEclipticHorizon_rad(Math.toRadians(lat_deg), Math.toRadians(lmst_rise_deg), obliq_rad);
-    var setIntEclipticHorizonPoints_rad = intersectionPointsEclipticHorizon_rad(Math.toRadians(lat_deg), Math.toRadians(lmst_set_deg), obliq_rad);
-
-
-    //[0,1] equatorial rise/set times
-    //[2,3] ecliptic rise/set times
-    ret.put (ky, [s1_hr, s2_hr, 
-        (270 - Math.toDegrees(riseIntEclipticHorizonPoints_rad[1]))/15.0,
-        (270 - Math.toDegrees(setIntEclipticHorizonPoints_rad[1]))/15.0,
-    ]);
-    //deBug(sevent_names[ky] + ": ", [s1_hr, s2_hr]);
-    */
-
-
-
-    //System.println("sunrise/sets " + sun_info + " " + ky) ;
-    // if (ky == :HORIZON) { System.println("sunrise/sets HORIZON: " + sun_info + " " + ky) ;}
-    
-}
-//System.println("sunrise/sets " + ret);
-
-    /*
-    //DEBUG PRINT ALL VALUES
+    //Now all the sun events for today
     for (var i = 0; i<sunEventData.size();i++) {
 
         
@@ -442,12 +377,78 @@ for (var i = 0; i<sunEventData.size();i++) {
 
 
         var ky = kys[i];
-        System.println("ret: " + ky + " " + ret[ky] + " " + sunEventData[ky]);
+
+        //if (ky == :NOON ) { continue;}
+        if (ret.hasKey(ky) ) { continue;}
+
+        //result in hrs GMT
+        //rise & set - in hours GMT
+        var sun_info = getRiseSet_hr(jd,
+            sunEventData[ky], Math.toRadians(lat_deg), 
+            Math.toRadians(lon_deg),
+            Math.toRadians(sun_RD[0]),
+            Math.toRadians(sun_RD[1]),
+            transit_GMT_DAY, obliq_rad); 
+
+
+        //System.println("sunrise/sets " + tz_add + timeZoneOffset_sec + " " + dst);
+        /*var s1_hr = sun_info[0]; //equatorial times
+        var s2_hr = sun_info[1];
+        var s3_hr = sun_info[4]; //ecliptic times...
+        var s4_hr = sun_info[5];*/
+        //var s = {};
+        deBug("sun_info", sun_info);
+        if (sun_info!=null && sun_info[1] != null) { //if one is null all are
+            //s1_hr = mod ((s1_hr + tz_add) , 24);
+            //s2_hr = mod ( (s2_hr + tz_add), 24);
+            for (var j =  0; j<2; j++) {
+                sun_info[j] = mod ((sun_info[j] + tz_add) , 24);
+            }
+        } 
+        
+        ret.put (ky, sun_info);
+
+        /*
+        var jd_rise = jd_mid + (s1_hr + tz_add);
+        var  jd_set = jd_mid + (s2_hr + tz_add);
+        var lmst_rise_deg = normalize( GMST_deg(jd_rise) - lon_deg );
+        var lmst_set_deg = normalize( GMST_deg(jd_set) - lon_deg );
+        var riseIntEclipticHorizonPoints_rad = intersectionPointsEclipticHorizon_rad(Math.toRadians(lat_deg), Math.toRadians(lmst_rise_deg), obliq_rad);
+        var setIntEclipticHorizonPoints_rad = intersectionPointsEclipticHorizon_rad(Math.toRadians(lat_deg), Math.toRadians(lmst_set_deg), obliq_rad);
+
+
+        //[0,1] equatorial rise/set times
+        //[2,3] ecliptic rise/set times
+        ret.put (ky, [s1_hr, s2_hr, 
+            (270 - Math.toDegrees(riseIntEclipticHorizonPoints_rad[1]))/15.0,
+            (270 - Math.toDegrees(setIntEclipticHorizonPoints_rad[1]))/15.0,
+        ]);
+        //deBug(sevent_names[ky] + ": ", [s1_hr, s2_hr]);
+        */
+
+
+
+        //System.println("sunrise/sets " + sun_info + " " + ky) ;
+        // if (ky == :HORIZON) { System.println("sunrise/sets HORIZON: " + sun_info + " " + ky) ;}
+        
     }
-    */
+    //System.println("sunrise/sets " + ret);
+
+        /*
+        //DEBUG PRINT ALL VALUES
+        for (var i = 0; i<sunEventData.size();i++) {
+
+            
+            var kys = sunEventData.keys();        
 
 
-return ret;
+            var ky = kys[i];
+            System.println("ret: " + ky + " " + ret[ky] + " " + sunEventData[ky]);
+        }
+        */
+
+
+    return ret;
 
 
 }

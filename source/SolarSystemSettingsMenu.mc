@@ -157,7 +157,20 @@ class SolarSystemSettingsMenu extends WatchUi.Menu2 {
         Menu2.addItem(new WatchUi.MenuItem("Display Planet Labels?",
             $.labelDisplayOption[$.Options_Dict[labelDisplayOption_enum]],labelDisplayOption_enum,{}));
 
-        Menu2.addItem(new WatchUi.ToggleMenuItem("Help Banners: Off-On", null, helpBanners_enum, $.Options_Dict[helpBanners_enum], null));        
+        Menu2.addItem(new WatchUi.ToggleMenuItem("Help Banners: Off-On", null, helpBanners_enum, $.Options_Dict[helpBanners_enum], null));   
+
+        
+        if ($.Options_Dict[latOption_enum] == null) { $.Options_Dict[latOption_enum] = $.latOption_default; }
+        var val = $.Options_Dict[latOption_enum] - 90;
+        if (val > 90) { val = "GPS"; }        
+        Menu2.addItem(new WatchUi.MenuItem("Manual Set Latitude?", val,latOption_enum,{})); 
+
+        
+        if ($.Options_Dict[lonOption_enum] == null) { $.Options_Dict[lonOption_enum] = $.lonOption_default; }
+        val = $.Options_Dict[lonOption_enum] - 180;
+        if (val > 180) { val = "GPS"; }
+        Menu2.addItem(new WatchUi.MenuItem("Manual Set Longitude?",
+        val,lonOption_enum,{})); 
 
         if ($.Options_Dict[refreshOption_enum] == null) { $.Options_Dict[refreshOption_enum] = $.refreshOption_default; }
         Menu2.addItem(new WatchUi.MenuItem("Screen Refresh Rate?",
@@ -287,6 +300,26 @@ class SolarSystemSettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
         //[ "5hz", "4hz", "3hz", "2hz", "1hz", "2/3hz", "1/2hz"];
         $.hz = refreshOption_values[$.Options_Dict[id]];
         solarSystemView_class.startAnimationTimer($.hz);           
+        }
+
+        if(id.equals(latOption_enum)) {
+            $.Options_Dict[id]=($.Options_Dict[id]+1)%latOption_size;
+            if (id < latOption_size-1) {menuItem.setSubLabel($.Options_Dict[id]-90);}
+            else {menuItem.setSubLabel("GPS");}
+
+            Storage.setValue(id as String, $.Options_Dict[id]); 
+            //[ "5hz", "4hz", "3hz", "2hz", "1hz", "2/3hz", "1/2hz"];
+            $.latlonOption_value[0] = $.Options_Dict[id];            
+        }
+
+        if(id.equals(lonOption_enum)) {
+            $.Options_Dict[id]=($.Options_Dict[id]+1)%lonOption_size;
+            if (id < lonOption_size-1) {menuItem.setSubLabel($.Options_Dict[id]-180);}
+            else {menuItem.setSubLabel("GPS");}
+
+            Storage.setValue(id as String, $.Options_Dict[id]); 
+            //[ "5hz", "4hz", "3hz", "2hz", "1hz", "2/3hz", "1/2hz"];
+            $.latlonOption_value[1] = $.Options_Dict[id];            
         }
 
 

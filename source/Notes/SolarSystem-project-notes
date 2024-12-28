@@ -8,9 +8,10 @@ NEW TODO:
  - Keep horizon line if time step is by exactly 24 hr until it isn't
  - 1st button press doesn't do anything, even if the initial banners are gone
  - mode 3 & 4 ? doesn't show orbits for some reason (XX seems to happen only in sim??!?)
- - Add option to 'flip' angle up or down instead of just down
+ - Add option to 'flip' view angle for SS up or down instead of just down
  - X Show more precise moon lit % 
  - Make moon lit % be more scientifically exact instead of approx.
+ - Add option to manually input latitude & longitude
 
 
 
