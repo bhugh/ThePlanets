@@ -1969,7 +1969,7 @@ class SolarSystemBaseView extends WatchUi.View {
     function init_findSpot(){
         //spots = [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1];            
             spots = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]b;
-            deBug("Byte spots", [spots]);
+            //deBug("Byte spots", [spots]);
 
     }
 
@@ -2893,41 +2893,70 @@ class SolarSystemBaseView extends WatchUi.View {
                         dc.fillCircle(x, y, size);
                         break;
                 }  else {
-                    if (moon_age_deg > 315 || moon_age_deg <= 45) { //NEW moon
+                    if (moon_age_deg >= 358 || moon_age_deg <= 2) { //NEW moon
 
                             dc.setColor(0x171f25, Graphics.COLOR_TRANSPARENT);                //0x171f25
                             dc.fillCircle(x, y, size);
-                            dc.setColor(0xf0f9ff, Graphics.COLOR_TRANSPARENT);  
-                            dc.drawCircle(x, y, size);
+                            //dc.setColor(0xf0f9ff, Graphics.COLOR_TRANSPARENT);  
+                            //dc.drawCircle(x, y, size);
                     }
 
-                    else if (moon_age_deg > 45 && moon_age_deg <= 135) { //1st quarter
-                            dc.setColor(0xf0f9ff, Graphics.COLOR_TRANSPARENT);                
-                            dc.drawCircle(x, y, size);
+                    else if (moon_age_deg > 2 && moon_age_deg <= 175) { //1st quarter
+                            //dc.setColor(0xf0f9ff, Graphics.COLOR_TRANSPARENT);                
+                            //dc.drawCircle(x, y, size);
                             dc.setClip (x, y-size,size, size*2);                        
                             dc.setColor(0xf0f9ff, Graphics.COLOR_TRANSPARENT);  
                             dc.fillCircle(x, y, size);
                             dc.clearClip();
+                            
 
                     }
-                    else if (moon_age_deg > 135 && moon_age_deg <= 225) { //FULL
+                    else if (moon_age_deg > 175 && moon_age_deg <= 185) { //FULL
                             
                             dc.setColor(0xf0f9ff, Graphics.COLOR_TRANSPARENT);  
                             
-                            dc.drawCircle(x, y, size);              
+                            //dc.drawCircle(x, y, size);              
                             
                             dc.fillCircle(x, y, size);
                     }
-                    else if (moon_age_deg > 225 && moon_age_deg <= 315) { //Last quarter
+                    else if (moon_age_deg > 185 && moon_age_deg < 358) { //Last quarter
                             
-                            dc.setColor(0xf0f9ff, Graphics.COLOR_TRANSPARENT);  
-                            dc.drawCircle(x, y, size);
+                            //dc.setColor(0xf0f9ff, Graphics.COLOR_TRANSPARENT);  
+                            //dc.drawCircle(x, y, size);
                             
                             dc.setClip (x-size, y-size,size, size*2);
                             dc.setColor(0xf0f9ff, Graphics.COLOR_TRANSPARENT);  
                             dc.fillCircle(x, y, size);
                             dc.clearClip();
                     }
+                    //black OR white ellipse to blank out or add some/all of the half moon to show
+                    //phases in between quarters
+                    //This can be refined more to show exact lit percentages, if desireds.
+                    if (moon_age_deg > 0 && moon_age_deg < 88){
+                         dc.setColor(0x171f25, Graphics.COLOR_TRANSPARENT);                //0x171f25
+                         dc.fillEllipse(x, y, size * (90-moon_age_deg)*(90-moon_age_deg)/8100.0, size);
+                    }
+
+                    else if (moon_age_deg > 275 && moon_age_deg < 360){
+                         dc.setColor(0x171f25, Graphics.COLOR_TRANSPARENT);                //0x171f25
+                         dc.fillEllipse(x, y, size * (moon_age_deg-270)*(moon_age_deg-270)/8100.0, size);
+                    }
+
+                    //white ellipse to add to the half moon after 1st quarter
+
+                    else if (moon_age_deg >= 95 && moon_age_deg < 175) {
+                         dc.setColor(0xf0f9ff, Graphics.COLOR_TRANSPARENT);                //0x171f25
+                         dc.fillEllipse(x, y, size * (moon_age_deg - 90 )*(moon_age_deg - 90 )/8100.0, size);
+                    }
+
+                    if (moon_age_deg >= 185 && moon_age_deg < 265) {
+                         dc.setColor(0xf0f9ff, Graphics.COLOR_TRANSPARENT);                //0x171f25
+                         dc.fillEllipse(x, y, size * (270-moon_age_deg)*(270-moon_age_deg)/8100.00, size);
+                    }
+                    //draw the full circle last so it always looks like a full round circle w/ phases
+                    dc.setColor(0xf0f9ff, Graphics.COLOR_TRANSPARENT);  
+                    dc.drawCircle(x, y, size);
+                    deBug("Moon!", moon_age_deg);
                     
                 }
                 break;
