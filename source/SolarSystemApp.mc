@@ -215,7 +215,7 @@ class SolarSystemBaseApp extends Application.AppBase {
     //read stored settings & set default values if nothing stored
     public function readStorageValues() as Void {
 
-        System.println("STORAGE VALUES ARE READ - PROGRAM INIT!!!!");
+        //System.println("STORAGE VALUES ARE READ - PROGRAM INIT!!!!");
 
         loadPlanetsOpt();
       

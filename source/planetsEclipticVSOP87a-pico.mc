@@ -2,9 +2,10 @@ import Toybox.Math;
 import Toybox.System;
 import Toybox.Lang; 
 
+
 var storRand = {};
 var storLastR = {};
-
+/*
 class VSOP87_cache{
 
     var g_cache;
@@ -24,6 +25,7 @@ class VSOP87_cache{
 function fetch (now_info, timeZoneOffset_sec, dst, timeAdd_hrs, type, req_array) {
     return planetCoord(now_info, timeZoneOffset_sec, dst, timeAdd_hrs, type, req_array);
 }
+*/
 /*
     function fetch (now_info, timeZoneOffset_sec, dst, timeAdd_hrs, type) {
         //System.println("fetch... ");
@@ -104,7 +106,7 @@ function fetch (now_info, timeZoneOffset_sec, dst, timeAdd_hrs, type, req_array)
         indexes = [];
     }
     */
-}
+/*} */
 
 
 //VSOP87-Multilang http://www.celestialprogramming.com/
@@ -151,29 +153,29 @@ function fetch (now_info, timeZoneOffset_sec, dst, timeAdd_hrs, type, req_array)
 
         //if (planetsOption_value == 0 || planetsOption_value == 2 || type != :helio_xyz)
          
-            if (sin ("Mercury",vhh)) {ret.put ("Mercury", vspo_2_J2000(getMercury(t), earth, true, type));}
-            if (sin ("Venus",vhh)) {ret.put ("Venus", vspo_2_J2000(getVenus(t), earth, true, type));} 
+            if (sin (allPlanets[1],vhh)) {ret.put (allPlanets[1], vspo_2_J2000(getMercury(t), earth, true, type));}
+            if (sin (allPlanets[2],vhh)) {ret.put (allPlanets[2], vspo_2_J2000(getVenus(t), earth, true, type));} 
             //if (sin ("Mercury",vhh)) {"Earth" => vspo_2_J2000(getEarth(t), earth, true, type));}  */
-            if (sin ("Mars",vhh)) {ret.put ("Mars", vspo_2_J2000(getMars(t), earth, true, type));} 
-            if (sin ("Jupiter",vhh)) {ret.put ("Jupiter" , vspo_2_J2000(getJupiter(t), earth, true, type));} 
-            if (sin ("Saturn",vhh)) {ret.put ("Saturn" , vspo_2_J2000(getSaturn(t), earth, true, type));} 
-            if (sin ("Uranus",vhh)) {ret.put ("Uranus" , vspo_2_J2000(getUranus(t), earth, true, type));} 
-            if (sin ("Neptune",vhh)) {ret.put ("Neptune" , vspo_2_J2000(getNeptune(t), earth, true, type));}
-            if (sin ("Sun",vhh)) {ret.put ("Sun" , vspo_2_J2000([0,0,0], earth, true, type));}
-            if (sin ("Pluto",vhh)) {ret.put ("Pluto" , vspo_2_J2000(getPluto(JD), earth, false, type));}
+            if (sin (allPlanets[5],vhh)) {ret.put (allPlanets[5], vspo_2_J2000(getMars(t), earth, true, type));} 
+            if (sin (allPlanets[8],vhh)) {ret.put (allPlanets[8], vspo_2_J2000(getJupiter(t), earth, true, type));} 
+            if (sin (allPlanets[9],vhh)) {ret.put (allPlanets[9], vspo_2_J2000(getSaturn(t), earth, true, type));} 
+            if (sin (allPlanets[10],vhh)) {ret.put (allPlanets[10], vspo_2_J2000(getUranus(t), earth, true, type));} 
+            if (sin (allPlanets[11],vhh)) {ret.put (allPlanets[11], vspo_2_J2000(getNeptune(t), earth, true, type));}
+            if (sin (allPlanets[0],vhh)) {ret.put (allPlanets[0], vspo_2_J2000([0,0,0], earth, true, type));} //SUN
+            if (sin (allPlanets[12],vhh)) {ret.put (allPlanets[12], vspo_2_J2000(getPluto(JD), earth, false, type));}
         
         
 
         //if ((planetsOption_value == 0 || planetsOption_value == 3 ) && type == :helio_xyz) {
 
-            if (sin ("Eris",vhh)) {ret.put ("Eris", vspo_2_J2000(getEris(JD), earth, false, type));}
-            if (sin ("Chiron",vhh)) {ret.put ("Chiron", vspo_2_J2000(getChiron(JD), earth, false, type));}
-            if (sin ("Ceres",vhh)) {ret.put ("Ceres", vspo_2_J2000(getCeres(JD), earth, false, type));}
+            if (sin (allPlanets[15],vhh)) {ret.put (allPlanets[15], vspo_2_J2000(getEris(JD), earth, false, type));}
+            if (sin (allPlanets[14],vhh)) {ret.put (allPlanets[14], vspo_2_J2000(getChiron(JD), earth, false, type));}
+            if (sin (allPlanets[13],vhh)) {ret.put (allPlanets[13], vspo_2_J2000(getCeres(JD), earth, false, type));}
             
-            if (sin ("Gonggong",vhh)) {ret.put ("Gonggong", vspo_2_J2000(getGonggong(JD), earth, false, type));}
-            if (sin ("Quaoar",vhh)) {ret.put ("Quaoar", vspo_2_J2000(getQuaoar(JD), earth, false, type));}
-            if (sin ("Makemake",vhh)) {ret.put ("Makemake", vspo_2_J2000(getMakemake(JD), earth, false, type));}
-            if (sin ("Haumea",vhh)) {ret.put ("Haumea", vspo_2_J2000(getHaumea(JD), earth, false, type));}
+            if (sin (allPlanets[16],vhh)) {ret.put (allPlanets[16], vspo_2_J2000(getGonggong(JD), earth, false, type));}
+            if (sin (allPlanets[17],vhh)) {ret.put (allPlanets[17], vspo_2_J2000(getQuaoar(JD), earth, false, type));}
+            if (sin (allPlanets[18],vhh)) {ret.put (allPlanets[18], vspo_2_J2000(getMakemake(JD), earth, false, type));}
+            if (sin (allPlanets[19],vhh)) {ret.put (allPlanets[19], vspo_2_J2000(getHaumea(JD), earth, false, type));}
         
         
          
@@ -181,8 +183,8 @@ function fetch (now_info, timeZoneOffset_sec, dst, timeAdd_hrs, type, req_array)
         //now we need Sun back at [0,0,0] and add earth as normal
 
         if (type == :helio_xyz) {
-            ret ["Sun"] = [0,0,0];
-            ret.put("Earth", vspo_2_J2000(earth, earth, true, type));
+            ret ["allPlanets[0]"] = [0,0,0];
+            ret.put(allPlanets[3], vspo_2_J2000(earth, earth, true, type));
         }
         
         return ret;

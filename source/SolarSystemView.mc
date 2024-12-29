@@ -217,10 +217,11 @@ class SolarSystemBaseView extends WatchUi.View {
     //! Load your resources here
     //! @param dc Device context
     public function onLayout(dc as Dc) as Void {
-        System.println ("onLayout at " 
+        /*System.println ("onLayout at " 
             +  $.now.hour.format("%02d") + ":" +
             $.now.min.format("%02d") + ":" +
             $.now.sec.format("%02d"));
+            */
 
         thisSys = System.getDeviceSettings();
         
@@ -253,7 +254,7 @@ class SolarSystemBaseView extends WatchUi.View {
 
     //! Restore the state of the app and prepare the view to be shown
     public function onShow() as Void {
-        System.println ("onShow at " 
+        System.println ("onShow:" 
             +  $.now.hour.format("%02d") + ":" +
             $.now.min.format("%02d") + ":" +
             $.now.sec.format("%02d"));
@@ -1107,7 +1108,9 @@ class SolarSystemBaseView extends WatchUi.View {
         //vspo87a = new vsop87a_nano();
         //vspo87a = new vsop87a_pico();
         //pp = vspo87a.planetCoord($.now_info, $.now.timeZoneOffset, $.now.dst, :ecliptic_latlon);
-        pp = vsop_cache.fetch($.now_info, $.now.timeZoneOffset, $.now.dst, time_add_hrs, :ecliptic_latlon, whh);   
+        //pp = vsop_cache.fetch($.now_info, $.now.timeZoneOffset, $.now.dst, time_add_hrs, :ecliptic_latlon, whh);   
+
+        pp = planetCoord($.now_info, $.now.timeZoneOffset, $.now.dst, time_add_hrs, :ecliptic_latlon, whh);   
         
         //vspo87a = null;
 
@@ -1134,6 +1137,7 @@ class SolarSystemBaseView extends WatchUi.View {
         //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
         pp.put("Moon", [moon_info3[0]]);
         //moon_age_deg = normalize (equatorialLong2eclipticLong_deg(pp["Moon"][0], obliq_deg) - equatorialLong2eclipticLong_deg(pp["Sun"][0], obliq_deg)); //0-360 with 0 being new moon, 90 1st q, 180 full, 270 last q
+        deBug("PP:", pp);
         moon_age_deg = normalize ((pp["Moon"][0]) - (pp["Sun"][0])); //0-360 with 0 being new moon, 90 1st q, 180 full, 270 last q
         //pp["Sun"] = [sun_info3[:lat], sun_info3[:lon], sun_info3[:r]];
         //System.println("Sun info3: " + sun_info3);
@@ -3572,15 +3576,15 @@ class SolarSystemBaseView extends WatchUi.View {
     */
 
     function setPositionFromManual() as Boolean {
-        deBug("SIP 2", null);
+        //deBug("SIP 2", null);
         if ($.Options_Dict[gpsOption_enum]) { return false;}
         if ($.latlonOption_value[0] < 0) {$.latlonOption_value[0] = 0;}
         if ($.latlonOption_value[0] > 180) {$.latlonOption_value[0] = 180;}
         if ($.latlonOption_value[1] < 0) {$.latlonOption_value[1] = 0;}
         if ($.latlonOption_value[1] > 360) {$.latlonOption_value[1] = 360;}
-        deBug("SIP 3", null);
+        //deBug("SIP 3", null);
         lastLoc= [$.latlonOption_value[0]-90, $.latlonOption_value[1]-180];
-        deBug("SIP 4", lastLoc);
+        //deBug("SIP 4", lastLoc);
         return true;       
     }
     //Until setPosition gets a callback we will use SOME value for lastLoc
@@ -3597,7 +3601,7 @@ class SolarSystemBaseView extends WatchUi.View {
         //return;
 
         //in case MANUAL POSITION set in settings
-        deBug("SIP 1", null);
+        //deBug("SIP 1", null);
         
         if (setPosition(null)) {return;}
 
@@ -3639,7 +3643,7 @@ class SolarSystemBaseView extends WatchUi.View {
 
         //if (info == null || info.position == null) { pinfo = Position.getInfo(); }
         //System.println ("sc1: Null? " + (pinfo==null));
-        if (pinfo != null ) {deBug ("setPosition getting position from OS:",  pinfo.position.toDegrees());}
+        //if (pinfo != null ) {deBug ("setPosition getting position from OS:",  pinfo.position.toDegrees());}
 
         var curr_pos = null;
         if (pinfo!= null && pinfo.position != null) { curr_pos = pinfo.position; }
@@ -3689,7 +3693,7 @@ class SolarSystemBaseView extends WatchUi.View {
         }
         
 
-        System.println ("sc1a:");
+        //System.println ("sc1a:");
         //In case position info not available, we'll use either the previously obtained value OR the geog center of 48 US states as default.
         //|| info.accuracy == Pos.QUALITY_NOT_AVAILABLE 
 
@@ -3738,7 +3742,7 @@ class SolarSystemBaseView extends WatchUi.View {
         
         if (!man_set) {self.lastLoc = new_lastLoc;} //if man_set is true, then we don't want to update self.lastLoc with the new value, we want to keep the value that was set by the user.
 
-        System.println("setPosition (from GPS, final) at " + animation_count + " to: "  + new_lastLoc + " manual GPS mode?" + man_set + " final SET pos: " + self.lastLoc);
+        //System.println("setPosition (from GPS, final) at " + animation_count + " to: "  + new_lastLoc + " manual GPS mode?" + man_set + " final SET pos: " + self.lastLoc);
         return man_set;
     }
 

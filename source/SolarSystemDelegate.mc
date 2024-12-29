@@ -72,7 +72,7 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
                 
                 //if we stop & forward step == 0 we set it to the lowest value
                 if (($.speeds[$.speeds_index]).abs() < 0.001) {
-                    deBug("zero & moving up!!!!!",[]);
+                    //deBug("zero & moving up!!!!!",[]);
                     handleNextPrevious (:previous); 
                 }
 
@@ -143,8 +143,9 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
                 System.exit();
 
             }
-            solarSystemView_class.sendMessage(1000000, ["==THE PLANETS==", "SELECT: Next mode"
-            , "BACK: Exit", "or: UP/DOWN", ""]);
+            //solarSystemView_class.sendMessage(1000000, ["==THE PLANETS==", "SELECT: Next mode", "BACK: Exit", "or: UP/DOWN", ""]);
+            var dMsg = toArray(WatchUi.loadResource($.Rez.Strings.delegateMessages) as String,  "|", 0);
+            solarSystemView_class.sendMessage(1000000, [dMsg[0], dMsg[1], dMsg[2], dMsg[3], ""]);
 
             $.EBBF_next_mode = ($.view_mode + 1) % $.num_view_modes; 
             if ($.EBBF_next_mode ==0) {
@@ -202,12 +203,16 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
             if ($.EBBF_next_mode > changeModeOption_size) {$.EBBF_next_mode = changeModeOption_size;}
 
             var nm = changeModeOption[$.EBBF_next_mode];
-            if ($.EBBF_next_mode == view_mode) {nm = "Current (" + nm.substring(0,6) + "...)";}
-            if ($.EBBF_next_mode == view_mode + 1) {nm = "Next (" + nm.substring(0,6) + "...)";}
+
+            var dMsg = toArray(WatchUi.loadResource($.Rez.Strings.delegateMessages) as String,  "|", 0);
+            //if ($.EBBF_next_mode == view_mode) {nm = "Current (" + nm.substring(0,6) + "...)";}
+            //if ($.EBBF_next_mode == view_mode + 1) {nm = "Next (" + nm.substring(0,6) + "...)";}
+            if ($.EBBF_next_mode == view_mode) {nm = dMsg[4] + nm.substring(0,6) + dMsg[6];}
+            if ($.EBBF_next_mode == view_mode + 1) {nm = dMsg[5] + nm.substring(0,6) + dMsg[6];}
 
 
-            solarSystemView_class.sendMessage(1000000, ["==THE PLANETS==", "SEL: " + nm
-            , "BACK: Exit", "or: UP/DOWN", ""]);
+            //solarSystemView_class.sendMessage(1000000, ["==THE PLANETS==", "SEL: " + nm, "BACK: Exit", "or: UP/DOWN", ""]);
+            solarSystemView_class.sendMessage(1000000, [dMsg[0], dMsg[7] + nm, dMsg[8], dMsg[9], ""]);
 
             //$.exiting_back_button_firstpress=false;
             //$.change_mode_select_button_firstpress = false;  
@@ -341,12 +346,14 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
         
     }
 
+    /*
     function onTap(clickEvent) {
         System.println("Click1: " + clickEvent.getCoordinates()); // e.g. [36, 40]
         System.println("Click2: " + clickEvent.getType());        // CLICK_TYPE_TAP = 0
         $.timeWasAdded=true;
         return true;
     }
+    */
 
     
     function onKey(keyEvent) {
@@ -387,8 +394,9 @@ function changeModes(previousMode){
         $.Options_Dict[orrZoomOption_enum] = orrZoomOption_default;
         //var UUD = "Use Up/Down/";
         //var SS="Start/Stop";
-        var UUD = "(Use Up/";
-        var SS = "Down/Start)";
+        var dMsg = toArray(WatchUi.loadResource($.Rez.Strings.delegateMessages) as String,  "|", 0);
+        var UUD = dMsg[10];
+        var SS = dMsg[11];
 
         var changeModeOption_short = toArray(WatchUi.loadResource($.Rez.Strings.changeModeOption_short) as String,  "|", 0);
 
@@ -408,7 +416,7 @@ function changeModes(previousMode){
             case (0):    
                 $.view_mode = 1;
             case (1):
-                if (vsop_cache == null)  {vsop_cache = new VSOP87_cache();}
+                //if (vsop_cache == null)  {vsop_cache = new VSOP87_cache();}
                 //time_add_inc=1;
                 //DON'T reset to present time here bec. we're usually coming from mode 0 or mode 2& can just continue seamlessly
                 //$.time_add_hrs = .5; //reset to present time
@@ -417,13 +425,14 @@ function changeModes(previousMode){
                 }
                 speeds_index = 39; //10 mins
                 started = false;
-                if ($.Options_Dict[helpBanners_enum]){solarSystemView_class.sendMessage(5, ["==Current Sky (by hr)==", UUD, SS, null]);} 
+                //if ($.Options_Dict[helpBanners_enum]){solarSystemView_class.sendMessage(5, ["==Current Sky (by hr)==", UUD, SS, null]);} 
+                if ($.Options_Dict[helpBanners_enum]){solarSystemView_class.sendMessage(5, [dMsg[12], UUD, SS, null]);} 
                 else {
                     solarSystemView_class.sendMessage(2, [null, changeModeOption_short[1],"", null, null]);
                 }
                 break;
             case(2):
-                if (vsop_cache == null)  {vsop_cache = new VSOP87_cache();}
+                //if (vsop_cache == null)  {vsop_cache = new VSOP87_cache();}
                 //time_add_inc = 24*3; //1 day
                 //DON'T reset to present time here bec. we're usually coming from mode 0 or mode 2& can just continue seamlessly
                 if (previousMode != null && previousMode==3 ) {  //mode 3 often moves years into the future...
@@ -431,19 +440,19 @@ function changeModes(previousMode){
                 }
                 speeds_index = 48; //1 day or 24 hrs
                 started = false;
-                if ($.Options_Dict[helpBanners_enum]){solarSystemView_class.sendMessage(5, ["==Current Sky (by day)==", UUD, SS,null]);}
+                if ($.Options_Dict[helpBanners_enum]){solarSystemView_class.sendMessage(5, [dMsg[13], UUD, SS,null]);}
                 else {
                     solarSystemView_class.sendMessage(2, [null, changeModeOption_short[2], "", null]);
                 }
                 break;                
             case(3):
-                vsop_cache = null;
+                //vsop_cache = null;
                 //time_add_inc = 24*3; //1 day
                 $.time_add_hrs = 0; //reset to present time
                 $.newModeOrZoom = true; //gives signal to reset the dots
                 //speeds_index = 41; //1 day OLD/too slow on real watch
                 speeds_index = 53; //3 day
-                if ($.Options_Dict[helpBanners_enum]){solarSystemView_class.sendMessage(3, ["==Inner Solar==", "==System-Top View==", UUD, SS]);}
+                if ($.Options_Dict[helpBanners_enum]){solarSystemView_class.sendMessage(3, [dMsg[14], dMsg[15], UUD, SS]);}
                 else {
                     solarSystemView_class.sendMessage(2, [null, changeModeOption_short[3],"", null, null]);
                 }
@@ -456,13 +465,13 @@ function changeModes(previousMode){
                 started = false;
                 break;
             case(4):
-                vsop_cache = null;
+                //vsop_cache = null;
                 //time_add_inc = 24*3; //1 day
                 $.time_add_hrs = 0; //reset to present time
                 $.newModeOrZoom = true; //gives signal to reset the dots
                 //speeds_index = 41; //1 day OLD/too slow on real watch
                 speeds_index = 54; //3 day
-                if ($.Options_Dict[helpBanners_enum]){solarSystemView_class.sendMessage(3, ["==Inner Solar==", "==System-Side View==", UUD, SS]);}
+                if ($.Options_Dict[helpBanners_enum]){solarSystemView_class.sendMessage(3, [dMsg[16], dMsg[17], UUD, SS]);}
                 else {
                     solarSystemView_class.sendMessage(2, [null, changeModeOption_short[4],"", null, null]);
                 }
@@ -475,13 +484,13 @@ function changeModes(previousMode){
                 started = false;
                 break;                
             case(5):
-                vsop_cache = null;
+                //vsop_cache = null;
                 //time_add_inc = 24*15; //14 days
                 $.time_add_hrs = 0; //reset to present time
                 $.newModeOrZoom = true; //gives signal to reset the dots
                 //speeds_index = 46; //15 days = OLD , too slow on real watch
                 speeds_index = 63; //300 days
-                if ($.Options_Dict[helpBanners_enum]){solarSystemView_class.sendMessage(3, ["==Outer Solar==", "==System-Top View==", UUD, SS]);}
+                if ($.Options_Dict[helpBanners_enum]){solarSystemView_class.sendMessage(3, [dMsg[18], dMsg[19], UUD, SS]);}
                 else {
                     solarSystemView_class.sendMessage(2, [null, changeModeOption_short[5],"", null, null]);
                 }
@@ -491,13 +500,13 @@ function changeModes(previousMode){
                 started = false;
                 break;
             case(6):
-                vsop_cache = null;
+                //vsop_cache = null;
                 //time_add_inc = 24*15; //14 days
                 $.time_add_hrs = 0; //reset to present time
                 $.newModeOrZoom = true; //gives signal to reset the dots
                 //speeds_index = 46; //15 days = OLD , too slow on real watch
                 speeds_index = 65; //400 days 
-                if ($.Options_Dict[helpBanners_enum]){solarSystemView_class.sendMessage(3, ["==Outer Solar==", "==System-Side View==", UUD, SS]);}
+                if ($.Options_Dict[helpBanners_enum]){solarSystemView_class.sendMessage(3, [dMsg[20], dMsg[21], UUD, SS]);}
                 else {
                     solarSystemView_class.sendMessage(2, [null, changeModeOption_short[6],"", null, null]);
                 }
@@ -513,13 +522,13 @@ function changeModes(previousMode){
                             
             
             case(7):
-                vsop_cache = null;
+                //vsop_cache = null;
                 //time_add_inc = 24*15; //90 days
                 $.time_add_hrs = 0; //reset to present time
                 $.newModeOrZoom = true; //gives signal to reset the dots
                 //speeds_index = 48; //61 days, too slow on real watch
                 speeds_index = 69; //4 yrs
-                if ($.Options_Dict[helpBanners_enum]){solarSystemView_class.sendMessage(3, ["==Far Outer==", "==Solar System-Top==",UUD, SS]);}
+                if ($.Options_Dict[helpBanners_enum]){solarSystemView_class.sendMessage(3, [dMsg[22], dMsg[23],UUD, SS]);}
                 else {
                     solarSystemView_class.sendMessage(2, [null, changeModeOption_short[7],"", null, null]);
                 }
@@ -530,13 +539,13 @@ function changeModes(previousMode){
                 break;
             
             case(8):
-                vsop_cache = null;
+                //vsop_cache = null;
                 //time_add_inc = 24*15; //90 days
                 $.time_add_hrs = 0; //reset to present time
                 $.newModeOrZoom = true; //gives signal to reset the dots
                 //speeds_index = 48; //61 days, too slow on real watch
                 speeds_index = 69; //4 years
-                if ($.Options_Dict[helpBanners_enum]){solarSystemView_class.sendMessage(3, ["==Far Outer==", "==Solar System-Side==",UUD, SS]);}
+                if ($.Options_Dict[helpBanners_enum]){solarSystemView_class.sendMessage(3, [dMsg[22], dMsg[24],UUD, SS]);}
                 else {
                     solarSystemView_class.sendMessage(2, [null, changeModeOption_short[8],"", null, null]);
                 }
