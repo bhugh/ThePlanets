@@ -164,7 +164,7 @@ class SolarSystemBaseView extends WatchUi.View {
     var animationTimer=null;
     public function startAnimationTimer(hertz){
         var now2 = System.getClockTime();
-        System.println ("Start Animation Timer at " 
+        System.println ("AnimTimer:" 
             +  now2.hour.format("%02d") + ":" +
             now2.min.format("%02d") + ":" +
             now2.sec.format("%02d"));
@@ -235,20 +235,13 @@ class SolarSystemBaseView extends WatchUi.View {
         screenShape = thisSys.screenShape;
 
         startAnimationTimer($.hz);
-        thisSys = null;
-
-            
-
-    
-
-
-        
+        thisSys = null;        
     
     }
 
     //! Handle view being hidden
     public function onHide() as Void {
-        System.println ("onHide at " 
+        System.println ("onHide:" 
             +  $.now.hour.format("%02d") + ":" +
             $.now.min.format("%02d") + ":" +
             $.now.sec.format("%02d"));
@@ -3339,7 +3332,7 @@ class SolarSystemBaseView extends WatchUi.View {
 
 
             //deBug("hor_ang_rad, final_adj, ECLIP_HOR, EH*sid, max_hor, min_hor, norm180: ", [Math.toDegrees(hor_ang_rad), final_adj_deg, Math.toDegrees(sunrise_events2[:ECLIP_HORIZON][1]),  Math.toDegrees(sunrise_events2[:ECLIP_HORIZON][1] * sidereal_to_solar), (max_hor_ang), (min_hor_ang), temp, temp]);
-            var refract_add = - Math.toRadians(sunEventData[:HORIZON]);//The horizon is set to -0.5667 degrees to account for refraction.  
+            var refract_add = - Math.toRadians(sunEventData[:SUNRISE]);//The horizon is set to -0.5667 degrees to account for refraction.  We';re setting :SUNRISE equal to :HORIZON (making sunrise at center of sun rather than very top as is customary)
             //So that is NOT accounted for in  sunrise_events2[:ECLIP_HORIZON][1] . . . but IS in the drawn ARC sun events.
             //Also, below is all in the garmin native graphics, 0,0 in top left corner, so 0 degree is 3 o'clock position but then positive degrees
             //is CW (downwards) from there, so the reverse direction of standard.

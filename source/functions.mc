@@ -89,6 +89,8 @@ import Toybox.Lang;
         return ((a/b - Math.floor(a/b + fc)) *b).toFloat();
     }
 
+    /*
+    //QUADRANT FUNCTIONS all work find but we're not using them now
     function quadrant_deg(ang_deg){
         //returns the quadrant of the angle in degrees
         //0 = 0-90, 1 = 90-180, 2 =
@@ -111,6 +113,7 @@ import Toybox.Lang;
         diff_rad = mod(diff_rad,Math.PI*2.0);
         return (diff_rad < Math.PI);
     }
+    */
 
 
         

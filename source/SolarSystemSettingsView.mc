@@ -276,7 +276,7 @@ class SolarSystemSettingsView extends WatchUi.View {
         View.initialize();
         firstShow = true;
 
-        System.println("SolarSystemSettingsView initialize...");
+        System.println("SettingsVinit");
     
 
     }

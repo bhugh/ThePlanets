@@ -83,14 +83,14 @@ class SolarSystemSettingsMenu extends WatchUi.Menu2 {
     
     
     function loadSettingsOpt(){
-        deBug("loadSettingsOpt",[]);
+        //deBug("loadSettingsOpt",[]);
         //changeModeOption = toArray(WatchUi.loadResource($.Rez.Strings.changeModeOption) as String,  "|", 0);
         //changeModeOption_size = changeModeOption.size();
         orrZoomOption = toArray(WatchUi.loadResource($.Rez.Strings.orrzoom) as String,  "|", 0);
         labelDisplayOption = toArray(WatchUi.loadResource($.Rez.Strings.labelDisplayOption) as String,  "|", 0);
         refreshOption = toArray(WatchUi.loadResource($.Rez.Strings.refreshOption) as String,  "|", 0);
         thetaOption = toArray(WatchUi.loadResource($.Rez.Strings.thetaOption) as String,  "|", 0);planetSizeOption = toArray(WatchUi.loadResource($.Rez.Strings.planetSizeOption) as String,  "|", 0);planetsOption = toArray(WatchUi.loadResource($.Rez.Strings.planetsOption) as String,  "|", 0);
-        deBug("loadSettingsOpt finished",[]);
+        //deBug("loadSettingsOpt finished",[]);
     }
 
     //! Constructor
@@ -113,7 +113,7 @@ class SolarSystemSettingsMenu extends WatchUi.Menu2 {
 
         Menu2.addItem(new WatchUi.ToggleMenuItem("Reset to Current Time", null, resetDate_enum, false, null));
         
-        deBug("1", []);
+        //deBug("1", []);
 
         if ($.Options_Dict[orrZoomOption_enum] == null) { $.Options_Dict[orrZoomOption_enum] = $.orrZoomOption_default; }
         Menu2.addItem(new WatchUi.MenuItem("Solar System Zoom?",
@@ -123,7 +123,7 @@ class SolarSystemSettingsMenu extends WatchUi.Menu2 {
         Menu2.addItem(new WatchUi.MenuItem("UP/DOWN/Swipe controls:",
         ($.thetaOption[$.Options_Dict[thetaOption_enum]]),thetaOption_enum,{}));
 
-        deBug("2", []);
+        //deBug("2", []);
 
         if ($.Options_Dict[planetsOption_enum] == null) { $.Options_Dict[planetsOption_enum] = $.planetsOption_default; }
         Menu2.addItem(new WatchUi.MenuItem("Objects to show in Solar System?",
@@ -196,7 +196,7 @@ class SolarSystemSettingsMenu extends WatchUi.Menu2 {
         Menu2.addItem(new WatchUi.MenuItem("Help - Abbreviations",
         helpOption[$.Options_Dict["helpOption"]],"helpOption",{}));       */
 
-        deBug("5", []);
+        //deBug("5", []);
 
     }
 }

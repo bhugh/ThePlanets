@@ -109,13 +109,13 @@ enum {
     GMST_NOW_HR,
     LMST_NOW_HR,
     ASTRO_DAWN,
-    NAUTIC_DAWN,
+    //NAUTIC_DAWN,
     DAWN,
-    BLUE_HOUR,
+    //BLUE_HOUR,
     SUNRISE,
-    SUNRISE_END,
-    HORIZON,
-    GOLDEN_HOUR,
+    //SUNRISE_END,
+    //HORIZON,
+    //GOLDEN_HOUR,
     NOON,
 }
 
@@ -172,12 +172,12 @@ var sevent_names = {
          :ASTRO_DAWN => -18,  //each one has  a twin @ - it's number, so we'll just combine the two & you can figure it out. Dawn/Dusk -18/+18, etc.
         :NAUTIC_DAWN => -12,
         :DAWN => -6 ,
-        :BLUE_HOUR => -4,
+        //:BLUE_HOUR => -4,
         //:SUNRISE => -.833, //Sunset  START
-        :SUNRISE => -.5667, //Sunset MIDDLE OF SUN (so we're not counting the top of the sun, but the middle)
+        :SUNRISE => -.56667, //Sunset MIDDLE OF SUN (so we're not counting the top of the sun, but the middle)
         :SUNRISE_END => -.3, //Sunset start
-        :HORIZON => -0.5667, //For stars, planets, etc, the horizon where  they  can first be seen, "star-rise".  This is not 0 thanks to refraction etc.
-        :GOLDEN_HOUR => 6,
+        //:HORIZON => -0.5667, //For stars, planets, etc, the horizon where  they  can first be seen, "star-rise".  This is not 0 thanks to refraction etc.
+        //:GOLDEN_HOUR => 6,
         :NOON => null, //noon is the highest point or whatever, but not a certain # of degrees below the horizon
 
     };
@@ -392,7 +392,7 @@ function getRiseSetfromDate_hr(now_info, timeZoneOffset_sec, dst, time_add_hrs, 
 
     //THIS WORKS but we are not using it for now
         
-    
+    /*
     //for (var rra_deg = 0; rra_deg<360;rra_deg += 90) {
     for (var rra_deg = 0; rra_deg<90;rra_deg += 90) { //only need  the 0,0/ORIGIN point for now, not all 4 ecliptic points
         var ddecl_rad = 0;
@@ -412,7 +412,7 @@ function getRiseSetfromDate_hr(now_info, timeZoneOffset_sec, dst, time_add_hrs, 
     
         var s1_hr =null; //equatorial/RA/Decl
         var s2_hr =null;
-        deBug("sun_riseECP", sun_info);
+        //deBug("sun_riseECP", sun_info);
         if (sun_info != null) {
             s1_hr = sun_info[0]; //equatorial/RA/Decl
             s2_hr = sun_info[1];
@@ -426,23 +426,29 @@ function getRiseSetfromDate_hr(now_info, timeZoneOffset_sec, dst, time_add_hrs, 
         }     
 
         if (rra_deg==0) {
-            
+        */    
+
+        /***********************************************************************
+        /*
+        /* INTERSECTION OF ECLIPTIC AND HORIZON FOR HORIZON_DRAWING PURPOSES
+        /*
+        /***********************************************************************/
             //var abeH = angleBetweenEclipticAndHorizon_rad(Math.toRadians(lat_deg), Math.toRadians(lmst_now_hr*15), obliq_rad);
             var intsectionEclipticHorizonPoints_rad = intersectionPointsEclipticHorizon_rad(Math.toRadians(lat_deg), Math.toRadians(normalize(lmst_now_hr*15)), obliq_rad, lat_deg);
             //deBug("angleBetweenEclipticAndHorizon: ", [abeH, ipEH]);
             //deBug("abeH, ipEH: ", [abeH, ipEH]);
             ret.put(:ECLIP_HORIZON, intsectionEclipticHorizonPoints_rad); //add angle & intersection point to the return objec
         
-        }
+    /*    }
 
         ret.put ("Ecliptic"+rra_deg, [s1_hr, s2_hr]);
-        deBug("Ecliptic" + rra_deg + ": ", [s1_hr, s2_hr]);
+        //deBug("Ecliptic" + rra_deg + ": ", [s1_hr, s2_hr]);
 
-    }
+    }*/
 
     /*System.println("sunrise/sets " + ret);*/
 
-        
+        /*
         //DEBUG PRINT ALL VALUES
         for (var i = 0; i<sunEventData.size();i++) {
 
@@ -453,6 +459,7 @@ function getRiseSetfromDate_hr(now_info, timeZoneOffset_sec, dst, time_add_hrs, 
             var ky = kys[i];
             System.println("ret: " + ky + " " + ret[ky] + " " + sunEventData[ky]);
         }
+        */
         
 
 
@@ -759,7 +766,7 @@ function intersectionPointsEclipticHorizon_rad (lat_rad, sidereal_rad, obliquity
     if (Math.sin(aEH_rad) != 0) {
         //horEHint_rad = Math.asin( Math.sin(Math.PI/2.0)/ Math.sin(aEH_rad)*Math.sin(obliquity_rad));
         var intm = Math.sin(sidereal_rad.toDouble() - Math.PI/2.0)/ Math.sin(aEH_rad.toDouble())*Math.sin(obliquity_rad.toDouble());
-        deBug("horEHint", [Math.toDegrees(sidereal_rad.toDouble()), Math.toDegrees(aEH_rad.toDouble()), intm]);
+        //deBug("horEHint", [Math.toDegrees(sidereal_rad.toDouble()), Math.toDegrees(aEH_rad.toDouble()), intm]);
         if (intm>1 || intm<-1) {horEHint_rad = Math.PI/2.0;}
         else {
             horEHint_rad = Math.asin(intm);
@@ -781,7 +788,7 @@ function intersectionPointsEclipticHorizon_rad (lat_rad, sidereal_rad, obliquity
             //var horEHint_copy_rad = horEHint_rad;
             //if (Math.sin(aEH_rad) != 0) {
 
-            var add_rad = 0;
+            //var add_rad = 0;
             //if (lat_deg < 0) {add_rad = Math.PI;}
 
             var intm = Math.sin(horEHint_rad)/Math.sin(obliquity_rad)*Math.cos(lat_rad);
@@ -791,7 +798,7 @@ function intersectionPointsEclipticHorizon_rad (lat_rad, sidereal_rad, obliquity
             } else {use_eclEHint2 = false;}
             
             eclEHint_rad = eclEHint2_rad;
-            deBug("intersectionPointEclipticHorizon aoLs TWO: ", [Math.toDegrees(horEHint_rad), Math.toDegrees(eclEHint2_rad),  Math.toDegrees(aEH_rad), Math.toDegrees(sidereal_rad), intm]);
+            //deBug("intersectionPointEclipticHorizon aoLs TWO: ", [Math.toDegrees(horEHint_rad), Math.toDegrees(eclEHint2_rad),  Math.toDegrees(aEH_rad), Math.toDegrees(sidereal_rad), intm]);
     }
             
             
@@ -879,7 +886,7 @@ function intersectionPointsEclipticHorizon_rad (lat_rad, sidereal_rad, obliquity
             
         }
         eclEHint_rad = eclEHint4_rad;
-        deBug("intersectionPointEclipticHorizon aoLs FOUR: ", [Math.toDegrees(horEHint_rad), Math.toDegrees(eclEHint4_rad),  Math.toDegrees(aEH_rad), Math.toDegrees(sidereal_rad), intm]);
+        //deBug("intersectionPointEclipticHorizon aoLs FOUR: ", [Math.toDegrees(horEHint_rad), Math.toDegrees(eclEHint4_rad),  Math.toDegrees(aEH_rad), Math.toDegrees(sidereal_rad), intm]);
     }
 
     /*
