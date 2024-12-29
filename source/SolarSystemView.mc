@@ -3369,7 +3369,7 @@ class SolarSystemBaseView extends WatchUi.View {
         //drawARC (dc, sunrise_events[:NOON][0]-0.05+ noon_adj_hrs +  12, sunrise_events[:NOON][0]+0.05+ noon_adj_hrs  + 12, xc, yc, r, 10, Graphics.COLOR_WHITE);
     }
 
-
+    /*
     //An S-shaped curve
     function sigmoid(x) {
         //return 1.0f / (1.0f + Math.pow(2.71828f,-10*(x-.5))); //too steep/flat
@@ -3377,6 +3377,7 @@ class SolarSystemBaseView extends WatchUi.View {
         return 1.106f / (1.0f + Math.pow(1.8f,-10*(x-.5))) - 0.0525f;
         //\frac{1}{\left(1+e^{-10\left(x-.5\right)}\right)}
     }
+    */
 
     /*
     //half circle bottom displaced leftward for 0-0.5, top of circle displaced rightwards for 0.5-1.  So it makes a sort of a slanted S shape.  Similar to sigmoid, but more linear in the middle
@@ -3603,7 +3604,9 @@ class SolarSystemBaseView extends WatchUi.View {
         //in case MANUAL POSITION set in settings
         //deBug("SIP 1", null);
         
-        if (setPosition(null)) {return;}
+        setPosition(null);
+
+        /*
 
         //this is pretty much redundant with setPosition now, could be removed??
         if (lastLoc == null ) {
@@ -3617,13 +3620,14 @@ class SolarSystemBaseView extends WatchUi.View {
             Storage.setValue(lastLoc_enum, lastLoc);
             $.Options_Dict.put(lastLoc_enum, lastLoc);
         }
-        System.println("setINITPosition at " + animation_count + " to: "  + lastLoc);
+        //System.println("setINITPosition at " + animation_count + " to: "  + lastLoc);
+        */
     }
 
     //fills in the variable lastLoc with current location and/or
     //several fallbacks
     function setPosition (pinfo as Info) {
-        System.println ("setPosition getting position...");
+        System.println ("setPosition");
 
         //We only need this ONCE, not continuously, so . . . 
         Position.enableLocationEvents(Position.LOCATION_DISABLE, method(:setPosition));
@@ -3746,6 +3750,7 @@ class SolarSystemBaseView extends WatchUi.View {
         return man_set;
     }
 
+    /*
     //Not sure if this is really necessary for display of  ecliptic planets.  But it does very slightly alter proportions, and makes the 4 ecliptic points fit in as they should.
     private function flattenEclipticPP(obliq_deg){
         var obleq_rad = obliq_deg * Math.PI / 180;
@@ -3766,6 +3771,7 @@ class SolarSystemBaseView extends WatchUi.View {
         }
 
     }
+    */
 
     
 

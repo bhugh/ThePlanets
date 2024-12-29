@@ -471,7 +471,7 @@ function changeModes(previousMode){
                 $.newModeOrZoom = true; //gives signal to reset the dots
                 //speeds_index = 41; //1 day OLD/too slow on real watch
                 speeds_index = 54; //3 day
-                if ($.Options_Dict[helpBanners_enum]){solarSystemView_class.sendMessage(3, [dMsg[16], dMsg[17], UUD, SS]);}
+                if ($.Options_Dict[helpBanners_enum]){solarSystemView_class.sendMessage(3, [dMsg[14], dMsg[16], UUD, SS]);}
                 else {
                     solarSystemView_class.sendMessage(2, [null, changeModeOption_short[4],"", null, null]);
                 }
@@ -490,7 +490,7 @@ function changeModes(previousMode){
                 $.newModeOrZoom = true; //gives signal to reset the dots
                 //speeds_index = 46; //15 days = OLD , too slow on real watch
                 speeds_index = 63; //300 days
-                if ($.Options_Dict[helpBanners_enum]){solarSystemView_class.sendMessage(3, [dMsg[18], dMsg[19], UUD, SS]);}
+                if ($.Options_Dict[helpBanners_enum]){solarSystemView_class.sendMessage(3, [dMsg[17], dMsg[15], UUD, SS]);}
                 else {
                     solarSystemView_class.sendMessage(2, [null, changeModeOption_short[5],"", null, null]);
                 }
@@ -506,7 +506,7 @@ function changeModes(previousMode){
                 $.newModeOrZoom = true; //gives signal to reset the dots
                 //speeds_index = 46; //15 days = OLD , too slow on real watch
                 speeds_index = 65; //400 days 
-                if ($.Options_Dict[helpBanners_enum]){solarSystemView_class.sendMessage(3, [dMsg[20], dMsg[21], UUD, SS]);}
+                if ($.Options_Dict[helpBanners_enum]){solarSystemView_class.sendMessage(3, [dMsg[17], dMsg[16], UUD, SS]);}
                 else {
                     solarSystemView_class.sendMessage(2, [null, changeModeOption_short[6],"", null, null]);
                 }
@@ -528,7 +528,7 @@ function changeModes(previousMode){
                 $.newModeOrZoom = true; //gives signal to reset the dots
                 //speeds_index = 48; //61 days, too slow on real watch
                 speeds_index = 69; //4 yrs
-                if ($.Options_Dict[helpBanners_enum]){solarSystemView_class.sendMessage(3, [dMsg[22], dMsg[23],UUD, SS]);}
+                if ($.Options_Dict[helpBanners_enum]){solarSystemView_class.sendMessage(3, [dMsg[18], dMsg[19],UUD, SS]);}
                 else {
                     solarSystemView_class.sendMessage(2, [null, changeModeOption_short[7],"", null, null]);
                 }
@@ -545,7 +545,7 @@ function changeModes(previousMode){
                 $.newModeOrZoom = true; //gives signal to reset the dots
                 //speeds_index = 48; //61 days, too slow on real watch
                 speeds_index = 69; //4 years
-                if ($.Options_Dict[helpBanners_enum]){solarSystemView_class.sendMessage(3, [dMsg[22], dMsg[24],UUD, SS]);}
+                if ($.Options_Dict[helpBanners_enum]){solarSystemView_class.sendMessage(3, [dMsg[18], dMsg[20],UUD, SS]);}
                 else {
                     solarSystemView_class.sendMessage(2, [null, changeModeOption_short[8],"", null, null]);
                 }
