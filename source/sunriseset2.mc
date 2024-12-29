@@ -317,57 +317,7 @@ function getRiseSetfromDate_hr(now_info, timeZoneOffset_sec, dst, time_add_hrs, 
     //deBug("NOON,tz: ", [constrain(transit_GMT_DAY + tz_add/24.0) * 24.0, tz_add]);
 
 
-    //Get info for all four points of the ecliptic 
-    //for this date & time
-
-    //THIS WORKS but we are not using it for now
-        
-    
-    //for (var rra_deg = 0; rra_deg<360;rra_deg += 90) {
-    for (var rra_deg = 0; rra_deg<90;rra_deg += 90) { //only need  the 0,0/ORIGIN point for now, not all 4 ecliptic points
-        var ddecl_rad = 0;
-        if (rra_deg == 90) { ddecl_rad = obliq_rad;}
-        if (rra_deg == 270) { ddecl_rad = obliq_rad;}
-            //winter solstic RA 0 DECL 0
-        //winter solstic RA 0 DECL 0
-        //var trans_ecliptic_DAY = normalize(rra_deg + lon_deg - gmst_mid_deg)/360.0;
-        var sun_info = getRiseSet_hr(jd,
-            sunEventData[:HORIZON], Math.toRadians(lat_deg), 
-            Math.toRadians(lon_deg),
-            Math.toRadians(rra_deg),
-            ddecl_rad,
-            //trans_ecliptic_DAY); 
-            0.5, obliq_rad);//Note that ECLIPTIC ONLY just set the time to 12:00 GMT, we are interested in the "straddle" not the specific time of rise for each of these.
-    
-        var s1_hr =0.001; //equatorial/RA/Decl
-        var s2_hr = 23.99;
-        deBug("sun_riseECP", sun_info);
-        if (sun_info != null) {
-            s1_hr = sun_info[0]; //equatorial/RA/Decl
-            s2_hr = sun_info[1];
-        }
-        //var s1_hr = sun_info[4]; //ecliptic...
-        //var s2_hr = sun_info[5];
-
-        if (sun_info!=null && sun_info[1] != null) { //if one is null both are
-            s1_hr = mod ((s1_hr + tz_add) , 24);
-            s2_hr = mod ( (s2_hr + tz_add), 24);
-        }     
-
-        if (rra_deg==0) {
-            
-            //var abeH = angleBetweenEclipticAndHorizon_rad(Math.toRadians(lat_deg), Math.toRadians(lmst_now_hr*15), obliq_rad);
-            var intsectionEclipticHorizonPoints_rad = intersectionPointsEclipticHorizon_rad(Math.toRadians(lat_deg), Math.toRadians(normalize(lmst_now_hr*15)), obliq_rad);
-            //deBug("angleBetweenEclipticAndHorizon: ", [abeH, ipEH]);
-            //deBug("abeH, ipEH: ", [abeH, ipEH]);
-            ret.put(:ECLIP_HORIZON, intsectionEclipticHorizonPoints_rad); //add angle & intersection point to the return objec
-        
-        }
-
-        ret.put ("Ecliptic"+rra_deg, [s1_hr, s2_hr]);
-        //deBug("Ecliptic" + rra_deg + ": ", [s1_hr, s2_hr]);
-
-    }
+   
 
     
 
@@ -401,7 +351,7 @@ function getRiseSetfromDate_hr(now_info, timeZoneOffset_sec, dst, time_add_hrs, 
         var s3_hr = sun_info[4]; //ecliptic times...
         var s4_hr = sun_info[5];*/
         //var s = {};
-        deBug("sun_info", sun_info);
+        //deBug("sun_info", sun_info);
         if (sun_info!=null && sun_info[1] != null) { //if one is null all are
             //s1_hr = mod ((s1_hr + tz_add) , 24);
             //s2_hr = mod ( (s2_hr + tz_add), 24);
@@ -436,9 +386,63 @@ function getRiseSetfromDate_hr(now_info, timeZoneOffset_sec, dst, time_add_hrs, 
         // if (ky == :HORIZON) { System.println("sunrise/sets HORIZON: " + sun_info + " " + ky) ;}
         
     }
-    //System.println("sunrise/sets " + ret);
 
-        /*
+     //Get info for all four points of the ecliptic 
+    //for this date & time
+
+    //THIS WORKS but we are not using it for now
+        
+    
+    //for (var rra_deg = 0; rra_deg<360;rra_deg += 90) {
+    for (var rra_deg = 0; rra_deg<90;rra_deg += 90) { //only need  the 0,0/ORIGIN point for now, not all 4 ecliptic points
+        var ddecl_rad = 0;
+        if (rra_deg == 90) { ddecl_rad = obliq_rad;}
+        if (rra_deg == 270) { ddecl_rad = obliq_rad;}
+            //winter solstic RA 0 DECL 0
+        //winter solstic RA 0 DECL 0
+        var trans_ecliptic_DAY = normalize(rra_deg + lon_deg - gmst_mid_deg)/360.0;
+        var sun_info = getRiseSet_hr(jd,
+            sunEventData[:HORIZON], Math.toRadians(lat_deg), 
+            Math.toRadians(lon_deg),
+            Math.toRadians(rra_deg),
+            ddecl_rad,
+            trans_ecliptic_DAY, 
+            //0.5, 
+            obliq_rad);//Note that ECLIPTIC ONLY just set the time to 12:00 GMT, we are interested in the "straddle" not the specific time of rise for each of these.
+    
+        var s1_hr =null; //equatorial/RA/Decl
+        var s2_hr =null;
+        deBug("sun_riseECP", sun_info);
+        if (sun_info != null) {
+            s1_hr = sun_info[0]; //equatorial/RA/Decl
+            s2_hr = sun_info[1];
+        }
+        //var s1_hr = sun_info[4]; //ecliptic...
+        //var s2_hr = sun_info[5];
+
+        if (sun_info!=null && sun_info[1] != null) { //if one is null both are
+            s1_hr = mod ((s1_hr + tz_add) , 24);
+            s2_hr = mod ( (s2_hr + tz_add), 24);
+        }     
+
+        if (rra_deg==0) {
+            
+            //var abeH = angleBetweenEclipticAndHorizon_rad(Math.toRadians(lat_deg), Math.toRadians(lmst_now_hr*15), obliq_rad);
+            var intsectionEclipticHorizonPoints_rad = intersectionPointsEclipticHorizon_rad(Math.toRadians(lat_deg), Math.toRadians(normalize(lmst_now_hr*15)), obliq_rad, lat_deg);
+            //deBug("angleBetweenEclipticAndHorizon: ", [abeH, ipEH]);
+            //deBug("abeH, ipEH: ", [abeH, ipEH]);
+            ret.put(:ECLIP_HORIZON, intsectionEclipticHorizonPoints_rad); //add angle & intersection point to the return objec
+        
+        }
+
+        ret.put ("Ecliptic"+rra_deg, [s1_hr, s2_hr]);
+        deBug("Ecliptic" + rra_deg + ": ", [s1_hr, s2_hr]);
+
+    }
+
+    /*System.println("sunrise/sets " + ret);*/
+
+        
         //DEBUG PRINT ALL VALUES
         for (var i = 0; i<sunEventData.size();i++) {
 
@@ -449,7 +453,7 @@ function getRiseSetfromDate_hr(now_info, timeZoneOffset_sec, dst, time_add_hrs, 
             var ky = kys[i];
             System.println("ret: " + ky + " " + ret[ky] + " " + sunEventData[ky]);
         }
-        */
+        
 
 
     return ret;
@@ -492,8 +496,11 @@ function getRiseSet_hr(jd,h0_deg, lat,lon,ra,dec,transit_GMT_DAY, obliq_rad){
     if (lat == 0) {lat = 0.0000001;} //to avoid divide by zero
     if (dec == 0) {dec = 0.0000001;} //to avoid divide by zero
 	var cosH=(Math.sin(h0_deg*Math.PI/180.0)-Math.sin(lat)*Math.sin(dec)) / (Math.cos(lat)*Math.cos(dec));
-    if (cosH>1 || cosH<-1) {return null;}
-	var H0_deg=Math.acos(cosH)*180.0/Math.PI;
+    //if (cosH>1 || cosH<-1) {return null;}
+    var H0_deg = 0;
+    if (cosH<-1) {H0_deg = 179.97;}  //cosH> 1 means, it's up all day long; <-1 means never rises at all
+    else if (cosH>1) {return null;} //easiest way to handle no rise at all (if you return 0 it is hard to distinguish from 24 hrs)
+	else if (cosH>= -1) {H0_deg=Math.acos(cosH)*180.0/Math.PI;}
 
 
 
@@ -724,7 +731,7 @@ function angleBetweenEclipticAndHorizon_rad(lat_rad,sidereal_rad,obliquity_rad){
 //
 /**************************************************************************/
 
-function intersectionPointsEclipticHorizon_rad (lat_rad, sidereal_rad, obliquity_rad) {
+function intersectionPointsEclipticHorizon_rad (lat_rad, sidereal_rad, obliquity_rad,lat_deg) {
     ///below is something the AI suggested but I'm not 100% clear on what it is supposed to be calculating.
     //Meeus 14.3
     /*var a = Math.cos(obliquity)*Math.sin(lat) - Math.sin(obliquity)*Math.cos(lat)*Math.sin(sidereal);
@@ -736,30 +743,57 @@ function intersectionPointsEclipticHorizon_rad (lat_rad, sidereal_rad, obliquity
     return [d,e];*/
     ///END AI suggestion
 
+    //for whatever ?!? reason, eclEHint4 works whenever there is a sunrise/sunset, and eclEHint2 works when the sun is always up or always below the horizon, like above arctic circle in high summer or winter
+    var use_eclEHint2 = false;
+    //if (sunrise_hrs== null || sunrise_hrs[0] == null || (sunrise_hrs[1]-sunrise_hrs[0]).abs() < 0.15) { use_eclEHint2 = true;}
+    //use_eclEHint2 = false;
+    if (90 - lat_deg.abs()< obliq_deg) {use_eclEHint2 = true;} //for whatever reason the  two equations seem to work above & below the latitude of the arctic circle/ 90 - obliq of the ecliptic.
+
     var aEH_rad = angleBetweenEclipticAndHorizon_rad(lat_rad,sidereal_rad,obliquity_rad);
 
     // horEH is the distance along the horizon great circle from the intersection with the equator great circle
     // to the intersection with the ecliptic great circle.  It is measured in radians.
-    var horEHint_rad  = 0d;  //not sure what to return here,  Inf or null maybe.  This should represent the case where the angle is zero or 180 deg and thus  the two circles are coincident.  So 0 probably works best.:__version
+    var horEHint_rad  = 0d;  //not sure what to return here,  Inf or null maybe.  This should represent the case where the angle is zero or 180 deg and thus  the two circles are coincident.  So 0 probably works best.
+
     //law of sines:
     if (Math.sin(aEH_rad) != 0) {
         //horEHint_rad = Math.asin( Math.sin(Math.PI/2.0)/ Math.sin(aEH_rad)*Math.sin(obliquity_rad));
         var intm = Math.sin(sidereal_rad.toDouble() - Math.PI/2.0)/ Math.sin(aEH_rad.toDouble())*Math.sin(obliquity_rad.toDouble());
+        deBug("horEHint", [Math.toDegrees(sidereal_rad.toDouble()), Math.toDegrees(aEH_rad.toDouble()), intm]);
         if (intm>1 || intm<-1) {horEHint_rad = Math.PI/2.0;}
         else {
             horEHint_rad = Math.asin(intm);
         }
+
+        /*var q1 = quadrant_rad(horEHint_rad);
+        var q2 = quadrant_rad(sidereal_rad - Math.PI/2.0);
+        if (q1==q2) {horEHint_rad = Math.PI - horEHint_rad;}
+        deBug ("horEHint_rad", [Math.toDegrees(horEHint_rad),Math.toDegrees(sidereal_rad.toDouble() - Math.PI/2.0), Math.toDegrees(aEH_rad), intm, q1, q2]); */
     }
     
- 
+    var eclEHint_rad = 0;
+    if (use_eclEHint2) {
+
             // eclEH is the distance along the ecliptic great circle from the intersection with the equator great circle,  ie the vernal equinox, to the intersection with the horizon great circle.  It is measured in radians. (Because of symmetry it is also the angle from the fall equinox to the intersection point. But the Vernal Eq is 0,0 the origin point of the system.)
-            /*
+            
+            //This one works great for everything above the arctic circle/when sun is always up
             var eclEHint2_rad = 0; //alternate calculation, it's equal. O/horEHint
-            var horEHint_copy_rad = horEHint_rad;
-            if (Math.sin(aEH_rad) != 0) {
-                eclEHint2_rad = Math.asin( Math.sin(horEHint_rad)/Math.sin(obliquity_rad)*Math.cos(lat_rad));
-            }
-            */
+            //var horEHint_copy_rad = horEHint_rad;
+            //if (Math.sin(aEH_rad) != 0) {
+
+            var add_rad = 0;
+            //if (lat_deg < 0) {add_rad = Math.PI;}
+
+            var intm = Math.sin(horEHint_rad)/Math.sin(obliquity_rad)*Math.cos(lat_rad);
+            if (intm>=-1 && intm <=1) {
+                if (lat_deg > 0) {eclEHint2_rad = Math.PI - Math.asin(intm);}
+                else {eclEHint2_rad = Math.PI +  Math.asin(intm);}
+            } else {use_eclEHint2 = false;}
+            
+            eclEHint_rad = eclEHint2_rad;
+            deBug("intersectionPointEclipticHorizon aoLs TWO: ", [Math.toDegrees(horEHint_rad), Math.toDegrees(eclEHint2_rad),  Math.toDegrees(aEH_rad), Math.toDegrees(sidereal_rad), intm]);
+    }
+            
             
 
 
@@ -829,15 +863,38 @@ function intersectionPointsEclipticHorizon_rad (lat_rad, sidereal_rad, obliquity
     }
     */
 
-    //The law of cosines approach seems to work better than the law of sines approach just because it is more sensible in the areas where it gives the right result vs the negative or complement of the angle result. It works for -90 to 90 degrees and for 90 to 270 you just need to flip the sign of the result. (it would probably work to subtract 180 degrees, as well.) 
-    var eclEHint4_rad = 0d;
-    var intm = Math.cos(sidereal_rad.toDouble() - Math.PI/2.0d) * Math.cos(horEHint_rad.toDouble()) + Math.sin(sidereal_rad.toDouble() - Math.PI/2.0d) * Math.sin(horEHint_rad.toDouble()) * Math.sin(lat_rad.toDouble());
-    if (intm>1 || intm<-1) {eclEHint4_rad = Math.PI - sidereal_rad;} //In case >1 or <-1 that is the situation where there is not a solution; this shouldn't happen as great circles always intersect at two points OR all points.
-    else {
-        eclEHint4_rad = Math.acos(intm);
-        if (sidereal_rad < 3*Math.PI/2.0d && sidereal_rad > Math.PI/2.0d) {eclEHint4_rad = -eclEHint4_rad;} // the cosine formula returns the negative of the angle when the origin  Rad/Dec=0,0 is below the horizon, so we just flip signs.
-        //eclEHint4_rad += Math.PI;
+    if (!use_eclEHint2) {
+
+        //The law of cosines approach seems to work better than the law of sines approach just because it is more sensible in the areas where it gives the right result vs the negative or complement of the angle result. It works for -90 to 90 degrees and for 90 to 270 you just need to flip the sign of the result. (it would probably work to subtract 180 degrees, as well.) 
+        //if (Math.toDegrees(sidereal_rad)>201.7 && Math.toDegrees(sidereal_rad)<339) {horEHint_rad = Math.PI - horEHint_rad ;}//@+81 degrees
+        //if (Math.toDegrees(sidereal_rad)>26.8 && Math.toDegrees(sidereal_rad)<153.9 ) {horEHint_rad = Math.PI - horEHint_rad ;}//@-79 degrees
+        //if (Math.toDegrees(sidereal_rad)>45.7 && Math.toDegrees(sidereal_rad)<135 ) {horEHint_rad = Math.PI - horEHint_rad ;} //@-73 degrees
+        var eclEHint4_rad = 0d;
+        var intm = Math.cos(sidereal_rad.toDouble() - Math.PI/2.0d) * Math.cos(horEHint_rad.toDouble()) + Math.sin(sidereal_rad.toDouble() - Math.PI/2.0d) * Math.sin(horEHint_rad.toDouble()) * Math.sin(lat_rad.toDouble());
+        if (intm>1 || intm<-1) {eclEHint4_rad = Math.PI - sidereal_rad;} //In case >1 or <-1 that is the situation where there is not a solution; this shouldn't happen as great circles always intersect at two points OR all points.
+        else {
+            eclEHint4_rad = Math.acos(intm);
+            if (sidereal_rad < 3*Math.PI/2.0d && sidereal_rad > Math.PI/2.0d) {eclEHint4_rad = -eclEHint4_rad;} // the cosine formula returns the negative of the angle when the origin  Rad/Dec=0,0 is below the horizon, so we just flip signs.
+            //eclEHint4_rad += Math.PI;
+            
+        }
+        eclEHint_rad = eclEHint4_rad;
+        deBug("intersectionPointEclipticHorizon aoLs FOUR: ", [Math.toDegrees(horEHint_rad), Math.toDegrees(eclEHint4_rad),  Math.toDegrees(aEH_rad), Math.toDegrees(sidereal_rad), intm]);
     }
+
+    /*
+    var eclEHint5_rad = 0d;
+    var intm2 = Math.cos(sidereal_rad.toDouble() - Math.PI/2.0d) * Math.cos(Math.PI - horEHint_rad.toDouble()) + Math.sin(sidereal_rad.toDouble() - Math.PI/2.0d) * Math.sin(Math.PI - horEHint_rad.toDouble()) * Math.sin(lat_rad.toDouble());
+    if (intm2>1 || intm2<-1) {eclEHint5_rad = Math.PI - sidereal_rad;} //In case >1 or <-1 that is the situation where there is not a solution; this shouldn't happen as great circles always intersect at two points OR all points.
+    else {
+        eclEHint5_rad = Math.acos(intm2);
+        if (sidereal_rad < 3*Math.PI/2.0d && sidereal_rad > Math.PI/2.0d) {eclEHint5_rad = -eclEHint5_rad;} // the cosine formula returns the negative of the angle when the origin  Rad/Dec=0,0 is below the horizon, so we just flip signs.
+        //eclEHint4_rad += Math.PI;
+        
+    }
+
+    //if (eclEHint5_rad.abs() < eclEHint4_rad.abs()) {eclEHint4_rad = eclEHint5_rad;}
+    */
     
 
 
@@ -846,9 +903,9 @@ function intersectionPointsEclipticHorizon_rad (lat_rad, sidereal_rad, obliquity
     //eclEHint_rad = Math.atan2(Math.sin(sidereal_rad - Math.PI/2.0) * Math.cos(lat_rad), Math.sin(aEH_rad));
     //test_angleBetweenEclipticAndHorizon_rad();
 
-    //deBug("intersectionPointEclipticHorizon aoLs: ", [Math.toDegrees(horEHint_rad), Math.toDegrees(eclEHint_rad), Math.toDegrees(eclEHint4_rad), Math.toDegrees(eclEHint2_rad), Math.toDegrees(aEH_rad), Math.toDegrees(sidereal_rad),]);
+    //deBug("intersectionPointEclipticHorizon aoLs: ", [Math.toDegrees(horEHint_rad), Math.toDegrees(eclEHint4_rad), Math.toDegrees(eclEHint2_rad),  Math.toDegrees(aEH_rad), Math.toDegrees(sidereal_rad), intm]);
     //return  [eclEHint_rad, horEHint_rad];
-    return [horEHint_rad.toFloat(), eclEHint4_rad.toFloat(), aEH_rad.toFloat()];
+    return [horEHint_rad.toFloat(), eclEHint_rad.toFloat(), aEH_rad.toFloat()];
 
 }
 

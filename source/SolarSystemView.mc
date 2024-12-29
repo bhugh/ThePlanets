@@ -68,12 +68,16 @@ class SolarSystemBaseView extends WatchUi.View {
         //some semi, sensible data and thne setPOisition() will fill in the rest
         //later as available.  Also this & setPosition save position found
         //to the date store so initposition can use it next time.
-        setInitPosition();
+        //UPDATE: can't do this until AFTER reading the storage values
+        //But can't read storage values until this class is inited!
+        //so we'll do it in BaseApp, after init of this class.
+        //setInitPosition();
 
     
 
         _planetIcon = WatchUi.loadResource($.Rez.Drawables.Jupiter) as BitmapResource;
-        startAnimationTimer($.hz);
+        
+        //startAnimationTimer($.hz);
 
 
         //small_whh = toArray(WatchUi.loadResource($.Rez.Strings.small_whh_arr) as String,  "|", 0);
@@ -1239,7 +1243,7 @@ class SolarSystemBaseView extends WatchUi.View {
         //deBug("sunrise_events23T][1]+ noon_adj_hrs, 12-(sunrise_events2[:SUNRISE][0] + noon_adj_hrs), (sunrise_events2[:SUNRISE][1] + noon_adj_hrs) - 12] );
 
         //deBug ("sunrise_events2", [ noon_adj_hrs, sunrise_events2[:NOON][0] + noon_adj_hrs, sunrise_events2[:SUNRISE][0] + noon_adj_hrs, sunrise_events2[:SUNRISE][1] + noon_adj_hrs, sunrise_events2[:NOON][0]- sunrise_events2[:SUNRISE][0], sunrise_events2[:SUNRISE][1] - sunrise_events2[:NOON][0], sunrise_events2[:NOON][0]]);
-        deBug("sr2:", sunrise_events2);
+        //deBug("sr2:", sunrise_events2);
 
         if (sunrise_events2 != null ) {
 
@@ -1251,13 +1255,23 @@ class SolarSystemBaseView extends WatchUi.View {
             //MIDNIGHT mark
             if (sunrise_events2[:NOON] != null) {drawARC (dc, sunrise_events2[:NOON][0]-0.05+ noon_adj_hrs +  12, sunrise_events2[:NOON][0]+0.05+ noon_adj_hrs  + 12, xc, yc, r, 10, Graphics.COLOR_WHITE); }
 
-            if (sunrise_events2[:SUNRISE] != null && sunrise_events2[:DAWN] != null) {drawARC (dc, sunrise_events2[:DAWN][0]+ noon_adj_hrs, sunrise_events2[:SUNRISE][0]+ noon_adj_hrs, xc, yc, r, 4,Graphics.COLOR_LT_GRAY); }
+            //if (sunrise_events2[:SUNRISE] != null && sunrise_events2[:DAWN] != null) {}
 
-            if (sunrise_events2[:SUNRISE] != null && sunrise_events2[:DAWN] != null) {drawARC (dc, sunrise_events2[:SUNRISE][1]+ noon_adj_hrs, sunrise_events2[:DAWN][1]+ noon_adj_hrs, xc, yc, r, 4,Graphics.COLOR_LT_GRAY); }
+            if (sunrise_events2[:SUNRISE] != null && sunrise_events2[:DAWN] != null &&
+               (sunrise_events2[:DAWN][1]- sunrise_events2[:DAWN][0]).abs()>0.01) 
+            {
+                drawARC (dc, sunrise_events2[:SUNRISE][1]+ noon_adj_hrs, sunrise_events2[:DAWN][1]+ noon_adj_hrs, xc, yc, r, 4,Graphics.COLOR_LT_GRAY); 
+                drawARC (dc, sunrise_events2[:DAWN][0]+ noon_adj_hrs, sunrise_events2[:SUNRISE][0]+ noon_adj_hrs, xc, yc, r, 4,Graphics.COLOR_LT_GRAY); 
+            }
 
-            if (sunrise_events2[:ASTRO_DAWN] != null && sunrise_events2[:DAWN] != null) {drawARC (dc, sunrise_events2[:ASTRO_DAWN][0]+ noon_adj_hrs, sunrise_events2[:DAWN][0]+ noon_adj_hrs, xc, yc, r, 2,Graphics.COLOR_DK_GRAY); }
+            if (sunrise_events2[:ASTRO_DAWN] != null && sunrise_events2[:DAWN] != null
+               && (sunrise_events2[:ASTRO_DAWN][1]- sunrise_events2[:ASTRO_DAWN][0]).abs()>0.01) 
+            {
+                drawARC (dc, sunrise_events2[:ASTRO_DAWN][0]+ noon_adj_hrs, sunrise_events2[:DAWN][0]+ noon_adj_hrs, xc, yc, r, 2,Graphics.COLOR_DK_GRAY); 
             
-            if (sunrise_events2[:ASTRO_DAWN] != null && sunrise_events2[:DAWN] != null) {drawARC (dc, sunrise_events2[:DAWN][1]+ noon_adj_hrs, sunrise_events2[:ASTRO_DAWN][1]+ noon_adj_hrs, xc, yc, r, 2,Graphics.COLOR_DK_GRAY); }
+                drawARC (dc, sunrise_events2[:DAWN][1]+ noon_adj_hrs, sunrise_events2[:ASTRO_DAWN][1]+ noon_adj_hrs, xc, yc, r, 2,Graphics.COLOR_DK_GRAY); 
+            }
+        
             dc.setPenWidth(1);
         }
 
@@ -3330,7 +3344,7 @@ class SolarSystemBaseView extends WatchUi.View {
             //Also, below is all in the garmin native graphics, 0,0 in top left corner, so 0 degree is 3 o'clock position but then positive degrees
             //is CW (downwards) from there, so the reverse direction of standard.
 
-            var arb_add = Math.toRadians(1.15);
+            var arb_add = Math.toRadians(1.15); //not sure why this is needed, maybe bec it happens to be 2xrefract_add...
 
             //System.println("hor_ang_deg: " + hor_ang_deg);
             dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);
@@ -3572,8 +3586,8 @@ class SolarSystemBaseView extends WatchUi.View {
         if ($.latlonOption_value[1] < 0) {$.latlonOption_value[1] = 0;}
         if ($.latlonOption_value[1] > 360) {$.latlonOption_value[1] = 360;}
         deBug("SIP 3", null);
-        lastLoc= $.latlonOption_value;
-        deBug("SIP 4", null);
+        lastLoc= [$.latlonOption_value[0]-90, $.latlonOption_value[1]-180];
+        deBug("SIP 4", lastLoc);
         return true;       
     }
     //Until setPosition gets a callback we will use SOME value for lastLoc
@@ -3592,17 +3606,20 @@ class SolarSystemBaseView extends WatchUi.View {
         //in case MANUAL POSITION set in settings
         deBug("SIP 1", null);
         
-        if ( setPositionFromManual() ) {return;}        
+        if (setPosition(null)) {return;}
 
-        if (lastLoc == null) {self.lastLoc = new Position.Location(            
-                    { :latitude => 39.833333, :longitude => -94.583333, :format => :degrees }
-                    ).toDegrees(); }
-        if ($.Options_Dict.hasKey(lastLoc_enum)) {lastLoc = $.Options_Dict[lastLoc_enum];}
-        
-        var temp = Storage.getValue(lastLoc_enum);
-        if (temp!=null) {lastLoc = temp;}
-        Storage.setValue(lastLoc_enum, lastLoc);
-        $.Options_Dict.put(lastLoc_enum, lastLoc);
+        //this is pretty much redundant with setPosition now, could be removed??
+        if (lastLoc == null ) {
+            if (lastLoc == null) {self.lastLoc = new Position.Location(            
+                        { :latitude => 39.833333, :longitude => -94.583333, :format => :degrees }
+                        ).toDegrees(); }
+            if ($.Options_Dict.hasKey(lastLoc_enum)) {lastLoc = $.Options_Dict[lastLoc_enum];}
+            
+            var temp = Storage.getValue(lastLoc_enum);
+            if (temp!=null) {lastLoc = temp;}
+            Storage.setValue(lastLoc_enum, lastLoc);
+            $.Options_Dict.put(lastLoc_enum, lastLoc);
+        }
         System.println("setINITPosition at " + animation_count + " to: "  + lastLoc);
     }
 
@@ -3612,7 +3629,7 @@ class SolarSystemBaseView extends WatchUi.View {
         System.println ("setPosition getting position...");
 
         //We only need this ONCE, not continuously, so . . . 
-        Position.enableLocationEvents(Position.LOCATION_DISABLE, method(:onPosition));
+        Position.enableLocationEvents(Position.LOCATION_DISABLE, method(:setPosition));
 
         //lastLoc = [0,0]; //for testing
         //lastLoc = [51.5, 0]; //for testing - Greenwich
@@ -3629,13 +3646,18 @@ class SolarSystemBaseView extends WatchUi.View {
 
         //if (info == null || info.position == null) { pinfo = Position.getInfo(); }
         //System.println ("sc1: Null? " + (pinfo==null));
-        //if (pinfo != null ) {System.println ("sc1: pinfo " + pinfo.position.toDegrees());}
+        if (pinfo != null ) {deBug ("setPosition getting position from OS:",  pinfo.position.toDegrees());}
 
         var curr_pos = null;
         if (pinfo!= null && pinfo.position != null) { curr_pos = pinfo.position; }
+        else { //if there is nothing in the pinfo passed to us we just try to grab it now (ie, at init)
+            pinfo = Position.getInfo(); 
+            if (pinfo!= null && pinfo.position != null) { curr_pos = pinfo.position; }
+        }
         
         var temp = curr_pos.toDegrees()[0];
         if ( (temp - 180).abs() < 0.1 || temp.abs() < 0.1 ) {curr_pos = null;} //bad data
+        
 
         /*
         //this is giving errors, IQ! screen on wathc???///???!!!!
@@ -3724,6 +3746,7 @@ class SolarSystemBaseView extends WatchUi.View {
         if (!man_set) {self.lastLoc = new_lastLoc;} //if man_set is true, then we don't want to update self.lastLoc with the new value, we want to keep the value that was set by the user.
 
         System.println("setPosition (from GPS, final) at " + animation_count + " to: "  + new_lastLoc + " manual GPS mode?" + man_set + " final SET pos: " + self.lastLoc);
+        return man_set;
     }
 
     //Not sure if this is really necessary for display of  ecliptic planets.  But it does very slightly alter proportions, and makes the 4 ecliptic points fit in as they should.

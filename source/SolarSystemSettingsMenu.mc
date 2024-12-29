@@ -165,22 +165,20 @@ class SolarSystemSettingsMenu extends WatchUi.Menu2 {
 
         //deBug("3", [gpsOption_enum, Options_Dict[gpsOption_enum], Options_Dict]);
 
-        Menu2.addItem(new WatchUi.ToggleMenuItem("Use manual/auto GPS Position?", null, gpsOption_enum, $.Options_Dict[gpsOption_enum], null));
+        Menu2.addItem(new WatchUi.ToggleMenuItem("Use auto GPS Position?", null, gpsOption_enum, $.Options_Dict[gpsOption_enum], null));
 
         if ($.Options_Dict[gpsOption_enum] != null && !$.Options_Dict[gpsOption_enum] ) { 
                 
             if ($.Options_Dict[latOption_enum] == null) { $.Options_Dict[latOption_enum] = $.latOption_default; }
             //deBug("3a", []);
             var val = ($.Options_Dict[latOption_enum] - 90);
-            //deBug("3b", [val]);
-            if (val > 90) { val = "GPS"; }        
+            //deBug("3b", [val]);            
             //deBug("3c", [val]);
             Menu2.addItem(new WatchUi.MenuItem("Manual Latitude:", val.toString(),latOption_enum,{})); 
             //deBug("3d", [val]);
             
             if ($.Options_Dict[lonOption_enum] == null) { $.Options_Dict[lonOption_enum] = $.lonOption_default; }
-            val = $.Options_Dict[lonOption_enum] - 180;
-            if (val > 180) { val = "GPS"; }
+            val = $.Options_Dict[lonOption_enum] - 180;            
             Menu2.addItem(new WatchUi.MenuItem("Manual Longitude:",val.toString(),lonOption_enum,{})); 
         }
 
@@ -254,7 +252,7 @@ class SolarSystemSettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
                 $.Options_Dict[ret] = menuItem.isEnabled();
                 $.solarSystemView_class.setInitPosition();
                 WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
-
+                $.solarSystemView_class.setInitPosition();
                 Position.enableLocationEvents(Position.LOCATION_ONE_SHOT, method(:onPosition));
 
                 var settings_view = new $.SolarSystemSettingsView();
@@ -343,13 +341,14 @@ class SolarSystemSettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
         }
 
         if(id.equals(latOption_enum)) {
-            $.Options_Dict[id]=($.Options_Dict[id]+5)%latOption_size;
+            $.Options_Dict[id]=($.Options_Dict[id]+2)%latOption_size;
             menuItem.setSubLabel(($.Options_Dict[id]-90).toString());
             //else {menuItem.setSubLabel("GPS");}
 
             Storage.setValue(id as String, $.Options_Dict[id]); 
             //[ "5hz", "4hz", "3hz", "2hz", "1hz", "2/3hz", "1/2hz"];
-            $.latlonOption_value[0] = $.Options_Dict[id];            
+            $.latlonOption_value[0] = $.Options_Dict[id];     
+            $.solarSystemView_class.setInitPosition();       
         }
 
         if(id.equals(lonOption_enum)) {
@@ -359,7 +358,8 @@ class SolarSystemSettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
 
             Storage.setValue(id as String, $.Options_Dict[id]); 
             //[ "5hz", "4hz", "3hz", "2hz", "1hz", "2/3hz", "1/2hz"];
-            $.latlonOption_value[1] = $.Options_Dict[id];            
+            $.latlonOption_value[1] = $.Options_Dict[id];  
+            $.solarSystemView_class.setInitPosition();          
         }
 
 

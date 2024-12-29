@@ -89,6 +89,32 @@ import Toybox.Lang;
         return ((a/b - Math.floor(a/b + fc)) *b).toFloat();
     }
 
+    function quadrant_deg(ang_deg){
+        //returns the quadrant of the angle in degrees
+        //0 = 0-90, 1 = 90-180, 2 =
+        //3 = 180-270, 4 = 270-360
+        ang_deg = normalize (ang_deg);
+        if (ang_deg < 90) {return 0;}
+        if (ang_deg < 180) {return 1;}
+        if (ang_deg < 270) {return 2;}
+        return 3;
+    }
+
+    function quadrant_rad(ang_rad){
+        //returns the quadrant of the angle in radians
+        return quadrant_deg(Math.toDegrees(ang_rad));
+    }
+
+    function sameQuadrant_rad(ang1_rad, ang2_rad){
+        //returns true if two angles are in the same quadrant
+        var diff_rad = ang1_rad-ang2_rad;
+        diff_rad = mod(diff_rad,Math.PI*2.0);
+        return (diff_rad < Math.PI);
+    }
+
+
+        
+
     const J2000_0= 2451543.5d; // 2000 Jan 0.0 TDT, which is the same as 1999 Dec 31.0 TDT, i.e. precisely at midnight TDT  (Jan 0.0 is not the first day of January but rather the LAST day of December, so a full day before Jan 1.0)
     //This is actually NOT the same as J2000, which is 1 Jan 2000 at noon, Julian Date 2451545, or 2000 Jan 1.5.
     //This MIGHT be a mistake by someone who was trying to use J2000 but missed by a little?  In obliquity of ecliptic calc below the difference will be negligible.

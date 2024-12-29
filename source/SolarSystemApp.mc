@@ -67,7 +67,24 @@ var solarSystemView_class as SolarSystemBaseView?; //saved instance of main clas
 
 //enum {EXIT_APP, RESET_DATE, ORR_ZOOM, THETA, LABEL_DISPLAY, REFRESH, PLANET_SIZE, PLANETS, HELP, HELP_BANNERS}
 
-enum {changeMode_enum, resetDate_enum, orrZoomOption_enum, thetaOption_enum, labelDisplayOption_enum, refreshOption_enum, gpsOption_enum, latOption_enum, lonOption_enum, planetSizeOption_enum, planetsOption_enum, helpOption_enum, helpBanners_enum, lastLoc_enum} //screen0MoveOption_enum, 
+//By specifying values here, they will not change so ie the program STORAGE will not get messed up
+//if we add a new enum.  Never change the VALUE of an enum once established.  YOu
+//can just remove it or add another interspersed, but give the new one a new unique VALUE.
+enum {changeMode_enum= 0,
+        resetDate_enum= 1,
+        orrZoomOption_enum= 2,
+        thetaOption_enum= 3,
+        labelDisplayOption_enum= 4,
+        refreshOption_enum= 5,
+        gpsOption_enum= 6,
+        latOption_enum= 7,
+        lonOption_enum= 8,
+        planetSizeOption_enum= 9,
+        planetsOption_enum= 10,
+        helpOption_enum= 11,
+        helpBanners_enum= 12,
+        lastLoc_enum = 13,
+        } //screen0MoveOption_enum, 
 
 
 class SolarSystemBaseApp extends Application.AppBase {
@@ -83,15 +100,22 @@ class SolarSystemBaseApp extends Application.AppBase {
     public function initialize() {
         AppBase.initialize();
         System.println("init starting...");
-        _solarSystemView = new $.SolarSystemBaseView();
-        solarSystemView_class = _solarSystemView;
-        _solarSystemDelegate = new $.SolarSystemBaseDelegate(_solarSystemView);
+        
         //geo_cache = new Geocentric_cache();
-        readStorageValues();
+        
         $.now = System.getClockTime();
         $.time_now = Time.now();
         $.now_info = Time.Gregorian.info($.time_now, Time.FORMAT_SHORT);
         $.start_time_sec = $.time_now.value(); //start time of app in unix seconds
+
+        //do this AFTER getting time & reading init storage values
+        _solarSystemView = new $.SolarSystemBaseView();
+        solarSystemView_class = _solarSystemView;
+        _solarSystemDelegate = new $.SolarSystemBaseDelegate(_solarSystemView);
+
+        //These  2 must be done AFTER View class is inited
+        readStorageValues();
+        _solarSystemView.setInitPosition();
 
         //sunrise_cache = new sunRiseSet_cache2();        //works fine but not using it now..
         System.println("inited...");
