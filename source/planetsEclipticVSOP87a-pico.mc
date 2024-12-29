@@ -120,14 +120,14 @@ function fetch (now_info, timeZoneOffset_sec, dst, timeAdd_hrs, type, req_array)
     var j2000= 2451543.5f; //epoch used for some calculations (Pluto) from Ioannis
 
     // types are :ecliptic_latlon and :helio_xyz
-    public function planetCoord (now_info, timeZoneOffset_sec, dst, timeAdd_hrs, type, req_array) {
+    public function planetCoord (now_info, timeZoneOffset_sec, dst, timeAdd_hrs as Lang.double, type, req_array) {
 
         //var sml_days  = synodicMonthLength_days(now_info, timeZoneOffset_sec, dst );
         //var base_JD = julianDate (2025, 1, 29 , 12, 36, 0, 0);
-        var JD1 = julianDate (now_info.year, now_info.month, now_info.day,now_info.hour, now_info.min, timeZoneOffset_sec/3600f, dst);
-        var JD = JD1 + timeAdd_hrs/24.0f;
+        var JD1 = julianDate (now_info.year, now_info.month, now_info.day,now_info.hour, now_info.min, timeZoneOffset_sec/3600d, dst);
+        var JD = JD1 + timeAdd_hrs/24.0d;
 
-        var t=(JD - 2451545.0f) / 365250.0f;
+        var t=(JD - 2451545.0d) / 365250.0d;
 
         //var j2000= 2451543.5f;
         //var d= JD ;

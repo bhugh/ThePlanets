@@ -236,6 +236,9 @@ import Toybox.Lang;
 
     }
 
+    /*
+
+     //Works great, just not using it
      function rectangular2spherical(x, y, z) {
         /*Transform rectangular to spherical projection.
         
@@ -252,7 +255,7 @@ import Toybox.Lang;
             tuple: RA, Decl, r spherical coordinate system. 
             
         */
-        
+        /*
         var r    = Math.sqrt( x*x + y*y + z*z );
         var RA   = Math.atan2( y, x );
         //    var Decl = Math.asin( z / r ) ;
@@ -266,6 +269,7 @@ import Toybox.Lang;
 
     }
 
+    */
     
 
     function sind (deg)  {
@@ -281,6 +285,7 @@ import Toybox.Lang;
     function Planet_Sun(M, e, a, N, w, i) {
         /*
         Helper Function. From planet's trajectory elements to position around sun
+        Used extensively in VSOP87A calcs
             
         Returns:
             tuple: position elements
@@ -313,7 +318,9 @@ import Toybox.Lang;
 
     }
 
+/*
 
+    //This works fine, we're just no using it now
     function sun2planet(xeclip, yeclip, zeclip, x, y, z) {
         /*
         Helper Function. From Heliocentric to Geocentric position
@@ -322,6 +329,7 @@ import Toybox.Lang;
             tuple: geocentric view of object.
             
         */
+        /*
         var x_geoc=(x+xeclip);
         var y_geoc=(y+yeclip);
         var z_geoc=(z+zeclip);
@@ -332,6 +340,7 @@ import Toybox.Lang;
         //    t = ecliptic2equatorial(x_geoc, y_geoc, z_geoc, 23.4);
         //    return rectangular2spherical(t[0],t[1],t[2]);
     }
+*/
 
 
 //}
