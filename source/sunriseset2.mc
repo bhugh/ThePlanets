@@ -786,7 +786,7 @@ function intersectionPointsEclipticHorizon_rad (lat_rad, sidereal_rad, obliquity
 
             var intm = Math.sin(horEHint_rad)/Math.sin(obliquity_rad)*Math.cos(lat_rad);
             if (intm>=-1 && intm <=1) {
-                if (lat_deg > 0) {eclEHint2_rad = Math.PI - Math.asin(intm);}
+                if (lat_deg > 0) {eclEHint2_rad = - Math.asin(intm);}
                 else {eclEHint2_rad = Math.PI +  Math.asin(intm);}
             } else {use_eclEHint2 = false;}
             
