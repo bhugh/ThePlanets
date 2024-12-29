@@ -54,7 +54,7 @@ class SolarSystemBaseView extends WatchUi.View {
 
         ssbv_init_count_global ++;        
         ssbv_init_count = ssbv_init_count_global;
-        System.println("SolarSystemView initialize, load #"+ssbv_init_count);
+        System.println("SsView init #"+ssbv_init_count);
 
         //speeds_index = 19; //inited in app.mc where the var is located
         view_mode = 0;
@@ -1137,7 +1137,7 @@ class SolarSystemBaseView extends WatchUi.View {
         //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
         pp.put("Moon", [moon_info3[0]]);
         //moon_age_deg = normalize (equatorialLong2eclipticLong_deg(pp["Moon"][0], obliq_deg) - equatorialLong2eclipticLong_deg(pp["Sun"][0], obliq_deg)); //0-360 with 0 being new moon, 90 1st q, 180 full, 270 last q
-        deBug("PP:", pp);
+        //deBug("PP:", pp);
         moon_age_deg = normalize ((pp["Moon"][0]) - (pp["Sun"][0])); //0-360 with 0 being new moon, 90 1st q, 180 full, 270 last q
         //pp["Sun"] = [sun_info3[:lat], sun_info3[:lon], sun_info3[:r]];
         //System.println("Sun info3: " + sun_info3);

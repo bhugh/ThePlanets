@@ -76,14 +76,14 @@ enum {changeMode_enum= 0,
         thetaOption_enum= 3,
         labelDisplayOption_enum= 4,
         refreshOption_enum= 5,
-        gpsOption_enum= 6,
-        latOption_enum= 7,
-        lonOption_enum= 8,
-        planetSizeOption_enum= 9,
-        planetsOption_enum= 10,
-        helpOption_enum= 11,
-        helpBanners_enum= 12,
-        lastLoc_enum = 13,
+        gpsOption_enum= 15, //giving these new numbers so they won't read anything old in the storage
+        latOption_enum= 16, // "
+        lonOption_enum= 17, // "
+        planetSizeOption_enum= 6,
+        planetsOption_enum= 7,
+        helpOption_enum= 8,
+        helpBanners_enum= 9,
+        lastLoc_enum = 10,
         } //screen0MoveOption_enum, 
 
 
@@ -132,7 +132,7 @@ class SolarSystemBaseApp extends Application.AppBase {
     //! Handle app startup
     //! @param state Startup arguments
     public function onStart(state as Dictionary?) as Void {  
-        System.println("onStart...");
+        //System.println("onStart...");
         $.started = false;
         $.run_oneTime = true;
         $.timeWasAdded = true;
@@ -181,10 +181,10 @@ class SolarSystemBaseApp extends Application.AppBase {
     //! Return the initial view for the app
     //! @return Array [View]
     public function getInitialView() as [Views] or [Views, InputDelegates] {
-        System.println ("getInitialView at " 
+        /*System.println ("getInitialView at " 
             +  now.hour.format("%02d") + ":" +
             now.min.format("%02d") + ":" +
-            now.sec.format("%02d"));
+            now.sec.format("%02d"));*/
         return [_solarSystemView, _solarSystemDelegate];
         _solarSystemDelegate = null;
         _solarSystemView = null;
