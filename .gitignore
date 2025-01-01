@@ -3,4 +3,5 @@
 !/bin/*.iq
 !/bin/*.debug.xml
 /testbin/
+/testing-bin/
 

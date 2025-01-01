@@ -1,0 +1,1066 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<debugInfo>
+<manifest filename="E:\Data-Brent\Garmin-App-Development\SDK-examples\SolarSystem\manifest.xml"/>
+<pcToLineNum>
+<entry filename="e:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\bin\\gen\\006-B4124-00\\source\\Rez.mcgen" id="6" lineNum="19" parent="globals" pc="268435460" symbol="&lt;init&gt;"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="7" lineNum="340" parent="globals" pc="268435478" symbol="sun2planet"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="7" lineNum="348" parent="globals" pc="268435489" symbol="sun2planet"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="7" lineNum="349" parent="globals" pc="268435496" symbol="sun2planet"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="7" lineNum="350" parent="globals" pc="268435503" symbol="sun2planet"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="7" lineNum="351" parent="globals" pc="268435510" symbol="sun2planet"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="7" lineNum="352" parent="globals" pc="268435555" symbol="sun2planet"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="7" lineNum="353" parent="globals" pc="268435600" symbol="sun2planet"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="7" lineNum="354" parent="globals" pc="268435645" symbol="sun2planet"/>
+<entry filename="e:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\bin\\gen\\006-B4124-00\\source\\Rez.mcgen" id="8" lineNum="7" parent="globals/Rez" pc="268435660" symbol="&lt;init&gt;"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="9" lineNum="162" parent="globals" pc="268435680" symbol="spherical_ecliptic2equatorial"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="9" lineNum="179" parent="globals" pc="268435691" symbol="spherical_ecliptic2equatorial"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="9" lineNum="180" parent="globals" pc="268435707" symbol="spherical_ecliptic2equatorial"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="9" lineNum="181" parent="globals" pc="268435733" symbol="spherical_ecliptic2equatorial"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="10" lineNum="185" parent="globals" pc="268435756" symbol="spherical_equatorial2ecliptic"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="10" lineNum="202" parent="globals" pc="268435767" symbol="spherical_equatorial2ecliptic"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="10" lineNum="203" parent="globals" pc="268435783" symbol="spherical_equatorial2ecliptic"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="10" lineNum="204" parent="globals" pc="268435809" symbol="spherical_equatorial2ecliptic"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="11" lineNum="48" parent="globals" pc="268435832" symbol="spherical2rectangular"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="11" lineNum="65" parent="globals" pc="268435843" symbol="spherical2rectangular"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="11" lineNum="66" parent="globals" pc="268435859" symbol="spherical2rectangular"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="11" lineNum="67" parent="globals" pc="268435875" symbol="spherical2rectangular"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="11" lineNum="68" parent="globals" pc="268435909" symbol="spherical2rectangular"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="11" lineNum="69" parent="globals" pc="268435943" symbol="spherical2rectangular"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="11" lineNum="71" parent="globals" pc="268435962" symbol="spherical2rectangular"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="12" lineNum="77" parent="globals" pc="268435982" symbol="rectangular2spherical"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="12" lineNum="94" parent="globals" pc="268435993" symbol="rectangular2spherical"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="12" lineNum="95" parent="globals" pc="268436024" symbol="rectangular2spherical"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="12" lineNum="97" parent="globals" pc="268436042" symbol="rectangular2spherical"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="12" lineNum="99" parent="globals" pc="268436081" symbol="rectangular2spherical"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="12" lineNum="101" parent="globals" pc="268436120" symbol="rectangular2spherical"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="12" lineNum="102" parent="globals" pc="268436144" symbol="rectangular2spherical"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="12" lineNum="103" parent="globals" pc="268436160" symbol="rectangular2spherical"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="13" lineNum="209" parent="globals" pc="268436180" symbol="decimal2clock"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="13" lineNum="220" parent="globals" pc="268436191" symbol="decimal2clock"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="13" lineNum="221" parent="globals" pc="268436231" symbol="decimal2clock"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="13" lineNum="223" parent="globals" pc="268436321" symbol="decimal2clock"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="13" lineNum="232" parent="globals" pc="268436363" symbol="decimal2clock"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="13" lineNum="233" parent="globals" pc="268436421" symbol="decimal2clock"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="14" lineNum="137" parent="globals" pc="268436424" symbol="equatorial2ecliptic"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="14" lineNum="152" parent="globals" pc="268436435" symbol="equatorial2ecliptic"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="14" lineNum="153" parent="globals" pc="268436439" symbol="equatorial2ecliptic"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="14" lineNum="154" parent="globals" pc="268436480" symbol="equatorial2ecliptic"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="14" lineNum="155" parent="globals" pc="268436521" symbol="equatorial2ecliptic"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="15" lineNum="237" parent="globals" pc="268436541" symbol="decimal2arcs"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="15" lineNum="250" parent="globals" pc="268436552" symbol="decimal2arcs"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="15" lineNum="252" parent="globals" pc="268436592" symbol="decimal2arcs"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="15" lineNum="254" parent="globals" pc="268436615" symbol="decimal2arcs"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="16" lineNum="278" parent="globals" pc="268436657" symbol="decimal2hms"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="16" lineNum="289" parent="globals" pc="268436668" symbol="decimal2hms"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="16" lineNum="290" parent="globals" pc="268436690" symbol="decimal2hms"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="16" lineNum="292" parent="globals" pc="268436699" symbol="decimal2hms"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="16" lineNum="293" parent="globals" pc="268436737" symbol="decimal2hms"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="16" lineNum="294" parent="globals" pc="268436788" symbol="decimal2hms"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="16" lineNum="296" parent="globals" pc="268436834" symbol="decimal2hms"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="16" lineNum="298" parent="globals" pc="268436867" symbol="decimal2hms"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="16" lineNum="299" parent="globals" pc="268436934" symbol="decimal2hms"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemApp.mc" id="17" lineNum="13" parent="globals/SolarSystemApp" pc="268436937" symbol="&lt;init&gt;"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="18" lineNum="13" parent="globals/SolarSystemView" pc="268436949" symbol="&lt;init&gt;"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="19" lineNum="21" parent="globals" pc="268436961" symbol="normalize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="19" lineNum="32" parent="globals" pc="268436971" symbol="normalize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="19" lineNum="33" parent="globals" pc="268436973" symbol="normalize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="19" lineNum="34" parent="globals" pc="268436988" symbol="normalize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="19" lineNum="39" parent="globals" pc="268437003" symbol="normalize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="19" lineNum="35" parent="globals" pc="268437006" symbol="normalize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="19" lineNum="35" parent="globals" pc="268437013" symbol="normalize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="19" lineNum="36" parent="globals" pc="268437023" symbol="normalize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="19" lineNum="40" parent="globals" pc="268437034" symbol="normalize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="20" lineNum="110" parent="globals" pc="268437090" symbol="ecliptic2equatorial"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="20" lineNum="127" parent="globals" pc="268437101" symbol="ecliptic2equatorial"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="20" lineNum="128" parent="globals" pc="268437105" symbol="ecliptic2equatorial"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="20" lineNum="129" parent="globals" pc="268437142" symbol="ecliptic2equatorial"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="20" lineNum="131" parent="globals" pc="268437179" symbol="ecliptic2equatorial"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="21" lineNum="304" parent="globals" pc="268437199" symbol="Planet_Sun"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="21" lineNum="313" parent="globals" pc="268437210" symbol="Planet_Sun"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="21" lineNum="314" parent="globals" pc="268437226" symbol="Planet_Sun"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="21" lineNum="315" parent="globals" pc="268437275" symbol="Planet_Sun"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="21" lineNum="316" parent="globals" pc="268437287" symbol="Planet_Sun"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="21" lineNum="317" parent="globals" pc="268437303" symbol="Planet_Sun"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="21" lineNum="318" parent="globals" pc="268437358" symbol="Planet_Sun"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="21" lineNum="319" parent="globals" pc="268437370" symbol="Planet_Sun"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="21" lineNum="320" parent="globals" pc="268437386" symbol="Planet_Sun"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="21" lineNum="321" parent="globals" pc="268437408" symbol="Planet_Sun"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="21" lineNum="323" parent="globals" pc="268437448" symbol="Planet_Sun"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="21" lineNum="324" parent="globals" pc="268437473" symbol="Planet_Sun"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="21" lineNum="325" parent="globals" pc="268437491" symbol="Planet_Sun"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="21" lineNum="327" parent="globals" pc="268437515" symbol="Planet_Sun"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="21" lineNum="328" parent="globals" pc="268437660" symbol="Planet_Sun"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="21" lineNum="329" parent="globals" pc="268437805" symbol="Planet_Sun"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="21" lineNum="330" parent="globals" pc="268437866" symbol="Planet_Sun"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="21" lineNum="331" parent="globals" pc="268437884" symbol="Planet_Sun"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="21" lineNum="332" parent="globals" pc="268437908" symbol="Planet_Sun"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="21" lineNum="333" parent="globals" pc="268437947" symbol="Planet_Sun"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\functions.mc" id="21" lineNum="335" parent="globals" pc="268437963" symbol="Planet_Sun"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="133" parent="globals/Heliocentric" pc="268437998" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="144" parent="globals/Heliocentric" pc="268438001" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="145" parent="globals/Heliocentric" pc="268438020" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="146" parent="globals/Heliocentric" pc="268438039" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="147" parent="globals/Heliocentric" pc="268438058" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="148" parent="globals/Heliocentric" pc="268438065" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="149" parent="globals/Heliocentric" pc="268438084" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="151" parent="globals/Heliocentric" pc="268438103" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="154" parent="globals/Heliocentric" pc="268438115" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="155" parent="globals/Heliocentric" pc="268438134" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="156" parent="globals/Heliocentric" pc="268438153" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="157" parent="globals/Heliocentric" pc="268438172" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="158" parent="globals/Heliocentric" pc="268438179" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="159" parent="globals/Heliocentric" pc="268438198" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="161" parent="globals/Heliocentric" pc="268438217" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="164" parent="globals/Heliocentric" pc="268438229" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="165" parent="globals/Heliocentric" pc="268438248" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="166" parent="globals/Heliocentric" pc="268438267" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="167" parent="globals/Heliocentric" pc="268438286" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="168" parent="globals/Heliocentric" pc="268438293" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="169" parent="globals/Heliocentric" pc="268438312" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="171" parent="globals/Heliocentric" pc="268438331" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="174" parent="globals/Heliocentric" pc="268438343" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="175" parent="globals/Heliocentric" pc="268438362" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="176" parent="globals/Heliocentric" pc="268438381" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="177" parent="globals/Heliocentric" pc="268438400" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="178" parent="globals/Heliocentric" pc="268438407" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="179" parent="globals/Heliocentric" pc="268438426" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="181" parent="globals/Heliocentric" pc="268438445" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="184" parent="globals/Heliocentric" pc="268438457" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="185" parent="globals/Heliocentric" pc="268438476" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="186" parent="globals/Heliocentric" pc="268438495" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="187" parent="globals/Heliocentric" pc="268438514" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="188" parent="globals/Heliocentric" pc="268438521" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="189" parent="globals/Heliocentric" pc="268438540" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="191" parent="globals/Heliocentric" pc="268438559" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="194" parent="globals/Heliocentric" pc="268438571" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="195" parent="globals/Heliocentric" pc="268438590" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="196" parent="globals/Heliocentric" pc="268438609" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="197" parent="globals/Heliocentric" pc="268438628" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="198" parent="globals/Heliocentric" pc="268438647" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="199" parent="globals/Heliocentric" pc="268438666" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="201" parent="globals/Heliocentric" pc="268438685" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="204" parent="globals/Heliocentric" pc="268438697" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="205" parent="globals/Heliocentric" pc="268438716" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="206" parent="globals/Heliocentric" pc="268438735" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="207" parent="globals/Heliocentric" pc="268438754" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="208" parent="globals/Heliocentric" pc="268438773" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="209" parent="globals/Heliocentric" pc="268438792" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="211" parent="globals/Heliocentric" pc="268438811" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="215" parent="globals/Heliocentric" pc="268438823" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="217" parent="globals/Heliocentric" pc="268438842" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="218" parent="globals/Heliocentric" pc="268438858" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="219" parent="globals/Heliocentric" pc="268438874" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="220" parent="globals/Heliocentric" pc="268438890" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="221" parent="globals/Heliocentric" pc="268438897" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="222" parent="globals/Heliocentric" pc="268438913" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="224" parent="globals/Heliocentric" pc="268438929" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="227" parent="globals/Heliocentric" pc="268438941" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="229" parent="globals/Heliocentric" pc="268438960" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="230" parent="globals/Heliocentric" pc="268438967" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="231" parent="globals/Heliocentric" pc="268438974" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="232" parent="globals/Heliocentric" pc="268438981" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="233" parent="globals/Heliocentric" pc="268438988" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="234" parent="globals/Heliocentric" pc="268438995" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="236" parent="globals/Heliocentric" pc="268439011" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="239" parent="globals/Heliocentric" pc="268439023" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="241" parent="globals/Heliocentric" pc="268439042" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="242" parent="globals/Heliocentric" pc="268439049" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="243" parent="globals/Heliocentric" pc="268439056" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="244" parent="globals/Heliocentric" pc="268439063" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="245" parent="globals/Heliocentric" pc="268439070" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="246" parent="globals/Heliocentric" pc="268439077" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="248" parent="globals/Heliocentric" pc="268439093" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="253" parent="globals/Heliocentric" pc="268439105" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="255" parent="globals/Heliocentric" pc="268439127" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="256" parent="globals/Heliocentric" pc="268439133" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="257" parent="globals/Heliocentric" pc="268439140" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="258" parent="globals/Heliocentric" pc="268439147" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="259" parent="globals/Heliocentric" pc="268439154" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="260" parent="globals/Heliocentric" pc="268439161" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="265" parent="globals/Heliocentric" pc="268439168" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="266" parent="globals/Heliocentric" pc="268439190" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="267" parent="globals/Heliocentric" pc="268439196" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="268" parent="globals/Heliocentric" pc="268439203" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="269" parent="globals/Heliocentric" pc="268439210" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="270" parent="globals/Heliocentric" pc="268439217" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="271" parent="globals/Heliocentric" pc="268439224" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="275" parent="globals/Heliocentric" pc="268439231" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="276" parent="globals/Heliocentric" pc="268439253" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="277" parent="globals/Heliocentric" pc="268439259" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="278" parent="globals/Heliocentric" pc="268439266" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="279" parent="globals/Heliocentric" pc="268439273" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="280" parent="globals/Heliocentric" pc="268439280" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="281" parent="globals/Heliocentric" pc="268439287" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="285" parent="globals/Heliocentric" pc="268439294" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="286" parent="globals/Heliocentric" pc="268439316" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="287" parent="globals/Heliocentric" pc="268439322" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="288" parent="globals/Heliocentric" pc="268439329" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="289" parent="globals/Heliocentric" pc="268439336" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="290" parent="globals/Heliocentric" pc="268439343" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="291" parent="globals/Heliocentric" pc="268439350" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="295" parent="globals/Heliocentric" pc="268439357" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="296" parent="globals/Heliocentric" pc="268439379" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="297" parent="globals/Heliocentric" pc="268439385" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="298" parent="globals/Heliocentric" pc="268439392" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="299" parent="globals/Heliocentric" pc="268439399" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="300" parent="globals/Heliocentric" pc="268439406" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="301" parent="globals/Heliocentric" pc="268439413" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="305" parent="globals/Heliocentric" pc="268439420" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="306" parent="globals/Heliocentric" pc="268439442" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="307" parent="globals/Heliocentric" pc="268439448" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="308" parent="globals/Heliocentric" pc="268439455" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="309" parent="globals/Heliocentric" pc="268439462" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="310" parent="globals/Heliocentric" pc="268439469" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="311" parent="globals/Heliocentric" pc="268439476" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="315" parent="globals/Heliocentric" pc="268439483" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="316" parent="globals/Heliocentric" pc="268439505" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="317" parent="globals/Heliocentric" pc="268439511" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="318" parent="globals/Heliocentric" pc="268439518" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="319" parent="globals/Heliocentric" pc="268439525" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="320" parent="globals/Heliocentric" pc="268439532" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="321" parent="globals/Heliocentric" pc="268439539" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="325" parent="globals/Heliocentric" pc="268439546" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="326" parent="globals/Heliocentric" pc="268439568" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="327" parent="globals/Heliocentric" pc="268439574" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="328" parent="globals/Heliocentric" pc="268439581" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="329" parent="globals/Heliocentric" pc="268439588" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="330" parent="globals/Heliocentric" pc="268439595" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="331" parent="globals/Heliocentric" pc="268439602" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="335" parent="globals/Heliocentric" pc="268439609" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="336" parent="globals/Heliocentric" pc="268439631" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="337" parent="globals/Heliocentric" pc="268439637" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="338" parent="globals/Heliocentric" pc="268439644" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="339" parent="globals/Heliocentric" pc="268439651" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="340" parent="globals/Heliocentric" pc="268439658" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="341" parent="globals/Heliocentric" pc="268439665" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="345" parent="globals/Heliocentric" pc="268439672" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="346" parent="globals/Heliocentric" pc="268439694" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="347" parent="globals/Heliocentric" pc="268439700" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="348" parent="globals/Heliocentric" pc="268439707" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="349" parent="globals/Heliocentric" pc="268439714" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="350" parent="globals/Heliocentric" pc="268439721" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="351" parent="globals/Heliocentric" pc="268439728" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="354" parent="globals/Heliocentric" pc="268439735" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="355" parent="globals/Heliocentric" pc="268439766" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="357" parent="globals/Heliocentric" pc="268439797" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="365" parent="globals/Heliocentric" pc="268440146" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="372" parent="globals/Heliocentric" pc="268440459" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="376" parent="globals/Heliocentric" pc="268440604" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="377" parent="globals/Heliocentric" pc="268440620" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="378" parent="globals/Heliocentric" pc="268440636" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="379" parent="globals/Heliocentric" pc="268440670" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="380" parent="globals/Heliocentric" pc="268440704" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="385" parent="globals/Heliocentric" pc="268440723" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="386" parent="globals/Heliocentric" pc="268440735" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="387" parent="globals/Heliocentric" pc="268440747" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="390" parent="globals/Heliocentric" pc="268440759" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="391" parent="globals/Heliocentric" pc="268440808" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="392" parent="globals/Heliocentric" pc="268440854" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="393" parent="globals/Heliocentric" pc="268440900" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="394" parent="globals/Heliocentric" pc="268440940" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="395" parent="globals/Heliocentric" pc="268440977" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="396" parent="globals/Heliocentric" pc="268441023" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="399" parent="globals/Heliocentric" pc="268441066" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="400" parent="globals/Heliocentric" pc="268441115" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="401" parent="globals/Heliocentric" pc="268441161" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="402" parent="globals/Heliocentric" pc="268441204" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="403" parent="globals/Heliocentric" pc="268441250" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="405" parent="globals/Heliocentric" pc="268441293" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="406" parent="globals/Heliocentric" pc="268441339" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="409" parent="globals/Heliocentric" pc="268441385" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="410" parent="globals/Heliocentric" pc="268441428" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="411" parent="globals/Heliocentric" pc="268441471" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="413" parent="globals/Heliocentric" pc="268441511" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="415" parent="globals/Heliocentric" pc="268441533" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="417" parent="globals/Heliocentric" pc="268441549" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="418" parent="globals/Heliocentric" pc="268441556" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="421" parent="globals/Heliocentric" pc="268441566" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="422" parent="globals/Heliocentric" pc="268441573" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="423" parent="globals/Heliocentric" pc="268441580" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="424" parent="globals/Heliocentric" pc="268441587" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="426" parent="globals/Heliocentric" pc="268441594" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="427" parent="globals/Heliocentric" pc="268441610" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="428" parent="globals/Heliocentric" pc="268441626" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="429" parent="globals/Heliocentric" pc="268441642" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="430" parent="globals/Heliocentric" pc="268441658" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="431" parent="globals/Heliocentric" pc="268441674" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="434" parent="globals/Heliocentric" pc="268441690" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="435" parent="globals/Heliocentric" pc="268441724" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="436" parent="globals/Heliocentric" pc="268441758" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="437" parent="globals/Heliocentric" pc="268441777" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="438" parent="globals/Heliocentric" pc="268441811" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="439" parent="globals/Heliocentric" pc="268441845" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="440" parent="globals/Heliocentric" pc="268441864" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="441" parent="globals/Heliocentric" pc="268441898" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="442" parent="globals/Heliocentric" pc="268441932" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="445" parent="globals/Heliocentric" pc="268441951" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="446" parent="globals/Heliocentric" pc="268441975" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="447" parent="globals/Heliocentric" pc="268441999" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="448" parent="globals/Heliocentric" pc="268442023" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="449" parent="globals/Heliocentric" pc="268442047" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="450" parent="globals/Heliocentric" pc="268442071" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="452" parent="globals/Heliocentric" pc="268442095" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="453" parent="globals/Heliocentric" pc="268442119" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="457" parent="globals/Heliocentric" pc="268442143" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="458" parent="globals/Heliocentric" pc="268442168" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="459" parent="globals/Heliocentric" pc="268442174" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="460" parent="globals/Heliocentric" pc="268442181" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="462" parent="globals/Heliocentric" pc="268442188" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="463" parent="globals/Heliocentric" pc="268442209" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="464" parent="globals/Heliocentric" pc="268442227" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="480" parent="globals/Heliocentric" pc="268442544" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="22" lineNum="481" parent="globals/Heliocentric" pc="268442562" symbol="planets"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="23" lineNum="41" parent="globals/Heliocentric" pc="268442878" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="23" lineNum="42" parent="globals/Heliocentric" pc="268442881" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="23" lineNum="42" parent="globals/Heliocentric" pc="268442887" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="23" lineNum="43" parent="globals/Heliocentric" pc="268442897" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="23" lineNum="43" parent="globals/Heliocentric" pc="268442903" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="23" lineNum="44" parent="globals/Heliocentric" pc="268442909" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="23" lineNum="44" parent="globals/Heliocentric" pc="268442915" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="23" lineNum="46" parent="globals/Heliocentric" pc="268442921" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="23" lineNum="48" parent="globals/Heliocentric" pc="268442930" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="23" lineNum="51" parent="globals/Heliocentric" pc="268442942" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="23" lineNum="52" parent="globals/Heliocentric" pc="268442945" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="23" lineNum="52" parent="globals/Heliocentric" pc="268442953" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="23" lineNum="53" parent="globals/Heliocentric" pc="268442967" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="23" lineNum="55" parent="globals/Heliocentric" pc="268443061" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="23" lineNum="56" parent="globals/Heliocentric" pc="268443094" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="23" lineNum="57" parent="globals/Heliocentric" pc="268443105" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="23" lineNum="61" parent="globals/Heliocentric" pc="268443117" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="23" lineNum="63" parent="globals/Heliocentric" pc="268443140" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="23" lineNum="64" parent="globals/Heliocentric" pc="268443163" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="23" lineNum="65" parent="globals/Heliocentric" pc="268443190" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="23" lineNum="66" parent="globals/Heliocentric" pc="268443202" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="23" lineNum="67" parent="globals/Heliocentric" pc="268443209" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="23" lineNum="68" parent="globals/Heliocentric" pc="268443221" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="23" lineNum="69" parent="globals/Heliocentric" pc="268443245" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="23" lineNum="70" parent="globals/Heliocentric" pc="268443249" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="23" lineNum="71" parent="globals/Heliocentric" pc="268443265" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="23" lineNum="72" parent="globals/Heliocentric" pc="268443318" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="23" lineNum="73" parent="globals/Heliocentric" pc="268443334" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="23" lineNum="74" parent="globals/Heliocentric" pc="268443358" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="23" lineNum="76" parent="globals/Heliocentric" pc="268443400" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="23" lineNum="79" parent="globals/Heliocentric" pc="268443442" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="23" lineNum="80" parent="globals/Heliocentric" pc="268443471" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="23" lineNum="81" parent="globals/Heliocentric" pc="268443495" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="23" lineNum="82" parent="globals/Heliocentric" pc="268443510" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="23" lineNum="83" parent="globals/Heliocentric" pc="268443530" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="23" lineNum="84" parent="globals/Heliocentric" pc="268443554" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="23" lineNum="85" parent="globals/Heliocentric" pc="268443584" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="23" lineNum="86" parent="globals/Heliocentric" pc="268443614" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="23" lineNum="89" parent="globals/Heliocentric" pc="268443622" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="23" lineNum="90" parent="globals/Heliocentric" pc="268443629" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="23" lineNum="92" parent="globals/Heliocentric" pc="268443653" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="23" lineNum="93" parent="globals/Heliocentric" pc="268443702" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="23" lineNum="96" parent="globals/Heliocentric" pc="268443751" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="23" lineNum="97" parent="globals/Heliocentric" pc="268443769" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="23" lineNum="98" parent="globals/Heliocentric" pc="268443785" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="23" lineNum="99" parent="globals/Heliocentric" pc="268443797" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="23" lineNum="100" parent="globals/Heliocentric" pc="268443836" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="23" lineNum="102" parent="globals/Heliocentric" pc="268443852" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="23" lineNum="103" parent="globals/Heliocentric" pc="268443884" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="23" lineNum="108" parent="globals/Heliocentric" pc="268443916" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="23" lineNum="109" parent="globals/Heliocentric" pc="268443950" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="23" lineNum="110" parent="globals/Heliocentric" pc="268444009" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="23" lineNum="113" parent="globals/Heliocentric" pc="268444041" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="23" lineNum="114" parent="globals/Heliocentric" pc="268444056" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="23" lineNum="115" parent="globals/Heliocentric" pc="268444071" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\heliocentric.mc" id="23" lineNum="117" parent="globals/Heliocentric" pc="268444083" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\geocentric.mc" id="24" lineNum="138" parent="globals/Geocentric" pc="268444120" symbol="objectnames"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\geocentric.mc" id="24" lineNum="145" parent="globals/Geocentric" pc="268444123" symbol="objectnames"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\geocentric.mc" id="24" lineNum="147" parent="globals/Geocentric" pc="268444130" symbol="objectnames"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\geocentric.mc" id="25" lineNum="35" parent="globals/Geocentric" pc="268444133" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\geocentric.mc" id="25" lineNum="38" parent="globals/Geocentric" pc="268444136" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\geocentric.mc" id="25" lineNum="39" parent="globals/Geocentric" pc="268444159" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\geocentric.mc" id="25" lineNum="41" parent="globals/Geocentric" pc="268444184" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\geocentric.mc" id="25" lineNum="42" parent="globals/Geocentric" pc="268444196" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\geocentric.mc" id="25" lineNum="44" parent="globals/Geocentric" pc="268444208" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\geocentric.mc" id="25" lineNum="46" parent="globals/Geocentric" pc="268444251" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\geocentric.mc" id="25" lineNum="47" parent="globals/Geocentric" pc="268444260" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\geocentric.mc" id="25" lineNum="56" parent="globals/Geocentric" pc="268444269" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\geocentric.mc" id="25" lineNum="57" parent="globals/Geocentric" pc="268444289" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\geocentric.mc" id="25" lineNum="58" parent="globals/Geocentric" pc="268444314" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\geocentric.mc" id="25" lineNum="61" parent="globals/Geocentric" pc="268444350" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\geocentric.mc" id="25" lineNum="62" parent="globals/Geocentric" pc="268444403" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\geocentric.mc" id="25" lineNum="66" parent="globals/Geocentric" pc="268444452" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\geocentric.mc" id="25" lineNum="69" parent="globals/Geocentric" pc="268444477" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\geocentric.mc" id="25" lineNum="70" parent="globals/Geocentric" pc="268444490" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\geocentric.mc" id="26" lineNum="74" parent="globals/Geocentric" pc="268444516" symbol="position"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\geocentric.mc" id="26" lineNum="82" parent="globals/Geocentric" pc="268444519" symbol="position"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\geocentric.mc" id="26" lineNum="83" parent="globals/Geocentric" pc="268444532" symbol="position"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\geocentric.mc" id="26" lineNum="85" parent="globals/Geocentric" pc="268444556" symbol="position"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\geocentric.mc" id="26" lineNum="86" parent="globals/Geocentric" pc="268444562" symbol="position"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\geocentric.mc" id="26" lineNum="87" parent="globals/Geocentric" pc="268444569" symbol="position"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\geocentric.mc" id="26" lineNum="89" parent="globals/Geocentric" pc="268444576" symbol="position"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\geocentric.mc" id="26" lineNum="90" parent="globals/Geocentric" pc="268444580" symbol="position"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\geocentric.mc" id="26" lineNum="92" parent="globals/Geocentric" pc="268444614" symbol="position"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\geocentric.mc" id="26" lineNum="93" parent="globals/Geocentric" pc="268444634" symbol="position"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\geocentric.mc" id="26" lineNum="93" parent="globals/Geocentric" pc="268444658" symbol="position"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\geocentric.mc" id="26" lineNum="94" parent="globals/Geocentric" pc="268444664" symbol="position"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\geocentric.mc" id="26" lineNum="96" parent="globals/Geocentric" pc="268444742" symbol="position"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\geocentric.mc" id="26" lineNum="101" parent="globals/Geocentric" pc="268444869" symbol="position"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\geocentric.mc" id="26" lineNum="102" parent="globals/Geocentric" pc="268444890" symbol="position"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\geocentric.mc" id="26" lineNum="104" parent="globals/Geocentric" pc="268444965" symbol="position"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\geocentric.mc" id="26" lineNum="114" parent="globals/Geocentric" pc="268444971" symbol="position"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\geocentric.mc" id="26" lineNum="115" parent="globals/Geocentric" pc="268444981" symbol="position"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\geocentric.mc" id="26" lineNum="116" parent="globals/Geocentric" pc="268445005" symbol="position"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\geocentric.mc" id="26" lineNum="117" parent="globals/Geocentric" pc="268445034" symbol="position"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\geocentric.mc" id="26" lineNum="118" parent="globals/Geocentric" pc="268445058" symbol="position"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\geocentric.mc" id="26" lineNum="120" parent="globals/Geocentric" pc="268445100" symbol="position"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\geocentric.mc" id="26" lineNum="121" parent="globals/Geocentric" pc="268445120" symbol="position"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\geocentric.mc" id="26" lineNum="122" parent="globals/Geocentric" pc="268445145" symbol="position"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\geocentric.mc" id="26" lineNum="123" parent="globals/Geocentric" pc="268445158" symbol="position"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\geocentric.mc" id="26" lineNum="124" parent="globals/Geocentric" pc="268445182" symbol="position"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\geocentric.mc" id="26" lineNum="126" parent="globals/Geocentric" pc="268445211" symbol="position"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\geocentric.mc" id="26" lineNum="127" parent="globals/Geocentric" pc="268445235" symbol="position"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\geocentric.mc" id="26" lineNum="131" parent="globals/Geocentric" pc="268445293" symbol="position"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\geocentric.mc" id="26" lineNum="132" parent="globals/Geocentric" pc="268445312" symbol="position"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemApp.mc" id="27" lineNum="25" parent="globals/SolarSystemApp" pc="268445316" symbol="onStart"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemApp.mc" id="27" lineNum="26" parent="globals/SolarSystemApp" pc="268445318" symbol="onStart"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemApp.mc" id="28" lineNum="37" parent="globals/SolarSystemApp" pc="268445347" symbol="onPosition"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemApp.mc" id="28" lineNum="38" parent="globals/SolarSystemApp" pc="268445349" symbol="onPosition"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemApp.mc" id="29" lineNum="43" parent="globals/SolarSystemApp" pc="268445366" symbol="getInitialView"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemApp.mc" id="29" lineNum="44" parent="globals/SolarSystemApp" pc="268445368" symbol="getInitialView"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemApp.mc" id="30" lineNum="18" parent="globals/SolarSystemApp" pc="268445381" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemApp.mc" id="30" lineNum="19" parent="globals/SolarSystemApp" pc="268445383" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemApp.mc" id="30" lineNum="20" parent="globals/SolarSystemApp" pc="268445395" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemApp.mc" id="31" lineNum="31" parent="globals/SolarSystemApp" pc="268445425" symbol="onStop"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemApp.mc" id="31" lineNum="32" parent="globals/SolarSystemApp" pc="268445427" symbol="onStop"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="33" lineNum="27" parent="globals/SolarSystemView" pc="268445456" symbol="onLayout"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="34" lineNum="92" parent="globals/SolarSystemView" pc="268445459" symbol="getMessage"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="34" lineNum="107" parent="globals/SolarSystemView" pc="268445462" symbol="getMessage"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="34" lineNum="108" parent="globals/SolarSystemView" pc="268445473" symbol="getMessage"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="34" lineNum="109" parent="globals/SolarSystemView" pc="268445484" symbol="getMessage"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="34" lineNum="116" parent="globals/SolarSystemView" pc="268445612" symbol="getMessage"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="34" lineNum="117" parent="globals/SolarSystemView" pc="268445626" symbol="getMessage"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="34" lineNum="126" parent="globals/SolarSystemView" pc="268445722" symbol="getMessage"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="34" lineNum="135" parent="globals/SolarSystemView" pc="268445831" symbol="getMessage"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="34" lineNum="144" parent="globals/SolarSystemView" pc="268445940" symbol="getMessage"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="34" lineNum="153" parent="globals/SolarSystemView" pc="268446049" symbol="getMessage"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="34" lineNum="165" parent="globals/SolarSystemView" pc="268446188" symbol="getMessage"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="34" lineNum="176" parent="globals/SolarSystemView" pc="268446319" symbol="getMessage"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="35" lineNum="18" parent="globals/SolarSystemView" pc="268446400" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="35" lineNum="19" parent="globals/SolarSystemView" pc="268446402" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="35" lineNum="22" parent="globals/SolarSystemView" pc="268446414" symbol="initialize"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="37" lineNum="42" parent="globals/SolarSystemView" pc="268446427" symbol="onUpdate"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="37" lineNum="45" parent="globals/SolarSystemView" pc="268446430" symbol="onUpdate"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="37" lineNum="46" parent="globals/SolarSystemView" pc="268446443" symbol="onUpdate"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="37" lineNum="47" parent="globals/SolarSystemView" pc="268446451" symbol="onUpdate"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="37" lineNum="48" parent="globals/SolarSystemView" pc="268446468" symbol="onUpdate"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="37" lineNum="50" parent="globals/SolarSystemView" pc="268446475" symbol="onUpdate"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="37" lineNum="51" parent="globals/SolarSystemView" pc="268446487" symbol="onUpdate"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="37" lineNum="53" parent="globals/SolarSystemView" pc="268446499" symbol="onUpdate"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="37" lineNum="54" parent="globals/SolarSystemView" pc="268446503" symbol="onUpdate"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="37" lineNum="56" parent="globals/SolarSystemView" pc="268446516" symbol="onUpdate"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="37" lineNum="58" parent="globals/SolarSystemView" pc="268446538" symbol="onUpdate"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="37" lineNum="59" parent="globals/SolarSystemView" pc="268446558" symbol="onUpdate"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="37" lineNum="60" parent="globals/SolarSystemView" pc="268446584" symbol="onUpdate"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="37" lineNum="63" parent="globals/SolarSystemView" pc="268446601" symbol="onUpdate"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="37" lineNum="64" parent="globals/SolarSystemView" pc="268446620" symbol="onUpdate"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="37" lineNum="65" parent="globals/SolarSystemView" pc="268446662" symbol="onUpdate"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="37" lineNum="66" parent="globals/SolarSystemView" pc="268446683" symbol="onUpdate"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="37" lineNum="67" parent="globals/SolarSystemView" pc="268446702" symbol="onUpdate"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="37" lineNum="68" parent="globals/SolarSystemView" pc="268446744" symbol="onUpdate"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="37" lineNum="69" parent="globals/SolarSystemView" pc="268446753" symbol="onUpdate"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="37" lineNum="70" parent="globals/SolarSystemView" pc="268446769" symbol="onUpdate"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="37" lineNum="71" parent="globals/SolarSystemView" pc="268446778" symbol="onUpdate"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="37" lineNum="72" parent="globals/SolarSystemView" pc="268446794" symbol="onUpdate"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="37" lineNum="76" parent="globals/SolarSystemView" pc="268446801" symbol="onUpdate"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="37" lineNum="80" parent="globals/SolarSystemView" pc="268446900" symbol="onUpdate"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="37" lineNum="82" parent="globals/SolarSystemView" pc="268446919" symbol="onUpdate"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="37" lineNum="83" parent="globals/SolarSystemView" pc="268446961" symbol="onUpdate"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="37" lineNum="85" parent="globals/SolarSystemView" pc="268446982" symbol="onUpdate"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="37" lineNum="86" parent="globals/SolarSystemView" pc="268447001" symbol="onUpdate"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="37" lineNum="87" parent="globals/SolarSystemView" pc="268447043" symbol="onUpdate"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="38" lineNum="210" parent="globals/SolarSystemView" pc="268447065" symbol="setPosition"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="38" lineNum="211" parent="globals/SolarSystemView" pc="268447068" symbol="setPosition"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="38" lineNum="213" parent="globals/SolarSystemView" pc="268447077" symbol="setPosition"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="38" lineNum="214" parent="globals/SolarSystemView" pc="268447085" symbol="setPosition"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="38" lineNum="215" parent="globals/SolarSystemView" pc="268447091" symbol="setPosition"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="38" lineNum="216" parent="globals/SolarSystemView" pc="268447127" symbol="setPosition"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="38" lineNum="219" parent="globals/SolarSystemView" pc="268447167" symbol="setPosition"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="38" lineNum="220" parent="globals/SolarSystemView" pc="268447175" symbol="setPosition"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="38" lineNum="221" parent="globals/SolarSystemView" pc="268447181" symbol="setPosition"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="38" lineNum="224" parent="globals/SolarSystemView" pc="268447212" symbol="setPosition"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="38" lineNum="225" parent="globals/SolarSystemView" pc="268447220" symbol="setPosition"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="38" lineNum="226" parent="globals/SolarSystemView" pc="268447226" symbol="setPosition"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="38" lineNum="229" parent="globals/SolarSystemView" pc="268447257" symbol="setPosition"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="38" lineNum="230" parent="globals/SolarSystemView" pc="268447265" symbol="setPosition"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="38" lineNum="231" parent="globals/SolarSystemView" pc="268447271" symbol="setPosition"/>
+<entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\SolarSystem\\source\\SolarSystemView.mc" id="38" lineNum="234" parent="globals/SolarSystemView" pc="268447302" symbol="setPosition"/>
+</pcToLineNum>
+<symbolTable>
+<entry id="8388639" module="true" symbol="Graphics"/>
+<entry field="true" id="26" symbol="oblecl"/>
+<entry id="43" method="true" symbol="setPosition"/>
+<entry id="8388632" method="true" symbol="&lt;init&gt;"/>
+<entry id="19" method="true" symbol="spherical_ecliptic2equatorial"/>
+<entry id="16" method="true" symbol="normalize"/>
+<entry id="6" object="true" symbol="Heliocentric"/>
+<entry field="true" id="8389310" method="true" symbol="position"/>
+<entry field="true" id="39" symbol="&lt;globals/SolarSystemApp/&lt;&gt;_positionView&gt;"/>
+<entry id="40" method="true" symbol="onPosition"/>
+<entry id="10" method="true" symbol="decimal2arcs"/>
+<entry field="true" id="8388611" module="true" symbol="Toybox"/>
+<entry field="true" id="45" symbol="AppName"/>
+<entry id="4" module="true" symbol="globals/Rez/Strings"/>
+<entry id="8388648" module="true" symbol="WatchUi"/>
+<entry id="2" module="true" symbol="globals/Rez"/>
+<entry field="true" id="27" symbol="planetnames"/>
+<entry id="18" method="true" symbol="spherical2rectangular"/>
+<entry id="8389124" method="true" symbol="onUpdate"/>
+<entry field="true" id="34" symbol="z2"/>
+<entry field="true" id="33" symbol="y2"/>
+<entry field="true" id="32" symbol="x2"/>
+<entry id="42" method="true" symbol="getMessage"/>
+<entry id="8388771" module="true" object="true" symbol="Drawables"/>
+<entry id="17" method="true" symbol="rectangular2spherical"/>
+<entry field="true" id="25" symbol="earthZ"/>
+<entry field="true" id="24" symbol="earthY"/>
+<entry field="true" id="23" symbol="earthX"/>
+<entry id="8389122" method="true" symbol="onLayout"/>
+<entry field="true" id="28" method="true" symbol="planets"/>
+<entry id="36" method="true" symbol="objectnames"/>
+<entry id="14" method="true" symbol="equatorial2ecliptic"/>
+<entry field="true" id="41" symbol="&lt;globals/SolarSystemView/&lt;&gt;_lines&gt;"/>
+<entry id="15" symbol="fc"/>
+<entry field="true" id="8389306" symbol="lon"/>
+<entry id="3" module="true" symbol="globals/Rez/Drawables"/>
+<entry field="true" id="8389305" symbol="lat"/>
+<entry id="7" method="true" symbol="Planet_Sun"/>
+<entry id="8388644" module="true" symbol="System"/>
+<entry id="8388769" module="true" object="true" symbol="Rez"/>
+<entry id="20" method="true" symbol="spherical_equatorial2ecliptic"/>
+<entry id="8" object="true" symbol="SolarSystemApp"/>
+<entry id="8388640" module="true" symbol="Lang"/>
+<entry field="true" id="38" symbol="planetoncenter"/>
+<entry field="true" id="44" symbol="LauncherIcon"/>
+<entry id="8388610" symbol="statics"/>
+<entry id="8389123" method="true" symbol="onShow"/>
+<entry field="true" id="37" symbol="plane"/>
+<entry id="8389350" module="true" symbol="globals"/>
+<entry id="8388770" module="true" object="true" symbol="Strings"/>
+<entry id="21" method="true" symbol="sun2planet"/>
+<entry id="8388702" method="true" symbol="initialize"/>
+<entry id="8389279" method="true" symbol="onStart"/>
+<entry field="true" id="31" symbol="view"/>
+<entry id="8388641" module="true" symbol="Math"/>
+<entry id="9" object="true" symbol="SolarSystemView"/>
+<entry id="8389280" method="true" symbol="getInitialView"/>
+<entry id="8389281" method="true" symbol="onStop"/>
+<entry field="true" id="35" symbol="objectlist"/>
+<entry id="13" method="true" symbol="ecliptic2equatorial"/>
+<entry id="5" object="true" symbol="Geocentric"/>
+<entry id="8388642" module="true" symbol="Position"/>
+<entry id="11" method="true" symbol="decimal2clock"/>
+<entry id="12" method="true" symbol="decimal2hms"/>
+<entry id="8389125" method="true" symbol="onHide"/>
+<entry id="8388635" module="true" symbol="Application"/>
+<entry field="true" id="8390079" symbol="y"/>
+<entry field="true" id="8390078" symbol="x"/>
+<entry field="true" id="30" symbol="v"/>
+<entry field="true" id="29" symbol="r"/>
+<entry field="true" id="22" symbol="d"/>
+</symbolTable>
+<localVars>
+<entry arg="true" endPc="268435659" name="xeclip" stackId="1" startPc="268435478"/>
+<entry arg="true" endPc="268435659" name="yeclip" stackId="2" startPc="268435478"/>
+<entry arg="true" endPc="268435659" name="zeclip" stackId="3" startPc="268435478"/>
+<entry arg="true" endPc="268435659" name="x" stackId="4" startPc="268435478"/>
+<entry arg="true" endPc="268435659" name="y" stackId="5" startPc="268435478"/>
+<entry arg="true" endPc="268435659" name="z" stackId="6" startPc="268435478"/>
+<entry endPc="268435659" name="x_geoc" stackId="7" startPc="268435489"/>
+<entry endPc="268435659" name="y_geoc" stackId="8" startPc="268435489"/>
+<entry endPc="268435659" name="z_geoc" stackId="9" startPc="268435489"/>
+<entry arg="true" endPc="268435755" name="long" stackId="1" startPc="268435680"/>
+<entry arg="true" endPc="268435755" name="lat" stackId="2" startPc="268435680"/>
+<entry arg="true" endPc="268435755" name="distance" stackId="3" startPc="268435680"/>
+<entry arg="true" endPc="268435755" name="oblecl" stackId="4" startPc="268435680"/>
+<entry endPc="268435755" name="b" stackId="5" startPc="268435691"/>
+<entry endPc="268435755" name="c" stackId="6" startPc="268435691"/>
+<entry arg="true" endPc="268435831" name="RA" stackId="1" startPc="268435756"/>
+<entry arg="true" endPc="268435831" name="Decl" stackId="2" startPc="268435756"/>
+<entry arg="true" endPc="268435831" name="distance" stackId="3" startPc="268435756"/>
+<entry arg="true" endPc="268435831" name="oblecl" stackId="4" startPc="268435756"/>
+<entry endPc="268435831" name="b" stackId="5" startPc="268435767"/>
+<entry endPc="268435831" name="c" stackId="6" startPc="268435767"/>
+<entry arg="true" endPc="268435981" name="RA" stackId="1" startPc="268435832"/>
+<entry arg="true" endPc="268435981" name="Decl" stackId="2" startPc="268435832"/>
+<entry arg="true" endPc="268435981" name="r" stackId="3" startPc="268435832"/>
+<entry endPc="268435981" name="x" stackId="4" startPc="268435843"/>
+<entry endPc="268435981" name="y" stackId="5" startPc="268435843"/>
+<entry endPc="268435981" name="z" stackId="6" startPc="268435843"/>
+<entry arg="true" endPc="268436179" name="x" stackId="1" startPc="268435982"/>
+<entry arg="true" endPc="268436179" name="y" stackId="2" startPc="268435982"/>
+<entry arg="true" endPc="268436179" name="z" stackId="3" startPc="268435982"/>
+<entry endPc="268436179" name="r" stackId="4" startPc="268435993"/>
+<entry endPc="268436179" name="RA" stackId="5" startPc="268435993"/>
+<entry endPc="268436179" name="Decl" stackId="6" startPc="268435993"/>
+<entry arg="true" endPc="268436423" name="decimaltime" stackId="1" startPc="268436180"/>
+<entry endPc="268436423" name="h" stackId="2" startPc="268436191"/>
+<entry endPc="268436423" name="m" stackId="3" startPc="268436191"/>
+<entry endPc="268436423" name="s" stackId="4" startPc="268436191"/>
+<entry endPc="268436423" name="res" stackId="5" startPc="268436191"/>
+<entry arg="true" endPc="268436540" name="xequat" stackId="1" startPc="268436424"/>
+<entry arg="true" endPc="268436540" name="yequat" stackId="2" startPc="268436424"/>
+<entry arg="true" endPc="268436540" name="zequat" stackId="3" startPc="268436424"/>
+<entry arg="true" endPc="268436540" name="oblecl" stackId="4" startPc="268436424"/>
+<entry endPc="268436540" name="xeclip" stackId="5" startPc="268436435"/>
+<entry endPc="268436540" name="yeclip" stackId="6" startPc="268436435"/>
+<entry endPc="268436540" name="zeclip" stackId="7" startPc="268436435"/>
+<entry arg="true" endPc="268436656" name="num" stackId="1" startPc="268436541"/>
+<entry endPc="268436656" name="deg" stackId="2" startPc="268436552"/>
+<entry endPc="268436656" name="mins" stackId="3" startPc="268436552"/>
+<entry arg="true" endPc="268436936" name="degrees" stackId="1" startPc="268436657"/>
+<entry endPc="268436936" name="prefix" stackId="2" startPc="268436668"/>
+<entry endPc="268436936" name="h" stackId="3" startPc="268436668"/>
+<entry endPc="268436936" name="m" stackId="4" startPc="268436668"/>
+<entry endPc="268436936" name="s" stackId="5" startPc="268436668"/>
+<entry endPc="268436936" name="res" stackId="6" startPc="268436668"/>
+<entry arg="true" endPc="268437089" name="degrees" stackId="1" startPc="268436961"/>
+<entry arg="true" endPc="268437198" name="xeclip" stackId="1" startPc="268437090"/>
+<entry arg="true" endPc="268437198" name="yeclip" stackId="2" startPc="268437090"/>
+<entry arg="true" endPc="268437198" name="zeclip" stackId="3" startPc="268437090"/>
+<entry arg="true" endPc="268437198" name="oblecl" stackId="4" startPc="268437090"/>
+<entry endPc="268437198" name="xequat" stackId="5" startPc="268437101"/>
+<entry endPc="268437198" name="yequat" stackId="6" startPc="268437101"/>
+<entry endPc="268437198" name="zequat" stackId="7" startPc="268437101"/>
+<entry arg="true" endPc="268437997" name="M" stackId="1" startPc="268437199"/>
+<entry arg="true" endPc="268437997" name="e" stackId="2" startPc="268437199"/>
+<entry arg="true" endPc="268437997" name="a" stackId="3" startPc="268437199"/>
+<entry arg="true" endPc="268437997" name="N" stackId="4" startPc="268437199"/>
+<entry arg="true" endPc="268437997" name="w" stackId="5" startPc="268437199"/>
+<entry arg="true" endPc="268437997" name="i" stackId="6" startPc="268437199"/>
+<entry endPc="268437997" name="M2" stackId="7" startPc="268437210"/>
+<entry endPc="268437997" name="E0" stackId="8" startPc="268437210"/>
+<entry endPc="268437997" name="E02" stackId="9" startPc="268437210"/>
+<entry endPc="268437997" name="E1" stackId="10" startPc="268437210"/>
+<entry endPc="268437997" name="E" stackId="11" startPc="268437210"/>
+<entry endPc="268437997" name="x" stackId="12" startPc="268437210"/>
+<entry endPc="268437997" name="y" stackId="13" startPc="268437210"/>
+<entry endPc="268437997" name="r" stackId="14" startPc="268437210"/>
+<entry endPc="268437997" name="v" stackId="15" startPc="268437210"/>
+<entry endPc="268437997" name="xeclip" stackId="16" startPc="268437210"/>
+<entry endPc="268437997" name="yeclip" stackId="17" startPc="268437210"/>
+<entry endPc="268437997" name="zeclip" stackId="18" startPc="268437210"/>
+<entry endPc="268437997" name="long2" stackId="19" startPc="268437210"/>
+<entry endPc="268437997" name="lat2" stackId="20" startPc="268437210"/>
+<entry endPc="268442876" name="N_er" stackId="1" startPc="268438001"/>
+<entry endPc="268442876" name="i_er" stackId="2" startPc="268438001"/>
+<entry endPc="268442876" name="w_er" stackId="3" startPc="268438001"/>
+<entry endPc="268442876" name="a_er" stackId="4" startPc="268438001"/>
+<entry endPc="268442876" name="e_er" stackId="5" startPc="268438001"/>
+<entry endPc="268442876" name="M_er" stackId="6" startPc="268438001"/>
+<entry endPc="268442876" name="N_af" stackId="7" startPc="268438001"/>
+<entry endPc="268442876" name="i_af" stackId="8" startPc="268438001"/>
+<entry endPc="268442876" name="w_af" stackId="9" startPc="268438001"/>
+<entry endPc="268442876" name="a_af" stackId="10" startPc="268438001"/>
+<entry endPc="268442876" name="e_af" stackId="11" startPc="268438001"/>
+<entry endPc="268442876" name="M_af" stackId="12" startPc="268438001"/>
+<entry endPc="268442876" name="N_ar" stackId="13" startPc="268438001"/>
+<entry endPc="268442876" name="i_ar" stackId="14" startPc="268438001"/>
+<entry endPc="268442876" name="w_ar" stackId="15" startPc="268438001"/>
+<entry endPc="268442876" name="a_ar" stackId="16" startPc="268438001"/>
+<entry endPc="268442876" name="e_ar" stackId="17" startPc="268438001"/>
+<entry endPc="268442876" name="M_ar" stackId="18" startPc="268438001"/>
+<entry endPc="268442876" name="N_di" stackId="19" startPc="268438001"/>
+<entry endPc="268442876" name="i_di" stackId="20" startPc="268438001"/>
+<entry endPc="268442876" name="w_di" stackId="21" startPc="268438001"/>
+<entry endPc="268442876" name="a_di" stackId="22" startPc="268438001"/>
+<entry endPc="268442876" name="e_di" stackId="23" startPc="268438001"/>
+<entry endPc="268442876" name="M_di" stackId="24" startPc="268438001"/>
+<entry endPc="268442876" name="N_kr" stackId="25" startPc="268438001"/>
+<entry endPc="268442876" name="i_kr" stackId="26" startPc="268438001"/>
+<entry endPc="268442876" name="w_kr" stackId="27" startPc="268438001"/>
+<entry endPc="268442876" name="a_kr" stackId="28" startPc="268438001"/>
+<entry endPc="268442876" name="e_kr" stackId="29" startPc="268438001"/>
+<entry endPc="268442876" name="M_kr" stackId="30" startPc="268438001"/>
+<entry endPc="268442876" name="N_ou" stackId="31" startPc="268438001"/>
+<entry endPc="268442876" name="i_ou" stackId="32" startPc="268438001"/>
+<entry endPc="268442876" name="w_ou" stackId="33" startPc="268438001"/>
+<entry endPc="268442876" name="a_ou" stackId="34" startPc="268438001"/>
+<entry endPc="268442876" name="e_ou" stackId="35" startPc="268438001"/>
+<entry endPc="268442876" name="M_ou" stackId="36" startPc="268438001"/>
+<entry endPc="268442876" name="N_po" stackId="37" startPc="268438001"/>
+<entry endPc="268442876" name="i_po" stackId="38" startPc="268438001"/>
+<entry endPc="268442876" name="w_po" stackId="39" startPc="268438001"/>
+<entry endPc="268442876" name="a_po" stackId="40" startPc="268438001"/>
+<entry endPc="268442876" name="e_po" stackId="41" startPc="268438001"/>
+<entry endPc="268442876" name="M_po" stackId="42" startPc="268438001"/>
+<entry endPc="268442876" name="ddd" stackId="43" startPc="268438001"/>
+<entry endPc="268442876" name="N_ce" stackId="44" startPc="268438001"/>
+<entry endPc="268442876" name="i_ce" stackId="45" startPc="268438001"/>
+<entry endPc="268442876" name="w_ce" stackId="46" startPc="268438001"/>
+<entry endPc="268442876" name="a_ce" stackId="47" startPc="268438001"/>
+<entry endPc="268442876" name="e_ce" stackId="48" startPc="268438001"/>
+<entry endPc="268442876" name="M_ce" stackId="49" startPc="268438001"/>
+<entry endPc="268442876" name="dddd" stackId="50" startPc="268438001"/>
+<entry endPc="268442876" name="N_ch" stackId="51" startPc="268438001"/>
+<entry endPc="268442876" name="i_ch" stackId="52" startPc="268438001"/>
+<entry endPc="268442876" name="w_ch" stackId="53" startPc="268438001"/>
+<entry endPc="268442876" name="a_ch" stackId="54" startPc="268438001"/>
+<entry endPc="268442876" name="e_ch" stackId="55" startPc="268438001"/>
+<entry endPc="268442876" name="M_ch" stackId="56" startPc="268438001"/>
+<entry endPc="268442876" name="ddddd" stackId="57" startPc="268438001"/>
+<entry endPc="268442876" name="N_pe" stackId="58" startPc="268438001"/>
+<entry endPc="268442876" name="i_pe" stackId="59" startPc="268438001"/>
+<entry endPc="268442876" name="w_pe" stackId="60" startPc="268438001"/>
+<entry endPc="268442876" name="a_pe" stackId="61" startPc="268438001"/>
+<entry endPc="268442876" name="e_pe" stackId="62" startPc="268438001"/>
+<entry endPc="268442876" name="M_pe" stackId="63" startPc="268438001"/>
+<entry endPc="268442876" name="res" stackId="64" startPc="268438001"/>
+<entry endPc="268442876" name="xereclip" stackId="65" startPc="268438001"/>
+<entry endPc="268442876" name="yereclip" stackId="66" startPc="268438001"/>
+<entry endPc="268442876" name="zereclip" stackId="67" startPc="268438001"/>
+<entry endPc="268442876" name="long2_er" stackId="68" startPc="268438001"/>
+<entry endPc="268442876" name="lat2_er" stackId="69" startPc="268438001"/>
+<entry endPc="268442876" name="r_er" stackId="70" startPc="268438001"/>
+<entry endPc="268442876" name="xafeclip" stackId="71" startPc="268438001"/>
+<entry endPc="268442876" name="yafeclip" stackId="72" startPc="268438001"/>
+<entry endPc="268442876" name="zafeclip" stackId="73" startPc="268438001"/>
+<entry endPc="268442876" name="long2_af" stackId="74" startPc="268438001"/>
+<entry endPc="268442876" name="lat2_af" stackId="75" startPc="268438001"/>
+<entry endPc="268442876" name="r_af" stackId="76" startPc="268438001"/>
+<entry endPc="268442876" name="xareclip" stackId="77" startPc="268438001"/>
+<entry endPc="268442876" name="yareclip" stackId="78" startPc="268438001"/>
+<entry endPc="268442876" name="zareclip" stackId="79" startPc="268438001"/>
+<entry endPc="268442876" name="long2_ar" stackId="80" startPc="268438001"/>
+<entry endPc="268442876" name="lat2_ar" stackId="81" startPc="268438001"/>
+<entry endPc="268442876" name="r_ar" stackId="82" startPc="268438001"/>
+<entry endPc="268442876" name="xdieclip" stackId="83" startPc="268438001"/>
+<entry endPc="268442876" name="ydieclip" stackId="84" startPc="268438001"/>
+<entry endPc="268442876" name="zdieclip" stackId="85" startPc="268438001"/>
+<entry endPc="268442876" name="long2_di" stackId="86" startPc="268438001"/>
+<entry endPc="268442876" name="lat2_di" stackId="87" startPc="268438001"/>
+<entry endPc="268442876" name="r_di" stackId="88" startPc="268438001"/>
+<entry endPc="268442876" name="xkreclip" stackId="89" startPc="268438001"/>
+<entry endPc="268442876" name="ykreclip" stackId="90" startPc="268438001"/>
+<entry endPc="268442876" name="zkreclip" stackId="91" startPc="268438001"/>
+<entry endPc="268442876" name="long2_kr" stackId="92" startPc="268438001"/>
+<entry endPc="268442876" name="lat2_kr" stackId="93" startPc="268438001"/>
+<entry endPc="268442876" name="r_kr" stackId="94" startPc="268438001"/>
+<entry endPc="268442876" name="xoueclip" stackId="95" startPc="268438001"/>
+<entry endPc="268442876" name="youeclip" stackId="96" startPc="268438001"/>
+<entry endPc="268442876" name="zoueclip" stackId="97" startPc="268438001"/>
+<entry endPc="268442876" name="long2_ou" stackId="98" startPc="268438001"/>
+<entry endPc="268442876" name="lat2_ou" stackId="99" startPc="268438001"/>
+<entry endPc="268442876" name="r_ou" stackId="100" startPc="268438001"/>
+<entry endPc="268442876" name="xpoeclip" stackId="101" startPc="268438001"/>
+<entry endPc="268442876" name="ypoeclip" stackId="102" startPc="268438001"/>
+<entry endPc="268442876" name="zpoeclip" stackId="103" startPc="268438001"/>
+<entry endPc="268442876" name="long2_po" stackId="104" startPc="268438001"/>
+<entry endPc="268442876" name="lat2_po" stackId="105" startPc="268438001"/>
+<entry endPc="268442876" name="r_po" stackId="106" startPc="268438001"/>
+<entry endPc="268442876" name="xceeclip" stackId="107" startPc="268438001"/>
+<entry endPc="268442876" name="yceeclip" stackId="108" startPc="268438001"/>
+<entry endPc="268442876" name="zceeclip" stackId="109" startPc="268438001"/>
+<entry endPc="268442876" name="long2_ce" stackId="110" startPc="268438001"/>
+<entry endPc="268442876" name="lat2_ce" stackId="111" startPc="268438001"/>
+<entry endPc="268442876" name="r_ce" stackId="112" startPc="268438001"/>
+<entry endPc="268442876" name="xcheclip" stackId="113" startPc="268438001"/>
+<entry endPc="268442876" name="ycheclip" stackId="114" startPc="268438001"/>
+<entry endPc="268442876" name="zcheclip" stackId="115" startPc="268438001"/>
+<entry endPc="268442876" name="long2_ch" stackId="116" startPc="268438001"/>
+<entry endPc="268442876" name="lat2_ch" stackId="117" startPc="268438001"/>
+<entry endPc="268442876" name="r_ch" stackId="118" startPc="268438001"/>
+<entry endPc="268442876" name="xpeeclip" stackId="119" startPc="268438001"/>
+<entry endPc="268442876" name="ypeeclip" stackId="120" startPc="268438001"/>
+<entry endPc="268442876" name="zpeeclip" stackId="121" startPc="268438001"/>
+<entry endPc="268442876" name="long2_pe" stackId="122" startPc="268438001"/>
+<entry endPc="268442876" name="lat2_pe" stackId="123" startPc="268438001"/>
+<entry endPc="268442876" name="r_pe" stackId="124" startPc="268438001"/>
+<entry endPc="268442876" name="S_pl" stackId="125" startPc="268438001"/>
+<entry endPc="268442876" name="P_pl" stackId="126" startPc="268438001"/>
+<entry endPc="268442876" name="long2_pl" stackId="127" startPc="268438001"/>
+<entry endPc="268442876" name="lat2_pl" stackId="128" startPc="268438001"/>
+<entry endPc="268442876" name="r_pl" stackId="129" startPc="268438001"/>
+<entry endPc="268442876" name="x_pl" stackId="130" startPc="268438001"/>
+<entry endPc="268442876" name="y_pl" stackId="131" startPc="268438001"/>
+<entry endPc="268442876" name="z_pl" stackId="132" startPc="268438001"/>
+<entry endPc="268442876" name="di_diat1" stackId="133" startPc="268438001"/>
+<entry endPc="268442876" name="di_diat2" stackId="134" startPc="268438001"/>
+<entry endPc="268442876" name="di_diat3" stackId="135" startPc="268438001"/>
+<entry endPc="268442876" name="di_diat4" stackId="136" startPc="268438001"/>
+<entry endPc="268442876" name="di_diat5" stackId="137" startPc="268438001"/>
+<entry endPc="268442876" name="di_diat6" stackId="138" startPc="268438001"/>
+<entry endPc="268442876" name="di_diat7" stackId="139" startPc="268438001"/>
+<entry endPc="268442876" name="kr_diat1" stackId="140" startPc="268438001"/>
+<entry endPc="268442876" name="kr_diat2" stackId="141" startPc="268438001"/>
+<entry endPc="268442876" name="kr_diat3" stackId="142" startPc="268438001"/>
+<entry endPc="268442876" name="kr_diat4" stackId="143" startPc="268438001"/>
+<entry endPc="268442876" name="kr_diat5" stackId="144" startPc="268438001"/>
+<entry endPc="268442876" name="kr_diat6" stackId="145" startPc="268438001"/>
+<entry endPc="268442876" name="kr_diat7" stackId="146" startPc="268438001"/>
+<entry endPc="268442876" name="ou_diat1" stackId="147" startPc="268438001"/>
+<entry endPc="268442876" name="ou_diat2" stackId="148" startPc="268438001"/>
+<entry endPc="268442876" name="ou_diat3" stackId="149" startPc="268438001"/>
+<entry endPc="268442876" name="diataraxes_long_di" stackId="150" startPc="268438001"/>
+<entry endPc="268442876" name="diataraxes_long_kr" stackId="151" startPc="268438001"/>
+<entry endPc="268442876" name="diataraxes_lat_kr" stackId="152" startPc="268438001"/>
+<entry endPc="268442876" name="diataraxes_long_ou" stackId="153" startPc="268438001"/>
+<entry endPc="268442876" name="long_earth" stackId="154" startPc="268438001"/>
+<entry endPc="268442876" name="lat_earth" stackId="155" startPc="268438001"/>
+<entry endPc="268442876" name="dist_earth" stackId="156" startPc="268438001"/>
+<entry arg="true" endPc="268444119" name="year" stackId="1" startPc="268442878"/>
+<entry arg="true" endPc="268444119" name="month" stackId="2" startPc="268442878"/>
+<entry arg="true" endPc="268444119" name="day" stackId="3" startPc="268442878"/>
+<entry arg="true" endPc="268444119" name="hour" stackId="4" startPc="268442878"/>
+<entry arg="true" endPc="268444119" name="minute" stackId="5" startPc="268442878"/>
+<entry arg="true" endPc="268444119" name="UT" stackId="6" startPc="268442878"/>
+<entry arg="true" endPc="268444119" name="dst" stackId="7" startPc="268442878"/>
+<entry arg="true" endPc="268444119" name="vw" stackId="8" startPc="268442878"/>
+<entry endPc="268444118" name="pr" stackId="9" startPc="268442881"/>
+<entry endPc="268444118" name="JDN" stackId="10" startPc="268442881"/>
+<entry endPc="268444118" name="JD" stackId="11" startPc="268442881"/>
+<entry endPc="268444118" name="j2000" stackId="12" startPc="268442881"/>
+<entry endPc="268444118" name="w" stackId="13" startPc="268442881"/>
+<entry endPc="268444118" name="e" stackId="14" startPc="268442881"/>
+<entry endPc="268444118" name="M" stackId="15" startPc="268442881"/>
+<entry endPc="268444118" name="L" stackId="16" startPc="268442881"/>
+<entry endPc="268444118" name="M2" stackId="17" startPc="268442881"/>
+<entry endPc="268444118" name="E" stackId="18" startPc="268442881"/>
+<entry endPc="268444118" name="xequat" stackId="19" startPc="268442881"/>
+<entry endPc="268444118" name="yequat" stackId="20" startPc="268442881"/>
+<entry endPc="268444118" name="zequat" stackId="21" startPc="268442881"/>
+<entry endPc="268444118" name="RA" stackId="22" startPc="268442881"/>
+<entry endPc="268444118" name="Decl" stackId="23" startPc="268442881"/>
+<entry endPc="268444132" name="orderedobjects" stackId="1" startPc="268444123"/>
+<entry arg="true" endPc="268444515" name="year" stackId="1" startPc="268444133"/>
+<entry arg="true" endPc="268444515" name="month" stackId="2" startPc="268444133"/>
+<entry arg="true" endPc="268444515" name="day" stackId="3" startPc="268444133"/>
+<entry arg="true" endPc="268444515" name="hour" stackId="4" startPc="268444133"/>
+<entry arg="true" endPc="268444515" name="minute" stackId="5" startPc="268444133"/>
+<entry arg="true" endPc="268444515" name="UT" stackId="6" startPc="268444133"/>
+<entry arg="true" endPc="268444515" name="dst" stackId="7" startPc="268444133"/>
+<entry arg="true" endPc="268444515" name="pl" stackId="8" startPc="268444133"/>
+<entry endPc="268444514" name="h" stackId="9" startPc="268444136"/>
+<entry endPc="268444514" name="hplanets" stackId="10" startPc="268444136"/>
+<entry endPc="268444451" name="i" stackId="11" startPc="268444289"/>
+<entry endPc="268445314" name="c" stackId="1" startPc="268444519"/>
+<entry endPc="268445314" name="res" stackId="2" startPc="268444519"/>
+<entry endPc="268445314" name="RA" stackId="3" startPc="268444519"/>
+<entry endPc="268445314" name="Decl" stackId="4" startPc="268444519"/>
+<entry endPc="268445314" name="r" stackId="5" startPc="268444519"/>
+<entry endPc="268445314" name="planetcentric_pos" stackId="6" startPc="268444519"/>
+<entry endPc="268444868" name="i" stackId="7" startPc="268444634"/>
+<entry endPc="268445314" name="vs" stackId="8" startPc="268444971"/>
+<entry endPc="268445314" name="vvs" stackId="9" startPc="268444971"/>
+<entry endPc="268445314" name="vvvs" stackId="10" startPc="268444971"/>
+<entry endPc="268445314" name="vvvvs" stackId="11" startPc="268444971"/>
+<entry endPc="268445292" name="i" stackId="12" startPc="268445120"/>
+<entry endPc="268445279" name="vs2" stackId="13" startPc="268445145"/>
+<entry endPc="268445279" name="vvs2" stackId="14" startPc="268445145"/>
+<entry endPc="268445279" name="vvvs2" stackId="15" startPc="268445145"/>
+<entry endPc="268445279" name="vvvvs2" stackId="16" startPc="268445145"/>
+<entry arg="true" endPc="268445346" name="state" stackId="1" startPc="268445316"/>
+<entry arg="true" endPc="268445365" name="info" stackId="1" startPc="268445347"/>
+<entry arg="true" endPc="268445455" name="state" stackId="1" startPc="268445425"/>
+<entry endPc="268446398" name="x" stackId="1" startPc="268445462"/>
+<entry endPc="268446398" name="y" stackId="2" startPc="268445462"/>
+<entry endPc="268446398" name="z" stackId="3" startPc="268445462"/>
+<entry arg="true" endPc="268447064" name="dc" stackId="1" startPc="268446427"/>
+<entry endPc="268447063" name="x" stackId="2" startPc="268446430"/>
+<entry endPc="268447063" name="y" stackId="3" startPc="268446430"/>
+<entry endPc="268447063" name="font" stackId="4" startPc="268446430"/>
+<entry endPc="268447063" name="textHeight" stackId="5" startPc="268446430"/>
+<entry endPc="268446600" name="i" stackId="6" startPc="268446558"/>
+<entry endPc="268447063" name="g" stackId="7" startPc="268446430"/>
+<entry endPc="268447063" name="h" stackId="8" startPc="268446430"/>
+<entry endPc="268447063" name="hpos" stackId="9" startPc="268446430"/>
+<entry endPc="268447063" name="kys" stackId="10" startPc="268446430"/>
+<entry endPc="268446899" name="i" stackId="11" startPc="268446794"/>
+<entry endPc="268446889" name="ky" stackId="12" startPc="268446794"/>
+<entry endPc="268447063" name="gg" stackId="13" startPc="268446430"/>
+<entry endPc="268447063" name="hh" stackId="14" startPc="268446430"/>
+<entry arg="true" endPc="268447313" name="info" stackId="1" startPc="268447065"/>
+<entry endPc="268447312" name="position" stackId="2" startPc="268447068"/>
+<entry endPc="268447312" name="speed" stackId="3" startPc="268447068"/>
+<entry endPc="268447312" name="altitude" stackId="4" startPc="268447068"/>
+<entry endPc="268447312" name="heading" stackId="5" startPc="268447068"/>
+</localVars>
+<deviceInfo deviceVersion="fcbb2d71ec35a1d3f34d13093a6835d1c69522b8" partNumber="006-B4124-00"/>
+<annotations>
+<annotationEntry annotation="initialized" class="Drawables" module="globals/Rez" symbol="LauncherIcon"/>
+<annotationEntry annotation="initialized" class="Strings" module="globals/Rez" symbol="AppName"/>
+</annotations>
+<dataEntryOffsetMappings>
+<dataEntry label="globals" offset="49" parentId="" symbolId="globals" type="module"/>
+<dataEntry label="globals/Rez" offset="242" parentId="globals" symbolId="Rez" type="module"/>
+<dataEntry label="globals/Heliocentric" offset="286" parentId="globals" symbolId="Heliocentric" type="class"/>
+<dataEntry label="globals/Geocentric" offset="483" parentId="globals" symbolId="Geocentric" type="class"/>
+<dataEntry label="globals/SolarSystemApp" offset="590" parentId="globals" symbolId="SolarSystemApp" type="class"/>
+<dataEntry label="globals/SolarSystemView" offset="679" parentId="globals" symbolId="SolarSystemView" type="class"/>
+<dataEntry label="globals/Rez/Drawables" offset="786" parentId="Rez" symbolId="Drawables" type="module"/>
+<dataEntry label="globals/Rez/Strings" offset="821" parentId="Rez" symbolId="Strings" type="module"/>
+</dataEntryOffsetMappings>
+<functions>
+<functionEntry accessMode="public" endPc="268435659" name="sun2planet" startPc="268435478">
+<param id="xeclip"/>
+<param id="yeclip"/>
+<param id="zeclip"/>
+<param id="x"/>
+<param id="y"/>
+<param id="z"/>
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268435679" name="&lt;init&gt;" parent="Rez" startPc="268435660">
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268435755" name="spherical_ecliptic2equatorial" startPc="268435680">
+<param id="long"/>
+<param id="lat"/>
+<param id="distance"/>
+<param id="oblecl"/>
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268435831" name="spherical_equatorial2ecliptic" startPc="268435756">
+<param id="RA"/>
+<param id="Decl"/>
+<param id="distance"/>
+<param id="oblecl"/>
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" name="&lt;init&gt;" parent="Heliocentric">
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268435981" name="spherical2rectangular" startPc="268435832">
+<param id="RA"/>
+<param id="Decl"/>
+<param id="r"/>
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268436179" name="rectangular2spherical" startPc="268435982">
+<param id="x"/>
+<param id="y"/>
+<param id="z"/>
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268436423" name="decimal2clock" startPc="268436180">
+<param id="decimaltime"/>
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268436540" name="equatorial2ecliptic" startPc="268436424">
+<param id="xequat"/>
+<param id="yequat"/>
+<param id="zequat"/>
+<param id="oblecl"/>
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268436656" name="decimal2arcs" startPc="268436541">
+<param id="num"/>
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268436936" name="decimal2hms" startPc="268436657">
+<param id="degrees"/>
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" name="&lt;init&gt;" parent="Geocentric">
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268436948" name="&lt;init&gt;" parent="SolarSystemApp" startPc="268436937">
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268436960" name="&lt;init&gt;" parent="SolarSystemView" startPc="268436949">
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268437089" name="normalize" startPc="268436961">
+<param id="degrees"/>
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268437198" name="ecliptic2equatorial" startPc="268437090">
+<param id="xeclip"/>
+<param id="yeclip"/>
+<param id="zeclip"/>
+<param id="oblecl"/>
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268437997" name="Planet_Sun" startPc="268437199">
+<param id="M"/>
+<param id="e"/>
+<param id="a"/>
+<param id="N"/>
+<param id="w"/>
+<param id="i"/>
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" name="&lt;init&gt;" parent="Drawables">
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" name="&lt;init&gt;" parent="Strings">
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268442877" name="planets" parent="Heliocentric" startPc="268437998">
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268444119" name="initialize" parent="Heliocentric" startPc="268442878">
+<param id="year"/>
+<param id="month"/>
+<param id="day"/>
+<param id="hour"/>
+<param id="minute"/>
+<param id="UT"/>
+<param id="dst"/>
+<param id="vw"/>
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268444132" name="objectnames" parent="Geocentric" startPc="268444120">
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268444515" name="initialize" parent="Geocentric" startPc="268444133">
+<param id="year"/>
+<param id="month"/>
+<param id="day"/>
+<param id="hour"/>
+<param id="minute"/>
+<param id="UT"/>
+<param id="dst"/>
+<param id="pl"/>
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268445315" name="position" parent="Geocentric" startPc="268444516">
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268445346" name="onStart" parent="SolarSystemApp" startPc="268445316">
+<param id="state"/>
+<documentation><![CDATA[<div class="description"> Handle app startup<br/> <div class="param"> state Startup arguments</div><br/></div>]]></documentation>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268445365" name="onPosition" parent="SolarSystemApp" startPc="268445347">
+<param id="info"/>
+<documentation><![CDATA[<div class="description"> Update the current position<br/> <div class="param"> info Position information</div><br/></div>]]></documentation>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268445380" name="getInitialView" parent="SolarSystemApp" startPc="268445366">
+<documentation><![CDATA[<div class="description"> Return the initial view for the app<br/> <div class="returns">Returns  Array [View]</div><br/></div>]]></documentation>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268445424" name="initialize" parent="SolarSystemApp" startPc="268445381">
+<documentation><![CDATA[<div class="description"> Constructor<br/></div>]]></documentation>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268445455" name="onStop" parent="SolarSystemApp" startPc="268445425">
+<param id="state"/>
+<documentation><![CDATA[<div class="description"> Handle app shutdown<br/> <div class="param"> state Shutdown arguments</div><br/></div>]]></documentation>
+</functionEntry>
+<functionEntry accessMode="public" name="onShow" parent="SolarSystemView">
+<documentation><![CDATA[<div class="description"> Restore the state of the app and prepare the view to be shown<br/></div>]]></documentation>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268445458" name="onLayout" parent="SolarSystemView" startPc="268445456">
+<param id="dc"/>
+<documentation><![CDATA[<div class="description"> Load your resources here<br/> <div class="param"> dc Device context</div><br/></div>]]></documentation>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268446399" name="getMessage" parent="SolarSystemView" startPc="268445459">
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268446426" name="initialize" parent="SolarSystemView" startPc="268446400">
+<documentation><![CDATA[<div class="description"> Constructor<br/></div>]]></documentation>
+</functionEntry>
+<functionEntry accessMode="public" name="onHide" parent="SolarSystemView">
+<documentation><![CDATA[<div class="description"> Handle view being hidden<br/></div>]]></documentation>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268447064" name="onUpdate" parent="SolarSystemView" startPc="268446427">
+<param id="dc"/>
+<documentation><![CDATA[<div class="description"> Update the view<br/> <div class="param"> dc Device context</div><br/></div>]]></documentation>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268447313" name="setPosition" parent="SolarSystemView" startPc="268447065">
+<param id="info"/>
+<documentation><![CDATA[<div class="description"> Set the position<br/> <div class="param"> info Position information</div><br/></div>]]></documentation>
+</functionEntry>
+</functions>
+</debugInfo>
