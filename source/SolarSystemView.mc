@@ -562,7 +562,7 @@ class SolarSystemBaseView extends WatchUi.View {
         if ($.time_now.value() > $.last_button_time_sec + 60 ) { //was 300/5 minutes but seems too long.  120 sec/2 min might be good or even just 60 sec.  Or make it settable...
         //if ($.time_now.value() > $.last_button_time_sec + 30 ) {  //for testing
             $.started = false;
-            $.run_oneTime = true;
+            //$.run_oneTime = true; //oopsie, this will keep getting set ev. time & aack.
         }
 
         //$.time_now = now; //for testing
@@ -2563,6 +2563,16 @@ class SolarSystemBaseView extends WatchUi.View {
             dc.drawText(xcent2, ycent2, font, sep + intvl + sep + modeInd , justify);
             //$.show_intvl = false;
         }
+
+        //################## GPS LOCATION, if different from default
+        //if ($.Options_Dict[gpsOption_enum]) {
+            var p1 = lastLoc[0] > 0 ? "E" : "W";
+            var p2 = lastLoc[1] > 0 ? "N" : "S";          
+            var msg = lastLoc[0].abs().format("%.0f") + p1 + lastLoc[1].abs().format("%.0f") + p2;
+            //var msg = "hi";
+            dc.drawText(xcent2, ycent2 + textHeight, font, msg , justify);
+        //}
+
         
         /* else if ((15*$.hz).toNumber() < 2.0* $.hz) {
             dc.drawText(xcent2, ycent2+ .5*textHeight, font, msg, justify);
