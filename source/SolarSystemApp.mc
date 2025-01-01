@@ -1,8 +1,8 @@
-//!
-//! Copyright 2015-2021 by Garmin Ltd. or its subsidiaries.
-//! Subject to Garmin SDK License Agreement and Wearables
-//! Application Developer Agreement.
-//!
+//Copyright Brent Hugh
+//License available at project GitHub page:
+//https://github.com/bhugh/ThePlanets
+
+//Garmin App UUID for current version in IQ Store: 153a34d3-72a7-4453-a803-ed94083e4180
 
 import Toybox.Application;
 import Toybox.Lang;

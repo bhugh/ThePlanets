@@ -550,7 +550,7 @@ class SolarSystemBaseView extends WatchUi.View {
         $.time_now = Time.now();
         
         //In case a button hasn't been pressed in X seconds, stop.  So as to preserve battery.
-        if ($.time_now.value() > $.last_button_time_sec + 300 ) {
+        if ($.time_now.value() > $.last_button_time_sec + 120 ) { //was 300/5 minutes but seems too long.  120 sec/2 min might be good or even just 60 sec.  Or make it settable...
         //if ($.time_now.value() > $.last_button_time_sec + 30 ) {  //for testing
             $.started = false;
             $.run_oneTime = true;
@@ -1462,6 +1462,7 @@ class SolarSystemBaseView extends WatchUi.View {
         //zoom_whh = small_whh;
         var aP = allPlanets;
         zoom_whh = aP.slice(0,8);
+        zoom_whh.add(aP[13]); //add ceres
         //deBug ("www - zoom_whh", zoom_whh);
         //deBug("www - zoom_whh slice 0-8 sourcecopy", aP);
         //deBug("www - zoom_whh slice 0-8 source", allPlanets);
@@ -2876,8 +2877,15 @@ class SolarSystemBaseView extends WatchUi.View {
                 //dc.drawLine(x-size/3.0, y+3*size/4, x-size/3.0, y-3*size/4);                      
                 drawARC (dc, 10, 27, x+size/10.0, y-size/6,size/2.8, pen, null);
                 break;
+            case "Ceres" :
+                
+                //dc.drawLine(x, y+4*size/5, x, y-4*size/5);
+                //dc.drawLine(x-size/7.0, y+2*size/4, x-size/7.0, y-2*size/4);                      
+                //dc.drawLine(x-size/3.0, y+3*size/4, x-size/3.0, y-3*size/4);                      
+                drawARC (dc, 10,2.5, x-size/30, y,size/1.9, pen, null);
+                break;                
 
-             case "Chiron" :
+            case "Chiron" :
                 
                 //dc.drawLine(x, y+4*size/5, x, y-4*size/5);
                 //dc.drawLine(x-size/7.0, y+2*size/4, x-size/7.0, y-2*size/4);                      

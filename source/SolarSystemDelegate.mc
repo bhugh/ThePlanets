@@ -371,6 +371,8 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
         
             pushView(settings_view, settings_delegate, WatchUi.SLIDE_IMMEDIATE);
 
+            //WatchUi.pushView( new Rez.Menus.MainMenu(), settings_delegate, WatchUi.SLIDE_UP );
+
 
             return true;
         }

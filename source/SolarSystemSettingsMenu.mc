@@ -61,6 +61,7 @@ var helpOption = [
 //var changeModeOption_size;
 //var changeModeOption;
 var orrZoomOption,labelDisplayOption,planetsOption,planetSizeOption,thetaOption,refreshOption;
+var jumpToGPS=false;
 
 function cleanUpSettingsOpt(){
     //changeModeOption = null;
@@ -197,6 +198,11 @@ class SolarSystemSettingsMenu extends WatchUi.Menu2 {
         helpOption[$.Options_Dict["helpOption"]],"helpOption",{}));       */
 
         //deBug("5", []);
+        if ($.jumpToGPS) {
+                var itemId = self.findItemById(gpsOption_enum);
+                self.setFocus(itemId);
+        }
+        $.jumpToGPS = false;
 
     }
 }
@@ -251,7 +257,10 @@ class SolarSystemSettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
                 Storage.setValue(ret, menuItem.isEnabled());
                 $.Options_Dict[ret] = menuItem.isEnabled();
                 $.solarSystemView_class.setInitPosition();
+                $.jumpToGPS = true;                
                 WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
+                
+
                 $.solarSystemView_class.setInitPosition();
                 Position.enableLocationEvents(Position.LOCATION_ONE_SHOT, method(:onPosition));
 
