@@ -101,6 +101,8 @@ class SolarSystemBaseView extends WatchUi.View {
         System.println("POs1: " + small_whh);
         System.println("POs1: " + full_whh);
         System.println("POs1: " + zoomy_whh);*/
+        var myStats = System.getSystemStats();
+        System.println("Memory: " + myStats.totalMemory + " " + myStats.usedMemory + " " + myStats.freeMemory );
         
 
     }
@@ -123,6 +125,7 @@ class SolarSystemBaseView extends WatchUi.View {
     var local_animation_count = 0;
 
     function animationTimerCallback() as Void {
+            
 
            //if ($.view_modes[$.view_mode] == 0 ) {
            // started = true;
@@ -162,7 +165,13 @@ class SolarSystemBaseView extends WatchUi.View {
 
 
     var animationTimer=null;
+
     public function startAnimationTimer(hertz){
+
+        var myStats = System.getSystemStats();
+        System.println("Memory: " + myStats.totalMemory + " " + myStats.usedMemory + " " + myStats.freeMemory );
+        //System.exit();
+
         var now2 = System.getClockTime();
         System.println ("AnimTimer:" 
             +  now2.hour.format("%02d") + ":" +
@@ -550,7 +559,7 @@ class SolarSystemBaseView extends WatchUi.View {
         $.time_now = Time.now();
         
         //In case a button hasn't been pressed in X seconds, stop.  So as to preserve battery.
-        if ($.time_now.value() > $.last_button_time_sec + 120 ) { //was 300/5 minutes but seems too long.  120 sec/2 min might be good or even just 60 sec.  Or make it settable...
+        if ($.time_now.value() > $.last_button_time_sec + 60 ) { //was 300/5 minutes but seems too long.  120 sec/2 min might be good or even just 60 sec.  Or make it settable...
         //if ($.time_now.value() > $.last_button_time_sec + 30 ) {  //for testing
             $.started = false;
             $.run_oneTime = true;
@@ -1091,7 +1100,13 @@ class SolarSystemBaseView extends WatchUi.View {
         //deBug("moon_infe: ", [$.now.hour, $.now.min, $.now.sec, $.now_info.day, $.now_info.month, $.now_info.year, $.time_now.value(), $.now_info, $.run_oneTime, $.time_add_hrs, $.speeds, $.speeds_index]);
         
 
-        moon_info3 = eclipticPos_moon ($.now_info, $.now.timeZoneOffset, $.now.dst, time_add_hrs); 
+        //moon_info3 = eclipticPos_moon ($.now_info, $.now.timeZoneOffset, $.now.dst, time_add_hrs); 
+        //moon_info3 = eclipticMoonELP82 ($.now_info, $.now.timeZoneOffset, $.now.dst, time_add_hrs);
+
+        //_best chooses between eclipticPos_moon when <5000yrs distant & eclipticMoonELP82
+        //when time difference is > 5000yrs. This is because the ELP82 model is more accurate
+        //but far slower.  <5000yrs the accuracy of both is within .5 degrees or so.
+        moon_info3 = eclipticPos_moon_best ($.now_info, $.now.timeZoneOffset, $.now.dst, time_add_hrs); 
 
         //deBug("moon_inf", moon_info3);
 
@@ -1574,7 +1589,12 @@ class SolarSystemBaseView extends WatchUi.View {
             //simple_moon = new simpleMoon();
 
             //eclip lon/lat of moon, in degrees.  Relative to earth.
-            moon_info3 = eclipticPos_moon ($.now_info, $.now.timeZoneOffset, $.now.dst, time_add_hrs); 
+            //moon_info2 = eclipticPos_moon ($.now_info, $.now.timeZoneOffset, $.now.dst, time_add_hrs); 
+            //moon_info3 = eclipticMoonELP82 ($.now_info, $.now.timeZoneOffset, $.now.dst, time_add_hrs); 
+
+            moon_info3 = eclipticPos_moon_best ($.now_info, $.now.timeZoneOffset, $.now.dst, time_add_hrs); 
+
+            //deBug("moon", [moon_info2, moon_info3]);
             //sun_info3 =  simple_moon.eclipticSunPos ($.now_info, $.now.timeZoneOffset, $.now.dst); 
             //simple_moon = null;
             //var ang = Math.arctan2(-x,y);

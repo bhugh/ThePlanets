@@ -10,6 +10,11 @@ module Rez {
         (:initialized) var LauncherIcon as ResourceId;
     } // Drawables
 
+    module JsonData {
+        (:initialized) var LongitudeRadius_res as ResourceId;
+        (:initialized) var Latitude_res as ResourceId;
+    } // JsonData
+
     module Strings {
         (:initialized) var planets_Options1 as ResourceId;
         (:initialized) var orrzoom_values as ResourceId;

@@ -1,14 +1,57 @@
-[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc"; @line = 13; ]
-import Toybox.Math;
-[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc"; @line = 14; ]
-import Toybox.System;
 [ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc"; @line = 15; ]
+import Toybox.Math;
+[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc"; @line = 16; ]
+import Toybox.System;
+[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc"; @line = 17; ]
 import Toybox.Lang;
-[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc"; @line = 59; ]
+[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc"; @line = 18; ]
+import Toybox.WatchUi;
+[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc"; @line = 70; ]
+function eclipticPos_moon_best(now_info, timeZoneOffset_sec, dst, addTime_hrs) {
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_70_92_76_4_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 71 8 ]
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_71_8_75_8_if_stmt:
+    %tmp.2 = lgetv %addTime_hrs;
+    %tmp.3 = 24.0;
+    %tmp.4 = div %tmp.2 %tmp.3;
+    %tmp.5 = 365.0;
+    %tmp.6 = div %tmp.4 %tmp.5;
+    %tmp.7 = 5000.0;
+    %tmp.8 = lt %tmp.6 %tmp.7;
+    bf %tmp.8 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_71_8_75_8_if_false;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_71_8_75_8_if_true:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_71_43_73_8_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 72 12 ]
+    %tmp.9 = self;
+    %tmp.10 = getv function %tmp.9 :eclipticPos_moon;
+    %tmp.12 = lgetv %now_info;
+    %tmp.14 = lgetv %timeZoneOffset_sec;
+    %tmp.16 = lgetv %dst;
+    %tmp.18 = lgetv %addTime_hrs;
+    %tmp.19 = invoke %tmp.9 %tmp.10(%tmp.12, %tmp.14, %tmp.16, %tmp.18);
+    ret %tmp.19;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_71_43_73_8_stop:
+    goto @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_71_8_75_8_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_71_8_75_8_if_false:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_73_15_75_8_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 74 12 ]
+    %tmp.20 = self;
+    %tmp.21 = getv function %tmp.20 :eclipticMoonELP82;
+    %tmp.23 = lgetv %now_info;
+    %tmp.25 = lgetv %timeZoneOffset_sec;
+    %tmp.27 = lgetv %dst;
+    %tmp.29 = lgetv %addTime_hrs;
+    %tmp.30 = invoke %tmp.20 %tmp.21(%tmp.23, %tmp.25, %tmp.27, %tmp.29);
+    ret %tmp.30;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_73_15_75_8_stop:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_71_8_75_8_if_end:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_70_92_76_4_stop:
+}
+[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc"; @line = 78; ]
 function eclipticPos_moon(now_info, timeZoneOffset_sec, dst, addTime_hrs) {
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_59_87_67_4_start:
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 64 8 ]
-    [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_59_87_67_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_59_87_67_4_stop" ]
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_78_87_86_4_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 83 8 ]
+    [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_78_87_86_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_78_87_86_4_stop" ]
     %current_JD.1 = local;
     %tmp.1 = self;
     %tmp.2 = getv function %tmp.1 :julianDate;
@@ -28,26 +71,26 @@ E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_mo
     %tmp.18 = lgetv %dst;
     %tmp.19 = invoke %tmp.1 %tmp.2(%tmp.4, %tmp.6, %tmp.8, %tmp.10, %tmp.12, %tmp.16, %tmp.18);
     lputv %current_JD.1 %tmp.19;
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 65 8 ]
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 84 8 ]
     %tmp.20 = lgetv %current_JD.1;
     %tmp.22 = lgetv %addTime_hrs;
     %tmp.23 = 24.0;
     %tmp.24 = div %tmp.22 %tmp.23;
     %tmp.25 = add %tmp.20 %tmp.24;
     lputv %current_JD.1 %tmp.25;
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 66 8 ]
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 85 8 ]
     %tmp.26 = self;
     %tmp.27 = getv function %tmp.26 :getGeocentricMoonPos;
     %tmp.29 = lgetv %current_JD.1;
     %tmp.30 = invoke %tmp.26 %tmp.27(%tmp.29);
     ret %tmp.30;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_59_87_67_4_stop:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_78_87_86_4_stop:
 }
-[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc"; @line = 77; ]
+[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc"; @line = 96; ]
 function getGeocentricMoonPos(jd) {
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_77_37_100_4_start:
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 78 1 ]
-    [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_77_37_100_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_77_37_100_4_stop" ]
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_96_37_119_4_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 97 1 ]
+    [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_96_37_119_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_96_37_119_4_stop" ]
     %T.1 = local;
     %tmp.2 = lgetv %jd;
     %tmp.3 = 2451545;
@@ -57,8 +100,8 @@ E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_mo
     %tmp.7 = getv function %tmp.6 :toFloat;
     %tmp.8 = invoke %tmp.6 %tmp.7();
     lputv %T.1 %tmp.8;
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 79 1 ]
-    [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_77_37_100_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_77_37_100_4_stop" ]
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 98 1 ]
+    [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_96_37_119_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_96_37_119_4_stop" ]
     %L.2 = local;
     %tmp.9 = 218.32f;
     %tmp.10 = 481267.881f;
@@ -132,8 +175,8 @@ E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_mo
     %tmp.85 = mul %tmp.75 %tmp.84;
     %tmp.86 = sub %tmp.74 %tmp.85;
     lputv %L.2 %tmp.86;
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 80 1 ]
-    [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_77_37_100_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_77_37_100_4_stop" ]
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 99 1 ]
+    [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_96_37_119_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_96_37_119_4_stop" ]
     %B.3 = local;
     %tmp.87 = 5.13f;
     %tmp.88 = self;
@@ -179,8 +222,8 @@ E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_mo
     %tmp.132 = mul %tmp.122 %tmp.131;
     %tmp.133 = sub %tmp.121 %tmp.132;
     lputv %B.3 %tmp.133;
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 82 4 ]
-    [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_77_37_100_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_77_37_100_4_stop" ]
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 101 4 ]
+    [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_96_37_119_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_96_37_119_4_stop" ]
     %ret.4 = local;
     %tmp.134 = newa 2;
     %tmp.135 = self;
@@ -200,11 +243,803 @@ E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_mo
     %tmp.151 = dup %tmp.143;
     %tmp.152 = aputv %tmp.151 1 %tmp.150;
     lputv %ret.4 %tmp.152;
-[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 84 4 ]
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 103 4 ]
     %tmp.154 = lgetv %ret.4;
     ret %tmp.154;
-E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_77_37_100_4_stop:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_96_37_119_4_stop:
 }
-[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc"; @line = 13; ]
+[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc"; @line = 125; ]
+function eclipticMoonELP82(now_info, timeZoneOffset_sec, dst, addTime_hrs) {
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_125_86_141_4_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 129 8 ]
+    [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_125_86_141_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_125_86_141_4_stop" ]
+    %JD.1 = local;
+    %tmp.1 = self;
+    %tmp.2 = getv function %tmp.1 :julianDate;
+    %tmp.3 = lgetv %now_info;
+    %tmp.4 = getv %tmp.3 :year;
+    %tmp.5 = lgetv %now_info;
+    %tmp.6 = getv %tmp.5 :month;
+    %tmp.7 = lgetv %now_info;
+    %tmp.8 = getv %tmp.7 :day;
+    %tmp.9 = lgetv %now_info;
+    %tmp.10 = getv %tmp.9 :hour;
+    %tmp.11 = lgetv %now_info;
+    %tmp.12 = getv %tmp.11 :min;
+    %tmp.14 = lgetv %timeZoneOffset_sec;
+    %tmp.15 = 3600;
+    %tmp.16 = div %tmp.14 %tmp.15;
+    %tmp.18 = lgetv %dst;
+    %tmp.19 = invoke %tmp.1 %tmp.2(%tmp.4, %tmp.6, %tmp.8, %tmp.10, %tmp.12, %tmp.16, %tmp.18);
+    lputv %JD.1 %tmp.19;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 130 8 ]
+    %tmp.20 = lgetv %JD.1;
+    %tmp.22 = lgetv %addTime_hrs;
+    %tmp.23 = 24.0;
+    %tmp.24 = div %tmp.22 %tmp.23;
+    %tmp.25 = add %tmp.20 %tmp.24;
+    lputv %JD.1 %tmp.25;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 132 8 ]
+    [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_125_86_141_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_125_86_141_4_stop" ]
+    %DT.2 = local;
+    %tmp.26 = 68.6954;
+    %tmp.27 = 60;
+    %tmp.28 = div %tmp.26 %tmp.27;
+    %tmp.29 = 60;
+    %tmp.30 = div %tmp.28 %tmp.29;
+    %tmp.31 = 24;
+    %tmp.32 = div %tmp.30 %tmp.31;
+    lputv %DT.2 %tmp.32;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 135 8 ]
+    [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_125_86_141_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_125_86_141_4_stop" ]
+    %JDE.3 = local;
+    %tmp.34 = lgetv %JD.1;
+    %tmp.36 = lgetv %DT.2;
+    %tmp.37 = add %tmp.34 %tmp.36;
+    lputv %JDE.3 %tmp.37;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 136 8 ]
+    [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_125_86_141_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_125_86_141_4_stop" ]
+    %T.4 = local;
+    %tmp.38 = lgetv %self;
+    %tmp.39 = getv function %tmp.38 :JDEtoT;
+    %tmp.41 = lgetv %JDE.3;
+    %tmp.42 = invoke %tmp.38 %tmp.39(%tmp.41);
+    lputv %T.4 %tmp.42;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 137 8 ]
+    [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_125_86_141_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_125_86_141_4_stop" ]
+    %ret.5 = local;
+    %tmp.43 = self;
+    %tmp.44 = getv function %tmp.43 :elp82;
+    %tmp.46 = lgetv %T.4;
+    %tmp.47 = invoke %tmp.43 %tmp.44(%tmp.46);
+    lputv %ret.5 %tmp.47;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 139 8 ]
+    %tmp.49 = lgetv %ret.5;
+    ret %tmp.49;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_125_86_141_4_stop:
+}
+[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc"; @line = 150; ]
+function elp82(T) {
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_150_28_327_4_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 151 8 ]
+    [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_150_28_327_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_150_28_327_4_stop" ]
+    %Lp.1 = local;
+    %tmp.1 = getm $.Toybox.Math;
+    %tmp.2 = getv function %tmp.1 :toRadians;
+    %tmp.3 = self;
+    %tmp.4 = getv function %tmp.3 :normalize;
+    %tmp.5 = 218.3164477d;
+    %tmp.6 = 481267.88123421d;
+    %tmp.8 = lgetv %T;
+    %tmp.9 = mul %tmp.6 %tmp.8;
+    %tmp.10 = add %tmp.5 %tmp.9;
+    %tmp.11 = 0.0015786d;
+    %tmp.13 = lgetv %T;
+    %tmp.14 = mul %tmp.11 %tmp.13;
+    %tmp.16 = lgetv %T;
+    %tmp.17 = mul %tmp.14 %tmp.16;
+    %tmp.18 = sub %tmp.10 %tmp.17;
+    %tmp.19 = 1.0;
+    %tmp.20 = 538841.0;
+    %tmp.21 = div %tmp.19 %tmp.20;
+    %tmp.23 = lgetv %T;
+    %tmp.24 = mul %tmp.21 %tmp.23;
+    %tmp.26 = lgetv %T;
+    %tmp.27 = mul %tmp.24 %tmp.26;
+    %tmp.29 = lgetv %T;
+    %tmp.30 = mul %tmp.27 %tmp.29;
+    %tmp.31 = add %tmp.18 %tmp.30;
+    %tmp.32 = 1.0;
+    %tmp.33 = 65194000.0d;
+    %tmp.34 = div %tmp.32 %tmp.33;
+    %tmp.36 = lgetv %T;
+    %tmp.37 = mul %tmp.34 %tmp.36;
+    %tmp.39 = lgetv %T;
+    %tmp.40 = mul %tmp.37 %tmp.39;
+    %tmp.42 = lgetv %T;
+    %tmp.43 = mul %tmp.40 %tmp.42;
+    %tmp.45 = lgetv %T;
+    %tmp.46 = mul %tmp.43 %tmp.45;
+    %tmp.47 = sub %tmp.31 %tmp.46;
+    %tmp.48 = invoke %tmp.3 %tmp.4(%tmp.47);
+    %tmp.49 = invoke %tmp.1 %tmp.2(%tmp.48);
+    lputv %Lp.1 %tmp.49;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 152 8 ]
+    [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_150_28_327_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_150_28_327_4_stop" ]
+    %D.2 = local;
+    %tmp.50 = getm $.Toybox.Math;
+    %tmp.51 = getv function %tmp.50 :toRadians;
+    %tmp.52 = self;
+    %tmp.53 = getv function %tmp.52 :normalize;
+    %tmp.54 = 297.8501921d;
+    %tmp.55 = 445267.1114034;
+    %tmp.57 = lgetv %T;
+    %tmp.58 = mul %tmp.55 %tmp.57;
+    %tmp.59 = add %tmp.54 %tmp.58;
+    %tmp.60 = 0.0018819d;
+    %tmp.62 = lgetv %T;
+    %tmp.63 = mul %tmp.60 %tmp.62;
+    %tmp.65 = lgetv %T;
+    %tmp.66 = mul %tmp.63 %tmp.65;
+    %tmp.67 = sub %tmp.59 %tmp.66;
+    %tmp.68 = 1.0;
+    %tmp.69 = 545868.0;
+    %tmp.70 = div %tmp.68 %tmp.69;
+    %tmp.72 = lgetv %T;
+    %tmp.73 = mul %tmp.70 %tmp.72;
+    %tmp.75 = lgetv %T;
+    %tmp.76 = mul %tmp.73 %tmp.75;
+    %tmp.78 = lgetv %T;
+    %tmp.79 = mul %tmp.76 %tmp.78;
+    %tmp.80 = add %tmp.67 %tmp.79;
+    %tmp.81 = 1.0;
+    %tmp.82 = 113065000.0d;
+    %tmp.83 = div %tmp.81 %tmp.82;
+    %tmp.85 = lgetv %T;
+    %tmp.86 = mul %tmp.83 %tmp.85;
+    %tmp.88 = lgetv %T;
+    %tmp.89 = mul %tmp.86 %tmp.88;
+    %tmp.91 = lgetv %T;
+    %tmp.92 = mul %tmp.89 %tmp.91;
+    %tmp.94 = lgetv %T;
+    %tmp.95 = mul %tmp.92 %tmp.94;
+    %tmp.96 = sub %tmp.80 %tmp.95;
+    %tmp.97 = invoke %tmp.52 %tmp.53(%tmp.96);
+    %tmp.98 = invoke %tmp.50 %tmp.51(%tmp.97);
+    lputv %D.2 %tmp.98;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 153 8 ]
+    [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_150_28_327_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_150_28_327_4_stop" ]
+    %M.3 = local;
+    %tmp.99 = getm $.Toybox.Math;
+    %tmp.100 = getv function %tmp.99 :toRadians;
+    %tmp.101 = self;
+    %tmp.102 = getv function %tmp.101 :normalize;
+    %tmp.103 = 357.5291092d;
+    %tmp.104 = 35999.0502909;
+    %tmp.106 = lgetv %T;
+    %tmp.107 = mul %tmp.104 %tmp.106;
+    %tmp.108 = add %tmp.103 %tmp.107;
+    %tmp.109 = 0.0001536d;
+    %tmp.111 = lgetv %T;
+    %tmp.112 = mul %tmp.109 %tmp.111;
+    %tmp.114 = lgetv %T;
+    %tmp.115 = mul %tmp.112 %tmp.114;
+    %tmp.116 = sub %tmp.108 %tmp.115;
+    %tmp.117 = 1.0;
+    %tmp.118 = 24490000.0;
+    %tmp.119 = div %tmp.117 %tmp.118;
+    %tmp.121 = lgetv %T;
+    %tmp.122 = mul %tmp.119 %tmp.121;
+    %tmp.124 = lgetv %T;
+    %tmp.125 = mul %tmp.122 %tmp.124;
+    %tmp.127 = lgetv %T;
+    %tmp.128 = mul %tmp.125 %tmp.127;
+    %tmp.129 = add %tmp.116 %tmp.128;
+    %tmp.130 = invoke %tmp.101 %tmp.102(%tmp.129);
+    %tmp.131 = invoke %tmp.99 %tmp.100(%tmp.130);
+    lputv %M.3 %tmp.131;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 154 8 ]
+    [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_150_28_327_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_150_28_327_4_stop" ]
+    %Mp.4 = local;
+    %tmp.132 = getm $.Toybox.Math;
+    %tmp.133 = getv function %tmp.132 :toRadians;
+    %tmp.134 = self;
+    %tmp.135 = getv function %tmp.134 :normalize;
+    %tmp.136 = 134.9633964d;
+    %tmp.137 = 477198.8675055d;
+    %tmp.139 = lgetv %T;
+    %tmp.140 = mul %tmp.137 %tmp.139;
+    %tmp.141 = add %tmp.136 %tmp.140;
+    %tmp.142 = 0.0087414d;
+    %tmp.144 = lgetv %T;
+    %tmp.145 = mul %tmp.142 %tmp.144;
+    %tmp.147 = lgetv %T;
+    %tmp.148 = mul %tmp.145 %tmp.147;
+    %tmp.149 = add %tmp.141 %tmp.148;
+    %tmp.150 = 1.0;
+    %tmp.151 = 69699.0;
+    %tmp.152 = div %tmp.150 %tmp.151;
+    %tmp.154 = lgetv %T;
+    %tmp.155 = mul %tmp.152 %tmp.154;
+    %tmp.157 = lgetv %T;
+    %tmp.158 = mul %tmp.155 %tmp.157;
+    %tmp.160 = lgetv %T;
+    %tmp.161 = mul %tmp.158 %tmp.160;
+    %tmp.162 = add %tmp.149 %tmp.161;
+    %tmp.163 = 1.0;
+    %tmp.164 = 14712000.0d;
+    %tmp.165 = div %tmp.163 %tmp.164;
+    %tmp.167 = lgetv %T;
+    %tmp.168 = mul %tmp.165 %tmp.167;
+    %tmp.170 = lgetv %T;
+    %tmp.171 = mul %tmp.168 %tmp.170;
+    %tmp.173 = lgetv %T;
+    %tmp.174 = mul %tmp.171 %tmp.173;
+    %tmp.176 = lgetv %T;
+    %tmp.177 = mul %tmp.174 %tmp.176;
+    %tmp.178 = sub %tmp.162 %tmp.177;
+    %tmp.179 = invoke %tmp.134 %tmp.135(%tmp.178);
+    %tmp.180 = invoke %tmp.132 %tmp.133(%tmp.179);
+    lputv %Mp.4 %tmp.180;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 155 8 ]
+    [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_150_28_327_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_150_28_327_4_stop" ]
+    %F.5 = local;
+    %tmp.181 = getm $.Toybox.Math;
+    %tmp.182 = getv function %tmp.181 :toRadians;
+    %tmp.183 = self;
+    %tmp.184 = getv function %tmp.183 :normalize;
+    %tmp.185 = 93.2720950d;
+    %tmp.186 = 483202.0175233d;
+    %tmp.188 = lgetv %T;
+    %tmp.189 = mul %tmp.186 %tmp.188;
+    %tmp.190 = add %tmp.185 %tmp.189;
+    %tmp.191 = 0.0036539d;
+    %tmp.193 = lgetv %T;
+    %tmp.194 = mul %tmp.191 %tmp.193;
+    %tmp.196 = lgetv %T;
+    %tmp.197 = mul %tmp.194 %tmp.196;
+    %tmp.198 = sub %tmp.190 %tmp.197;
+    %tmp.199 = 1.0;
+    %tmp.200 = 3526000.0;
+    %tmp.201 = div %tmp.199 %tmp.200;
+    %tmp.203 = lgetv %T;
+    %tmp.204 = mul %tmp.201 %tmp.203;
+    %tmp.206 = lgetv %T;
+    %tmp.207 = mul %tmp.204 %tmp.206;
+    %tmp.209 = lgetv %T;
+    %tmp.210 = mul %tmp.207 %tmp.209;
+    %tmp.211 = sub %tmp.198 %tmp.210;
+    %tmp.212 = 1.0;
+    %tmp.213 = 863310000.0d;
+    %tmp.214 = div %tmp.212 %tmp.213;
+    %tmp.216 = lgetv %T;
+    %tmp.217 = mul %tmp.214 %tmp.216;
+    %tmp.219 = lgetv %T;
+    %tmp.220 = mul %tmp.217 %tmp.219;
+    %tmp.222 = lgetv %T;
+    %tmp.223 = mul %tmp.220 %tmp.222;
+    %tmp.225 = lgetv %T;
+    %tmp.226 = mul %tmp.223 %tmp.225;
+    %tmp.227 = add %tmp.211 %tmp.226;
+    %tmp.228 = invoke %tmp.183 %tmp.184(%tmp.227);
+    %tmp.229 = invoke %tmp.181 %tmp.182(%tmp.228);
+    lputv %F.5 %tmp.229;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 156 8 ]
+    [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_150_28_327_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_150_28_327_4_stop" ]
+    %E.6 = local;
+    %tmp.230 = 1;
+    %tmp.231 = .002516;
+    %tmp.233 = lgetv %T;
+    %tmp.234 = mul %tmp.231 %tmp.233;
+    %tmp.235 = sub %tmp.230 %tmp.234;
+    %tmp.236 = 0.0000074d;
+    %tmp.238 = lgetv %T;
+    %tmp.239 = mul %tmp.236 %tmp.238;
+    %tmp.241 = lgetv %T;
+    %tmp.242 = mul %tmp.239 %tmp.241;
+    %tmp.243 = sub %tmp.235 %tmp.242;
+    lputv %E.6 %tmp.243;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 157 8 ]
+    [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_150_28_327_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_150_28_327_4_stop" ]
+    %A1.7 = local;
+    %tmp.244 = getm $.Toybox.Math;
+    %tmp.245 = getv function %tmp.244 :toRadians;
+    %tmp.246 = self;
+    %tmp.247 = getv function %tmp.246 :normalize;
+    %tmp.248 = 119.75d;
+    %tmp.249 = 131.849d;
+    %tmp.251 = lgetv %T;
+    %tmp.252 = mul %tmp.249 %tmp.251;
+    %tmp.253 = add %tmp.248 %tmp.252;
+    %tmp.254 = invoke %tmp.246 %tmp.247(%tmp.253);
+    %tmp.255 = invoke %tmp.244 %tmp.245(%tmp.254);
+    lputv %A1.7 %tmp.255;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 158 8 ]
+    [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_150_28_327_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_150_28_327_4_stop" ]
+    %A2.8 = local;
+    %tmp.256 = getm $.Toybox.Math;
+    %tmp.257 = getv function %tmp.256 :toRadians;
+    %tmp.258 = self;
+    %tmp.259 = getv function %tmp.258 :normalize;
+    %tmp.260 = 53.09d;
+    %tmp.261 = 479264.290d;
+    %tmp.263 = lgetv %T;
+    %tmp.264 = mul %tmp.261 %tmp.263;
+    %tmp.265 = add %tmp.260 %tmp.264;
+    %tmp.266 = invoke %tmp.258 %tmp.259(%tmp.265);
+    %tmp.267 = invoke %tmp.256 %tmp.257(%tmp.266);
+    lputv %A2.8 %tmp.267;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 159 8 ]
+    [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_150_28_327_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_150_28_327_4_stop" ]
+    %A3.9 = local;
+    %tmp.268 = getm $.Toybox.Math;
+    %tmp.269 = getv function %tmp.268 :toRadians;
+    %tmp.270 = self;
+    %tmp.271 = getv function %tmp.270 :normalize;
+    %tmp.272 = 313.45d;
+    %tmp.273 = 481266.484d;
+    %tmp.275 = lgetv %T;
+    %tmp.276 = mul %tmp.273 %tmp.275;
+    %tmp.277 = add %tmp.272 %tmp.276;
+    %tmp.278 = invoke %tmp.270 %tmp.271(%tmp.277);
+    %tmp.279 = invoke %tmp.268 %tmp.269(%tmp.278);
+    lputv %A3.9 %tmp.279;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 290 8 ]
+    [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_150_28_327_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_150_28_327_4_stop" ]
+    %LongitudeRadius.10 = local;
+    %tmp.280 = getm $.Toybox.WatchUi;
+    %tmp.281 = getv function %tmp.280 :loadResource;
+    %tmp.282 = getm $;
+    %tmp.283 = getv %tmp.282 :Rez;
+    %tmp.284 = getv %tmp.283 :JsonData;
+    %tmp.285 = getv %tmp.284 :LongitudeRadius_res;
+    %tmp.286 = invoke %tmp.280 %tmp.281(%tmp.285);
+    %tmp.287 = as %tmp.286 Array;
+    lputv %LongitudeRadius.10 %tmp.287;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 291 8 ]
+    [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_150_28_327_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_150_28_327_4_stop" ]
+    %Latitude.11 = local;
+    %tmp.288 = getm $.Toybox.WatchUi;
+    %tmp.289 = getv function %tmp.288 :loadResource;
+    %tmp.290 = getm $;
+    %tmp.291 = getv %tmp.290 :Rez;
+    %tmp.292 = getv %tmp.291 :JsonData;
+    %tmp.293 = getv %tmp.292 :Latitude_res;
+    %tmp.294 = invoke %tmp.288 %tmp.289(%tmp.293);
+    %tmp.295 = as %tmp.294 Array;
+    lputv %Latitude.11 %tmp.295;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 293 8 ]
+    [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_150_28_327_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_150_28_327_4_stop" ]
+    %Lon.12 = local;
+    %tmp.296 = 0;
+    lputv %Lon.12 %tmp.296;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 294 8 ]
+    [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_150_28_327_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_150_28_327_4_stop" ]
+    %Radius.13 = local;
+    %tmp.297 = 0;
+    lputv %Radius.13 %tmp.297;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 295 8 ]
+    for @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_295_8_305_8_for_test @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_295_8_305_8_for_incr @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_295_8_305_8_for_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_295_8_305_8_for_init:
+    [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_295_8_305_8_for_begin" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_295_8_305_8_for_end" ]
+    %i.14 = local;
+    %tmp.298 = 0;
+    lputv %i.14 %tmp.298;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_295_8_305_8_for_test:
+    %tmp.300 = lgetv %i.14;
+    %tmp.301 = lgetv %LongitudeRadius.10;
+    %tmp.302 = getv function %tmp.301 :size;
+    %tmp.303 = invoke %tmp.301 %tmp.302();
+    %tmp.304 = lt %tmp.300 %tmp.303;
+    bf %tmp.304 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_295_8_305_8_for_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_295_8_305_8_for_begin:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_295_49_305_8_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 296 12 ]
+    [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_295_49_305_8_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_295_49_305_8_stop" ]
+    %t.15 = local;
+    %tmp.306 = lgetv %LongitudeRadius.10;
+    %tmp.308 = lgetv %i.14;
+    %tmp.309 = agetv %tmp.306 %tmp.308;
+    lputv %t.15 %tmp.309;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 297 12 ]
+    [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_295_49_305_8_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_295_49_305_8_stop" ]
+    %a.16 = local;
+    %tmp.311 = lgetv %D.2;
+    %tmp.313 = lgetv %t.15;
+    %tmp.314 = 0;
+    %tmp.315 = agetv %tmp.313 %tmp.314;
+    %tmp.316 = mul %tmp.311 %tmp.315;
+    %tmp.318 = lgetv %M.3;
+    %tmp.320 = lgetv %t.15;
+    %tmp.321 = 1;
+    %tmp.322 = agetv %tmp.320 %tmp.321;
+    %tmp.323 = mul %tmp.318 %tmp.322;
+    %tmp.324 = add %tmp.316 %tmp.323;
+    %tmp.326 = lgetv %Mp.4;
+    %tmp.328 = lgetv %t.15;
+    %tmp.329 = 2;
+    %tmp.330 = agetv %tmp.328 %tmp.329;
+    %tmp.331 = mul %tmp.326 %tmp.330;
+    %tmp.332 = add %tmp.324 %tmp.331;
+    %tmp.334 = lgetv %F.5;
+    %tmp.336 = lgetv %t.15;
+    %tmp.337 = 3;
+    %tmp.338 = agetv %tmp.336 %tmp.337;
+    %tmp.339 = mul %tmp.334 %tmp.338;
+    %tmp.340 = add %tmp.332 %tmp.339;
+    lputv %a.16 %tmp.340;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 299 12 ]
+    [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_295_49_305_8_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_295_49_305_8_stop" ]
+    %e.17 = local;
+    %tmp.341 = 1;
+    lputv %e.17 %tmp.341;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 300 12 ]
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_300_12_300_40_if_stmt:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_300_15_300_33_begin:
+    %tmp.343 = lgetv %t.15;
+    %tmp.344 = 1;
+    %tmp.345 = agetv %tmp.343 %tmp.344;
+    %tmp.346 = 1;
+    %tmp.347 = eq %tmp.345 %tmp.346;
+    bt %tmp.347 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_300_12_300_40_if_true;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_300_26_300_33_false:
+    %tmp.349 = lgetv %t.15;
+    %tmp.350 = 1;
+    %tmp.351 = agetv %tmp.349 %tmp.350;
+    %tmp.352 = -1;
+    %tmp.353 = eq %tmp.351 %tmp.352;
+    push %tmp.353;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_300_26_300_33_end:
+    %tmp.354 = phi [%tmp.347 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_300_15_300_33_begin] [%tmp.353 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_300_26_300_33_false] [%tmp.354 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_300_26_300_33_end];
+    bf %tmp.354 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_300_12_300_40_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_300_12_300_40_if_true:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_300_35_300_40_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 300 36 ]
+    %tmp.356 = lgetv %E.6;
+    lputv %e.17 %tmp.356;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_300_35_300_40_stop:
+    goto @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_300_12_300_40_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_300_12_300_40_if_end:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 301 12 ]
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_301_12_301_42_if_stmt:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_301_15_301_33_begin:
+    %tmp.358 = lgetv %t.15;
+    %tmp.359 = 1;
+    %tmp.360 = agetv %tmp.358 %tmp.359;
+    %tmp.361 = 2;
+    %tmp.362 = eq %tmp.360 %tmp.361;
+    bt %tmp.362 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_301_12_301_42_if_true;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_301_26_301_33_false:
+    %tmp.364 = lgetv %t.15;
+    %tmp.365 = 1;
+    %tmp.366 = agetv %tmp.364 %tmp.365;
+    %tmp.367 = -2;
+    %tmp.368 = eq %tmp.366 %tmp.367;
+    push %tmp.368;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_301_26_301_33_end:
+    %tmp.369 = phi [%tmp.362 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_301_15_301_33_begin] [%tmp.368 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_301_26_301_33_false] [%tmp.369 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_301_26_301_33_end];
+    bf %tmp.369 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_301_12_301_42_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_301_12_301_42_if_true:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_301_35_301_42_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 301 36 ]
+    %tmp.371 = lgetv %E.6;
+    %tmp.373 = lgetv %E.6;
+    %tmp.374 = mul %tmp.371 %tmp.373;
+    lputv %e.17 %tmp.374;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_301_35_301_42_stop:
+    goto @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_301_12_301_42_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_301_12_301_42_if_end:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 303 12 ]
+    %tmp.375 = lgetv %Lon.12;
+    %tmp.377 = lgetv %e.17;
+    %tmp.379 = lgetv %t.15;
+    %tmp.380 = 4;
+    %tmp.381 = agetv %tmp.379 %tmp.380;
+    %tmp.382 = mul %tmp.377 %tmp.381;
+    %tmp.383 = getm $.Toybox.Math;
+    %tmp.384 = getv function %tmp.383 :sin;
+    %tmp.386 = lgetv %a.16;
+    %tmp.387 = invoke %tmp.383 %tmp.384(%tmp.386);
+    %tmp.388 = mul %tmp.382 %tmp.387;
+    %tmp.389 = add %tmp.375 %tmp.388;
+    lputv %Lon.12 %tmp.389;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 304 12 ]
+    %tmp.390 = lgetv %Radius.13;
+    %tmp.392 = lgetv %e.17;
+    %tmp.394 = lgetv %t.15;
+    %tmp.395 = 5;
+    %tmp.396 = agetv %tmp.394 %tmp.395;
+    %tmp.397 = mul %tmp.392 %tmp.396;
+    %tmp.398 = getm $.Toybox.Math;
+    %tmp.399 = getv function %tmp.398 :cos;
+    %tmp.401 = lgetv %a.16;
+    %tmp.402 = invoke %tmp.398 %tmp.399(%tmp.401);
+    %tmp.403 = mul %tmp.397 %tmp.402;
+    %tmp.404 = add %tmp.390 %tmp.403;
+    lputv %Radius.13 %tmp.404;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_295_49_305_8_stop:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_295_8_305_8_for_incr:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 295 ]
+    %tmp.407 = lgetv %i.14;
+    %tmp.408 = add %tmp.407 1;
+    lputv %i.14 %tmp.408;
+    goto @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_295_8_305_8_for_test;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_295_8_305_8_for_end:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 307 8 ]
+    [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_150_28_327_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_150_28_327_4_stop" ]
+    %Lat.18 = local;
+    %tmp.409 = 0;
+    lputv %Lat.18 %tmp.409;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 308 8 ]
+    for @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_308_8_317_8_for_test @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_308_8_317_8_for_incr @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_308_8_317_8_for_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_308_8_317_8_for_init:
+    [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_308_8_317_8_for_begin" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_308_8_317_8_for_end" ]
+    %i.19 = local;
+    %tmp.410 = 0;
+    lputv %i.19 %tmp.410;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_308_8_317_8_for_test:
+    %tmp.412 = lgetv %i.19;
+    %tmp.413 = lgetv %Latitude.11;
+    %tmp.414 = getv function %tmp.413 :size;
+    %tmp.415 = invoke %tmp.413 %tmp.414();
+    %tmp.416 = lt %tmp.412 %tmp.415;
+    bf %tmp.416 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_308_8_317_8_for_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_308_8_317_8_for_begin:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_308_42_317_8_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 309 12 ]
+    [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_308_42_317_8_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_308_42_317_8_stop" ]
+    %t.20 = local;
+    %tmp.418 = lgetv %Latitude.11;
+    %tmp.420 = lgetv %i.19;
+    %tmp.421 = agetv %tmp.418 %tmp.420;
+    lputv %t.20 %tmp.421;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 310 12 ]
+    [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_308_42_317_8_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_308_42_317_8_stop" ]
+    %a.21 = local;
+    %tmp.423 = lgetv %D.2;
+    %tmp.425 = lgetv %t.20;
+    %tmp.426 = 0;
+    %tmp.427 = agetv %tmp.425 %tmp.426;
+    %tmp.428 = mul %tmp.423 %tmp.427;
+    %tmp.430 = lgetv %M.3;
+    %tmp.432 = lgetv %t.20;
+    %tmp.433 = 1;
+    %tmp.434 = agetv %tmp.432 %tmp.433;
+    %tmp.435 = mul %tmp.430 %tmp.434;
+    %tmp.436 = add %tmp.428 %tmp.435;
+    %tmp.438 = lgetv %Mp.4;
+    %tmp.440 = lgetv %t.20;
+    %tmp.441 = 2;
+    %tmp.442 = agetv %tmp.440 %tmp.441;
+    %tmp.443 = mul %tmp.438 %tmp.442;
+    %tmp.444 = add %tmp.436 %tmp.443;
+    %tmp.446 = lgetv %F.5;
+    %tmp.448 = lgetv %t.20;
+    %tmp.449 = 3;
+    %tmp.450 = agetv %tmp.448 %tmp.449;
+    %tmp.451 = mul %tmp.446 %tmp.450;
+    %tmp.452 = add %tmp.444 %tmp.451;
+    lputv %a.21 %tmp.452;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 312 12 ]
+    [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_308_42_317_8_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_308_42_317_8_stop" ]
+    %e.22 = local;
+    %tmp.453 = 1;
+    lputv %e.22 %tmp.453;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 313 12 ]
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_313_12_313_40_if_stmt:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_313_15_313_33_begin:
+    %tmp.455 = lgetv %t.20;
+    %tmp.456 = 1;
+    %tmp.457 = agetv %tmp.455 %tmp.456;
+    %tmp.458 = 1;
+    %tmp.459 = eq %tmp.457 %tmp.458;
+    bt %tmp.459 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_313_12_313_40_if_true;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_313_26_313_33_false:
+    %tmp.461 = lgetv %t.20;
+    %tmp.462 = 1;
+    %tmp.463 = agetv %tmp.461 %tmp.462;
+    %tmp.464 = -1;
+    %tmp.465 = eq %tmp.463 %tmp.464;
+    push %tmp.465;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_313_26_313_33_end:
+    %tmp.466 = phi [%tmp.459 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_313_15_313_33_begin] [%tmp.465 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_313_26_313_33_false] [%tmp.466 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_313_26_313_33_end];
+    bf %tmp.466 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_313_12_313_40_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_313_12_313_40_if_true:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_313_35_313_40_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 313 36 ]
+    %tmp.468 = lgetv %E.6;
+    lputv %e.22 %tmp.468;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_313_35_313_40_stop:
+    goto @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_313_12_313_40_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_313_12_313_40_if_end:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 314 12 ]
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_314_12_314_42_if_stmt:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_314_15_314_33_begin:
+    %tmp.470 = lgetv %t.20;
+    %tmp.471 = 1;
+    %tmp.472 = agetv %tmp.470 %tmp.471;
+    %tmp.473 = 2;
+    %tmp.474 = eq %tmp.472 %tmp.473;
+    bt %tmp.474 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_314_12_314_42_if_true;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_314_26_314_33_false:
+    %tmp.476 = lgetv %t.20;
+    %tmp.477 = 1;
+    %tmp.478 = agetv %tmp.476 %tmp.477;
+    %tmp.479 = -2;
+    %tmp.480 = eq %tmp.478 %tmp.479;
+    push %tmp.480;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_314_26_314_33_end:
+    %tmp.481 = phi [%tmp.474 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_314_15_314_33_begin] [%tmp.480 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_314_26_314_33_false] [%tmp.481 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_314_26_314_33_end];
+    bf %tmp.481 @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_314_12_314_42_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_314_12_314_42_if_true:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_314_35_314_42_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 314 36 ]
+    %tmp.483 = lgetv %E.6;
+    %tmp.485 = lgetv %E.6;
+    %tmp.486 = mul %tmp.483 %tmp.485;
+    lputv %e.22 %tmp.486;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_314_35_314_42_stop:
+    goto @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_314_12_314_42_if_end;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_314_12_314_42_if_end:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 316 12 ]
+    %tmp.487 = lgetv %Lat.18;
+    %tmp.489 = lgetv %e.22;
+    %tmp.491 = lgetv %t.20;
+    %tmp.492 = 4;
+    %tmp.493 = agetv %tmp.491 %tmp.492;
+    %tmp.494 = mul %tmp.489 %tmp.493;
+    %tmp.495 = getm $.Toybox.Math;
+    %tmp.496 = getv function %tmp.495 :sin;
+    %tmp.498 = lgetv %a.21;
+    %tmp.499 = invoke %tmp.495 %tmp.496(%tmp.498);
+    %tmp.500 = mul %tmp.494 %tmp.499;
+    %tmp.501 = add %tmp.487 %tmp.500;
+    lputv %Lat.18 %tmp.501;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_308_42_317_8_stop:
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_308_8_317_8_for_incr:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 308 ]
+    %tmp.504 = lgetv %i.19;
+    %tmp.505 = add %tmp.504 1;
+    lputv %i.19 %tmp.505;
+    goto @E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_308_8_317_8_for_test;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_308_8_317_8_for_end:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 319 8 ]
+    [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_150_28_327_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_150_28_327_4_stop" ]
+    %aLon.23 = local;
+    %tmp.506 = 3958;
+    %tmp.507 = getm $.Toybox.Math;
+    %tmp.508 = getv function %tmp.507 :sin;
+    %tmp.510 = lgetv %A1.7;
+    %tmp.511 = invoke %tmp.507 %tmp.508(%tmp.510);
+    %tmp.512 = mul %tmp.506 %tmp.511;
+    %tmp.513 = 1962;
+    %tmp.514 = getm $.Toybox.Math;
+    %tmp.515 = getv function %tmp.514 :sin;
+    %tmp.517 = lgetv %Lp.1;
+    %tmp.519 = lgetv %F.5;
+    %tmp.520 = sub %tmp.517 %tmp.519;
+    %tmp.521 = invoke %tmp.514 %tmp.515(%tmp.520);
+    %tmp.522 = mul %tmp.513 %tmp.521;
+    %tmp.523 = add %tmp.512 %tmp.522;
+    %tmp.524 = 318;
+    %tmp.525 = getm $.Toybox.Math;
+    %tmp.526 = getv function %tmp.525 :sin;
+    %tmp.528 = lgetv %A2.8;
+    %tmp.529 = invoke %tmp.525 %tmp.526(%tmp.528);
+    %tmp.530 = mul %tmp.524 %tmp.529;
+    %tmp.531 = add %tmp.523 %tmp.530;
+    lputv %aLon.23 %tmp.531;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 320 8 ]
+    [ "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_150_28_327_4_start" "E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_150_28_327_4_stop" ]
+    %aLat.24 = local;
+    %tmp.532 = -2235;
+    %tmp.533 = getm $.Toybox.Math;
+    %tmp.534 = getv function %tmp.533 :sin;
+    %tmp.536 = lgetv %Lp.1;
+    %tmp.537 = invoke %tmp.533 %tmp.534(%tmp.536);
+    %tmp.538 = mul %tmp.532 %tmp.537;
+    %tmp.539 = 382;
+    %tmp.540 = getm $.Toybox.Math;
+    %tmp.541 = getv function %tmp.540 :sin;
+    %tmp.543 = lgetv %A3.9;
+    %tmp.544 = invoke %tmp.540 %tmp.541(%tmp.543);
+    %tmp.545 = mul %tmp.539 %tmp.544;
+    %tmp.546 = add %tmp.538 %tmp.545;
+    %tmp.547 = 175;
+    %tmp.548 = getm $.Toybox.Math;
+    %tmp.549 = getv function %tmp.548 :sin;
+    %tmp.551 = lgetv %A1.7;
+    %tmp.553 = lgetv %F.5;
+    %tmp.554 = sub %tmp.551 %tmp.553;
+    %tmp.555 = invoke %tmp.548 %tmp.549(%tmp.554);
+    %tmp.556 = mul %tmp.547 %tmp.555;
+    %tmp.557 = add %tmp.546 %tmp.556;
+    %tmp.558 = 175;
+    %tmp.559 = getm $.Toybox.Math;
+    %tmp.560 = getv function %tmp.559 :sin;
+    %tmp.562 = lgetv %A1.7;
+    %tmp.564 = lgetv %F.5;
+    %tmp.565 = add %tmp.562 %tmp.564;
+    %tmp.566 = invoke %tmp.559 %tmp.560(%tmp.565);
+    %tmp.567 = mul %tmp.558 %tmp.566;
+    %tmp.568 = add %tmp.557 %tmp.567;
+    %tmp.569 = 127;
+    %tmp.570 = getm $.Toybox.Math;
+    %tmp.571 = getv function %tmp.570 :sin;
+    %tmp.573 = lgetv %Lp.1;
+    %tmp.575 = lgetv %Mp.4;
+    %tmp.576 = sub %tmp.573 %tmp.575;
+    %tmp.577 = invoke %tmp.570 %tmp.571(%tmp.576);
+    %tmp.578 = mul %tmp.569 %tmp.577;
+    %tmp.579 = add %tmp.568 %tmp.578;
+    %tmp.580 = 115;
+    %tmp.581 = getm $.Toybox.Math;
+    %tmp.582 = getv function %tmp.581 :sin;
+    %tmp.584 = lgetv %Lp.1;
+    %tmp.586 = lgetv %Mp.4;
+    %tmp.587 = add %tmp.584 %tmp.586;
+    %tmp.588 = invoke %tmp.581 %tmp.582(%tmp.587);
+    %tmp.589 = mul %tmp.580 %tmp.588;
+    %tmp.590 = sub %tmp.579 %tmp.589;
+    lputv %aLat.24 %tmp.590;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 322 8 ]
+    %tmp.591 = self;
+    %tmp.592 = getv function %tmp.591 :normalize;
+    %tmp.593 = getm $.Toybox.Math;
+    %tmp.594 = getv function %tmp.593 :toDegrees;
+    %tmp.596 = lgetv %Lp.1;
+    %tmp.597 = invoke %tmp.593 %tmp.594(%tmp.596);
+    %tmp.599 = lgetv %Lon.12;
+    %tmp.601 = lgetv %aLon.23;
+    %tmp.602 = add %tmp.599 %tmp.601;
+    %tmp.603 = 1000000;
+    %tmp.604 = div %tmp.602 %tmp.603;
+    %tmp.605 = add %tmp.597 %tmp.604;
+    %tmp.606 = invoke %tmp.591 %tmp.592(%tmp.605);
+    lputv %Lon.12 %tmp.606;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 323 8 ]
+    %tmp.607 = 385000.56;
+    %tmp.609 = lgetv %Radius.13;
+    %tmp.610 = 1000;
+    %tmp.611 = div %tmp.609 %tmp.610;
+    %tmp.612 = add %tmp.607 %tmp.611;
+    lputv %Radius.13 %tmp.612;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 324 8 ]
+    %tmp.613 = self;
+    %tmp.614 = getv function %tmp.613 :normalize;
+    %tmp.616 = lgetv %Lat.18;
+    %tmp.618 = lgetv %aLat.24;
+    %tmp.619 = add %tmp.616 %tmp.618;
+    %tmp.620 = 1000000;
+    %tmp.621 = div %tmp.619 %tmp.620;
+    %tmp.622 = invoke %tmp.613 %tmp.614(%tmp.621);
+    lputv %Lat.18 %tmp.622;
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 326 8 ]
+    %tmp.623 = newa 3;
+    %tmp.625 = lgetv %Lon.12;
+    %tmp.626 = dup %tmp.623;
+    %tmp.627 = aputv %tmp.626 0 %tmp.625;
+    %tmp.629 = lgetv %Lat.18;
+    %tmp.630 = dup %tmp.627;
+    %tmp.631 = aputv %tmp.630 1 %tmp.629;
+    %tmp.633 = lgetv %Radius.13;
+    %tmp.634 = dup %tmp.631;
+    %tmp.635 = aputv %tmp.634 2 %tmp.633;
+    ret %tmp.635;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_150_28_327_4_stop:
+}
+[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc"; @line = 340; ]
+function JDEtoT(jde) {
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_340_24_342_4_start:
+[ "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc" 341 8 ]
+    %tmp.2 = lgetv %jde;
+    %tmp.3 = 2451545;
+    %tmp.4 = sub %tmp.2 %tmp.3;
+    %tmp.5 = 36525.0;
+    %tmp.6 = div %tmp.4 %tmp.5;
+    ret %tmp.6;
+E_Data_Brent_Garmin_App_Development_SDK_examples_ThePlanets_ThePlanets_source_moon_simple_mc_340_24_342_4_stop:
+}
+[ @file = "E:\Data-Brent\Garmin-App-Development\SDK-examples\ThePlanets\ThePlanets\source\moon-simple.mc"; @line = 15; ]
 <init> {
 }
