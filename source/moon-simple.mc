@@ -73,6 +73,8 @@ import Toybox.WatchUi;
         } else {
             return eclipticMoonELP82(now_info, timeZoneOffset_sec, dst, addTime_hrs);
         }
+
+        //return eclipticPos_moon(now_info, timeZoneOffset_sec, dst, addTime_hrs);
     }
 
     public function eclipticPos_moon (now_info, timeZoneOffset_sec, dst,  addTime_hrs) {
@@ -139,6 +141,7 @@ import Toybox.WatchUi;
         return ret;
 
     }
+
 
     //var toRad=Math.PI/180.0;
     //var toDeg=180.0/Math.PI;
@@ -286,7 +289,11 @@ import Toybox.WatchUi;
             [ 1,  0, -1, -1,    -119 ], 
             [ 4, -1,  0, -1,     115 ], 
             [ 2, -2,  0,  1,     107 ] */
-        //]; 
+
+
+        //];
+
+         
         var LongitudeRadius = WatchUi.loadResource( $.Rez.JsonData.LongitudeRadius_res) as Array;
         var Latitude = WatchUi.loadResource($.Rez.JsonData.Latitude_res) as Array;
 
@@ -343,3 +350,5 @@ import Toybox.WatchUi;
 //}
 
 //}
+
+

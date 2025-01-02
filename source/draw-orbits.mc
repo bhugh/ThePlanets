@@ -4,7 +4,7 @@ import Toybox.System;
 import Toybox.Graphics;
 
 
-var save_points = {};
+//var save_points = {};
 var save_big_small = null;
 
 

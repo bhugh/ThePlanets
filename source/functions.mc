@@ -549,6 +549,7 @@ function intersect_array (a, b) {
             result.add(a[i]);
             }
         }
+        //deBug("intsc", [result,a,b]);
     return result;            
 
 }

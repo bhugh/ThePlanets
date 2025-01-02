@@ -54,7 +54,7 @@ class SolarSystemBaseView extends WatchUi.View {
 
         ssbv_init_count_global ++;        
         ssbv_init_count = ssbv_init_count_global;
-        System.println("SsView init #"+ssbv_init_count);
+        //System.println("SsView init #"+ssbv_init_count);
 
         //speeds_index = 19; //inited in app.mc where the var is located
         view_mode = 0;
@@ -93,7 +93,7 @@ class SolarSystemBaseView extends WatchUi.View {
         //helpOption_size = helpOption.size();
 
         
-        orrZoomOption_values =  toArray(WatchUi.loadResource($.Rez.Strings.orrzoom_values) as String,  "|", 1);
+        
 
         /*System.println("POs: " + planetsOption_values);
         System.println("POs0: " + whh0);
@@ -101,8 +101,8 @@ class SolarSystemBaseView extends WatchUi.View {
         System.println("POs1: " + small_whh);
         System.println("POs1: " + full_whh);
         System.println("POs1: " + zoomy_whh);*/
-        var myStats = System.getSystemStats();
-        System.println("Memory: " + myStats.totalMemory + " " + myStats.usedMemory + " " + myStats.freeMemory );
+        //var myStats = System.getSystemStats();
+        //System.println("Memory: " + myStats.totalMemory + " " + myStats.usedMemory + " " + myStats.freeMemory );
         
 
     }
@@ -168,15 +168,15 @@ class SolarSystemBaseView extends WatchUi.View {
 
     public function startAnimationTimer(hertz){
 
-        var myStats = System.getSystemStats();
-        System.println("Memory: " + myStats.totalMemory + " " + myStats.usedMemory + " " + myStats.freeMemory );
+        //var myStats = System.getSystemStats();
+        //System.println("Memory: " + myStats.totalMemory + " " + myStats.usedMemory + " " + myStats.freeMemory );
         //System.exit();
 
         var now2 = System.getClockTime();
-        System.println ("AnimTimer:" 
-            +  now2.hour.format("%02d") + ":" +
-            now2.min.format("%02d") + ":" +
-            now2.sec.format("%02d"));
+        //System.println ("AnimTimer:" 
+        //    +  now2.hour.format("%02d") + ":" +
+        //    now2.min.format("%02d") + ":" +
+        //    now2.sec.format("%02d"));
 
         if (animationTimer != null) {
             try {
@@ -199,10 +199,10 @@ class SolarSystemBaseView extends WatchUi.View {
 
     public function stopAnimationTimer(){
 
-        System.println ("Stop Animation Timer at " 
-            +  $.now.hour.format("%02d") + ":" +
-            $.now.min.format("%02d") + ":" +
-            $.now.sec.format("%02d"));
+        //ystem.println ("Stop Animation Timer at " 
+        //    +  $.now.hour.format("%02d") + ":" +
+        //    $.now.min.format("%02d") + ":" +
+        //    $.now.sec.format("%02d"));
 
         if (animationTimer != null) {
             try {
@@ -571,7 +571,9 @@ class SolarSystemBaseView extends WatchUi.View {
 
          if ($.view_mode>0 && !reset_date_stop && started)  {
                 //deBug("speeds Index", [$.speeds_index]);
+                $.speeds = WatchUi.loadResource( $.Rez.JsonData.speeds) as Array;
                 $.time_add_hrs += $.speeds[$.speeds_index];
+                $.speeds = null;
          }
 
 
@@ -952,8 +954,10 @@ class SolarSystemBaseView extends WatchUi.View {
         //System.println("Sunrise_set: " + sunrise_events);
 
         //lastLoc = [59.00894, -94.44008]; //for testing
+        //var sr = new srs();
 
         sunrise_events2 = getRiseSetfromDate_hr($.now_info, $.now.timeZoneOffset, $.now.dst, time_add_hrs,lastLoc[0], lastLoc[1], pp["Sun"]);
+        //sr = null;
 
         //System.println("Sunrise_set2%%%%%%%: " + sunrise_events2);
         //deBug("Sunrise_set2%: ", [sunrise_events2[:SUNRISE][0] , sunrise_events2[:SUNRISE][1] , sunrise_events2[:NOON] , sunrise_events2[:HORIZON][0] , sunrise_events2[:HORIZON][1] ]);
@@ -1027,6 +1031,7 @@ class SolarSystemBaseView extends WatchUi.View {
         //planetnames = ["Mercury","Venus","Earth","Mars","Jupiter","Saturn","Uranus","Neptune","Pluto","Ceres","Chiron","Eris"];
         
         whh_sun  = ["Sun"];
+        loadPlanetsOpt();
         //whh = ["Sun", "Moon", "Mercury","Venus","Mars","Jupiter","Saturn"];
         //whh = whh0;
         //whh = allPlanets.slice(0,4).add(allPlanets[5].addAll(allPlanets.slice(9,14))
@@ -1035,6 +1040,8 @@ class SolarSystemBaseView extends WatchUi.View {
         whh = ["Ecliptic0", "Ecliptic90", "Ecliptic180", "Ecliptic270",allPlanets[4]]; //put first so they are UNDER the planets.  Moon is next so planets will go in front of it (it's large)
         whh.addAll( allPlanets.slice(0,3)); ///so, array2 = array1 only passes a REFERENCE to the array, they are both still the same array with different names.  AARRGGgH!!
         whh.addAll([allPlanets[5],allPlanets[8],allPlanets[9]]);
+
+        allPlanets = null;
 
          //we add these last so they show up on top of planets etc
         
@@ -1151,6 +1158,7 @@ class SolarSystemBaseView extends WatchUi.View {
 
         //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
         pp.put("Moon", [moon_info3[0]]);
+        moon_info3 = null;
         //moon_age_deg = normalize (equatorialLong2eclipticLong_deg(pp["Moon"][0], obliq_deg) - equatorialLong2eclipticLong_deg(pp["Sun"][0], obliq_deg)); //0-360 with 0 being new moon, 90 1st q, 180 full, 270 last q
         //deBug("PP:", pp);
         moon_age_deg = normalize ((pp["Moon"][0]) - (pp["Sun"][0])); //0-360 with 0 being new moon, 90 1st q, 180 full, 270 last q
@@ -1163,7 +1171,7 @@ class SolarSystemBaseView extends WatchUi.View {
         //System.println("pp2: " + pp2);
 
 
-        kys = pp.keys();
+        //kys = pp.keys();
         //g = null;
 
         //g = new Geocentric($.now_info.year, $.now_info.month, $.now_info.day, 0, 0, $.now.timeZoneOffset/3600, $.now.dst,"ecliptic", whh_sun);
@@ -1363,16 +1371,9 @@ class SolarSystemBaseView extends WatchUi.View {
             
         }
 
-        if ($.show_intvl < 5 * $.hz && $.view_mode != 0) {
-            showDate(dc, $.now_info, $.time_now, time_add_hrs, xc, yc, true, true, :ecliptic_latlon);
-            $.show_intvl++;
-        } else {
-            showDate(dc, $.now_info, $.time_now, time_add_hrs, xc, yc, true, false, :ecliptic_latlon);
-        }
-
         pp=null;
         pp_sun = null;
-        kys =  null;
+        //kys =  null;
         keys = null;
         srs = null;
         sunrise_events  = null;
@@ -1380,6 +1381,15 @@ class SolarSystemBaseView extends WatchUi.View {
         whh = null;
         whh_sun = null;
         spots = null;
+
+        if ($.show_intvl < 5 * $.hz && $.view_mode != 0) {
+            showDate(dc, $.now_info, $.time_now, time_add_hrs, xc, yc, true, true, :ecliptic_latlon);
+            $.show_intvl++;
+        } else {
+            showDate(dc, $.now_info, $.time_now, time_add_hrs, xc, yc, true, false, :ecliptic_latlon);
+        }
+
+
 
     }
     
@@ -1475,7 +1485,7 @@ class SolarSystemBaseView extends WatchUi.View {
         whh = makePlanetsOpt(planetsOption_value);
         
         //zoom_whh = small_whh;
-        var aP = allPlanets;
+        var aP = toArray(WatchUi.loadResource($.Rez.Strings.planets_Options1) as String,  "|", 0);
         zoom_whh = aP.slice(0,8);
         zoom_whh.add(aP[13]); //add ceres
         //deBug ("www - zoom_whh", zoom_whh);
@@ -1486,7 +1496,7 @@ class SolarSystemBaseView extends WatchUi.View {
              //zoom_whh = ["Sun","Mercury","Venus","Earth", "Mars", "AsteroidA", "AsteroidB", "Ceres","Jupiter","Saturn","Uranus","Neptune"]; 
              //zoom_whh = zoomy_whh;
              zoom_whh = (aP.slice(0,4));
-             zoom_whh.addAll(aP.slice(5,14)) ;
+             zoom_whh.addAll(aP.slice(5,15)) ;
              //zoom_whh.add (aP[13]);
              //deBug ("www - zoomy_whh", zoom_whh);
              //deBug("www - zoom_whh slice 0-4, 5-12, 13 - source copy", aP);
@@ -1506,7 +1516,7 @@ class SolarSystemBaseView extends WatchUi.View {
         aP = null;
         
 
-        //deBug("RDSWC4: ", allPlanets);
+        //deBug("zoom_whh: ", zoom_whh);
 
         //add_duration = new Time.Duration($.time_add_hrs*3600);
         //System.println("View Rectangular:" + add_duration + " " + $.time_add_hrs);
@@ -1609,6 +1619,7 @@ class SolarSystemBaseView extends WatchUi.View {
 
             pp.put("Moon", [xm,ym,pp["Earth"][2]]);
             kys.add("Moon");
+            moon_info3 = null;
 
         }
         //deBug("RDSWC9: ", allPlanets);
@@ -1632,9 +1643,11 @@ class SolarSystemBaseView extends WatchUi.View {
         if ($.newModeOrZoom || $.speedWasChanged ) {//gives signal to reset the dots 
             //var oldscale = scale;
                 //System.println("RDSWC - new scale & targetDc: "  + $.speedWasChanged + " " + $.newModeOrZoom );
+                orrZoomOption_values =  toArray(WatchUi.loadResource($.Rez.Strings.orrzoom_values) as String,  "|", 1);
             
                 scale = (min_c*0.85*eclipticSizeFactor)/Math.sqrt(max) * $.orrZoomOption_values[$.Options_Dict[orrZoomOption_enum]] ;  
                 asteroidsRendered = false;
+                orrZoomOption_values = null;
 
             //must clear screen if scale has changed, otherwise clear it per resetDots setting
             
@@ -1748,6 +1761,7 @@ class SolarSystemBaseView extends WatchUi.View {
                 
                 //System.println("XYZ' PERS: " + x2 + " " + y1 + " " );
             }
+            kys = null; 
             //System.println("whhbefore: " + whh);
             //deBug("RDSWC11A: ", allPlanets);
             //deBug("RDSWC11Awhh: ", whh);
@@ -1975,6 +1989,17 @@ class SolarSystemBaseView extends WatchUi.View {
             */
         }
 
+        pp=null;
+        pp_sun = null;
+        kys =  null;
+        keys = null;
+        srs = null;
+        sunrise_events  = null;
+        whh = null;
+        whh_sun = null;
+        //g = null;
+        spots_rect = null;
+
         if ( !LORR_horizon_line_drawn && LORR_show_horizon_line ) {
                 drawDashedLine(dc, 0, yc+1, 2*xc, yc+1, 0, 3, 1, Graphics.COLOR_LT_GRAY);
                 LORR_horizon_line_drawn = true;
@@ -1989,16 +2014,7 @@ class SolarSystemBaseView extends WatchUi.View {
 
         //deBug("RDSWC14: ", allPlanets);
 
-        pp=null;
-        pp_sun = null;
-        kys =  null;
-        keys = null;
-        srs = null;
-        sunrise_events  = null;
-        whh = null;
-        whh_sun = null;
-        //g = null;
-        spots_rect = null;
+
 
         //deBug("RDSWC15: ", allPlanets);
 
@@ -2524,7 +2540,11 @@ class SolarSystemBaseView extends WatchUi.View {
         //if (show && (sm_ret == 0 )) { //msg_ret ==0 means, don't show this when there is a special msg up
         if (true) {
             var sep = ">";
-            var ssi=$.speeds[$.speeds_index] ;
+            
+            //$.speeds = WatchUi.loadResource( $.Rez.JsonData.speeds) as Array;
+            //var ssi=$.speeds[$.speeds_index] ;
+            var ssi = (WatchUi.loadResource( $.Rez.JsonData.speeds) as Array)[$.speeds_index];
+            //$.speeds = null;
 
             if (ssi < 0) { sep = "<";}
             if (!started || ssi == 0 || $.view_mode == 0) { sep = "|";}
@@ -2614,12 +2634,12 @@ class SolarSystemBaseView extends WatchUi.View {
         }
         switch (key) {
             case "Mercury":
-                size = b_size *jup_size*0.03488721374;
+                size = b_size *jup_size*0.03488721374f;
                 col = 0x8f8aae;
                 fillcol = 0x70708f;
                 break;
             case "Venus":
-                size =b_size*jup_size * 0.08655290298;
+                size =b_size*jup_size * 0.08655290298f;
                 //col = 0xffff88;
                 //fillcol = 0x838370;
                 col = 0xffff88;
@@ -2627,13 +2647,13 @@ class SolarSystemBaseView extends WatchUi.View {
                 break;
 
             case "Mars":
-                size =b_size*jup_size * 0.04847591938;
+                size =b_size*jup_size * 0.04847591938f;
                 col = 0xff9a8e;
                 fillcol = 0x9f4a5e;
 
                 break;
             case "Saturn":
-                size =b_size *jup_size * 0.832944744;
+                size =b_size *jup_size * 0.832944744f;
                 col = 0x947ec2;
                 break;
             case "Jupiter":
@@ -2641,61 +2661,61 @@ class SolarSystemBaseView extends WatchUi.View {
                 col = 0xcf9c63;
                 break;
             case "Neptune":
-                size =b_size *jup_size * 0.3521906424;
+                size =b_size *jup_size * 0.3521906424f;
                 col = Graphics.COLOR_BLUE;
                 fillcol = col;
                 break;
             case "Uranus":
-                size =b_size *jup_size * 0.3627755289;
+                size =b_size *jup_size * 0.3627755289f;
                 col = Graphics.COLOR_BLUE;
                 fillcol = Graphics.COLOR_GREEN;
                 break;
             case "Earth":
-                size =b_size *jup_size * 0.09113015119;
+                size =b_size *jup_size * 0.09113015119f;
                 col = Graphics.COLOR_BLUE;
                 fillcol = Graphics.COLOR_BLUE;
                 break;   
             case "Moon":
-                size =b_size *jup_size * 0.09113015119; //same as EARTH here, we adjust to true size rel. to earth below
+                size =b_size *jup_size * 0.09113015119f; //same as EARTH here, we adjust to true size rel. to earth below
                 col = 0xe0e0e0;        
                 fillcol = 0x171f25;                                
                 break;                
                 
              case "Pluto":
-                size =b_size *jup_size * 0.016993034; 
+                size =b_size *jup_size * 0.016993034f; 
                 col = Graphics.COLOR_WHITE;
                 fillcol = Graphics.COLOR_RED;
                 break;   
              case "Ceres":
-                size =b_size *jup_size * 0.006708529416; //1/3 of pluto
+                size =b_size *jup_size * 0.006708529416f; //1/3 of pluto
                 col = Graphics.COLOR_LT_GRAY;
                 break;   
              case "Chiron": //rings, light brownish???
-                size =b_size *jup_size*0.001544821273; //100-200km only, 1/10th of Pluto
+                size =b_size *jup_size*0.001544821273f; //100-200km only, 1/10th of Pluto
                 col = Graphics.COLOR_LT_GRAY;
                 break;   
              case "Eris": //white & uniform, has a dark moon
-                size =b_size *jup_size * 0.01663543648; //nearly identical to pluto
+                size =b_size *jup_size * 0.01663543648f; //nearly identical to pluto
                 col = Graphics.COLOR_WHITE;
                 break;   
              case "Quaoar":
-                size =b_size *jup_size * 0.007767018066;
+                size =b_size *jup_size * 0.007767018066f;
                 col = Graphics.COLOR_LT_GRAY;
                 break; 
              case "Makemake":
-                size =b_size *jup_size * 0.01022728898;
+                size =b_size *jup_size * 0.01022728898f;
                 col = Graphics.COLOR_LT_GRAY;
                 break;        
              case "Eris":
-                size =b_size *jup_size * 0.01663543648;
+                size =b_size *jup_size * 0.01663543648f;
                 col = Graphics.COLOR_LT_GRAY;
                 break;
              case "Gonggong":
-                size =b_size *jup_size * 0.008796898914;
+                size =b_size *jup_size * 0.008796898914f;
                 col = Graphics.COLOR_LT_GRAY;
                 break;              
              case "Haumea":
-                size =b_size *jup_size * 0.01127147373;
+                size =b_size *jup_size * 0.01127147373f;
                 col = Graphics.COLOR_LT_GRAY;
                 break;                 
         }
@@ -3096,6 +3116,7 @@ class SolarSystemBaseView extends WatchUi.View {
 
                         dc.setColor(col, Graphics.COLOR_TRANSPARENT);        
                         dc.drawText(x2, y2, Graphics.FONT_TINY, key.substring(0,2), Graphics.TEXT_JUSTIFY_VCENTER + Graphics.TEXT_JUSTIFY_CENTER);
+                        sub = null;
                         //drawAngledText(x as Lang.Numeric, y as Lang.Numeric, font as Graphics.VectorFont, text as Lang.String, justification as Graphics.TextJustification or Lang.Number, angle as Lang.Numeric) as Void
                     }
                 } else if (type == :orrery) {
@@ -3112,6 +3133,7 @@ class SolarSystemBaseView extends WatchUi.View {
                         y2 = sub[1];
                         dc.setColor(col, Graphics.COLOR_TRANSPARENT);        
                         dc.drawText(x2, y2, Graphics.FONT_TINY, key.substring(0,2), Graphics.TEXT_JUSTIFY_VCENTER | Graphics.TEXT_JUSTIFY_CENTER);
+                        sub = null;
                         //drawAngledText(x as Lang.Numeric, y as Lang.Numeric, font as Graphics.VectorFont, text as Lang.String, justification as Graphics.TextJustification or Lang.Number, angle as Lang.Numeric) as Void
                     }
 
@@ -3374,7 +3396,9 @@ class SolarSystemBaseView extends WatchUi.View {
 
 
             //deBug("hor_ang_rad, final_adj, ECLIP_HOR, EH*sid, max_hor, min_hor, norm180: ", [Math.toDegrees(hor_ang_rad), final_adj_deg, Math.toDegrees(sunrise_events2[:ECLIP_HORIZON][1]),  Math.toDegrees(sunrise_events2[:ECLIP_HORIZON][1] * sidereal_to_solar), (max_hor_ang), (min_hor_ang), temp, temp]);
-            var refract_add = - Math.toRadians(sunEventData[:SUNRISE]);//The horizon is set to -0.5667 degrees to account for refraction.  We';re setting :SUNRISE equal to :HORIZON (making sunrise at center of sun rather than very top as is customary)
+
+            var refract_add = 0.5667;
+            //var refract_add = - Math.toRadians(sunEventData[:SUNRISE]);//The horizon is set to -0.5667 degrees to account for refraction.  We';re setting :SUNRISE equal to :HORIZON (making sunrise at center of sun rather than very top as is customary)
             //So that is NOT accounted for in  sunrise_events2[:ECLIP_HORIZON][1] . . . but IS in the drawn ARC sun events.
             //Also, below is all in the garmin native graphics, 0,0 in top left corner, so 0 degree is 3 o'clock position but then positive degrees
             //is CW (downwards) from there, so the reverse direction of standard.

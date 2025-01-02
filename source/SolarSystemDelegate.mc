@@ -69,9 +69,9 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
             } else {
                 //System.println("delegate onselect... moving to new mode" + $.view_mode);
 
-                
+                //$.speeds = WatchUi.loadResource( $.Rez.JsonData.speeds) as Array;
                 //if we stop & forward step == 0 we set it to the lowest value
-                if (($.speeds[$.speeds_index]).abs() < 0.001) {
+                if (((WatchUi.loadResource( $.Rez.JsonData.speeds) as Array)[$.speeds_index]).abs() < 0.001) {
                     //deBug("zero & moving up!!!!!",[]);
                     handleNextPrevious (:previous); 
                 }
@@ -185,6 +185,7 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
         //System.println("onNextPage..." + mult + " " + type);
         $.buttonPresses++; 
         $.last_button_time_sec = $.time_now.value();
+        var spds = WatchUi.loadResource( $.Rez.JsonData.speeds) as Array;
 
         if ($.exiting_back_button_firstpress) {
 
@@ -232,7 +233,7 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
         //System.println("onNextPage... od:" + od + " in:" + in + " type==next: " + ( type == :next));
 
         if (in == 0 ) {
-            $.time_add_hrs += mult *$.speeds[$.speeds_index];
+            $.time_add_hrs += mult *spds[$.speeds_index];
             $.timeWasAdded=true;
             //WatchUi.requestUpdate();
         } else if (in == 1 || in ==2 || (in > 2 && od ==0)){
@@ -241,7 +242,7 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
             if (started)  {
                 $.speeds_index +=  mult;
                 //$.speedWasChanged = true; //skipping reset on speed change, for now
-                if ($.speeds_index>= $.speeds.size()) {$.speeds_index = $.speeds.size()-1;}
+                if ($.speeds_index>= spds.size()) {$.speeds_index = spds.size()-1;}
                 if ($.speeds_index<0)  {$.speeds_index=0; }
 
                 //For "Big" time movement screens, skip over all the 
@@ -253,7 +254,7 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
                         $.speeds_index = type == :next ? 21 : 34;}                                                                     
                 }
             } else {
-                $.time_add_hrs += mult *$.speeds[$.speeds_index];
+                $.time_add_hrs += mult *spds[$.speeds_index];
                 $.timeWasAdded=true;
             }
         }
@@ -267,16 +268,27 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
         */
 
         //Handle the ROTATE VIEW modes
-        if (in>2 && od ==1 ) {
-            if (type == :next) { the_rad += mult * Math.PI/18.0;}
-            else { 
-                ga_rad += mult * Math.PI/18.0;
+        if (in>2) {
+               //deBug("HI MOM2!", [in, od, type]);
+            if ( od ==1 ) { //next == vertical & prev = rotate
+                $.speedWasChanged = true;
+                if (type == :next) { the_rad += mult * Math.PI/18.0;}
+                else { 
+                    ga_rad += mult * Math.PI/18.0;
+                    $.LORR_show_horizon_line = false; //we have to reset the horizon line here bec the view has been rotated
+                    //deBug("HI MOM2!", []);
+                }
+            } else if (od ==2) {                //both = vertical
+                $.speedWasChanged = true;
+                the_rad += mult * Math.PI/18.0;                                                
+            } else if (od ==3) {
+                $.speedWasChanged = true; //both = rotate
                 $.LORR_show_horizon_line = false; //we have to reset the horizon line here bec the view has been rotated
-                //deBug("HI MOM2!", []);
+                 ga_rad -= mult * Math.PI/18.0;              
             }
-            $.speedWasChanged = true;
-           
-        }
+        } 
+
+    
 
             if ($.speeds_index<0)  {$.speeds_index=0; }
             $.show_intvl = 0;

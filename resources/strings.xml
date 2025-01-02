@@ -22,11 +22,29 @@
 <!-- var labelDisplayOption=[ "Always On", "Always Off", "Frequent Flash", "Infrequent Flash", "Random Flash"]; -->
 <string id="labelDisplayOption">Always On|Always Off|Frequent Flash|Infrequent Flash|Random Flash</string>
 <string id="refreshOption">10 per sec.|5 per sec.|4 per sec.| 3 per sec.|2 per sec.</string>
-<string id="thetaOption">[T]ime Step|[V]iewpoint</string>
+<string id="thetaOption">[T]ime Step|[V]iewpoint (Both Up&amp;Rotate)|[U]p/Down Viewpoint|[R]otate Viewpoint</string>
 <string id="planetSizeOption">XX Small|Very Small|Small|Normal|Large|Very Large|XXLarge</string>
 <string id="planetsOption">All objects|Only trad. planets|Only Dwarf Planets/Asteroids</string>
 <string id="introMessages">THE PLANETS|UP/DOWN/SWIPE:|Time Forward|/Back|UP/DOWN/SWIPE:|OR: Time Faster|/Slower|SELECT/TAP|Start/Stop|Time|BACK:|Change Modes|or Exit|MENU:|Change Options, Help|or Reset Time</string>
 <string id="delegateMessages">==THE PLANETS==|SELECT: Next mode|BACK: Exit|or: UP/DOWN|Current (|Next (|...)|SEL: |BACK: Exit|or: UP/DOWN|(Use Up/|Down/Start)|==Current Sky (by hr)==|==Current Sky (by day)==|==Inner Solar==|==System-Top View==|==System-Side View==|==Outer Solar==|==Far Outer==|==Solar System-Top==|==Solar System-Side==</string>
+
+<string id = "sts">Settings</string>
+<string id = "rst">Reset to Current Time</string>
+<string id = "zm">Solar System Zoom?</string>
+<string id = "uds">UP/DOWN/Swipe controls:</string>
+<string id = "osss">Objects to show in Solar System?</string>
+<string id = "pds">Planet Display Size?</string>
+
+
+<string id = "dpl">Display Planet Labels?</string>
+<string id = "hboo">Help Banners: Off-On</string>
+<string id = "uagp">Use auto GPS Position?</string>
+<string id = "mlat">Manual Latitude:</string>
+<string id = "mlon">Manual Longitude:</string>
+<string id = "srr">Screen Refresh Rate?</string>
+<string id = "pa">Planet Abbreviations</string>
+
+
 
 <!--
 

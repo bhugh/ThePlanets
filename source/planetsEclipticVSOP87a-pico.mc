@@ -145,13 +145,14 @@ function fetch (now_info, timeZoneOffset_sec, dst, timeAdd_hrs, type, req_array)
         if (req_array != null) {vhh = req_array;}
 
         
-
+         loadPlanetsOpt();
         //deBug("VSOP1: ", vhh);
         //deBug("VSOP2: ", req_array);
         /*deBug("VSOP3: ", $.planetsOption_values[planetsOption_value]);
         deBug("VSOP4: ", [$.planetsOption_value,$.planetsOption_values]);*/
 
         //if (planetsOption_value == 0 || planetsOption_value == 2 || type != :helio_xyz)
+
          
             if (sin (allPlanets[1],vhh)) {ret.put (allPlanets[1], vspo_2_J2000(getMercury(t), earth, true, type));}
             if (sin (allPlanets[2],vhh)) {ret.put (allPlanets[2], vspo_2_J2000(getVenus(t), earth, true, type));} 
@@ -186,6 +187,8 @@ function fetch (now_info, timeZoneOffset_sec, dst, timeAdd_hrs, type, req_array)
             ret ["allPlanets[0]"] = [0,0,0];
             ret.put(allPlanets[3], vspo_2_J2000(earth, earth, true, type));
         }
+
+        allPlanets = null;
         
         return ret;
     }
@@ -218,7 +221,12 @@ function fetch (now_info, timeZoneOffset_sec, dst, timeAdd_hrs, type, req_array)
       tz = (y * 0.397776982902f + z * 0.917482137087f);
     }
 
-    if (type == :helio_xyz) {return [(tx).toFloat(),(ty).toFloat(),(tz).toFloat()];}
+    if (type == :helio_xyz) {
+          var fx = tx.toFloat();
+          var fy = ty.toFloat();
+          var fz = tz.toFloat();
+         return [fx,fy,fz];
+      }
 
     //System.println("XYZ: " + tx + " " + ty + " " + tz);
     //Convert from Cartesian to polar coordinates 
@@ -238,7 +246,16 @@ function fetch (now_info, timeZoneOffset_sec, dst, timeAdd_hrs, type, req_array)
     //return {ra: l*180/Math.PI/15, dec: t2*180/Math.PI, r: r};
     //return {ra: l, dec: t2, r: r};
     //return {:lat=> Math.toDegrees(l), :lon => Math.toDegrees(t2), :r => r};
-    return [(Math.toDegrees(l)).toFloat(), (Math.toDegrees(t2)).toFloat(), (r).toFloat()];//lat, lon, r
+
+    //return [(Math.toDegrees(l)).toFloat(), (Math.toDegrees(t2)).toFloat(), (r).toFloat()];//lat, lon, r
+    l = Math.toDegrees(l);
+    t2 = Math.toDegrees(t2);
+
+    var fl = l.toFloat();
+    var ft2 = t2.toFloat();
+    var fr = r.toFloat();
+    return [fl, ft2, fr];
+
     }
 
     

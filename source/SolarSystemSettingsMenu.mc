@@ -104,7 +104,7 @@ class SolarSystemSettingsMenu extends WatchUi.Menu2 {
         //loadPlanetsOpt();
 
         //var boolean;
-        Menu2.initialize({:title=>"Settings"});
+        Menu2.initialize({:title=>WatchUi.loadResource($.Rez.Strings.sts) as String});
             
         //Menu2.addItem(new WatchUi.ToggleMenuItem("Exit App", null, changeMode_enum, false, null));
         /*changeModeOption_nextMode = $.view_mode;
@@ -112,22 +112,22 @@ class SolarSystemSettingsMenu extends WatchUi.Menu2 {
         changeModeOption[$.view_mode],changeMode_enum,{}));  
         */ 
 
-        Menu2.addItem(new WatchUi.ToggleMenuItem("Reset to Current Time", null, resetDate_enum, false, null));
+        Menu2.addItem(new WatchUi.ToggleMenuItem(WatchUi.loadResource($.Rez.Strings.sts) as String, null, resetDate_enum, false, null));
         
         //deBug("1", []);
 
         if ($.Options_Dict[orrZoomOption_enum] == null) { $.Options_Dict[orrZoomOption_enum] = $.orrZoomOption_default; }
-        Menu2.addItem(new WatchUi.MenuItem("Solar System Zoom?",
+        Menu2.addItem(new WatchUi.MenuItem(WatchUi.loadResource($.Rez.Strings.zm) as String,
         orrZoomOption[$.Options_Dict[orrZoomOption_enum]],orrZoomOption_enum,{}));   
 
         if ($.Options_Dict[thetaOption_enum] == null) { $.Options_Dict[thetaOption_enum] = $.thetaOption_default; }
-        Menu2.addItem(new WatchUi.MenuItem("UP/DOWN/Swipe controls:",
+        Menu2.addItem(new WatchUi.MenuItem(WatchUi.loadResource($.Rez.Strings.uds) as String,
         ($.thetaOption[$.Options_Dict[thetaOption_enum]]),thetaOption_enum,{}));
 
         //deBug("2", []);
 
         if ($.Options_Dict[planetsOption_enum] == null) { $.Options_Dict[planetsOption_enum] = $.planetsOption_default; }
-        Menu2.addItem(new WatchUi.MenuItem("Objects to show in Solar System?",
+        Menu2.addItem(new WatchUi.MenuItem(WatchUi.loadResource($.Rez.Strings.osss) as String,
         $.planetsOption[$.Options_Dict[planetsOption_enum]],planetsOption_enum,{}));  
 
         /*
@@ -139,7 +139,7 @@ class SolarSystemSettingsMenu extends WatchUi.Menu2 {
 
         
         if ($.Options_Dict[planetSizeOption_enum] == null) { $.Options_Dict[planetSizeOption_enum] = $.planetSizeOption_default; }
-        Menu2.addItem(new WatchUi.MenuItem("Planet Display Size?",
+        Menu2.addItem(new WatchUi.MenuItem(WatchUi.loadResource($.Rez.Strings.pds) as String,
         $.planetSizeOption[$.Options_Dict[planetSizeOption_enum]],planetSizeOption_enum,{}));   
 
     /*
@@ -159,39 +159,39 @@ class SolarSystemSettingsMenu extends WatchUi.Menu2 {
         $.resetDots[$.Options_Dict["resetDots"]],"resetDots",{}));   
     */
         if ($.Options_Dict[labelDisplayOption_enum] == null) { $.Options_Dict[labelDisplayOption_enum] = $.labelDisplayOption_default; }
-        Menu2.addItem(new WatchUi.MenuItem("Display Planet Labels?",
+        Menu2.addItem(new WatchUi.MenuItem(WatchUi.loadResource($.Rez.Strings.dpl) as String,
             $.labelDisplayOption[$.Options_Dict[labelDisplayOption_enum]],labelDisplayOption_enum,{}));
 
-        Menu2.addItem(new WatchUi.ToggleMenuItem("Help Banners: Off-On", null, helpBanners_enum, $.Options_Dict[helpBanners_enum], null));   
+        Menu2.addItem(new WatchUi.ToggleMenuItem(WatchUi.loadResource($.Rez.Strings.hboo) as String, null, helpBanners_enum, $.Options_Dict[helpBanners_enum], null));   
 
         //deBug("3", [gpsOption_enum, Options_Dict[gpsOption_enum], Options_Dict]);
 
-        Menu2.addItem(new WatchUi.ToggleMenuItem("Use auto GPS Position?", null, gpsOption_enum, $.Options_Dict[gpsOption_enum], null));
+        Menu2.addItem(new WatchUi.ToggleMenuItem(WatchUi.loadResource($.Rez.Strings.uagp) as String, null, gpsOption_enum, $.Options_Dict[gpsOption_enum], null));
 
-        if ($.Options_Dict[gpsOption_enum] != null && !$.Options_Dict[gpsOption_enum] ) { 
+        //if ($.Options_Dict[gpsOption_enum] != null && !$.Options_Dict[gpsOption_enum] ) { 
                 
             if ($.Options_Dict[latOption_enum] == null) { $.Options_Dict[latOption_enum] = $.latOption_default; }
             //deBug("3a", []);
             var val = ($.Options_Dict[latOption_enum] - 90);
             //deBug("3b", [val]);            
             //deBug("3c", [val]);
-            Menu2.addItem(new WatchUi.MenuItem("Manual Latitude:", val.toString(),latOption_enum,{})); 
+            Menu2.addItem(new WatchUi.MenuItem(WatchUi.loadResource($.Rez.Strings.mlat) as String, val.toString(),latOption_enum,{})); 
             //deBug("3d", [val]);
             
             if ($.Options_Dict[lonOption_enum] == null) { $.Options_Dict[lonOption_enum] = $.lonOption_default; }
             val = $.Options_Dict[lonOption_enum] - 180;            
-            Menu2.addItem(new WatchUi.MenuItem("Manual Longitude:",val.toString(),lonOption_enum,{})); 
-        }
+            Menu2.addItem(new WatchUi.MenuItem(WatchUi.loadResource($.Rez.Strings.mlon) as String,val.toString(),lonOption_enum,{})); 
+        //}
 
         //deBug("4", []);
 
         if ($.Options_Dict[refreshOption_enum] == null) { $.Options_Dict[refreshOption_enum] = $.refreshOption_default; }
-        Menu2.addItem(new WatchUi.MenuItem("Screen Refresh Rate?",
+        Menu2.addItem(new WatchUi.MenuItem(WatchUi.loadResource($.Rez.Strings.srr) as String,
         $.refreshOption[$.Options_Dict[refreshOption_enum]],refreshOption_enum,{})); 
 
         var pA = getPlanetAbbreviation(0);
         planetAbbreviation_index = pA[1];
-        Menu2.addItem(new WatchUi.MenuItem("Planet Abbreviations", pA[0] ,helpOption_enum, {}));
+        Menu2.addItem(new WatchUi.MenuItem(WatchUi.loadResource($.Rez.Strings.pa) as String, pA[0] ,helpOption_enum, {}));
 
         /*if ($.Options_Dict["helpOption"] == null) { $.Options_Dict["helpOption"] = helpOption_default; }
         Menu2.addItem(new WatchUi.MenuItem("Help - Abbreviations",
@@ -256,18 +256,18 @@ class SolarSystemSettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
                 */
                 Storage.setValue(ret, menuItem.isEnabled());
                 $.Options_Dict[ret] = menuItem.isEnabled();
-                $.solarSystemView_class.setInitPosition();
-                $.jumpToGPS = true;                
-                WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
+                //$.solarSystemView_class.setInitPosition();
+                //$.jumpToGPS = true;                
+                //WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
                 
 
                 $.solarSystemView_class.setInitPosition();
                 Position.enableLocationEvents(Position.LOCATION_ONE_SHOT, method(:onPosition));
 
-                var settings_view = new $.SolarSystemSettingsView();
-                var settings_delegate = new $.SolarSystemSettingsDelegate();
+                //var settings_view = new $.SolarSystemSettingsView();
+                //var settings_delegate = new $.SolarSystemSettingsDelegate();
         
-                pushView(settings_view, settings_delegate, WatchUi.SLIDE_IMMEDIATE);
+                //pushView(settings_view, settings_delegate, WatchUi.SLIDE_IMMEDIATE);
                 
             } 
             
@@ -325,8 +325,11 @@ class SolarSystemSettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
         //helpOption
         if(id.equals(helpOption_enum)) {
             //var index = $.Options_Dict[id] || 0;            
+            //planetAbbreviation_index = (planetAbbreviation_index + 1) 
+            //% allPlanets.size();
             planetAbbreviation_index = (planetAbbreviation_index + 1) 
-            % allPlanets.size();
+            % (toArray(WatchUi.loadResource($.Rez.Strings.planets_Options1) as String,  "|", 0)).size();
+            
             var pA = getPlanetAbbreviation(planetAbbreviation_index);
             planetAbbreviation_index = pA[1];
             menuItem.setSubLabel(pA[0]);
@@ -526,6 +529,7 @@ function loadPlanetsOpt(){
 var planetAbbreviation_index = 0;
 // Function to generate planet abbreviation and name
 function getPlanetAbbreviation(index) {
+    loadPlanetsOpt();
     if (index < allPlanets.size()) {
         while (allPlanets[index].equals("AsteroidA") || allPlanets[index].equals("AsteroidB") || allPlanets[index].equals("Sun")){
             index = (index + 1) % allPlanets.size();
@@ -534,6 +538,7 @@ function getPlanetAbbreviation(index) {
         return [planetName.substring(0, 2) + " " + planetName, index];
     }
     return ["", index];
+    allPlanets = null;
 }
 
 function makePlanetsOpt(val){
@@ -541,8 +546,9 @@ function makePlanetsOpt(val){
     //deBug("mpo2: ", [val, planetsOption_value]);
     var ret = []; //so, array2 = array1 only passes a REFERENCE to the array, they are both still the same array with different names.  AARRGGgH!!
     //So if you DON'T want this you need to do some tricks
+    loadPlanetsOpt();
     if (val == 2) {
-                ret = [   //option #3, dwarf planets
+                ret = [   //option #3, dwarf planets only
         allPlanets[0],
         allPlanets[1],
         allPlanets[3],
@@ -551,17 +557,19 @@ function makePlanetsOpt(val){
         allPlanets[7],
         ];
         //deBug("mpo3: ", ret);
-        ret.addAll(allPlanets.slice(-7, null));
-
-        } //all objects
-    if (val ==1 ) {
+        ret.addAll(allPlanets.slice(-7, null));    
+    } 
+    //all objects
+    else if (val ==1 ) {
         ret.addAll(allPlanets.slice(0,13));
     } //Sun thru Pluto,  trad. planets
      else {
         
         ret.addAll(allPlanets); //to ensure it is a COPY just just a reference to same array
 
-     }
+
+    }
+    allPlanets = null;
     
     
     //deBug("mpo4: ", ret);

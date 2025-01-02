@@ -157,7 +157,7 @@ var screen0MoveOption_default = 6;
     //"Both" 
 ];*/
 
-var thetaOption_size = 2;
+var thetaOption_size = 4;
 var thetaOption_default = 0;
 
 /*var planetSizeOption=[
@@ -276,7 +276,7 @@ class SolarSystemSettingsView extends WatchUi.View {
         View.initialize();
         firstShow = true;
 
-        System.println("SettingsVinit");
+        //System.println("SettingsVinit");
     
 
     }
@@ -294,6 +294,10 @@ class SolarSystemSettingsView extends WatchUi.View {
         dc.drawText(dc.getWidth() / 2, dc.getHeight() / 2 - 30, Graphics.FONT_SMALL, "Press Menu \nfor settings", Graphics.TEXT_JUSTIFY_CENTER);
         */
         //System.println("onShow...");
+        
+        var myStats = System.getSystemStats();
+
+        System.println("Memory: " + myStats.totalMemory + " " + myStats.usedMemory + " " + myStats.freeMemory );
 
                 //Some watches dont have Menu2, in that case teh Menu 
         //key just becomes EXIT...

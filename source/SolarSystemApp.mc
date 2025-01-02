@@ -29,7 +29,7 @@ var allOrbitParms = null;
     //all are chosen to be WHOLE DAYS however, to make the sun stand still when moving forward on the eliptical screens
     //But also closest unit to WHOLE YEARS (ie 183 instead of 180 or 182.621187, 61 instead of 60 or 60.873729)
     //Adde synodic month & solar yr as exact time options
-    var speeds = [-24*365*10, -24*365*7, -24*365*4, -24*365*2,-24*365.2422, -24*365, //0; year multiples (added 0)
+    /*var speeds = [-24*365*10, -24*365*7, -24*365*4, -24*365*2,-24*365.2422, -24*365, //0; year multiples (added 0)
                 -24*183, -24*122, -24*91, -24*61, -24*31, -29.53059*24, -24*15, //6; 1/2, 1/4, 1/12, 1/24 of a year (added 1)
                 -24*7,-24*5, -24*3, -24*2-15/60.0, -24*2, -24*2+15/60.0, -24-15/60.0, -24, -24+15/60.0, //11; Days up to a week, with 1&2 days +1/-1 hrsso you can adjust them easily
                 -12,-6,-4,-2, -1, //22;Hours (added 1)
@@ -39,7 +39,8 @@ var allOrbitParms = null;
                 1,2,4,6,12,  //42; Hours (added 1)
                 24-15/60.0, 24,24+15/60.0, 24*2-15/60.0, 24*2,24*2+15/60.0, 24*3,24*5, 24*7, //47; Days up to a week (added 0)
                 24*15,29.53059*24, 24*31, 24*61, 24*91, 24*122, 24*183, 24*300, //56;300 days 1/2, 1/4, 1/12, 1/24 of a year (added 1)
-                24*365,24*365.2422, 24 * 400, 24 * 500, 24*365*2, 24*365*4, 24*365 * 7, 24*365 * 10]; //64; year multiples (added 0)
+                24*365,24*365.2422, 24 * 400, 24 * 500, 24*365*2, 24*365*4, 24*365 * 7, 24*365 * 10]; //64; year multiples (added 0)*/
+var speeds;
 var speeds_index; //the currently used speed that will be added to TIME @ each update of screen  //
 //var screen0Move_index = 33;
 
@@ -93,8 +94,8 @@ class SolarSystemBaseApp extends Application.AppBase {
     //var view_mode = [ECLIPTIC_STATIC, ECLIPTIC_MOVE, SMALL_ORRERY, MED_ORRERY, LARGE_ORRERY];
 
 
-    private var _solarSystemView as SolarSystemBaseView;
-    private var _solarSystemDelegate as SolarSystemBaseDelegate;
+    private var _solarSystemView as SolarSystemBaseView?;
+    private var _solarSystemDelegate as SolarSystemBaseDelegate?;
 
     //! Constructor
     public function initialize() {
@@ -112,13 +113,14 @@ class SolarSystemBaseApp extends Application.AppBase {
         _solarSystemView = new $.SolarSystemBaseView();
         solarSystemView_class = _solarSystemView;
         _solarSystemDelegate = new $.SolarSystemBaseDelegate(_solarSystemView);
+        
 
         //These  2 must be done AFTER View class is inited
         readStorageValues();
         _solarSystemView.setInitPosition();
 
         //sunrise_cache = new sunRiseSet_cache2();        //works fine but not using it now..
-        System.println("inited...");
+        //System.println("inited...");
         view_mode=0;
         $.changeModes(null); //inits speeds_index properly        
 
@@ -173,7 +175,7 @@ class SolarSystemBaseApp extends Application.AppBase {
     //! Update the current position
     //! @param info Position information
     public function onPosition(info as Info) as Void {
-        System.println("onPosition... count: " + $.count);
+        //System.println("onPosition... count: " + $.count);
         _solarSystemView.setPosition(info);
 
     }
