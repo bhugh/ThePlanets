@@ -116,7 +116,7 @@ class SolarSystemSettingsMenu extends WatchUi.Menu2 {
         changeModeOption[$.view_mode],changeMode_enum,{}));  
         */ 
 
-        Menu2.addItem(new WatchUi.ToggleMenuItem(WatchUi.loadResource($.Rez.Strings.sts) as String, null, resetDate_enum, false, null));
+        Menu2.addItem(new WatchUi.ToggleMenuItem(WatchUi.loadResource($.Rez.Strings.rst) as String, null, resetDate_enum, false, null));
         
         //deBug("1", []);
 

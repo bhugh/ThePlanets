@@ -277,7 +277,7 @@
 <entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\ThePlanets\\ThePlanets\\source\\planetsEclipticVSOP87a-pico.mc" id="33" lineNum="701" parent="globals" pc="268441531" symbol="getPluto"/>
 <entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\ThePlanets\\ThePlanets\\source\\planetsEclipticVSOP87a-pico.mc" id="33" lineNum="702" parent="globals" pc="268441565" symbol="getPluto"/>
 <entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\ThePlanets\\ThePlanets\\source\\planetsEclipticVSOP87a-pico.mc" id="33" lineNum="703" parent="globals" pc="268441584" symbol="getPluto"/>
-<entry filename="e:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\ThePlanets\\ThePlanets\\bin\\gen\\006-B4257-00\\source\\Rez.mcgen" id="34" lineNum="7" parent="globals/Rez" pc="268441604" symbol="&lt;init&gt;"/>
+<entry filename="e:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\ThePlanets\\ThePlanets\\bin\\gen\\006-B4376-00\\source\\Rez.mcgen" id="34" lineNum="7" parent="globals/Rez" pc="268441604" symbol="&lt;init&gt;"/>
 <entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\ThePlanets\\ThePlanets\\source\\functions.mc" id="35" lineNum="193" parent="globals" pc="268441624" symbol="obliquityEcliptic_deg"/>
 <entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\ThePlanets\\ThePlanets\\source\\functions.mc" id="35" lineNum="195" parent="globals" pc="268441635" symbol="obliquityEcliptic_deg"/>
 <entry filename="E:\\Data-Brent\\Garmin-App-Development\\SDK-examples\\ThePlanets\\ThePlanets\\source\\functions.mc" id="35" lineNum="197" parent="globals" pc="268441659" symbol="obliquityEcliptic_deg"/>
@@ -3552,7 +3552,7 @@
 <entry arg="true" endPc="268483773" name="dc" stackId="1" startPc="268483604"/>
 <entry endPc="268483772" name="offscreenBufferOptions" stackId="2" startPc="268483607"/>
 </localVars>
-<deviceInfo deviceVersion="4866e5192c0c99025597cd8e6e841f3d774b64f7" partNumber="006-B4257-00"/>
+<deviceInfo deviceVersion="4866e5192c0c99025597cd8e6e841f3d774b64f7" partNumber="006-B4376-00"/>
 <annotations>
 <annotationEntry annotation="initialized" class="Strings" module="globals/Rez" symbol="planets_Options1"/>
 <annotationEntry annotation="initialized" class="Drawables" module="globals/Rez" symbol="LauncherIcon"/>
