@@ -2435,7 +2435,7 @@ class SolarSystemBaseView extends WatchUi.View {
 
     function showDate(dc, date, time_nw, addTime_hrs ,xcent as Lang.float, ycent as Lang.float, incl_years, show, type){
         font = Graphics.FONT_TINY;
-        textHeight =  dc.getFontHeight(font);        
+        textHeight =  dc.getFontHeight(font) * 0.9; //slight squeeze of the text height        
         var justify = Graphics.TEXT_JUSTIFY_CENTER;
 
         dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);
@@ -2564,7 +2564,7 @@ class SolarSystemBaseView extends WatchUi.View {
 
         // #### SPEED ####
         //if (show && (sm_ret == 0 )) { //msg_ret ==0 means, don't show this when there is a special msg up
-        if (true) {
+        //if (true) {
             var sep = ">";
             
             //$.speeds = WatchUi.loadResource( $.Rez.JsonData.speeds) as Array;
@@ -2608,16 +2608,19 @@ class SolarSystemBaseView extends WatchUi.View {
             
             dc.drawText(xcent2, ycent2, font, sep + intvl + sep + modeInd , justify);
             //$.show_intvl = false;
-        }
+        //}
 
         //################## GPS LOCATION, if different from default
-        //if ($.Options_Dict[gpsOption_enum]) {
-            var p1 = lastLoc[0] > 0 ? "E" : "W";
-            var p2 = lastLoc[1] > 0 ? "N" : "S";          
-            var msg = lastLoc[0].abs().format("%.0f") + p1 + lastLoc[1].abs().format("%.0f") + p2;
-            //var msg = "hi";
-            dc.drawText(xcent2, ycent2 + textHeight, font, msg , justify);
-        //}
+
+        if (type ==:ecliptic_latlon) {
+            //if ($.Options_Dict[gpsOption_enum]) {
+                var p1 = lastLoc[0] > 0 ? "E" : "W";
+                var p2 = lastLoc[1] > 0 ? "N" : "S";          
+                var msg = lastLoc[0].abs().format("%.0f") + p1 + lastLoc[1].abs().format("%.0f") + p2;
+                //var msg = "hi";
+                dc.drawText(xcent2, ycent2 + textHeight, font, msg , justify);
+            //}
+        }
 
         
         /* else if ((15*$.hz).toNumber() < 2.0* $.hz) {
@@ -3423,7 +3426,8 @@ class SolarSystemBaseView extends WatchUi.View {
 
             //deBug("hor_ang_rad, final_adj, ECLIP_HOR, EH*sid, max_hor, min_hor, norm180: ", [Math.toDegrees(hor_ang_rad), final_adj_deg, Math.toDegrees(sunrise_events2[:ECLIP_HORIZON][1]),  Math.toDegrees(sunrise_events2[:ECLIP_HORIZON][1] * sidereal_to_solar), (max_hor_ang), (min_hor_ang), temp, temp]);
 
-            var refract_add = 0.5667;
+            //var refract_add = 0.5667;
+            var refract_add = 0.00989078087; //0.5667 deg in radians - this is the horizon correction for atmospheric refraction
             //var refract_add = - Math.toRadians(sunEventData[:SUNRISE]);//The horizon is set to -0.5667 degrees to account for refraction.  We';re setting :SUNRISE equal to :HORIZON (making sunrise at center of sun rather than very top as is customary)
             //So that is NOT accounted for in  sunrise_events2[:ECLIP_HORIZON][1] . . . but IS in the drawn ARC sun events.
             //Also, below is all in the garmin native graphics, 0,0 in top left corner, so 0 degree is 3 o'clock position but then positive degrees

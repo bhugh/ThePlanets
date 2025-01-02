@@ -73,6 +73,7 @@ function cleanUpSettingsOpt(){
     planetSizeOption = null;
     thetaOption = null;
     refreshOption = null;
+    allPlanets = null;
 
 }
 
@@ -93,6 +94,7 @@ class SolarSystemSettingsMenu extends WatchUi.Menu2 {
         labelDisplayOption = toArray(WatchUi.loadResource($.Rez.Strings.labelDisplayOption) as String,  "|", 0);
         refreshOption = toArray(WatchUi.loadResource($.Rez.Strings.refreshOption) as String,  "|", 0);
         thetaOption = toArray(WatchUi.loadResource($.Rez.Strings.thetaOption) as String,  "|", 0);planetSizeOption = toArray(WatchUi.loadResource($.Rez.Strings.planetSizeOption) as String,  "|", 0);planetsOption = toArray(WatchUi.loadResource($.Rez.Strings.planetsOption) as String,  "|", 0);
+        allPlanets = toArray(WatchUi.loadResource($.Rez.Strings.planets_Options1) as String,  "|", 0);
         //deBug("loadSettingsOpt finished",[]);
     }
 
@@ -334,8 +336,10 @@ class SolarSystemSettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
             //var index = $.Options_Dict[id] || 0;            
             //planetAbbreviation_index = (planetAbbreviation_index + 1) 
             //% allPlanets.size();
-            planetAbbreviation_index = (planetAbbreviation_index + 1) 
-            % (toArray(WatchUi.loadResource($.Rez.Strings.planets_Options1) as String,  "|", 0)).size();
+            //planetAbbreviation_index = (planetAbbreviation_index + 1) 
+            //% (toArray(WatchUi.loadResource($.Rez.Strings.planets_Options1) as String,  "|", 0)).size();
+
+            planetAbbreviation_index = (planetAbbreviation_index + 1)%20;
             
             var pA = getPlanetAbbreviation(planetAbbreviation_index);
             planetAbbreviation_index = pA[1];
@@ -538,7 +542,7 @@ function loadPlanetsOpt(){
 var planetAbbreviation_index = 0;
 // Function to generate planet abbreviation and name
 function getPlanetAbbreviation(index) {
-    loadPlanetsOpt();
+    //loadPlanetsOpt();
     if (index < allPlanets.size()) {
         while (allPlanets[index].equals("AsteroidA") || allPlanets[index].equals("AsteroidB") || allPlanets[index].equals("Sun")){
             index = (index + 1) % allPlanets.size();
@@ -547,7 +551,7 @@ function getPlanetAbbreviation(index) {
         return [planetName.substring(0, 2) + " " + planetName, index];
     }
     return ["", index];
-    allPlanets = null;
+    //allPlanets = null;
 }
 
 function makePlanetsOpt(val){
