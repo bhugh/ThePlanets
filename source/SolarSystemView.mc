@@ -2624,6 +2624,7 @@ class SolarSystemBaseView extends WatchUi.View {
                 var p1 = lastLoc[0] > 0 ? "E" : "W";
                 var p2 = lastLoc[1] > 0 ? "N" : "S";          
                 var msg = lastLoc[0].abs().format("%.0f") + p1 + lastLoc[1].abs().format("%.0f") + p2;
+                if (!$.Options_Dict[gpsOption_enum]) {msg = "**"+msg+"**";}
                 //var msg = "hi";
                 dc.drawText(xcent2, ycent2 + textHeight, font, msg , justify);
             //}
