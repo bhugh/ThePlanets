@@ -2445,14 +2445,18 @@ class SolarSystemBaseView extends WatchUi.View {
 
         //System.println("showDate" + show);
         var targTime_sec = (addTime_hrs*3600).toLong() + time_nw.value();
-        var xcent1  = xcent;  //speed or "stopped" location
-        var ycent1   = ycent -  1.5 *textHeight; //speed or "stopped" location
+        var xcent1  = xcent;  //date location
+        var ycent1   = ycent -  2 *textHeight; 
+         if( screenShape== System.SCREEN_SHAPE_SEMI_OCTAGON) {
+                //ycent1 = 0.26*ycent; //DATE in small circle upper right
+                xcent1 = .8*xcent; //Keep instinct etc from losing the yr under the small circle
+         }
         
         var xcent3   = xcent; //time location
-        var ycent3   = ycent - .5 * textHeight; //time location
+        var ycent3   = ycent - 1 * textHeight; //time location
 
         var xcent2   = xcent;  //speed or "stopped" location
-        var ycent2   = ycent + 0.5* textHeight; 
+        var ycent2   = ycent + 0 * textHeight; 
         
         if (type ==:orrery) {
             ycent1 = 0.1*textHeight;  //date & time top center
@@ -2542,12 +2546,15 @@ class SolarSystemBaseView extends WatchUi.View {
             // ##### DATE JULIAN VERSION FOR MANY YEARS PAST/FUTURE ####
             //var j2 = j2000Date (new_date_info.year, new_date_info.month, new_date_info.day, new_date_info.hour, new_date_info.min, 0, 0);
 
-            var targDate_days = j2000Date (new_date_info.year, new_date_info.month, new_date_info.day, new_date_info.hour, new_date_info.min, 0, 0) + addTime_hrs/24l;
+            var targDate_days = j2000Date ($.now_info.year, $.now_info.month, $.now_info.day,$.now_info.hour, $.now_info.min,$.now.timeZoneOffset/3600, $.now.dst) + addTime_hrs/24l; //So GREGORIAN malfunctions around 2100 or 2110 and similarly in the past; so we transition to using TODAY'S DATE together with the addTime.HRS instead, as Julian, around 2105 (& similarly in the past)
+
+            //var targDate_days = j2000Date (new_date_info.year, new_date_info.month, new_date_info.day, new_date_info.hour, new_date_info.min, 0, 0); //don't need to include addTime_hrs as it is already included in new_date_info.
             var targDate_years = (targDate_days/365.25d + 2000d).toFloat(); 
+            var jx = xcent3;
+            var jy = ycent3;
+            if (type == :orrery) {jx = xcent1; jy = ycent1;}
 
-
-
-            dc.drawText(xcent1, ycent1, font, targDate_years.format("%.2f"), justify);
+            dc.drawText(jx, jy, font, targDate_years.format("%.2f"), justify);
 
         }
         /*
