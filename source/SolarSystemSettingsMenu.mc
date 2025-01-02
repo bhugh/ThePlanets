@@ -62,6 +62,8 @@ var helpOption = [
 //var changeModeOption;
 var orrZoomOption,labelDisplayOption,planetsOption,planetSizeOption,thetaOption,refreshOption;
 var jumpToGPS=false;
+var _updatePositionNeeded = false;
+var _rereadGPSNeeded = false;
 
 function cleanUpSettingsOpt(){
     //changeModeOption = null;
@@ -260,9 +262,14 @@ class SolarSystemSettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
                 //$.jumpToGPS = true;                
                 //WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
                 
-
-                $.solarSystemView_class.setInitPosition();
-                Position.enableLocationEvents(Position.LOCATION_ONE_SHOT, method(:onPosition));
+                //instead of just doing this here, we wait until the MENU
+                //has closed, thus saving memory.  Also only read GPS
+                //again if really needed.
+                //We were having memory faults here when reading GPS with menu open
+                //GPS/position is inited in onupdate view, only when these flags are set
+                _updatePositionNeeded = true;
+                if (menuItem.isEnabled) {_rereadGPSNeeded = true;}
+                
 
                 //var settings_view = new $.SolarSystemSettingsView();
                 //var settings_delegate = new $.SolarSystemSettingsDelegate();
@@ -360,7 +367,8 @@ class SolarSystemSettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
             Storage.setValue(id as String, $.Options_Dict[id]); 
             //[ "5hz", "4hz", "3hz", "2hz", "1hz", "2/3hz", "1/2hz"];
             $.latlonOption_value[0] = $.Options_Dict[id];     
-            $.solarSystemView_class.setInitPosition();       
+            //$.solarSystemView_class.setInitPosition();       
+            _updatePositionNeeded = true;
         }
 
         if(id.equals(lonOption_enum)) {
@@ -371,7 +379,8 @@ class SolarSystemSettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
             Storage.setValue(id as String, $.Options_Dict[id]); 
             //[ "5hz", "4hz", "3hz", "2hz", "1hz", "2/3hz", "1/2hz"];
             $.latlonOption_value[1] = $.Options_Dict[id];  
-            $.solarSystemView_class.setInitPosition();          
+            //$.solarSystemView_class.setInitPosition();          
+            _updatePositionNeeded = true;
         }
 
 
@@ -498,11 +507,11 @@ class SolarSystemSettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
 
     //! Update the current position
     //! @param info Position information
-    public function onPosition(info as Info) as Void {
-        System.println("onPosition... count: " + $.count);
+   /* public function onPosition(info as Info) as Void {
+        //System.println("onPosition... count: " + $.count);
         solarSystemView_class.setPosition(info);
 
-    }
+    }*/
 
 
 }

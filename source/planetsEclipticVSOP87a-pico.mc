@@ -115,6 +115,12 @@ function fetch (now_info, timeZoneOffset_sec, dst, timeAdd_hrs, type, req_array)
 //https://github.com/gmiller123456/vsop87-multilang/blob/master/Languages/JavaScript/vsop87a_pico.js
 
 //class vsop87a_pico{
+    var fx as Lang.Float;
+    var fy as Lang.Float;
+    var fz as Lang.Float;
+    var fl as Lang.Float;
+    var ft2 as Lang.Float;
+    var fr as Lang.Float;
 
 
     var j2000= 2451543.5f; //epoch used for some calculations (Pluto) from Ioannis
@@ -184,7 +190,7 @@ function fetch (now_info, timeZoneOffset_sec, dst, timeAdd_hrs, type, req_array)
         //now we need Sun back at [0,0,0] and add earth as normal
 
         if (type == :helio_xyz) {
-            ret ["allPlanets[0]"] = [0,0,0];
+            ret [allPlanets[0]] = [0,0,0];
             ret.put(allPlanets[3], vspo_2_J2000(earth, earth, true, type));
         }
 
@@ -222,9 +228,9 @@ function fetch (now_info, timeZoneOffset_sec, dst, timeAdd_hrs, type, req_array)
     }
 
     if (type == :helio_xyz) {
-          var fx = tx.toFloat();
-          var fy = ty.toFloat();
-          var fz = tz.toFloat();
+          fx = tx.toFloat();
+          fy = ty.toFloat();
+          fz = tz.toFloat();
          return [fx,fy,fz];
       }
 
@@ -251,9 +257,9 @@ function fetch (now_info, timeZoneOffset_sec, dst, timeAdd_hrs, type, req_array)
     l = Math.toDegrees(l);
     t2 = Math.toDegrees(t2);
 
-    var fl = l.toFloat();
-    var ft2 = t2.toFloat();
-    var fr = r.toFloat();
+    fl = l.toFloat();
+    ft2 = t2.toFloat();
+    fr = r.toFloat();
     return [fl, ft2, fr];
 
     }

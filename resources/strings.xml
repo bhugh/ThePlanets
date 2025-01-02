@@ -22,7 +22,7 @@
 <!-- var labelDisplayOption=[ "Always On", "Always Off", "Frequent Flash", "Infrequent Flash", "Random Flash"]; -->
 <string id="labelDisplayOption">Always On|Always Off|Frequent Flash|Infrequent Flash|Random Flash</string>
 <string id="refreshOption">10 per sec.|5 per sec.|4 per sec.| 3 per sec.|2 per sec.</string>
-<string id="thetaOption">[T]ime Step|[V]iewpoint (Both Up&amp;Rotate)|[U]p/Down Viewpoint|[R]otate Viewpoint</string>
+<string id="thetaOption">[T]ime Step|[V]iew (Up&amp;Rotate)|[U]p/Down Viewpoint|[R]otate Viewpoint</string>
 <string id="planetSizeOption">XX Small|Very Small|Small|Normal|Large|Very Large|XXLarge</string>
 <string id="planetsOption">All objects|Only trad. planets|Only Dwarf Planets/Asteroids</string>
 <string id="introMessages">THE PLANETS|UP/DOWN/SWIPE:|Time Forward|/Back|UP/DOWN/SWIPE:|OR: Time Faster|/Slower|SELECT/TAP|Start/Stop|Time|BACK:|Change Modes|or Exit|MENU:|Change Options, Help|or Reset Time</string>

@@ -172,7 +172,7 @@ class SolarSystemBaseView extends WatchUi.View {
         //System.println("Memory: " + myStats.totalMemory + " " + myStats.usedMemory + " " + myStats.freeMemory );
         //System.exit();
 
-        var now2 = System.getClockTime();
+        //var now2 = System.getClockTime();
         //System.println ("AnimTimer:" 
         //    +  now2.hour.format("%02d") + ":" +
         //    now2.min.format("%02d") + ":" +
@@ -251,22 +251,32 @@ class SolarSystemBaseView extends WatchUi.View {
 
     //! Handle view being hidden
     public function onHide() as Void {
-        System.println ("onHide:" 
-            +  $.now.hour.format("%02d") + ":" +
-            $.now.min.format("%02d") + ":" +
-            $.now.sec.format("%02d"));
+        //System.println ("onHide:" 
+        //    +  $.now.hour.format("%02d") + ":" +
+        //    $.now.min.format("%02d") + ":" +
+        //    $.now.sec.format("%02d"));
         $.save_started = $.started;
         $.started = false;
+        pp=null;
+        pp_sun = null;
+        kys =  null;
+        keys = null;
+        srs = null;
+        sunrise_events  = null;
+        //whh = null;
+        //whh_sun = null;
+        //g = null;
+        spots_rect = null;
         
 
     }
 
     //! Restore the state of the app and prepare the view to be shown
     public function onShow() as Void {
-        System.println ("onShow:" 
-            +  $.now.hour.format("%02d") + ":" +
-            $.now.min.format("%02d") + ":" +
-            $.now.sec.format("%02d"));
+        //System.println ("onShow:" 
+        //    +  $.now.hour.format("%02d") + ":" +
+        //    $.now.min.format("%02d") + ":" +
+        //    $.now.sec.format("%02d"));
         $.started = $.save_started != null ? $.save_started : true;
         if ($.reset_date_stop) {$.started = false;} // after a Date Reset we STOP at that moment until user wants to start.
         timeWasAdded = true;
@@ -554,6 +564,14 @@ class SolarSystemBaseView extends WatchUi.View {
         //System.println("count: " + count + "angles: " + the_rad + " " + ga_rad + " timeadd: " + time_add_hrs + " speeds: " + $.speeds_index + " started:" + started + " animation count: " +  $.animation_count + " messageuntil: " + $.message_until + " ");
 
         //        System.println("started: " + $.started + " run_oneTime" + $.run_oneTime + + " run_once" + ($.now.sec==0) + " stoppingcompleted " + stopping_completed + " viewmode: " + $.view_mode + " timewasadded: " + $.timeWasAdded + " buttonpresses:" + $.buttonPresses + " animation count: " +  $.animation_count + " messageuntil: " + $.message_until + " ");
+        if (_updatePositionNeeded) {
+            $.solarSystemView_class.setInitPosition();
+        }
+        if (_rereadGPSNeeded ) {
+            Position.enableLocationEvents(Position.LOCATION_ONE_SHOT, method(:setPosition));
+        }
+        _updatePositionNeeded = false; 
+        _rereadGPSNeeded = false;
 
         $.run_oneTime = false;
         $.time_now = Time.now();
@@ -795,7 +813,7 @@ class SolarSystemBaseView extends WatchUi.View {
         */
     }
 
-    var r, whh_sun, vspo_rep, font, srs, sunrise_events, sunrise_events2, pp, pp2, pp_sun, moon_info, moon_info2, moon_info3, moon_info4, elp82, sun_info3,keys, now, sid, x as Lang.float, y as Lang.float, y0 as Lang.float,  z0 as Lang.float, x2 as Lang.float, y2 as Lang.float;
+    var r, vspo_rep, font, srs, sunrise_events, sunrise_events2, pp, pp2, pp_sun, moon_info, moon_info2, moon_info3, moon_info4, elp82, sun_info3,keys, now, sid, x as Lang.float, y as Lang.float;
     var ang_deg as Lang.float, ang_rad as Lang.float, size as Lang.float, mult as Lang.float, sub, key, key1, textHeight, kys, add_duration as Lang.float, col;
     var sun_adj_deg as Lang.float, hour_adj_deg as Lang.float,final_adj_deg as Lang.float, final_adj_rad as Lang.float, noon_adj_hrs as Lang.float, noon_adj_deg as Lang.float, moon_age_deg as Lang.float;
     var input, LORR_horizon_line_drawn as Lang.boolean;
@@ -1030,7 +1048,7 @@ class SolarSystemBaseView extends WatchUi.View {
 
         //planetnames = ["Mercury","Venus","Earth","Mars","Jupiter","Saturn","Uranus","Neptune","Pluto","Ceres","Chiron","Eris"];
         
-        whh_sun  = ["Sun"];
+        //whh_sun  = ["Sun"];
         loadPlanetsOpt();
         //whh = ["Sun", "Moon", "Mercury","Venus","Mars","Jupiter","Saturn"];
         //whh = whh0;
@@ -1379,7 +1397,7 @@ class SolarSystemBaseView extends WatchUi.View {
         sunrise_events  = null;
         sunrise_events2 = null;
         whh = null;
-        whh_sun = null;
+        //whh_sun = null;
         spots = null;
 
         if ($.show_intvl < 5 * $.hz && $.view_mode != 0) {
@@ -1396,11 +1414,19 @@ class SolarSystemBaseView extends WatchUi.View {
     var x1, y1;
 
     var scale = 1;
+    var mcob as Lang.Float;
+    var msob as Lang.Float;
+    var mcgr as Lang.Float;
+    var msgr as Lang.Float;
+    var mctr as Lang.Float;
+    var mstr as Lang.Float;
+    var x0, z0, y0, x2, y2, z2 as Lang.Float;
     
     //big_small = 0 for small (selectio nof visible planets) & 1 for big (all planets)
     public function largeOrrery(dc, big_small) {
          //deBug("RDSWC2: ", allPlanets);
          var zoom_whh, whh;
+         
          // Set background color
          $.orreryDraws++;
 
@@ -1703,12 +1729,12 @@ class SolarSystemBaseView extends WatchUi.View {
 
             var oblecl = Math.toRadians(calc_obliq_deg ($.now_info, $.now));
             
-            var mcob = Math.cos(oblecl);
-            var msob = Math.sin(oblecl);
-            var mcgr = Math.cos(ga_rad);
-            var msgr = Math.sin(ga_rad);
-            var mctr = Math.cos(the_rad);
-            var mstr = Math.sin(the_rad);
+            mcob = Math.cos(oblecl);
+            msob = Math.sin(oblecl);
+            mcgr = Math.cos(ga_rad);
+            msgr = Math.sin(ga_rad);
+            mctr = Math.cos(the_rad);
+            mstr = Math.sin(the_rad);
 
             //var min_z = 10000000.0f;
             //var max_z = -10000000.0f;
@@ -1747,9 +1773,9 @@ class SolarSystemBaseView extends WatchUi.View {
                 var z2 = y1 *mstr + pp[key][2] * mctr;
                 //y2 = y1;
                 //var pers_fact = (5*mx + (z2+ mx)/2)/6.0/mx;
-                pp[key][0] = x1;// *pers_fact;
-                pp[key][1] = y2;// * pers_fact; // * pers_fact;
-                pp[key][2] = z2;  
+                pp[key][0] = (x1).toFloat();// *pers_fact;
+                pp[key][1] = (y2).toFloat();// * pers_fact; // * pers_fact;
+                pp[key][2] = (z2).toFloat();  
                 //var z_sort = (Math.floor(z2 * 50).toNumber()) + 500;
                 //if (z_sort>1000) {z_sort=1000;}
                 //if (z_sort<0) {z_sort=0;}
@@ -1995,8 +2021,8 @@ class SolarSystemBaseView extends WatchUi.View {
         keys = null;
         srs = null;
         sunrise_events  = null;
-        whh = null;
-        whh_sun = null;
+        //whh = null;
+        //whh_sun = null;
         //g = null;
         spots_rect = null;
 
@@ -2483,7 +2509,7 @@ class SolarSystemBaseView extends WatchUi.View {
         //if (!started) {addStop = "s";}
 
         var modeInd = "";
-        if (type ==:orrery) {modeInd = $.Options_Dict[thetaOption_enum] == 0 ? " [T]" : " [V]" ;}
+        if (type ==:orrery) {modeInd = (WatchUi.loadResource( $.Rez.JsonData.butts) as Array)[$.Options_Dict[thetaOption_enum]];}
 
         if (addTime_hrs < 700000 && addTime_hrs > -500000)// && type != :orrery) {
             {
