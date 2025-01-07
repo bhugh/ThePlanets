@@ -146,6 +146,7 @@ function calculateEphemerisPosition(epoch, ec, qr, jd, om, w, rest) {
         return [x_ecliptic, y_ecliptic, z_ecliptic];
     }
 
+/*
 
 function testEph (){
 //# Orbital elements for Ceres (example data provided in the prompt)
@@ -172,3 +173,4 @@ var xyz = calculateEphemerisPosition(epoch, ec, qr, JD1, om, w, [inc, a, ma, N])
 
 deBug("Ceres Heliocentric Coordinates (x, y, z)", [xyz, JD1]);
 }
+*/

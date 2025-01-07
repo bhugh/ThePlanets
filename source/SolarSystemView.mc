@@ -1433,10 +1433,10 @@ class SolarSystemBaseView extends WatchUi.View {
          // Set background color
          $.orreryDraws++;
 
-         pp = planetCoord ($.now_info, $.now.timeZoneOffset, $.now.dst, 0, :ecliptic_latlon, makePlanetsOpt(3));
+         //pp = planetCoord ($.now_info, $.now.timeZoneOffset, $.now.dst, 0, :ecliptic_latlon, makePlanetsOpt(3));
 
-         deBug("PP" , pp);
-         pp = null;        
+         //deBug("PP" , pp);
+         //pp = null;        
 
 
         
@@ -1458,8 +1458,8 @@ class SolarSystemBaseView extends WatchUi.View {
             //var ga_rad_alt = Math.PI/2.0 - (Math.toRadians(sunrise_events2[:LMST_NOW_HR][0]*15.0));
             ga_rad = Math.PI  + Math.toRadians(pp["Sun"][0]) - (Math.toRadians(sunrise_events2[:LMST_NOW_HR][0]*15.0));
 
-            deBug("horizon adjust: ",[pp, sun_adj_deg, hour_adj_deg, Math.toDegrees(ga_rad), sunrise_events2] );
-            deBug("horizon adjust2: ",[ga_rad, ga_rad_alt, ga_rad_alt-ga_rad, Math.toDegrees(ga_rad),  Math.toDegrees(ga_rad_alt)]);
+            //deBug("horizon adjust: ",[pp, sun_adj_deg, hour_adj_deg, Math.toDegrees(ga_rad), sunrise_events2] );
+            //deBug("horizon adjust2: ",[ga_rad, ga_rad_alt, ga_rad_alt-ga_rad, Math.toDegrees(ga_rad),  Math.toDegrees(ga_rad_alt)]);
 
             sunrise_events2=null;
           
@@ -1495,7 +1495,7 @@ class SolarSystemBaseView extends WatchUi.View {
               //lmst is UP when ga_rad = 0.
               //ga_rad has rotated the entire graph, so now UP ga_rad + LMST
               up_dir_rad =  +Math.PI/2.0  + Math.toRadians(pp["Sun"][0]) - Math.toRadians(lmst_now_deg) - ga_rad;
-              deBug("updirrad", [up_dir_rad, gmst_now_deg, lmst_now_deg, Math.toDegrees(ga_rad), Math.toDegrees(up_dir_rad)]);
+              //deBug("updirrad", [up_dir_rad, gmst_now_deg, lmst_now_deg, Math.toDegrees(ga_rad), Math.toDegrees(up_dir_rad)]);
         }
 
         //ga_rad = 0;
@@ -1520,7 +1520,7 @@ class SolarSystemBaseView extends WatchUi.View {
         //getMessage();
 
         
-        deBug("horizon adjust2", ga_rad);
+        //deBug("horizon adjust2", ga_rad);
 
         //setPosition(Position.getInfo());
         //xc = dc.getWidth() / 2;

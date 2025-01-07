@@ -133,7 +133,7 @@ function fetch (now_info, timeZoneOffset_sec, dst, timeAdd_hrs, type, req_array)
         var JD1 = julianDate (now_info.year, now_info.month, now_info.day,now_info.hour, now_info.min, timeZoneOffset_sec/3600d, dst);
         var JD = JD1 + timeAdd_hrs/24.0d;
 
-        deBug("JD", [JD1, JD]);
+        //deBug("JD", [JD1, JD]);
 
         var t=(JD - 2451545.0d) / 365250.0d;
 
@@ -710,7 +710,7 @@ function fetch (now_info, timeZoneOffset_sec, dst, timeAdd_hrs, type, req_array)
         var z = r_pl * Math.sin(lat2_pl);
         return [x, y, z];
    }
-   
+
    public function getEris (d){
         /*
            //A ERIS epoch  2456400.5f 2013-apr-18.0f   j2000= 2451543.5f;

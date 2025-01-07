@@ -305,7 +305,7 @@ class sunRiseSet_cache2{
         var lmst_now_hr = normalize((gmst_now_deg - lon_deg)) / 15.0;
         ret.put(:GMST_NOW_HR, [gmst_now_deg/15.0]);
         ret.put(:LMST_NOW_HR, [lmst_now_hr]);
-        deBug("GNMST_MID_HR, GNMST_NOW_HR, LMST_HR, JD: ", [gmst_mid_deg, gmst_now_deg, lmst_now_hr*15.0, lon_deg, jd]);
+        //deBug("GNMST_MID_HR, GNMST_NOW_HR, LMST_HR, JD: ", [gmst_mid_deg, gmst_now_deg, lmst_now_hr*15.0, lon_deg, jd]);
 
         var tz_add = (timeZoneOffset_sec/3600.0f) + dst;
         //ret.put (:NOON,  constrain(transit_GMT_toeclip_day + tz_add/24.0) * 24.0);
