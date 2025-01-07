@@ -276,6 +276,7 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
                 else { 
                     ga_rad += mult * Math.PI/18.0;
                     $.LORR_show_horizon_line = false; //we have to reset the horizon line here bec the view has been rotated
+                    $.LORR_view_rotated = true;
                     //deBug("HI MOM2!", []);
                 }
             } else if (od ==2) {                //both = vertical

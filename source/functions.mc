@@ -281,6 +281,7 @@ import Toybox.Lang;
     }
 
 
+/*
 
     function Planet_Sun(M, e, a, N, w, i) {
         /*
@@ -292,6 +293,7 @@ import Toybox.Lang;
             
         */
 
+/*
         var M2=Math.toRadians(M);
         var E0=M + (180/Math.PI)*e*Math.sin(M2)*(1+e*Math.cos(M2));
         E0=normalize(E0) ;
@@ -317,6 +319,8 @@ import Toybox.Lang;
         return [xeclip,yeclip,zeclip,long2,lat2,r];
 
     }
+
+    */
 
 /*
 

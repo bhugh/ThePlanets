@@ -133,6 +133,8 @@ function fetch (now_info, timeZoneOffset_sec, dst, timeAdd_hrs, type, req_array)
         var JD1 = julianDate (now_info.year, now_info.month, now_info.day,now_info.hour, now_info.min, timeZoneOffset_sec/3600d, dst);
         var JD = JD1 + timeAdd_hrs/24.0d;
 
+        deBug("JD", [JD1, JD]);
+
         var t=(JD - 2451545.0d) / 365250.0d;
 
         //var j2000= 2451543.5f;
@@ -178,6 +180,8 @@ function fetch (now_info, timeZoneOffset_sec, dst, timeAdd_hrs, type, req_array)
             if (sin (allPlanets[15],vhh)) {ret.put (allPlanets[15], vspo_2_J2000(getEris(JD), earth, false, type));}
             if (sin (allPlanets[14],vhh)) {ret.put (allPlanets[14], vspo_2_J2000(getChiron(JD), earth, false, type));}
             if (sin (allPlanets[13],vhh)) {ret.put (allPlanets[13], vspo_2_J2000(getCeres(JD), earth, false, type));}
+
+            //if (sin (allPlanets[13],vhh)) {ret.put (allPlanets[13], getCeres(JD));}
             
             if (sin (allPlanets[16],vhh)) {ret.put (allPlanets[16], vspo_2_J2000(getGonggong(JD), earth, false, type));}
             if (sin (allPlanets[17],vhh)) {ret.put (allPlanets[17], vspo_2_J2000(getQuaoar(JD), earth, false, type));}
@@ -213,7 +217,11 @@ function fetch (now_info, timeZoneOffset_sec, dst, timeAdd_hrs, type, req_array)
        if (type == :ecliptic_latlon) { 
          x = input[0] - earth[0];
          y = input [1]- earth[1];
-         z = input [2]- earth[2];
+         z = input [2]- earth[2]; 
+
+         /*x = -input[0] +earth[0];
+         y = -input [1]+ earth[1];
+         z = -input [2]+earth[2];*/
        }
 
        var tx = x;
@@ -702,6 +710,7 @@ function fetch (now_info, timeZoneOffset_sec, dst, timeAdd_hrs, type, req_array)
         var z = r_pl * Math.sin(lat2_pl);
         return [x, y, z];
    }
+   
    public function getEris (d){
         /*
            //A ERIS epoch  2456400.5f 2013-apr-18.0f   j2000= 2451543.5f;
@@ -720,28 +729,32 @@ function fetch (now_info, timeZoneOffset_sec, dst, timeAdd_hrs, type, req_array)
         var EC= .441713222152167f;
         var QR= 37.76778537485207f;   
         //var TP= 2545579.0049365791f;      
-        //var OM= 35.87796152910861f;   
+        var OM= 35.87796152910861f;   
         var W=  151.5251501002852f;   
         var IN= 44.2037909086797f;  
         var  A= 67.6494355113423f;  
         var  MA= 204.8595058015323f;  
         var  N= .001771364f;
 
-        var newE = randomizeOrbit ("Eris", EC, QR, W, IN, A, MA, d);
+        //var newE = randomizeOrbit ("Eris", EC, QR, W, IN, A, MA, d);
 
-        var d_new= d - EPOCH;
-        var M = MA + N * d_new;
+        //var d_new= d - EPOCH;
+        //var M = MA + N * d_new;
         
-        M=normalize(M);
+        //M=normalize(M);
 
-        var ret = Planet_Sun(M, newE[:EC], newE[:A], newE[:QR], newE[:W], newE[:IN]);
-        $.storLastR ["Eris"] = Math.sqrt(ret[0]*ret[0] + ret[1]*ret[1] + ret[2]*ret[2]);
+        //var ret = Planet_Sun(M, newE[:EC], newE[:A], newE[:QR], newE[:W], newE[:IN]);
+        //$.storLastR ["Eris"] = Math.sqrt(ret[0]*ret[0] + ret[1]*ret[1] + ret[2]*ret[2]);
         //System.println("XYZ: " + ret[0] + " " + ret[1] + " " + ret[2]);
-        return ret;
+
+        var ret5 = calculateEphemerisPosition(EPOCH, EC, QR, d, OM, W, [IN, A, MA, N]);
+        return ret5;
 
    }
    public function getCeres (d){
+     
      /*
+       
            var ddd = d + 2451543.5 - 2455400.5;
         
         var N_ce=80.39319901972638  + 1.1593E-5 *ddd;
@@ -750,35 +763,60 @@ function fetch (now_info, timeZoneOffset_sec, dst, timeAdd_hrs, type, req_array)
         var a_ce=2.765348506018043 ;
         var e_ce=0.07913825487621974 + 1.8987E-8*ddd;
         var M_ce=113.4104433863731   + 0.21408169952325  * ddd ;
+
+        M_ce = normalize(M_ce);
         */
+
+        
+        
  
-        var EPOCH=  2458849.5f;
+        var EPOCH=  2458849.5d;
      
-        var EC= .07687465013145245f;  
-        var QR= 2.556401146697176f;   
+        var EC= .07687465013145245f; //ecc e0 
+        var QR= 2.556401146697176f;   //perihelion distance/periapsis distance
         //var TP= 2458240.1791309435f;
-        //var OM= 80.3011901917491f;    
-        var W=  73.80896808746482f;   
-        var IN= 10.59127767086216f;
-        var A= 2.769289292143484f;    
-        var MA= 130.3159688200986f;   
+        var OM= 80.3011901917491f;    //long of ascending node omega
+        var W=  73.80896808746482f;   //longitude perihelio W argument of the periapsis?
+        var IN= 10.59127767086216f;   //inclination I
+        var A= 2.769289292143484f;    //A semimajor axis
+        var MA= 130.3159688200986f;   //Mean anomoly
         //var ADIST= 2.982177437589792f;
         //var  PER= 4.60851f;
         var N= .213870844f;
 
-        var newE = randomizeOrbit ("Ceres", EC, QR, W, IN, A, MA, d);
+        //var newE = randomizeOrbit ("Ceres", EC, QR, W, IN, A, MA, d);
 
 
 
-        var d_new= d - EPOCH;
-        var M = MA + N * d_new;
+        //var d_new= d - EPOCH;
+        //var M = MA + N * d_new;
         
-        M=normalize(M);
+        //M=normalize(M);
 
-        var ret = Planet_Sun(M, newE[:EC], newE[:A], newE[:QR], newE[:W], newE[:IN]);
-        $.storLastR ["Ceres"] = Math.sqrt(ret[0]*ret[0] + ret[1]*ret[1] + ret[2]*ret[2]);
+        //var ret = Planet_Sun(M, newE[:EC], newE[:A], newE[:QR], newE[:W], newE[:IN]);
+        //$.storLastR ["Ceres"] = Math.sqrt(ret[0]*ret[0] + ret[1]*ret[1] + ret[2]*ret[2]);
+
+        //function Planet_Sun(M, e, a, N, w, i) \
+
+        //var ret = Planet_Sun (M, EC, A, OM, W, IN);
+
+        //var ret2 = calculatePosition(EPOCH, EC, QR, OM, W, IN, A, MA, N, d);
+        //deBug("RES", ret2);
+        //deBug("RES1", ret);
+
+
+        //var ret3 = Planet_Sun(M_ce, e_ce, a_ce, N_ce, w_ce, i_ce);
+
+        //var ret4 = 
+
+        //deBug("RES3", ret3);
+        
         //System.println("XYZ: " + ret[0] + " " + ret[1] + " " + ret[2]);
-        return ret;
+
+        var ret5 = calculateEphemerisPosition(EPOCH, EC, QR, d, OM, W, [IN, A, MA, N]);
+         //deBug("RES3", ret5);
+        //testEph();
+        return ret5;
 
    }
 
@@ -789,7 +827,7 @@ function fetch (now_info, timeZoneOffset_sec, dst, timeAdd_hrs, type, req_array)
       var EC= .3827260124508142f;   
       var QR= 8.418796919952825f;   
       //var TP= 2450138.5315822391f;
-      //var OM= 209.2210850370517f;   
+      var OM= 209.2210850370517f;   
       var W=  339.5128645055728f;   
       var IN= 6.946297035265285f;
       var A= 13.63867114079872f;
@@ -798,21 +836,24 @@ function fetch (now_info, timeZoneOffset_sec, dst, timeAdd_hrs, type, req_array)
       //var PER= 50.36934f; 
       var N= .01956798f;
 
-      var newE = randomizeOrbit ("Chiron", EC, QR, W, IN, A, MA, d);
+      //var newE = randomizeOrbit ("Chiron", EC, QR, W, IN, A, MA, d);
 
 
 
-        var d_new= d - EPOCH;
-        var M = MA + N * d_new;
+        //var d_new= d - EPOCH;
+        //var M = MA + N * d_new;
         
-        M=normalize(M);
+        //M=normalize(M);
 
         //return Planet_Sun(M, EC, A, QR, W, IN);
 
-        var ret = Planet_Sun(M, newE[:EC], newE[:A], newE[:QR], newE[:W], newE[:IN]);
-        $.storLastR ["Chiron"] = Math.sqrt(ret[0]*ret[0] + ret[1]*ret[1] + ret[2]*ret[2]);
+        //var ret = Planet_Sun(M, newE[:EC], newE[:A], newE[:QR], newE[:W], newE[:IN]);
+        //$.storLastR ["Chiron"] = Math.sqrt(ret[0]*ret[0] + ret[1]*ret[1] + ret[2]*ret[2]);
         //System.println("XYZ: " + ret[0] + " " + ret[1] + " " + ret[2]);
-        return ret;
+        //return ret;
+
+        var ret5 = calculateEphemerisPosition(EPOCH, EC, QR, d, OM, W, [IN, A, MA, N]);
+        return ret5;
 
    }
   public function getGonggong(d){
@@ -823,7 +864,7 @@ function fetch (now_info, timeZoneOffset_sec, dst, timeAdd_hrs, type, req_array)
      var EC= .505928166740521f;
      var     QR= 33.17018711494477f;
      //var   TP= 2399628.8293997725f;
-     //var   OM= 336.8249678431149f;
+     var   OM= 336.8249678431149f;
      var    W=  207.173549840275f;
      var     IN= 30.87334176604489f;
      var    A= 67.1363653663784f;
@@ -831,6 +872,7 @@ function fetch (now_info, timeZoneOffset_sec, dst, timeAdd_hrs, type, req_array)
      //       ADIST= 101.102543617812   PER= 550.10417          
      var N= .001791708f;
 
+/*
      var newE = randomizeOrbit ("Gonggong", EC, QR, W, IN, A, MA, d);
 
         var d_new= d - EPOCH;
@@ -842,19 +884,23 @@ function fetch (now_info, timeZoneOffset_sec, dst, timeAdd_hrs, type, req_array)
         $.storLastR ["Gonggong"] = Math.sqrt(ret[0]*ret[0] + ret[1]*ret[1] + ret[2]*ret[2]);
         //System.println("XYZ: " + ret[0] + " " + ret[1] + " " + ret[2]);
         return ret;
+        */
+
+        var ret5 = calculateEphemerisPosition(EPOCH, EC, QR, d, OM, W, [IN, A, MA, N]);
+        return ret5;
   } 
 
   //Quaoar
   public function getQuaoar(d){
 
       //225088 Gonggong (2007 OR10)
-      var name = "Quaoar";
+      //var name = "Quaoar";
 
       var EPOCH=  2459800.5f; // ! 2022-Aug-09.00 (TDB)         Residual RMS= .21356
       var EC= .04098702510897952f;
       var QR= 41.69021570747672f; 
       //var TP= 2478347.5347988536f;
-      //var OM= 189.0902949942479f; 
+      var OM= 189.0902949942479f; 
       var W=  155.214428533145f;  
       var IN= 7.991232171849933f;
       var A= 43.47200381956696f;
@@ -862,6 +908,8 @@ function fetch (now_info, timeZoneOffset_sec, dst, timeAdd_hrs, type, req_array)
       //var ADIST= 45.25379193165721
       //var PER= 286.63069          
       var N= .003438663f;
+
+      /*
 
       var newE = randomizeOrbit (name, EC, QR, W, IN, A, MA, d);
 
@@ -874,6 +922,10 @@ function fetch (now_info, timeZoneOffset_sec, dst, timeAdd_hrs, type, req_array)
          $.storLastR [name] = Math.sqrt(ret[0]*ret[0] + ret[1]*ret[1] + ret[2]*ret[2]);
          //System.println("XYZ: " + ret[0] + " " + ret[1] + " " + ret[2]);
          return ret;
+         */
+
+        var ret5 = calculateEphemerisPosition(EPOCH, EC, QR, d, OM, W, [IN, A, MA, N]);
+        return ret5;
   } 
 
   public function getMakemake(d){
@@ -885,7 +937,7 @@ function fetch (now_info, timeZoneOffset_sec, dst, timeAdd_hrs, type, req_array)
      var EC= .1549341371192079f;
      var QR= 38.62074545461233f; 
      //var TP= 2407473.3048103042f;
-     //var OM= 79.60071323640928f;   
+     var OM= 79.60071323640928f;   
      var W=  295.8277253622994f;  
      var IN= 28.98514685760906f;
      var A= 45.70146204102473f;    
@@ -894,6 +946,7 @@ function fetch (now_info, timeZoneOffset_sec, dst, timeAdd_hrs, type, req_array)
       
      var N= .003190134f;
 
+      /*
      var newE = randomizeOrbit ("Makemake", EC, QR, W, IN, A, MA, d);
 
         var d_new= d - EPOCH;
@@ -901,10 +954,15 @@ function fetch (now_info, timeZoneOffset_sec, dst, timeAdd_hrs, type, req_array)
         
         M=normalize(M);
 
-        var ret = Planet_Sun(M, newE[:EC], newE[:A], newE[:QR], newE[:W], newE[:IN]);
-        $.storLastR ["Makemake"] = Math.sqrt(ret[0]*ret[0] + ret[1]*ret[1] + ret[2]*ret[2]);
+        //var ret = Planet_Sun(M, newE[:EC], newE[:A], newE[:QR], newE[:W], newE[:IN]);
+        //$.storLastR ["Makemake"] = Math.sqrt(ret[0]*ret[0] + ret[1]*ret[1] + ret[2]*ret[2]);
         //System.println("XYZ: " + ret[0] + " " + ret[1] + " " + ret[2]);
-        return ret;
+
+        */
+
+        var ret5 = calculateEphemerisPosition(EPOCH, EC, QR, d, OM, W, [IN, A, MA, N]);
+        return ret5;
+        //return ret;
   } 
 
     public function getHaumea(d){
@@ -913,7 +971,7 @@ function fetch (now_info, timeZoneOffset_sec, dst, timeAdd_hrs, type, req_array)
          var EC= .1890800327846289f; 
          var QR= 35.14667962719495f;  
          //var TP= 2500383.7360014333f;
-        //var OM= 121.8932402833152f ;  
+        var OM= 121.8932402833152f ;  
         var W=  239.2598062405985f;   
         var IN= 28.1988605373753f;
         var A= 43.34173660550696f;   
@@ -921,7 +979,7 @@ function fetch (now_info, timeZoneOffset_sec, dst, timeAdd_hrs, type, req_array)
         //var ADIST= 51.53679358381897;
         var N= .003454177f;
 
-
+/*
      var newE = randomizeOrbit ("Haumea", EC, QR, W, IN, A, MA, d);
 
         var d_new= d - EPOCH;
@@ -929,10 +987,15 @@ function fetch (now_info, timeZoneOffset_sec, dst, timeAdd_hrs, type, req_array)
         
         M=normalize(M);
 
+      
         var ret = Planet_Sun(M, newE[:EC], newE[:A], newE[:QR], newE[:W], newE[:IN]);
         $.storLastR ["Haumea"] = Math.sqrt(ret[0]*ret[0] + ret[1]*ret[1] + ret[2]*ret[2]);
         //System.println("XYZ: " + ret[0] + " " + ret[1] + " " + ret[2]);
         return ret;
+        */
+
+        var ret5 = calculateEphemerisPosition(EPOCH, EC, QR, d, OM, W, [IN, A, MA, N]);
+        return ret5;
   } 
 
   //Next to add probably Sedna & Orcus
@@ -950,6 +1013,8 @@ function fetch (now_info, timeZoneOffset_sec, dst, timeAdd_hrs, type, req_array)
                         :MA => MA,
                         :lastD => d,
                     };
+
+         return pRet;                    
         if ($.animSinceModeChange <= 1 ) {
             $.storRand.put(name, pRet);
             return pRet;    
@@ -984,6 +1049,8 @@ function fetch (now_info, timeZoneOffset_sec, dst, timeAdd_hrs, type, req_array)
         ret.put(:A, (pRet[:A] + ((Math.rand()%(2*rFact)-rFact) * QR * eTime/3650 * QR/lastR*A)/div).toFloat());
         ret.put(:MA, (pRet[:MA] + ((Math.rand()%(2*rFact)-rFact) * QR * eTime/3650 * QR/lastR*A)/div).toFloat());
         ret.put(:lastD, (d).toFloat());
+
+
 
         if (ret[:EC] > 1) {ret[:EC]=1;}
         if (ret[:EC] < 0) {ret[:EC]=0;}

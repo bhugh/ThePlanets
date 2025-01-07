@@ -554,6 +554,8 @@ function getPlanetAbbreviation(index) {
     //allPlanets = null;
 }
 
+//as in Settings, 2 dwarf planets only ( plus a few extra like earth, moon, mercury to round it out)
+//1 is traditional planets only; 0 is ALL.
 function makePlanetsOpt(val){
     //deBug("mpo: ", allPlanets);
     //deBug("mpo2: ", [val, planetsOption_value]);

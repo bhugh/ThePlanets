@@ -18,8 +18,10 @@ var now, time_now, now_info;
 
 var the_rad = 0; //angles to rotate, theta & gamma
 var ga_rad = 0 ;
+var up_dir_rad = null;
 var LORR_orient_horizon = true;
 var LORR_show_horizon_line = true;
+var LORR_view_rotated = false;
 var LORR_oh_save_time_add_hrs = 0.158348;
 var LORR_oh_save_ga_rad = 25.158348;
 var obliq_deg;
@@ -282,6 +284,7 @@ class SolarSystemBaseView extends WatchUi.View {
         timeWasAdded = true;
         settings_view = null;
         settings_delegate = null;
+        $.run_oneTime = true;
         startAnimationTimer($.hz);
 
     }
@@ -1430,12 +1433,17 @@ class SolarSystemBaseView extends WatchUi.View {
          // Set background color
          $.orreryDraws++;
 
+         pp = planetCoord ($.now_info, $.now.timeZoneOffset, $.now.dst, 0, :ecliptic_latlon, makePlanetsOpt(3));
+
+         deBug("PP" , pp);
+         pp = null;        
+
 
         
         /*if (LORR_orient_horizon || 
             ((LORR_oh_save_time_add_hrs - time_add_hrs).toNumber()%24 == 0 ) 
               && LORR_oh_save_ga_rad == ga_rad) {*/
-
+        up_dir_rad = null;
         if (LORR_orient_horizon)
         {
             //tells large_orrery to orient the graph so earth's horizon is horizontal & meridian is UP in the viewpoint.  which we do only the first time LORR is run.
@@ -1446,9 +1454,23 @@ class SolarSystemBaseView extends WatchUi.View {
             
 
             sunriseHelper();  //gets the orientation/angle toward sun @ local noon, then adds in the current hr of the day so we can use it to orient the entire graph so that UP is the direction of the local curren meridian when they first look at it.
-            ga_rad = Math.toRadians(sun_adj_deg-hour_adj_deg) ;
+            var ga_rad_alt = Math.toRadians(sun_adj_deg-hour_adj_deg) ;
+            //var ga_rad_alt = Math.PI/2.0 - (Math.toRadians(sunrise_events2[:LMST_NOW_HR][0]*15.0));
+            ga_rad = Math.PI  + Math.toRadians(pp["Sun"][0]) - (Math.toRadians(sunrise_events2[:LMST_NOW_HR][0]*15.0));
+
+            deBug("horizon adjust: ",[pp, sun_adj_deg, hour_adj_deg, Math.toDegrees(ga_rad), sunrise_events2] );
+            deBug("horizon adjust2: ",[ga_rad, ga_rad_alt, ga_rad_alt-ga_rad, Math.toDegrees(ga_rad),  Math.toDegrees(ga_rad_alt)]);
+
             sunrise_events2=null;
-            //LORR_oh_save_ga_rad = ga_rad;
+          
+
+            //sidereal time is the ANGLE pointed straight UP from my current position.:__version/
+            //The ORRERY is regular XY coordinates so angle ZERO is the X AXIS, pointing right.
+            //So we want the SIDEREAL ANGLE to be the Y AXIS, pointing UP.
+            //meaning, we rotate the entire graph clockwise by sidereal angle minus 90 degrees. 
+
+            $.LORR_view_rotated = false; //if the user rotates the view after this, we either need to NOT draw the line again, or rotate the line.  For now we just refrain from drawing it if ga_rad has been changed after this point.
+            //LORR_oh_save_ga_rad = ga_rad;;
             //ga_rad = 0;
 
             //System.println("sun_adj_deg" + sun_adj_deg + " hor" + hour_adj_deg + " ga " + ga_rad + " pp " + pp["Sun"]) ;
@@ -1458,6 +1480,25 @@ class SolarSystemBaseView extends WatchUi.View {
             
          
         }
+
+        //ga_rad = 0;
+        
+        if (time_add_hrs.abs() < 0.2 ) {
+             if (pp == null || pp["Sun"] == null) {
+                pp = planetCoord ($.now_info, $.now.timeZoneOffset, $.now.dst, 0, :ecliptic_latlon, ["Sun"]);
+             }
+
+             var jd = julianDate ($.now_info.year, $.now_info.month, $.now_info.day,$.now_info.hour, $.now_info.min, $.now.timeZoneOffset/3600f, $.now.dst);
+            
+              var gmst_now_deg = normalize(GMST_deg(jd));
+              var lmst_now_deg = normalize((gmst_now_deg + lastLoc[1])); //+ here because OPPOSITE of MEEUS
+              //lmst is UP when ga_rad = 0.
+              //ga_rad has rotated the entire graph, so now UP ga_rad + LMST
+              up_dir_rad =  +Math.PI/2.0  + Math.toRadians(pp["Sun"][0]) - Math.toRadians(lmst_now_deg) - ga_rad;
+              deBug("updirrad", [up_dir_rad, gmst_now_deg, lmst_now_deg, Math.toDegrees(ga_rad), Math.toDegrees(up_dir_rad)]);
+        }
+
+        //ga_rad = 0;
         // else {
         //    LORR_oh_save_time_add_hrs = 0.158348;// some random #
         //    LORR_oh_save_ga_rad = 25.158348;
@@ -1479,6 +1520,8 @@ class SolarSystemBaseView extends WatchUi.View {
         //getMessage();
 
         
+        deBug("horizon adjust2", ga_rad);
+
         //setPosition(Position.getInfo());
         //xc = dc.getWidth() / 2;
         //yc = dc.getHeight() / 2;
@@ -1958,7 +2001,42 @@ class SolarSystemBaseView extends WatchUi.View {
             }
 
             //if (key.equals("Earth")) {drawHorizon(dc, 0, 0, 0, x, y, xc, true);}
+        if ( key.equals("Earth") && up_dir_rad != null){
 
+            
+            
+            var mr = mctr;
+            //mr = 1;
+                var xxa = Math.cos(up_dir_rad-Math.PI/2.0)*.5*xc + x;
+                var yya = -mr* Math.sin(up_dir_rad-Math.PI/2.0)*.5*xc + y;
+                var xxb = Math.cos(up_dir_rad+Math.PI/2.0)*.5*xc + x;
+                var yyb = -mr*Math.sin(up_dir_rad+Math.PI/2.0)*.5*xc + y;
+
+                var xxa2 = Math.cos(up_dir_rad-Math.PI/2.0)*.5*xc -   Math.sin(up_dir_rad-Math.PI/2.0)*.07*xc + x;
+                var yya2 = -mr* (Math.sin(up_dir_rad-Math.PI/2.0)*.5*xc + Math.cos(up_dir_rad-Math.PI/2.0)*.07*xc) + y;
+
+                var xxb2 = Math.cos(up_dir_rad+Math.PI/2.0)*.5*xc -   Math.sin(up_dir_rad-Math.PI/2.0)*.07*xc + x;
+                var yyb2 = -mr* (Math.sin(up_dir_rad+Math.PI/2.0)*.5*xc + Math.cos(up_dir_rad-Math.PI/2.0)*.07*xc) + y;
+
+                /*
+                 var x1 = xxa * mcgr - yya *msgr;
+                 var y1 = yya *mcgr + xxa * msgr;
+                 y1 = y1 * mctr;
+
+                 var x2 = xxb * mcgr - yyb *msgr;
+                 var y2 = yyb *mcgr + xxb * msgr;
+                 y2 = y2 * mctr;
+                 */
+
+                //z2 = y1 *mstr +  * mctr;
+
+                //dc.setColor(Graphics.COLOR_BLUE, Graphics.COLOR_TRANSPARENT);  
+                drawDashedLine(dc, xxa, yya, xxb, yyb, 0, 3, 2, 0x789cd6);
+                drawDashedLine(dc, xxa, yya, xxa2, yya2, 2, 1, 3, 0xffff00);
+                drawDashedLine(dc, xxb, yyb, xxb2, yyb2, 0, 3, 3, 0xff0000);
+                //deBug("updirrad2:" ,[x1, y1,x2,y2,x + x1, y+y1, x+x2, y + y2]);
+            
+        }
             
             
             
@@ -2026,10 +2104,10 @@ class SolarSystemBaseView extends WatchUi.View {
         //g = null;
         spots_rect = null;
 
-        if ( !LORR_horizon_line_drawn && LORR_show_horizon_line ) {
-                drawDashedLine(dc, 0, yc+1, 2*xc, yc+1, 0, 3, 1, Graphics.COLOR_LT_GRAY);
+        if ( !LORR_horizon_line_drawn && LORR_show_horizon_line && !$.LORR_view_rotated ) {
+            //    drawDashedLine(dc, 0, yc+1, 2*xc, yc+1, 0, 3, 1, Graphics.COLOR_LT_GRAY);
                 LORR_horizon_line_drawn = true;
-        }
+        } 
 
         if ($.show_intvl < 5 * $.hz ) { 
             showDate(dc, $.now_info, $.time_now, time_add_hrs,  xc, yc, true, true, :orrery);
@@ -2461,7 +2539,7 @@ class SolarSystemBaseView extends WatchUi.View {
         if (type ==:orrery) {
             ycent1 = 0.1*textHeight;  //date & time top center
             ycent3 = ycent1 + textHeight; //time below date
-            ycent2 = 2* ycent - textHeight*1.5; //speed or stopped lower center
+            ycent2 = 2* ycent - textHeight*1.75; //speed or stopped lower center
             
             if (screenShape == System.SCREEN_SHAPE_RECTANGLE)
             {
@@ -2621,8 +2699,8 @@ class SolarSystemBaseView extends WatchUi.View {
 
         if (type ==:ecliptic_latlon) {
             //if ($.Options_Dict[gpsOption_enum]) {
-                var p1 = lastLoc[0] > 0 ? "E" : "W";
-                var p2 = lastLoc[1] > 0 ? "N" : "S";          
+                var p1 = lastLoc[0] > 0 ? "N" : "S";
+                var p2 = lastLoc[1] > 0 ? "E" : "W";          
                 var msg = lastLoc[0].abs().format("%.0f") + p1 + lastLoc[1].abs().format("%.0f") + p2;
                 if (!$.Options_Dict[gpsOption_enum]) {msg = "**"+msg+"**";}
                 //var msg = "hi";
@@ -3096,12 +3174,12 @@ class SolarSystemBaseView extends WatchUi.View {
             //"HORIZON" line in :orrery view
             case "Earth" : 
                 
-                if (type == :orrery && LORR_show_horizon_line) 
+                if (type == :orrery && $.LORR_show_horizon_line && !$.LORR_view_rotated) 
                 {
                     
                     //dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);                    
                     //length 0 doesn't SHOW UP on the INSTINCT for some reason, so sticking with size 1
-                    drawDashedLine(dc, 0,y - size/5.0, 2*xc, y - size/5.0, 0, 3, 1, Graphics.COLOR_LT_GRAY);
+                    //drawDashedLine(dc, 0,y - size/5.0, 2*xc, y - size/5.0, 0, 3, 1, Graphics.COLOR_LT_GRAY);
                     //drawDashedLine(dc, 0,y - size, 2*xc, y - size, 0, 3, 1, Graphics.COLOR_WHITE);
                     LORR_horizon_line_drawn = true;
                 }
