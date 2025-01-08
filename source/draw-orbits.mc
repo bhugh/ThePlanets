@@ -43,7 +43,19 @@ function drawOrbits3 (myDc, pp, scale, xc,yc, big_small, myWhh, color) {
             //System.println("X: " + X);
             //System.println ("X = " + X);
             
-            myDc.drawPoint (scale*X[0] + xc, scale*X[1] + yc);
+            
+            //make the planet tracks a little bike darkers
+            if  (planetSizeFactor < 1) {
+               for (var i=0;i<2; i++) {
+                  for (var k=0; k<2;k++){
+                     myDc.drawPoint (scale*X[0] + xc + k, scale*X[1] + yc + i);
+                  }
+               }
+            } else {
+               var randadd = Math.rand()%2;
+               myDc.drawPoint (scale*X[0] + xc, scale*X[1] + yc);
+               myDc.drawPoint (scale*X[0] + xc + randadd, scale*X[1] + yc + 1 - randadd);
+            }
 
             
        }
@@ -98,14 +110,26 @@ function drawFuzzyEllipse (myDc, swidth, sheight, xc, yc, A as Lang.float, B as 
       for (var theta = start; theta < 2 * Math.PI;theta += Math.PI * 2.0 / step) {
          //var adder = 0;
          //if (type == :low) {adder = Math.rand()%1000/1000.0 * Math.PI * 2;}
-         var ran = Math.rand()%ranmult;
-         var addme =ranadd + (ran*ran)/randiv;
-         var x = xc + (A*addme) * Math.cos(theta);
-         var y = yc + (B*addme) * Math.sin(theta);
+         var mct = Math.cos(theta);
+         var mst = Math.sin(theta);
+         //var ranend = Math.rand()%5;
+         //for (var i = 0; i < ranend; i++) {
+            var ran = Math.rand()%ranmult;
+            var addme =ranadd + (ran*ran)/randiv;
+            var x = xc + (A*addme) * mct;
+            var y = yc + (B*addme) * mst;
+            myDc.drawPoint(x,y);
+            if (Math.rand()%5==0) {myDc.drawPoint(x+Math.rand()%5-2,y+Math.rand()%6-3);}
+            if (Math.rand()%5==0) {myDc.drawPoint(x+Math.rand()%5-2,y+Math.rand()%6-3);}
+         //}
          //deBug("[theta, Math.cos(theta), Math.sin(theta) x, y, step, A, B]", [theta, Math.cos(theta), Math.sin(theta), x, y, step, A, B]);
          //if (x<0|| y<0 || x>swidth || y>sheight || !isSafeValue(x) || !isSafeValue(y) ) {continue;}
          //System.println("Aster: " + x + ":" + y);
-         myDc.drawPoint(x,y);
+         
+         //if (Math.rand()%3==0) {myDc.drawPoint(x+1,y);}
+         //myDc.drawPoint(x+1,y+1);
+         //if (Math.rand()%3==0) {myDc.drawPoint(x,y+1);}
+
          //System.println("Got here...");
       }
 }

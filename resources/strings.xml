@@ -28,7 +28,7 @@
 <string id="planetSizeOption">XX Small|Very Small|Small|Normal|Large|Very Large|XXLarge</string>
 <string id="planetsOption">All objects|Only trad. planets|Only Dwarf Planets/Asteroids</string>
 <string id="introMessages">THE PLANETS|UP/DOWN/SWIPE:|Time Forward|/Back|UP/DOWN/SWIPE:|OR: Time Faster|/Slower|SELECT/TAP|Start/Stop|Time|BACK:|Change Modes|or Exit|MENU:|Change Options, Help|or Reset Time</string>
-<string id="delegateMessages">==THE PLANETS==|SELECT: Next mode|BACK: Exit|or: UP/DOWN|Current (|Next (|...)|SEL: |BACK: Exit|or: UP/DOWN|(Use Up/|Down/Start)|==Current Sky (by hr)==|==Current Sky (by day)==|==Inner Solar==|==System-Top View==|==System-Side View==|==Outer Solar==|==Far Outer==|==Solar System-Top==|==Solar System-Side==</string>
+<string id="delegateMessages">==THE PLANETS==|SELECT: Next mode|BACK: Exit|or: UP/DOWN|Current (|Next (|...)|SEL: |BACK: Exit|or: UP/DOWN|(Use Up/|Down/Start)|==Current Sky (by hr)==|==Current Sky (by day)==|==Inner Solar==|==System-Top View==|==System-Side View==|==Outer Solar==|==Far Outer==|==Solar System-Top==|==Solar System-Side==|Prev (</string>
 
 <string id = "sts">THE PLANETS</string>
 <string id = "rst">Reset to Current Time</string>

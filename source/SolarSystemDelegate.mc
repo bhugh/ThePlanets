@@ -209,7 +209,8 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
             //if ($.EBBF_next_mode == view_mode) {nm = "Current (" + nm.substring(0,6) + "...)";}
             //if ($.EBBF_next_mode == view_mode + 1) {nm = "Next (" + nm.substring(0,6) + "...)";}
             if ($.EBBF_next_mode == view_mode) {nm = dMsg[4] + nm.substring(0,6) + dMsg[6];}
-            if ($.EBBF_next_mode == view_mode + 1) {nm = dMsg[5] + nm.substring(0,6) + dMsg[6];}
+            else if ($.EBBF_next_mode == view_mode + 1) {nm = dMsg[5] + nm.substring(0,6) + dMsg[6];}
+            else if ($.EBBF_next_mode == view_mode - 1) {nm = dMsg[21] + nm.substring(0,6) + dMsg[6];}
 
 
             //solarSystemView_class.sendMessage(1000000, ["==THE PLANETS==", "SEL: " + nm, "BACK: Exit", "or: UP/DOWN", ""]);
