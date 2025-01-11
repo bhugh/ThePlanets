@@ -149,7 +149,7 @@ function calculateEphemerisPosition(epoch, ec, qr, jd, om, w, rest) {
 /*
 
 function testEph (){
-//# Orbital elements for Ceres (example data provided in the prompt)
+//# Orbital elements for Ceres (example data provided by JPL Ephemeris)
 var epoch = 2458849.5;
 var ec = 0.07687465013145245;
 var qr = 2.556401146697176;
