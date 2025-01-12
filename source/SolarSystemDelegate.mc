@@ -71,7 +71,7 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
 
                 //$.speeds = WatchUi.loadResource( $.Rez.JsonData.speeds) as Array;
                 //if we stop & forward step == 0 we set it to the lowest value
-                if (((WatchUi.loadResource( $.Rez.JsonData.speeds) as Array)[$.speeds_index]).abs() < 0.001) {
+                if (($.speed_current).abs() < 0.001) {
                     //deBug("zero & moving up!!!!!",[]);
                     handleNextPrevious (:previous); 
                 }
@@ -234,7 +234,7 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
         //System.println("onNextPage... od:" + od + " in:" + in + " type==next: " + ( type == :next));
 
         if (in == 0 ) {
-            $.time_add_hrs += mult *spds[$.speeds_index];
+            $.time_add_hrs += mult *$.speed_current;
             $.timeWasAdded=true;
             //WatchUi.requestUpdate();
         } else if (in == 1 || in ==2 || (in > 2 && od ==0)){
@@ -254,6 +254,7 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
                     else if ($.speeds_index <34 && $.speeds_index >21) {
                         $.speeds_index = type == :next ? 21 : 34;}                                                                     
                 }
+                $.speed_current = spds[$.speeds_index];
             } else {
                 $.time_add_hrs += mult *spds[$.speeds_index];
                 $.timeWasAdded=true;
@@ -581,6 +582,10 @@ function changeModes(previousMode){
 
 
         }
+
+        var spds = WatchUi.loadResource( $.Rez.JsonData.speeds) as Array;
+
+        $.speed_current = spds[$.speeds_index];
 
         changeModeOption_short = null;
         

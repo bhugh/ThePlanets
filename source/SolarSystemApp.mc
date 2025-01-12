@@ -42,6 +42,7 @@ var allOrbitParms = null;
                 24*365,24*365.2422, 24 * 400, 24 * 500, 24*365*2, 24*365*4, 24*365 * 7, 24*365 * 10]; //64; year multiples (added 0)*/
 var speeds;
 var speeds_index; //the currently used speed that will be added to TIME @ each update of screen  //
+var speed_current; //current speed as set by the speeds_index ( so we don't have to keep loading the speed array)
 //var screen0Move_index = 33;
 
 var started = false; //whether to move forward on an update, ie STOPPED or STARTED moving
@@ -254,9 +255,13 @@ class SolarSystemBaseApp extends Application.AppBase {
         $.Options_Dict[helpBanners_enum] = temp != null ? (temp == true) : true;
         Storage.setValue(helpBanners_enum,$.Options_Dict[helpBanners_enum]); 
 
-        temp = Storage.getValue(gpsOption_enum);
-        $.Options_Dict[gpsOption_enum] = temp != null ? (temp == true) : true;
-        Storage.setValue(gpsOption_enum,$.Options_Dict[gpsOption_enum]); 
+        //We're always reverting to GPS Location on startup, to avoid confusion
+        //of people entering some weird lat/lon and then forgetting they did that
+        //temp = Storage.getValue(gpsOption_enum);
+        //$.Options_Dict[gpsOption_enum] = temp != null ? (temp == true) : true;
+        //Storage.setValue(gpsOption_enum,$.Options_Dict[gpsOption_enum]); 
+
+        $.Options_Dict[gpsOption_enum]= true;
 
        
 

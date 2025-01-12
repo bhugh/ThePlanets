@@ -44,7 +44,7 @@ function drawOrbits3 (myDc, pp, scale, xc,yc, big_small, myWhh, color) {
             //System.println ("X = " + X);
             
             
-            //make the planet tracks a little bike darkers
+            //make the planet tracks a little bit darker
             if  (planetSizeFactor < 1) {
                for (var i=0;i<2; i++) {
                   for (var k=0; k<2;k++){
@@ -119,8 +119,8 @@ function drawFuzzyEllipse (myDc, swidth, sheight, xc, yc, A as Lang.float, B as 
             var x = xc + (A*addme) * mct;
             var y = yc + (B*addme) * mst;
             myDc.drawPoint(x,y);
-            if (Math.rand()%5==0) {myDc.drawPoint(x+Math.rand()%5-2,y+Math.rand()%6-3);}
-            if (Math.rand()%5==0) {myDc.drawPoint(x+Math.rand()%5-2,y+Math.rand()%6-3);}
+            if (Math.rand()%2==0) {myDc.drawPoint(x+Math.rand()%5-2,y+Math.rand()%6-3);}
+            if (Math.rand()%3==0) {myDc.drawPoint(x+Math.rand()%5-2,y+Math.rand()%6-3);}
          //}
          //deBug("[theta, Math.cos(theta), Math.sin(theta) x, y, step, A, B]", [theta, Math.cos(theta), Math.sin(theta), x, y, step, A, B]);
          //if (x<0|| y<0 || x>swidth || y>sheight || !isSafeValue(x) || !isSafeValue(y) ) {continue;}

@@ -18,7 +18,7 @@ var now, time_now, now_info;
 
 var the_rad = 0; //angles to rotate, theta & gamma
 var ga_rad = 0 ;
-var up_dir_rad = null;
+//var up_dir_rad = null;
 var LORR_orient_horizon = true;
 var LORR_show_horizon_line = true;
 var LORR_view_rotated = false;
@@ -592,9 +592,10 @@ class SolarSystemBaseView extends WatchUi.View {
 
          if ($.view_mode>0 && !reset_date_stop && started)  {
                 //deBug("speeds Index", [$.speeds_index]);
-                $.speeds = WatchUi.loadResource( $.Rez.JsonData.speeds) as Array;
-                $.time_add_hrs += $.speeds[$.speeds_index];
-                $.speeds = null;
+                //$.speeds = WatchUi.loadResource( $.Rez.JsonData.speeds) as Array;
+                //$.time_add_hrs += $.speeds[$.speeds_index];
+                //$.speeds = null;
+                $.time_add_hrs += $.speed_current;
          }
 
 
@@ -1424,6 +1425,8 @@ class SolarSystemBaseView extends WatchUi.View {
     var mctr as Lang.Float;
     var mstr as Lang.Float;
     var x0, z0, y0, x2, y2, z2 as Lang.Float;
+
+    var EHint_radec;
     
     //big_small = 0 for small (selectio nof visible planets) & 1 for big (all planets)
     public function largeOrrery(dc, big_small) {
@@ -1443,20 +1446,24 @@ class SolarSystemBaseView extends WatchUi.View {
         /*if (LORR_orient_horizon || 
             ((LORR_oh_save_time_add_hrs - time_add_hrs).toNumber()%24 == 0 ) 
               && LORR_oh_save_ga_rad == ga_rad) {*/
-        up_dir_rad = null;
+        //up_dir_rad = null;
+        EHint_radec = null;
+        /*
+
         if (LORR_orient_horizon)
         {
             //tells large_orrery to orient the graph so earth's horizon is horizontal & meridian is UP in the viewpoint.  which we do only the first time LORR is run.
 
-            pp = planetCoord ($.now_info, $.now.timeZoneOffset, $.now.dst, 0, :ecliptic_latlon, ["Sun"]);
+            //pp = planetCoord ($.now_info, $.now.timeZoneOffset, $.now.dst, 0, :ecliptic_latlon, ["Sun"]);
             //LORR_oh_save_time_add_hrs = time_add_hrs;
 
             
 
-            sunriseHelper();  //gets the orientation/angle toward sun @ local noon, then adds in the current hr of the day so we can use it to orient the entire graph so that UP is the direction of the local curren meridian when they first look at it.
-            var ga_rad_alt = Math.toRadians(sun_adj_deg-hour_adj_deg) ;
+            //sunriseHelper();  //gets the orientation/angle toward sun @ local noon, then adds in the current hr of the day so we can use it to orient the entire graph so that UP is the direction of the local curren meridian when they first look at it.
+            //var ga_rad_alt = Math.toRadians(sun_adj_deg-hour_adj_deg) ;
             //var ga_rad_alt = Math.PI/2.0 - (Math.toRadians(sunrise_events2[:LMST_NOW_HR][0]*15.0));
-            ga_rad = Math.PI  + Math.toRadians(pp["Sun"][0]) - (Math.toRadians(sunrise_events2[:LMST_NOW_HR][0]*15.0));
+            //ga_rad = Math.PI  + Math.toRadians(pp["Sun"][0]) - (Math.toRadians(sunrise_events2[:LMST_NOW_HR][0]*15.0));
+            ga_rad = 0;
 
             //deBug("horizon adjust: ",[pp, sun_adj_deg, hour_adj_deg, Math.toDegrees(ga_rad), sunrise_events2] );
             //deBug("horizon adjust2: ",[ga_rad, ga_rad_alt, ga_rad_alt-ga_rad, Math.toDegrees(ga_rad),  Math.toDegrees(ga_rad_alt)]);
@@ -1480,22 +1487,35 @@ class SolarSystemBaseView extends WatchUi.View {
             
          
         }
+        */
 
-        //ga_rad = 0;
         
-        if (time_add_hrs.abs() < 0.2 ) {
+        var jd, gmst_now_deg, lmst_now_deg, eclEHint_rad;
+        
+        if (time_add_hrs.abs() < 0.2 || !started || $.speed_current.abs()<.49) {
              if (pp == null || pp["Sun"] == null) {
                 pp = planetCoord ($.now_info, $.now.timeZoneOffset, $.now.dst, 0, :ecliptic_latlon, ["Sun"]);
              }
 
-             var jd = julianDate ($.now_info.year, $.now_info.month, $.now_info.day,$.now_info.hour, $.now_info.min, $.now.timeZoneOffset/3600f, $.now.dst);
+             jd = julianDate ($.now_info.year, $.now_info.month, $.now_info.day,$.now_info.hour + time_add_hrs, $.now_info.min, $.now.timeZoneOffset/3600f, $.now.dst);
             
-              var gmst_now_deg = normalize(GMST_deg(jd));
-              var lmst_now_deg = normalize((gmst_now_deg + lastLoc[1])); //+ here because OPPOSITE of MEEUS
+              gmst_now_deg = normalize(GMST_deg(jd));
+              lmst_now_deg = normalize((gmst_now_deg + lastLoc[1])); //+ here because OPPOSITE of MEEUS
               //lmst is UP when ga_rad = 0.
               //ga_rad has rotated the entire graph, so now UP ga_rad + LMST
-              up_dir_rad =  +Math.PI/2.0  + Math.toRadians(pp["Sun"][0]) - Math.toRadians(lmst_now_deg) - ga_rad;
+              //up_dir_rad =  +Math.PI/2.0  + Math.toRadians(pp["Sun"][0]) - Math.toRadians(lmst_now_deg) - ga_rad;
               //deBug("updirrad", [up_dir_rad, gmst_now_deg, lmst_now_deg, Math.toDegrees(ga_rad), Math.toDegrees(up_dir_rad)]);
+
+              //EHint_radec = RaDeclOfEclipticHorizonInt_deg(lastLoc[0], lmst_now_deg, obliq_deg);
+
+              //eclEHint_deg = EHint_radec[3];
+
+              var iPEH_rad = intersectionPointsEclipticHorizon_rad (Math.toRadians(lastLoc[0]), Math.toRadians(lmst_now_deg), Math.toRadians(obliq_deg), lastLoc[0]);
+
+              eclEHint_rad = iPEH_rad[1];
+              if (time_add_hrs.abs() < 0.01) {
+                ga_rad = eclEHint_rad;
+              }
         }
 
         //ga_rad = 0;
@@ -1681,7 +1701,8 @@ class SolarSystemBaseView extends WatchUi.View {
             var ang_rad = Math.toRadians(moon_info3[0]); //change to screen coord system (270-theta) then to rads
             //var radius_au = 0.002569;//au, is it 384,399km ; ok, that doesn't work
 
-            var radius_au = 0.11; //WAG , was .07, really nds to be see per earth size as drawn...
+            var radius_au = 0.23 * planetSizeFactor; //WAG , was .07, then .11, really nds to be see per earth size as drawn...
+            
 
             var xm=Math.cos ( ang_rad) * radius_au + pp["Earth"][0];
             var ym=Math.sin ( ang_rad) * radius_au + pp["Earth"][1];
@@ -1700,6 +1721,9 @@ class SolarSystemBaseView extends WatchUi.View {
         pp.put ("AsteroidB", [0,distA,0]);
         kys.add("AsteroidA");
         kys.add("AsteroidB");
+
+
+        
 
         //reset screen when changing speed, but ONLY if the setting requires it (resetDots)
         //var showWithSpeedChange = false;
@@ -1737,6 +1761,27 @@ class SolarSystemBaseView extends WatchUi.View {
             $.newModeOrZoom = false;
             $.speedWasChanged = false;
         }
+
+        /*
+        if (EHint_radec != null) {
+            var ehRad_au = min_c/2.0/scale;
+
+            var pA = radec2XYZ_deg(ehRad_au, EHint_radec[0], EHint_radec[1]);
+            var pB = radec2XYZ_deg(ehRad_au, EHint_radec[0] + 180 , -EHint_radec[1]); //the complementary point, 180 degrees off and - of the declination.  The two 
+            //ecliptic horizon intersect points are always complementary like this.
+            deBug("ehRAD", [ehRad_au, pA, pB]);
+
+
+
+            pp.put("EclHintA", [pA[0]+pp["Earth"][0], pA[1]+pp["Earth"][1], pA[2]+pp["Earth"][2]]);
+            pp.put("EclHintB", [pB[0]+pp["Earth"][0], pB[1]+pp["Earth"][1], pB[2]+pp["Earth"][2]]);
+                    
+            kys.add("EclHintA");
+            kys.add("EclHintB");
+            deBug("ECHLINTPP", [kys,pp]);
+        }
+        */
+
         
         //deBug("RDSWC11: ", allPlanets);
         //}
@@ -1822,6 +1867,8 @@ class SolarSystemBaseView extends WatchUi.View {
                 //var z_sort = (Math.floor(z2 * 50).toNumber()) + 500;
                 //if (z_sort>1000) {z_sort=1000;}
                 //if (z_sort<0) {z_sort=0;}
+
+
                 
                 //if (sorter[z_sort] == null) {sorter[z_sort] = [key];}
                 //else {sorter[z_sort].add(key);}
@@ -1962,12 +2009,12 @@ class SolarSystemBaseView extends WatchUi.View {
 
             //key1 = kys[i];
             key = zoom_whh[i];
-            //System.println ("kys: " + key + " " + key1);
+            
             //if ( ["Ceres", "Uranus", "Neptune", "Pluto", "Eris", "Chiron"].indexOf(key)> -1) {continue;}
             if (key == null || pp[key] == null) {continue;} //not much else to do...
             //if (key1 == null || pp[key1] == null) {continue;} //not much else to do...
 
-
+            System.println ("kys: " + key + " " + pp[key]);
 
             x = scale * pp[key][0] + xc;
             
@@ -2001,12 +2048,14 @@ class SolarSystemBaseView extends WatchUi.View {
             }
 
             //if (key.equals("Earth")) {drawHorizon(dc, 0, 0, 0, x, y, xc, true);}
-        if ( key.equals("Earth") && up_dir_rad != null){
+        if ( key.equals("Earth") && eclEHint_rad != null){
 
             
             
             var mr = mctr;
             //mr = 1;
+            /*
+            //This ALMOST worked, it was off by just a few degrees for some reason...
                 var xxa = Math.cos(up_dir_rad-Math.PI/2.0)*.5*xc + x;
                 var yya = -mr* Math.sin(up_dir_rad-Math.PI/2.0)*.5*xc + y;
                 var xxb = Math.cos(up_dir_rad+Math.PI/2.0)*.5*xc + x;
@@ -2030,11 +2079,66 @@ class SolarSystemBaseView extends WatchUi.View {
 
                 //z2 = y1 *mstr +  * mctr;
 
+            /*
                 //dc.setColor(Graphics.COLOR_BLUE, Graphics.COLOR_TRANSPARENT);  
                 drawDashedLine(dc, xxa, yya, xxb, yyb, 0, 3, 2, 0x789cd6);
                 drawDashedLine(dc, xxa, yya, xxa2, yya2, 2, 1, 3, 0xffff00);
                 drawDashedLine(dc, xxb, yyb, xxb2, yyb2, 0, 3, 3, 0xff0000);
+                */
                 //deBug("updirrad2:" ,[x1, y1,x2,y2,x + x1, y+y1, x+x2, y + y2]);
+
+                
+                    //var lmst_now_deg = normalize((gmst_now_deg + lastLoc[1]));
+
+                    var ang_rad = eclEHint_rad - ga_rad;
+                    deBug("eleHint boings ECLRET", [eclEHint_rad, Math.toDegrees(ang_rad)]);
+
+                    //var eclEHint_rad = Math.PI/4.5 - ga_rad;
+                    var xxaE = Math.cos(ang_rad)*.5*xc + x;
+                    var yyaE = -mr* Math.sin(ang_rad)*.5*xc + y;
+                    var xxbE = Math.cos(ang_rad+Math.PI)*.5*xc + x;
+                    var yybE = -mr*Math.sin(ang_rad+Math.PI)*.5*xc + y;
+                    
+                    var xxa2E = Math.cos(ang_rad)*.5*xc +   Math.sin(ang_rad)*.07*xc + x;
+                    var yya2E = -mr* (Math.sin(ang_rad)*.5*xc - Math.cos(ang_rad)*.07*xc) + y;
+
+                    var xxb2E = Math.cos(ang_rad+Math.PI)*.5*xc +   Math.sin(ang_rad)*.07*xc + x;
+                    var yyb2E = -mr* (Math.sin(ang_rad+Math.PI)*.5*xc - Math.cos(ang_rad)*.07*xc) + y;
+                    
+
+
+
+                    //z2 = y1 *mstr +  * mctr;
+
+                    //dc.setColor(Graphics.COLOR_BLUE, Graphics.COLOR_TRANSPARENT);  
+                    drawDashedLine(dc, xxaE, yyaE, xxbE, yybE, 0, 3, 2, 0x789cd6);
+                    drawDashedLine(dc, xxaE, yyaE, xxa2E, yya2E, 2, 1, 3, 0xff0000);
+                    drawDashedLine(dc, xxbE, yybE, xxb2E, yyb2E, 0, 3, 3, 0xffff00);
+                    //deBug("updirrad2:" ,[x1, y1,x2,y2,x + x1, y+y1, x+x2, y + y2]);
+
+                   /* 
+                    //this almost worked, but not quite.  Ambiguous case of the law of
+                    //sines was never quite cracked
+                    dc.setColor(Graphics.COLOR_GREEN,Graphics.COLOR_TRANSPARENT);
+                     var key1 = "EclHintA";
+
+                            var   x1 = scale * pp[key1][0] + xc;
+            
+                            var    y1 = scale * pp[key1][1] + yc;
+
+                            var z1 = scale * pp[key1][2];
+                     key1 = "EclHintB";
+
+                            var   x2 = scale * pp[key1][0] + xc;
+            
+                            var    y2 = scale * pp[key1][1] + yc;
+
+                            var z2 = scale * pp[key1][2];     
+                    drawDashedLine(dc, x1,y1,x2,y2, 0, 3, 2, 0x00ff00);
+                    dc.fillCircle(x1, y1, 4);
+                    deBug("ECHINTAAPP", [pp["EclHintA"][0], pp["EclHintA"][1], pp["EclHintB"][0], pp["EclHintB"][1]]);
+                    */
+                
             
         }
             
@@ -2654,11 +2758,12 @@ class SolarSystemBaseView extends WatchUi.View {
             
             //$.speeds = WatchUi.loadResource( $.Rez.JsonData.speeds) as Array;
             //var ssi=$.speeds[$.speeds_index] ;
-            var ssi = (WatchUi.loadResource( $.Rez.JsonData.speeds) as Array)[$.speeds_index];
+            //var ssi = (WatchUi.loadResource( $.Rez.JsonData.speeds) as Array)[$.speeds_index];
             //$.speeds = null;
+            var ssi=$.speed_current;
 
-            if (ssi < 0) { sep = "<";}
-            if (!started || ssi == 0 || $.view_mode == 0) { sep = "|";}
+            if ($.speed_current < 0) { sep = "<";}
+            if (!started || $.speed_current == 0 || $.view_mode == 0) { sep = "|";}
             ssi = ssi.abs();
 
             var intvl = ""; //Lang.format("($1$ hr)",[ssi]);
@@ -3523,7 +3628,7 @@ class SolarSystemBaseView extends WatchUi.View {
 
             //System.println("hor_ang_deg: " + hor_ang_deg);
             dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);
-            dc.setPenWidth(1);
+            dc.setPenWidth(2);
             //var hor_ang_rad = Math.toRadians(hor_ang_deg);
             var x_hor1 = radius* Math.cos(hor_ang_rad + refract_add + arb_add) + xct;
             var y_hor1 = radius* Math.sin(hor_ang_rad + refract_add + arb_add) + yct;
@@ -3536,7 +3641,7 @@ class SolarSystemBaseView extends WatchUi.View {
             dc.drawLine (x_hor1,y_hor1,x_hor1a,y_hor1a);
             dc.drawLine (x_hor2,y_hor2,x_hor2a,y_hor2a);
             
-            dc.setPenWidth(2);
+            dc.setPenWidth(3);
             //MERIDIAN
             var x_mer = radius* Math.cos(hor_ang_rad - Math.PI/2.0 + arb_add) + xct;
             var y_mer = radius* Math.sin(hor_ang_rad - Math.PI/2.0 + arb_add) + yct;

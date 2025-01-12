@@ -916,9 +916,111 @@ class sunRiseSet_cache2{
 
         //deBug("intersectionPointEclipticHorizon aoLs: ", [Math.toDegrees(horEHint_rad), Math.toDegrees(eclEHint4_rad), Math.toDegrees(eclEHint2_rad),  Math.toDegrees(aEH_rad), Math.toDegrees(sidereal_rad), intm]);
         //return  [eclEHint_rad, horEHint_rad];
-        return [horEHint_rad.toFloat(), eclEHint_rad.toFloat(), aEH_rad.toFloat()];
+        return [horEHint_rad, eclEHint_rad, aEH_rad];
 
     }
+
+    //Returns the RA and DECL of the intersection point of the Ecliptic great circle and the Horizon great circle, in radians
+    //None of these quite worked reliably because of the "ambiguous case"
+    // of the sine law, which arose frequently. 
+    //So it would work some times and then jump to the 90-X angle and
+    //I could never figure out how to resolve the ambiguity in the right
+    //directly reliably.
+
+/*
+    function RaDeclOfEclipticHorizonInt_rad(lat_rad, sidereal_rad, obliquity_rad){
+
+    var IPEH_rad = intersectionPointsEclipticHorizon_rad (lat_rad, sidereal_rad, obliquity_rad,Math.toDegrees(lat_rad));
+
+    //horEHInt_rad = IPEH_rad[0];
+    var eclEHint_rad = IPEH_rad[1];
+    //var aEH_rad = IPEH_rad[2];
+
+    var DEang_rad=Math.atan2(Math.cos(eclEHint_rad),1/Math.tan(obliquity_rad));
+    deBug("DEAang", [Math.toDegrees(DEang_rad)]);
+
+    // tan RA = cos Obl tan ecleH R7
+    var RA_rad5 = Math.atan2(Math.cos(obliquity_rad), 1/Math.tan(eclEHint_rad));
+
+    //R6 tan Decl = cos DE tan ecleH
+    var Decl_rad2 = Math.atan2(Math.cos(DEang_rad), 1/Math.tan(eclEHint_rad));
+
+    //R5 tan Decl = tan Obl * sin eclEHint
+    var Decl_rad3 = Math.atan2(Math.sin(eclEHint_rad),1/Math.tan(obliquity_rad));
+
+    deBug("DEAang, RA 5, DECL 2", [Math.toDegrees(DEang_rad), Math.toDegrees(RA_rad5), Math.toDegrees(Decl_rad2), Math.toDegrees(Decl_rad3)]);
+
+
+    //obliq_rad
+
+    var decl_rad = Math.asin( Math.sin(eclEHint_rad) * Math.sin(obliquity_rad) ); //divided by sin 90 deg = 1 LAW OF SINES
+
+    //var RA_rad1 = Math.atan2(Math.sin(eclEHint_rad) * Math.cos(obliquity_rad), Math.cos(eclEHint_rad) * Math.sin(decl_rad) + Math.sin(eclEHint_rad ) * Math.cos(decl_rad) * Math.cos(obliquity_rad) ); //CT3 (??) sugg by AI, maybe not correct, maybe some cot rule?
+
+    //this works but has the possibilty of /0
+    var RA_rad2 = 0;
+    if (decl_rad != 0) {RA_rad2 = Math.acos(Math.cos(eclEHint_rad)/Math.cos(decl_rad));} //Napiers Rules right spher. triangle, R1, cos c = cos a cos b, a - RA, b - DECL, c = eclEHint, cos RA = cos eclEHint / cos decl
+
+    var RA_rad3 = Math.asin(Math.tan(decl_rad)  / Math.tan(obliquity_rad)); // sina = tanb/tanB  a=RA, B=eclip, b=decl Napier R5
+
+    var RA_rad4 = Math.atan2(Math.cos(obliquity_rad)*Math.sin(eclEHint_rad), Math.cos(eclEHint_rad));
+
+    //deBug("RADECL", [decl_rad, RA_rad1, RA_rad2, RA_rad3 ]);
+
+    //deBug("RADECL deg1", [Math.toDegrees(decl_rad), Math.toDegrees(RA_rad1), Math.toDegrees(RA_rad2),Math.toDegrees(RA_rad3) ]);
+
+    //if DECL is >0 then RA must be between 0 & 180 degrees
+    //If DECL is <0 then RA must be between 180 & 360 degrees
+    //The two horizon interception points are RA/DEC
+    //and -RA/DEC+180
+    //So once we have calculated the one point, it is easy 
+    //to get the other.
+
+    //make sure value is between -PI/2 and PI/2 (it shoudl be already...)
+    if (decl_rad > Math.PI/2.0) {decl_rad = Math.PI - decl_rad ;} //shouldn't ever happen
+    if (decl_rad < - Math.PI/2.0) {decl_rad = Math.PI - decl_rad ;}
+    if (decl_rad > Math.PI) {decl_rad =- 2*Math.PI;}
+    if (decl_rad<0) {RA_rad3 = -(RA_rad3).abs();}
+    else {RA_rad3 = RA_rad3.abs();}
+
+
+/*
+     var decl2_rad = Math.asin( Math.sin(Math.PI - eclEHint_rad) * Math.sin(obliquity_rad) ); //divided by sin 90 deg = 1 LAW OF SINES
+
+    //var RA_rad1 = Math.atan2(Math.sin(eclEHint_rad) * Math.cos(obliquity_rad), Math.cos(eclEHint_rad) * Math.sin(decl_rad) + Math.sin(eclEHint_rad ) * Math.cos(decl_rad) * Math.cos(obliquity_rad) ); //CT3 (??) sugg by AI, maybe not correct, maybe cot rule
+
+    //this works but has the possibilty of /0
+    var RA2_rad2 = 0;
+    if (decl2_rad != 0) {RA2_rad2 = Math.acos(Math.cos(eclEHint_rad)/Math.cos(decl2_rad));} //Napiers Rules right spher. triangle, R1, cos c = cos a cos b, a - RA, b - DECL, c = eclEHint, cos RA = cos eclEHint / cos decl
+
+    var RA2_rad3 = Math.asin(Math.tan(decl2_rad)  / Math.tan(obliquity_rad)); // sina =
+
+
+
+    deBug("RADECL2", [decl2_rad, RA2_rad2, RA2_rad3 ]);
+
+    deBug("RADECL deg2", [Math.toDegrees(decl2_rad), Math.toDegrees(RA2_rad2), Math.toDegrees(RA2_rad3) ]);
+    */
+/*
+    deBug("RADECL1", [decl_rad, RA_rad3, RA_rad2 ]);
+
+    deBug("RADECL deg1", [Math.toDegrees(decl_rad), Math.toDegrees(RA_rad3), Math.toDegrees(RA_rad2), Math.toDegrees(RA_rad4)  ]);
+
+    return [RA_rad3,decl_rad, IPEH_rad[0], IPEH_rad[1]];
+
+
+    }
+
+    function RaDeclOfEclipticHorizonInt_deg(lat_deg, sidereal_deg, obliquity_deg){
+        var ret = RaDeclOfEclipticHorizonInt_rad( Math.toRadians(lat_deg), Math.toRadians(sidereal_deg), Math.toRadians(obliquity_deg));
+
+        deBug("RADECLRETURN", [normalize(Math.toDegrees(ret[0])), normalize180(Math.toDegrees(ret[1])),normalize(Math.toDegrees(ret[2])), normalize(Math.toDegrees(ret[3]))]);
+
+        return [normalize(Math.toDegrees(ret[0])), normalize180(Math.toDegrees(ret[1])),normalize(Math.toDegrees(ret[2])), normalize(Math.toDegrees(ret[3]))];
+
+    }
+    */
+
     
 
 function equatorialLong2eclipticLong_rad (H0_rad, obliq_rad) {

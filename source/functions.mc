@@ -236,6 +236,23 @@ import Toybox.Lang;
 
     }
 
+    function radec2XYZ_deg(r, RA_deg, decl_deg){
+        //x = r sin theta cos phi
+        //y = r sin theta sin phi
+        //z = r cos theta
+        deBug("RADECXYZ", [r, RA_deg, decl_deg]);
+        var RA_rad = Math.toRadians(RA_deg);
+        var decl_rad = Math.toRadians(decl_deg);
+
+        deBug("RADECXYZ", [r, RA_rad, decl_rad]);
+
+        var x = r * Math.cos(decl_rad) * Math.cos(RA_rad);
+        var y = r * Math.cos(decl_rad) * Math.sin(RA_rad);
+        var z = r * Math.sin(decl_rad);
+        deBug("RADECXYZ", [x,y,z]);
+        return [x, y, z];
+    }
+
     /*
 
      //Works great, just not using it

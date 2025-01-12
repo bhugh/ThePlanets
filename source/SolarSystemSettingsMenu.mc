@@ -258,7 +258,10 @@ class SolarSystemSettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
                 $.run_oneTime = true;
                 $.LORR_show_horizon_line = true;
                 */
-                Storage.setValue(ret, menuItem.isEnabled());
+                //NOT going to store this, so that autoGPS is
+                //enabled whenever the program starts.  They can
+                //manually switch to their set GPS coordinates if they want.
+                //Storage.setValue(ret, menuItem.isEnabled());
                 $.Options_Dict[ret] = menuItem.isEnabled();
                 //$.solarSystemView_class.setInitPosition();
                 //$.jumpToGPS = true;                
