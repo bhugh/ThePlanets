@@ -1492,7 +1492,11 @@ class SolarSystemBaseView extends WatchUi.View {
         
         var jd, gmst_now_deg, lmst_now_deg, eclEHint_rad;
         
-        if (time_add_hrs.abs() < 0.2 || !started || $.speed_current.abs()<.49) {
+        if (time_add_hrs.abs() < 0.05|| !started || $.speed_current.abs()  < 0.3 ||
+            ($.speed_current.abs()> 23.7 && (mod($.speed_current,24) - 12).abs()>11.6 &&
+             ( $.speed_current.abs()<6*24 ||  ($.speed_current.abs()>364*24 && $.speed_current.abs()<366*24)  || $.speed_current.abs()>= 365*24*2) )
+            ) 
+            {
              if (pp == null || pp["Sun"] == null) {
                 pp = planetCoord ($.now_info, $.now.timeZoneOffset, $.now.dst, 0, :ecliptic_latlon, ["Sun"]);
              }
