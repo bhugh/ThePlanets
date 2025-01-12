@@ -1517,8 +1517,10 @@ class SolarSystemBaseView extends WatchUi.View {
               var iPEH_rad = intersectionPointsEclipticHorizon_rad (Math.toRadians(lastLoc[0]), Math.toRadians(lmst_now_deg), Math.toRadians(obliq_deg), lastLoc[0]);
 
               eclEHint_rad = iPEH_rad[1];
-              if (time_add_hrs.abs() < 0.01) {
+              if (time_add_hrs.abs() < 0.01 && $.LORR_orient_horizon) {
                 ga_rad = eclEHint_rad;
+                //deBug("GA eclEHint", [ga_rad, eclEHint_rad]);
+                $.LORR_orient_horizon = false;
               }
         }
 
@@ -2018,7 +2020,7 @@ class SolarSystemBaseView extends WatchUi.View {
             if (key == null || pp[key] == null) {continue;} //not much else to do...
             //if (key1 == null || pp[key1] == null) {continue;} //not much else to do...
 
-            System.println ("kys: " + key + " " + pp[key]);
+            //System.println ("kys: " + key + " " + pp[key]);
 
             x = scale * pp[key][0] + xc;
             
@@ -2095,7 +2097,7 @@ class SolarSystemBaseView extends WatchUi.View {
                     //var lmst_now_deg = normalize((gmst_now_deg + lastLoc[1]));
 
                     var ang_rad = eclEHint_rad - ga_rad;
-                    deBug("eleHint boings ECLRET", [eclEHint_rad, Math.toDegrees(ang_rad)]);
+                    //deBug("eleHint boings ECLRET", [eclEHint_rad, Math.toDegrees(ang_rad)]);
 
                     //var eclEHint_rad = Math.PI/4.5 - ga_rad;
                     var xxaE = Math.cos(ang_rad)*.5*xc + x;
