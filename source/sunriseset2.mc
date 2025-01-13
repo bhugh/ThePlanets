@@ -921,49 +921,62 @@ class sunRiseSet_cache2{
     }
 
     //Returns the RA and DECL of the intersection point of the Ecliptic great circle and the Horizon great circle, in radians
-    //None of these quite worked reliably because of the "ambiguous case"
-    // of the sine law, which arose frequently. 
-    //So it would work some times and then jump to the 90-X angle and
-    //I could never figure out how to resolve the ambiguity in the right
-    //directly reliably.
+    //THIS ALL WORKS NOW with the insight that the any ambiguities in trig
+    //formulas are cleared up by the fact that the RA & ECL long  are
+    //always in the same QUADRANT and that DECL is positive for RA/ECL LONG
+    // 0-180 and negative for 180-360.
 
-/*
+
     function RaDeclOfEclipticHorizonInt_rad(lat_rad, sidereal_rad, obliquity_rad){
 
     var IPEH_rad = intersectionPointsEclipticHorizon_rad (lat_rad, sidereal_rad, obliquity_rad,Math.toDegrees(lat_rad));
 
     //horEHInt_rad = IPEH_rad[0];
-    var eclEHint_rad = IPEH_rad[1];
+    //Don't exactly understand why it has to be -IPEH_rad here instead of +
+    var eclEHint_rad =mod(-IPEH_rad[1], Math.PI*2.0d);
     //var aEH_rad = IPEH_rad[2];
 
-    var DEang_rad=Math.atan2(Math.cos(eclEHint_rad),1/Math.tan(obliquity_rad));
+    //R10 cos ecleH = cotA DEang cot obliq
+    var DEang_rad=Math.atan(1/(Math.cos(eclEHint_rad)*Math.tan(obliquity_rad)));
     deBug("DEAang", [Math.toDegrees(DEang_rad)]);
 
     // tan RA = cos Obl tan ecleH R7
     var RA_rad5 = Math.atan2(Math.cos(obliquity_rad), 1/Math.tan(eclEHint_rad));
+    RA_rad5 = sameQuadrant(eclEHint_rad, RA_rad5);
+
+    var decl_rad = Math.asin( Math.sin(eclEHint_rad) * Math.sin(obliquity_rad) ); //divided by sin 90 deg = 1 LAW OF SINES
 
     //R6 tan Decl = cos DE tan ecleH
-    var Decl_rad2 = Math.atan2(Math.cos(DEang_rad), 1/Math.tan(eclEHint_rad));
+    var decl2_rad = Math.atan(Math.cos(DEang_rad) *Math.tan(eclEHint_rad));
 
-    //R5 tan Decl = tan Obl * sin eclEHint
-    var Decl_rad3 = Math.atan2(Math.sin(eclEHint_rad),1/Math.tan(obliquity_rad));
+    
 
-    deBug("DEAang, RA 5, DECL 2", [Math.toDegrees(DEang_rad), Math.toDegrees(RA_rad5), Math.toDegrees(Decl_rad2), Math.toDegrees(Decl_rad3)]);
+    var decl4_rad = Math.asin( Math.sin(Math.PI - eclEHint_rad) * Math.sin(obliquity_rad) ); //divided by sin 90 deg = 1 LAW OF SINES
+
+    //deBug("DEAang, RA 5, DECL 2", [Math.toDegrees(DEang_rad), Math.toDegrees(RA_rad5), Math.toDegrees(decl2_rad), Math.toDegrees(Decl_rad3)]);
 
 
     //obliq_rad
 
-    var decl_rad = Math.asin( Math.sin(eclEHint_rad) * Math.sin(obliquity_rad) ); //divided by sin 90 deg = 1 LAW OF SINES
+    
 
     //var RA_rad1 = Math.atan2(Math.sin(eclEHint_rad) * Math.cos(obliquity_rad), Math.cos(eclEHint_rad) * Math.sin(decl_rad) + Math.sin(eclEHint_rad ) * Math.cos(decl_rad) * Math.cos(obliquity_rad) ); //CT3 (??) sugg by AI, maybe not correct, maybe some cot rule?
 
     //this works but has the possibilty of /0
     var RA_rad2 = 0;
     if (decl_rad != 0) {RA_rad2 = Math.acos(Math.cos(eclEHint_rad)/Math.cos(decl_rad));} //Napiers Rules right spher. triangle, R1, cos c = cos a cos b, a - RA, b - DECL, c = eclEHint, cos RA = cos eclEHint / cos decl
+    RA_rad2 = sameQuadrant(eclEHint_rad, RA_rad2);
+
+    deBug("RARAD2", RA_rad2);
+
+    //R5 tan Decl = tan Obl * sin RA
+    var decl3_rad = Math.atan(Math.sin(RA_rad2)*Math.tan(obliquity_rad));
 
     var RA_rad3 = Math.asin(Math.tan(decl_rad)  / Math.tan(obliquity_rad)); // sina = tanb/tanB  a=RA, B=eclip, b=decl Napier R5
+    RA_rad3 = sameQuadrant(eclEHint_rad, RA_rad3);
 
     var RA_rad4 = Math.atan2(Math.cos(obliquity_rad)*Math.sin(eclEHint_rad), Math.cos(eclEHint_rad));
+    RA_rad4 = sameQuadrant(eclEHint_rad, RA_rad4);
 
     //deBug("RADECL", [decl_rad, RA_rad1, RA_rad2, RA_rad3 ]);
 
@@ -977,34 +990,69 @@ class sunRiseSet_cache2{
     //to get the other.
 
     //make sure value is between -PI/2 and PI/2 (it shoudl be already...)
+    /*
     if (decl_rad > Math.PI/2.0) {decl_rad = Math.PI - decl_rad ;} //shouldn't ever happen
     if (decl_rad < - Math.PI/2.0) {decl_rad = Math.PI - decl_rad ;}
     if (decl_rad > Math.PI) {decl_rad =- 2*Math.PI;}
     if (decl_rad<0) {RA_rad3 = -(RA_rad3).abs();}
-    else {RA_rad3 = RA_rad3.abs();}
+    else {RA_rad3 = RA_rad3.abs();} */
+
+    //There are always two possible solutions to the equations for DECL, one going CW around the eq & the other going CCW, because of symmetry.  We know which one we want because DECL is always positive for RA (or ecliptic LONG) 0 to 180, and negative for 180-360.
 
 
-/*
-     var decl2_rad = Math.asin( Math.sin(Math.PI - eclEHint_rad) * Math.sin(obliquity_rad) ); //divided by sin 90 deg = 1 LAW OF SINES
+
+    deBug("declQQQQQQ PRE", [Math.toDegrees(eclEHint_rad), Math.toDegrees(decl_rad), Math.toDegrees(decl2_rad), Math.toDegrees(decl3_rad), Math.toDegrees(decl4_rad)]);
+
+    if (eclEHint_rad >= 0 && eclEHint_rad <= Math.PI) {
+        decl_rad = decl_rad.abs();
+        decl2_rad = decl2_rad.abs();
+        decl3_rad = decl3_rad.abs();
+        decl4_rad = decl4_rad.abs();
+    }
+    else {
+        decl_rad = -decl_rad.abs();
+        decl2_rad =- decl2_rad.abs();
+        decl3_rad = -decl3_rad.abs();
+        decl4_rad = -decl4_rad.abs();
+    }
+    deBug("decl QQQQQ POST", [ 
+        Math.toDegrees(eclEHint_rad),
+        Math.toDegrees(decl_rad), Math.toDegrees(decl2_rad), Math.toDegrees(decl3_rad), Math.toDegrees(decl4_rad)]);
+
+
+
 
     //var RA_rad1 = Math.atan2(Math.sin(eclEHint_rad) * Math.cos(obliquity_rad), Math.cos(eclEHint_rad) * Math.sin(decl_rad) + Math.sin(eclEHint_rad ) * Math.cos(decl_rad) * Math.cos(obliquity_rad) ); //CT3 (??) sugg by AI, maybe not correct, maybe cot rule
 
     //this works but has the possibilty of /0
-    var RA2_rad2 = 0;
-    if (decl2_rad != 0) {RA2_rad2 = Math.acos(Math.cos(eclEHint_rad)/Math.cos(decl2_rad));} //Napiers Rules right spher. triangle, R1, cos c = cos a cos b, a - RA, b - DECL, c = eclEHint, cos RA = cos eclEHint / cos decl
+    var RA_rad1 = 0;
+    if (decl2_rad != 0) {RA_rad1 = Math.acos(Math.cos(eclEHint_rad)/Math.cos(decl2_rad));} //Napiers Rules right spher. triangle, R1, cos c = cos a cos b, a - RA, b - DECL, c = eclEHint, cos RA = cos eclEHint / cos decl
 
-    var RA2_rad3 = Math.asin(Math.tan(decl2_rad)  / Math.tan(obliquity_rad)); // sina =
+    RA_rad1 = sameQuadrant(eclEHint_rad, RA_rad1);
+
+    var RA_rad6 = Math.asin(Math.tan(decl2_rad)  / Math.tan(obliquity_rad)); // sina =
+    RA_rad6 = sameQuadrant(eclEHint_rad, RA_rad6);
+    
+    deBug("RA EQQQQQ PRE", [
+        Math.toDegrees(eclEHint_rad), 
+        Math.toDegrees(RA_rad1), 
+        Math.toDegrees(RA_rad2), 
+        Math.toDegrees(RA_rad3),
+        Math.toDegrees(RA_rad4),
+        Math.toDegrees(RA_rad5),
+        Math.toDegrees(RA_rad6) 
+    ]);
+
+    //if ()
+
+    //deBug("RADECL2", [decl2_rad, RA2_rad2, RA2_rad3 ]);
 
 
+    
 
-    deBug("RADECL2", [decl2_rad, RA2_rad2, RA2_rad3 ]);
+    //deBug("RADECL1", [decl_rad, RA_rad3, RA_rad2 ]);
 
-    deBug("RADECL deg2", [Math.toDegrees(decl2_rad), Math.toDegrees(RA2_rad2), Math.toDegrees(RA2_rad3) ]);
-    */
-/*
-    deBug("RADECL1", [decl_rad, RA_rad3, RA_rad2 ]);
-
-    deBug("RADECL deg1", [Math.toDegrees(decl_rad), Math.toDegrees(RA_rad3), Math.toDegrees(RA_rad2), Math.toDegrees(RA_rad4)  ]);
+    //deBug("RADECL deg1", [Math.toDegrees(decl_rad), Math.toDegrees(RA_rad3), Math.toDegrees(RA_rad2), Math.toDegrees(RA_rad4)  ]);
 
     return [RA_rad3,decl_rad, IPEH_rad[0], IPEH_rad[1]];
 
@@ -1019,7 +1067,103 @@ class sunRiseSet_cache2{
         return [normalize(Math.toDegrees(ret[0])), normalize180(Math.toDegrees(ret[1])),normalize(Math.toDegrees(ret[2])), normalize(Math.toDegrees(ret[3]))];
 
     }
-    */
+
+    //puts b_rad into the same quadrant as a_rad by either changing
+    //sign or subtracting PI or subtracting IT from PI.
+    //This is to resolve ambiguities in e.g. the law of  cosines where the 
+    //  angle theta & pi-theta can both give the same answer
+    function sameQuadrant (a_rad, b_rad){
+
+        a_rad = mod (a_rad, Math.PI*2.0); 
+        b_rad = mod (b_rad, Math.PI*2.0); 
+
+        var aquad = (Math.floor( a_rad/(Math.PI/2.0))).toNumber();
+        var bquad = Math.floor( b_rad/(Math.PI/2.0)).toNumber();
+        deBug("samequad1", [a_rad,b_rad,aquad,bquad]);
+        if (aquad == bquad) { 
+            deBug("samequadret1", [a_rad,b_rad,aquad,bquad]);
+            return b_rad;
+        }
+                
+        var aPI_rad = a_rad;
+        if (aPI_rad > Math.PI) {aPI_rad = aPI_rad - Math.PI*2.0;}
+        var bPI_rad = b_rad;
+        if (bPI_rad > Math.PI) {aPI_rad = bPI_rad - Math.PI*2.0;}
+
+        deBug("samequad2", [a_rad,b_rad,aquad,bquad,aPI_rad,bPI_rad]);
+
+        if (in(aquad,[0,3]) && in(bquad, [0,3]))
+        {
+            return bPI_rad * sign(aPI_rad);
+        }
+
+        if (in(aquad,[1,2]) && in(bquad, [1,2]))
+        {
+            //var x = (Math.PI - b_rad).abs()*sign(Math.PI - a_rad);
+            //return x + Math.PI;             
+            return -bPI_rad;
+        }
+
+        if (in(aquad,[0,1]) && in(bquad, [0,1]))
+        {            
+            return Math.PI - b_rad;
+        }
+
+        if (in(aquad,[2,3]) && in(bquad, [2,3]))
+        {
+            //var x = (Math.PI - b_rad).abs()*sign(Math.PI - a_rad);
+            return Math.PI - b_rad;
+        }
+
+        /*
+
+        if (in(aquad,[0,3]) && in(bquad, [0,3]))
+        {            
+            return - bPI_rad;
+        }
+
+        if (in(aquad,[1,2]) && in(bquad, [1,2]))
+        {            
+            return - bPI_rad;
+        }
+        */
+
+        if (in(aquad,[0,2]) && in(bquad, [0,2]))
+        {            
+            return b_rad - Math.PI;
+        }
+
+        if (in(aquad,[1,3]) && in(bquad, [1,3]))
+        {            
+            return b_rad - Math.PI;
+        }    
+        deBug("MISSED ONE!!!!", [a_rad,b_rad,aquad,bquad,aPI_rad,bPI_rad]);
+        return b_rad;
+        
+    }
+
+
+
+
+    
+
+    function equals (a,b) {
+        return Math.abs(a-b) < 1e-5;
+    }
+    
+    function equalsAbs (a,b) {
+        return equals (a.abs(),b.abs());
+    }
+
+    function sign (a) {
+        if (a < 0) { return -1;}
+        else {return 1;}
+    }
+    function in (a, ary) {
+        //deBug("IN", [a,ary.indexOf(a),ary]);
+        if (ary.indexOf(a) != -1){ return true;}
+        else { return false;}
+    }
 
     
 

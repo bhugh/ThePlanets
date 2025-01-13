@@ -1510,7 +1510,8 @@ class SolarSystemBaseView extends WatchUi.View {
               //up_dir_rad =  +Math.PI/2.0  + Math.toRadians(pp["Sun"][0]) - Math.toRadians(lmst_now_deg) - ga_rad;
               //deBug("updirrad", [up_dir_rad, gmst_now_deg, lmst_now_deg, Math.toDegrees(ga_rad), Math.toDegrees(up_dir_rad)]);
 
-              //EHint_radec = RaDeclOfEclipticHorizonInt_deg(lastLoc[0], lmst_now_deg, obliq_deg);
+              EHint_radec = RaDeclOfEclipticHorizonInt_deg(lastLoc[0], lmst_now_deg, obliq_deg);
+              //RaDeclOfEclipticHorizonInt_deg(lastLoc[0], lmst_now_deg, obliq_deg);
 
               //eclEHint_deg = EHint_radec[3];
 
@@ -1768,7 +1769,7 @@ class SolarSystemBaseView extends WatchUi.View {
             $.speedWasChanged = false;
         }
 
-        /*
+        
         if (EHint_radec != null) {
             var ehRad_au = min_c/2.0/scale;
 
@@ -1786,7 +1787,7 @@ class SolarSystemBaseView extends WatchUi.View {
             kys.add("EclHintB");
             deBug("ECHLINTPP", [kys,pp]);
         }
-        */
+        
 
         
         //deBug("RDSWC11: ", allPlanets);
@@ -2122,7 +2123,7 @@ class SolarSystemBaseView extends WatchUi.View {
                     drawDashedLine(dc, xxbE, yybE, xxb2E, yyb2E, 0, 3, 3, 0xffff00);
                     //deBug("updirrad2:" ,[x1, y1,x2,y2,x + x1, y+y1, x+x2, y + y2]);
 
-                   /* 
+                    
                     //this almost worked, but not quite.  Ambiguous case of the law of
                     //sines was never quite cracked
                     dc.setColor(Graphics.COLOR_GREEN,Graphics.COLOR_TRANSPARENT);
@@ -2142,8 +2143,9 @@ class SolarSystemBaseView extends WatchUi.View {
                             var z2 = scale * pp[key1][2];     
                     drawDashedLine(dc, x1,y1,x2,y2, 0, 3, 2, 0x00ff00);
                     dc.fillCircle(x1, y1, 4);
+                    dc.fillCircle(x2, y2, 4);
                     deBug("ECHINTAAPP", [pp["EclHintA"][0], pp["EclHintA"][1], pp["EclHintB"][0], pp["EclHintB"][1]]);
-                    */
+                    
                 
             
         }

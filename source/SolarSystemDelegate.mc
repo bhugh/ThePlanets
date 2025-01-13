@@ -187,6 +187,8 @@ class SolarSystemBaseDelegate extends WatchUi.BehaviorDelegate {
         $.last_button_time_sec = $.time_now.value();
         var spds = WatchUi.loadResource( $.Rez.JsonData.speeds) as Array;
 
+        //var snsts = WatchUi.loadResource( $.Rez.Strings.constellations) as String;
+
         if ($.exiting_back_button_firstpress) {
 
             $.EBBF_next_mode = ($.EBBF_next_mode + mult) % $.num_view_modes; 
