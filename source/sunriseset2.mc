@@ -919,13 +919,15 @@ class sunRiseSet_cache2{
         return [horEHint_rad, eclEHint_rad, aEH_rad];
 
     }
-
+    /************************************************************************
+    /
     //Returns the RA and DECL of the intersection point of the Ecliptic great circle and the Horizon great circle, in radians
     //THIS ALL WORKS NOW with the insight that the any ambiguities in trig
     //formulas are cleared up by the fact that the RA & ECL long  are
     //always in the same QUADRANT and that DECL is positive for RA/ECL LONG
     // 0-180 and negative for 180-360.
-
+    /************************************************************************/
+    /*
 
     function RaDeclOfEclipticHorizonInt_rad(lat_rad, sidereal_rad, obliquity_rad){
 
@@ -999,7 +1001,7 @@ class sunRiseSet_cache2{
 
     //There are always two possible solutions to the equations for DECL, one going CW around the eq & the other going CCW, because of symmetry.  We know which one we want because DECL is always positive for RA (or ecliptic LONG) 0 to 180, and negative for 180-360.
 
-
+   /*
 
     deBug("declQQQQQQ PRE", [Math.toDegrees(eclEHint_rad), Math.toDegrees(decl_rad), Math.toDegrees(decl2_rad), Math.toDegrees(decl3_rad), Math.toDegrees(decl4_rad)]);
 
@@ -1127,6 +1129,7 @@ class sunRiseSet_cache2{
             return - bPI_rad;
         }
         */
+        /*
 
         if (in(aquad,[0,2]) && in(bquad, [0,2]))
         {            
@@ -1164,6 +1167,7 @@ class sunRiseSet_cache2{
         if (ary.indexOf(a) != -1){ return true;}
         else { return false;}
     }
+    */
 
     
 

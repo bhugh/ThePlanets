@@ -1426,7 +1426,7 @@ class SolarSystemBaseView extends WatchUi.View {
     var mstr as Lang.Float;
     var x0, z0, y0, x2, y2, z2 as Lang.Float;
 
-    var EHint_radec;
+    //var EHint_radec;
     
     //big_small = 0 for small (selectio nof visible planets) & 1 for big (all planets)
     public function largeOrrery(dc, big_small) {
@@ -1447,7 +1447,7 @@ class SolarSystemBaseView extends WatchUi.View {
             ((LORR_oh_save_time_add_hrs - time_add_hrs).toNumber()%24 == 0 ) 
               && LORR_oh_save_ga_rad == ga_rad) {*/
         //up_dir_rad = null;
-        EHint_radec = null;
+        //EHint_radec = null;
         /*
 
         if (LORR_orient_horizon)
@@ -1510,7 +1510,7 @@ class SolarSystemBaseView extends WatchUi.View {
               //up_dir_rad =  +Math.PI/2.0  + Math.toRadians(pp["Sun"][0]) - Math.toRadians(lmst_now_deg) - ga_rad;
               //deBug("updirrad", [up_dir_rad, gmst_now_deg, lmst_now_deg, Math.toDegrees(ga_rad), Math.toDegrees(up_dir_rad)]);
 
-              EHint_radec = RaDeclOfEclipticHorizonInt_deg(lastLoc[0], lmst_now_deg, obliq_deg);
+              //EHint_radec = RaDeclOfEclipticHorizonInt_deg(lastLoc[0], lmst_now_deg, obliq_deg);
               //RaDeclOfEclipticHorizonInt_deg(lastLoc[0], lmst_now_deg, obliq_deg);
 
               //eclEHint_deg = EHint_radec[3];
@@ -1769,7 +1769,7 @@ class SolarSystemBaseView extends WatchUi.View {
             $.speedWasChanged = false;
         }
 
-        
+        /*
         if (EHint_radec != null) {
             var ehRad_au = min_c/2.0/scale;
 
@@ -1787,6 +1787,7 @@ class SolarSystemBaseView extends WatchUi.View {
             kys.add("EclHintB");
             deBug("ECHLINTPP", [kys,pp]);
         }
+        */
         
 
         
@@ -2124,8 +2125,10 @@ class SolarSystemBaseView extends WatchUi.View {
                     //deBug("updirrad2:" ,[x1, y1,x2,y2,x + x1, y+y1, x+x2, y + y2]);
 
                     
-                    //this almost worked, but not quite.  Ambiguous case of the law of
-                    //sines was never quite cracked
+                    //THIS OPTION WORKED JUST FINE but in the end
+                    //seemed more long & complicated than the solution above
+                    //for drawing the VIEW HORIZON
+                    /*
                     dc.setColor(Graphics.COLOR_GREEN,Graphics.COLOR_TRANSPARENT);
                      var key1 = "EclHintA";
 
@@ -2145,6 +2148,7 @@ class SolarSystemBaseView extends WatchUi.View {
                     dc.fillCircle(x1, y1, 4);
                     dc.fillCircle(x2, y2, 4);
                     deBug("ECHINTAAPP", [pp["EclHintA"][0], pp["EclHintA"][1], pp["EclHintB"][0], pp["EclHintB"][1]]);
+                    */
                     
                 
             
