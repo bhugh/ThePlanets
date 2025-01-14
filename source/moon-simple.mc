@@ -69,12 +69,30 @@ import Toybox.WatchUi;
     //time distance increases.
     public function eclipticPos_moon_best (now_info, timeZoneOffset_sec, dst,  addTime_hrs) {
         if (addTime_hrs/24.0/365.0<5000.0) {
-            return eclipticPos_moon(now_info, timeZoneOffset_sec, dst, addTime_hrs);
+            return ecl2geo (eclipticPos_moon(now_info, timeZoneOffset_sec, dst, addTime_hrs)); //geocentric RA & DEC
+            //return eclipticPos_moon(now_info, timeZoneOffset_sec, dst, addTime_hrs); // ecliptic lat & long
         } else {
-            return eclipticMoonELP82(now_info, timeZoneOffset_sec, dst, addTime_hrs);
+            return ecl2geo (eclipticMoonELP82(now_info, timeZoneOffset_sec, dst, addTime_hrs)); //geocentric RA & DEC
+            //return eclipticMoonELP82(now_info, timeZoneOffset_sec, dst, addTime_hrs); //  ecliptic lat & long
         }
 
         //return eclipticPos_moon(now_info, timeZoneOffset_sec, dst, addTime_hrs);
+    }
+
+    function ecl2geo (ecl) {
+        //convert to geocentric ra & decl
+        var L = ecl[0];
+        var B = ecl[1];
+
+
+        var l = cosd(B) * cosd(L);
+        var m = 0.9175*cosd(B)*sind(L) - 0.3978*sind(B);
+        var n = 0.3978*cosd(B)*sind(L) + 0.9175*sind(B);
+
+        var ra=Math.atan2(m,l);
+        if(ra<0){ra+=2*Math.PI;}
+        var dec=Math.asin(n);
+        return [Math.toDegrees(ra).toFloat(),Math.toDegrees(dec).toFloat()];
     }
 
     public function eclipticPos_moon (now_info, timeZoneOffset_sec, dst,  addTime_hrs) {
@@ -99,8 +117,14 @@ import Toybox.WatchUi;
 	var T = ((jd-2451545)/36525).toFloat();
 	var L = 218.32f + 481267.881f*T + 6.29f*sind(135.0f + 477198.87f*T) - 1.27f*sind(259.3 - 413335.36f*T) + 0.66f*sind(235.7f + 890534.22f*T) + 0.21f*sind(269.9f + 954397.74f*T) - 0.19f*sind(357.5f + 35999.05f*T) - 0.11f*sind(186.5f + 966404.03f*T);
 	var B = 5.13f*sind( 93.3f + 483202.02f*T) + 0.28f*sind(228.2f + 960400.89f*T) - 0.28f*sind(318.3f + 6003.15f*T) - 0.17f*sind(217.6f - 407332.21f*T);
+    //P is parallax, angle, relates to radius via formula below
 	//var P = 0.9508 + 0.0518*cosd(135.0 + 477198.87*T) + 0.0095*cosd(259.3 - 413335.36*T) + 0.0078*cosd(235.7 + 890534.22*T) + 0.0028*cosd(269.9 + 954397.74*T);
-    var ret = [(normalize(L)).toFloat(),(normalize(B)).toFloat()];
+    //var ret = [(normalize(L)),(normalize(B)), normalize(P)];
+    var ret = [(normalize(L)),(normalize(B))];
+
+    //var SD=0.2724*P;
+    //var r=1/sind(P);
+
     //deBug("moonret: ", [jd]);
     return ret;
 
