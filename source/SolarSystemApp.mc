@@ -231,9 +231,7 @@ class SolarSystemBaseApp extends Application.AppBase {
         readAStorageValue(labelDisplayOption_enum,labelDisplayOption_default, labelDisplayOption_size );
 
         readAStorageValue(refreshOption_enum,refreshOption_default, refreshOption_size );
-        readAStorageValue(latOption_enum,latOption_default, latOption_size );
-
-        readAStorageValue(refreshOption_enum,refreshOption_default, refreshOption_size );
+        readAStorageValue(latOption_enum,latOption_default, latOption_size );        
         readAStorageValue(lonOption_enum,lonOption_default, lonOption_size );
 
         //readAStorageValue("Screen0 Move Option",screen0MoveOption_default, screen0MoveOption_size );
