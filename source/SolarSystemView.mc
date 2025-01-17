@@ -2897,13 +2897,13 @@ class SolarSystemBaseView extends WatchUi.View {
                 col = Graphics.COLOR_BLUE;
                 fillcol = col;
                 break;
-            if (key.equals("Uranus")) {
+            case "Uranus":
                 size =b_size *jup_size * 0.3627755289;
                 //col = Graphics.COLOR_BLUE;
                 //col = #1199ff
                 col = 0x1199ff;
                 fillcol = Graphics.COLOR_GREEN;
-                } else
+                break;
             case "Earth":
                 size =b_size *jup_size * 0.09113015119f;
                 col = Graphics.COLOR_BLUE;
