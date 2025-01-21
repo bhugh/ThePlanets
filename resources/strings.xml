@@ -34,6 +34,7 @@
 <string id = "rst">Reset to Current Time</string>
 <string id = "zm">Solar System Zoom?</string>
 <string id = "uds">UP/DOWN/Swipe controls:</string>
+<string id = "exo">Extra planets in Ecliptic View?</string>
 <string id = "osss">Objects to show in Solar System?</string>
 <string id = "pds">Planet Display Size?</string>
 

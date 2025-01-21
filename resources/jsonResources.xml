@@ -68,5 +68,29 @@
         [" [Tm]"," [Vw]"," [U/D]"," [R/L]"]
     </jsonData>
 
+    <jsonData id ="planets_bySize">
+    [
+        "Sun",
+        "Moon",
+        "Jupiter",
+        "Saturn",
+        "Uranus",
+        "Neptune",
+        "Earth",
+        "Venus",                
+        "Mars",
+        "Mercury",
+        "Pluto",
+        "Ceres",
+        "Chiron",
+        "Eris",
+        "Gonggong",
+        "Quaoar",
+        "Makemake",
+        "Haumea"
+    ]
+
+    </jsonData>  
+
 
 </jsonDataResources>

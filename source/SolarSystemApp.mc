@@ -86,6 +86,7 @@ enum {changeMode_enum= 0,
         helpOption_enum= 8,
         helpBanners_enum= 9,
         lastLoc_enum = 10,
+        extraPlanetsOption_enum = 11,
         } //screen0MoveOption_enum, 
 
 
@@ -285,7 +286,11 @@ class SolarSystemBaseApp extends Application.AppBase {
         //$.latlonOption_value=[];
         $.latlonOption_value= [$.Options_Dict[latOption_enum], $.Options_Dict[lonOption_enum]];                
             
-        //$.hz = lonOption_values[$.Options_Dict[lonOption_enum]];                    
+        //$.hz = lonOption_values[$.Options_Dict[lonOption_enum]];  
+
+        temp = Storage.getValue(extraPlanetsOption_enum);
+        $.Options_Dict[extraPlanetsOption_enum] = temp != null ? (temp == true) : false;
+        Storage.setValue(extraPlanetsOption_enum,$.Options_Dict[extraPlanetsOption_enum]);                   
         
 
         //##### PLANET SIZE

@@ -130,9 +130,14 @@ class SolarSystemSettingsMenu extends WatchUi.Menu2 {
 
         //deBug("2", []);
 
+        //if ($.Options_Dict[extraPlanetsOption_enum] == null) { $.Options_Dict[extraPlanetsOption_enum] = $.planetsOption_default; }
+        Menu2.addItem(new WatchUi.ToggleMenuItem(WatchUi.loadResource($.Rez.Strings.exo) as String, null, extraPlanetsOption_enum, $.Options_Dict[extraPlanetsOption_enum], null));  
+
         if ($.Options_Dict[planetsOption_enum] == null) { $.Options_Dict[planetsOption_enum] = $.planetsOption_default; }
+        //Menu2.addItem(new WatchUi.MenuItem(WatchUi.loadResource($.Rez.Strings.osss) as String,null,planetsOption_enum,
+        //$.planetsOption[$.Options_Dict[planetsOption_enum]],null));  
         Menu2.addItem(new WatchUi.MenuItem(WatchUi.loadResource($.Rez.Strings.osss) as String,
-        $.planetsOption[$.Options_Dict[planetsOption_enum]],planetsOption_enum,{}));  
+        $.planetsOption[$.Options_Dict[planetsOption_enum]],planetsOption_enum,{})); 
 
         /*
         if ($.Options_Dict[screen0MoveOption_enum] == null) { $.Options_Dict[screen0MoveOption_enum] = $.screen0MoveOption_default; }

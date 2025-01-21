@@ -1063,6 +1063,10 @@ class SolarSystemBaseView extends WatchUi.View {
         whh.addAll( allPlanets.slice(0,3)); ///so, array2 = array1 only passes a REFERENCE to the array, they are both still the same array with different names.  AARRGGgH!!
         whh.addAll([allPlanets[5],allPlanets[8],allPlanets[9]]);
 
+        if ($.Options_Dict[extraPlanetsOption_enum]) {
+            whh.addAll([allPlanets[10],allPlanets[11],allPlanets[12]]);
+        }
+
         allPlanets = null;
 
          //we add these last so they show up on top of planets etc
@@ -1368,11 +1372,22 @@ class SolarSystemBaseView extends WatchUi.View {
 
         //sid = 5.5*15;
         init_findSpot();
-        for (var i = 0; i<whh.size(); i++) {
+
+        var planets_bySize = WatchUi.loadResource($.Rez.JsonData.planets_bySize) as Array; //draw planets from largest to smallest so that large planets do not obscure the small planets drawn earlier
+        
+        for (var i = 0; i<planets_bySize.size(); i++) {
+
+        //for (var i = 0; i<whh.size(); i++) {
         //for (var i = 0; i<kys.size(); i++) {            
 
+            var idx = whh.indexOf(planets_bySize[i]);
+
+            if (idx < 0) { continue; }  
+
             //key = kys[i];
-            key = whh[i];
+            //key = whh[i];
+            key = whh[idx];
+
             //System.println ("kys: " + key + " " + key1);
             //if ( ["Ceres", "Uranus", "Neptune", "Pluto", "Eris", "Chiron"].indexOf(key)> -1) {continue;}
             if (pp[key] == null) {continue;}
@@ -2902,7 +2917,9 @@ class SolarSystemBaseView extends WatchUi.View {
                 //col = Graphics.COLOR_BLUE;
                 //col = #1199ff
                 col = 0x1199ff;
-                fillcol = Graphics.COLOR_GREEN;
+                //col = #77ff77
+                //fillcol = Graphics.COLOR_GREEN;
+                fillcol = 0x77ff77;                
                 break;
             case "Earth":
                 size =b_size *jup_size * 0.09113015119f;
@@ -3156,6 +3173,7 @@ class SolarSystemBaseView extends WatchUi.View {
                 dc.fillCircle (x, y, size/3);  
                 if (size>4) {drawARC (dc, 0, 24, x, y,3*size/4.0, pen, null);}
                 break;
+
              case "Pluto" :
                 
                 //dc.drawLine(x, y+4*size/5, x, y-4*size/5);
@@ -3346,7 +3364,10 @@ class SolarSystemBaseView extends WatchUi.View {
                 if (type == :ecliptic) {
                     if (!key.equals("Sun") && key.find("Eclipt")==null)  {
                         sub = findSpot(-pp[key][0]+sid);
-                        mult = 0.8 - (.23 * sub);
+                        var adj = -(planetSizeFactor - .95)/10.55 + 0.05;
+                        mult = 0.75 + adj - (.23 * sub);
+
+                        //mult = 0.8 - (.23 * sub);
                         x2 = mult*r* Math.cos(ang_rad) + xc;
                         y2 = mult* r* Math.sin(ang_rad) + yc;
 
